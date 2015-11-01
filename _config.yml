@@ -37,7 +37,7 @@ paginate: 10
 titlecase: true
 
 default_asides:
-  - asides/about.html
+  - custom/asides/about.html
   - asides/recent_posts.html
   - asides/github.html
 
