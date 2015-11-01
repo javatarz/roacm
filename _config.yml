@@ -1,6 +1,7 @@
 subtitle: Got Tech? Will Hack.
 description: A Geek, Coder, Designer, Solutionizer, Blogger, Traveller, Photographer, Developer, Tester, Tech Lover, Tech Hacker & Human. :-)
 url: https://blog.karun.me
+bio_url: https://karun.me
 
 title: Ramblings of a Coder's Mind
 author: Karun Japhet
@@ -15,12 +16,10 @@ timezone: Asia/Kolkata
 root: /
 permalink: /blog/:year/:month/:day/:title/
 
-
 plugins: _plugins
 sass_dir: _sass
 code_dir: downloads/code
 category_dir: blog/categories
-
 
 markdown: rdiscount
 rdiscount:
@@ -50,6 +49,7 @@ github_repo_count: 3
 github_skip_forks: true
 github_show_profile_link: true
 
+facebook_user: KarunJaphet
 twitter_user: javatarz
 twitter_widget_id: 660845451051008000
 twitter_tweet_button: true
@@ -66,7 +66,7 @@ social_links:
     title: Stack Overflow
     icon_name: fa-stack-overflow
   -
-    user: KarunJaphet
+    user: {{site.facebook_user}}
     base_url: https://facebook.com/
     title: Facebook
     icon_name: fa-facebook
