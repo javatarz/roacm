@@ -22,22 +22,22 @@ All hosts will receive:
 
 
 	
-  * One limited Signature Edition WindowsÂ® 7 Ultimate
+  * One limited Signature Edition Windows® 7 Ultimate
 
 	
-  * One Puzzle with WindowsÂ® 7 Desktop Design
+  * One Puzzle with Windows® 7 Desktop Design
 
 	
-  * One Poster with WindowsÂ® 7 Desktop Design
+  * One Poster with Windows® 7 Desktop Design
 
 	
-  * Ten Tote Bags with WindowsÂ® 7 Desktop Design for hosts and guests
+  * Ten Tote Bags with Windows® 7 Desktop Design for hosts and guests
 
 	
   * One table top centerpiece for decoration
 
 	
-  * One package of WindowsÂ® 7 napkins
+  * One package of Windows® 7 napkins
 
 
 The package should arrive by this Tuesday or Wednesday. The party is planned for the 23rd of October at 7.00 PM and is an invite only party. So drop in a line and I'll try to get people in :) After all, my room can only fit that many people in.. :P

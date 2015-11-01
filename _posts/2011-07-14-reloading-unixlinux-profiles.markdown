@@ -25,4 +25,4 @@ An easier solution (which works at least on bash) is to do this:
 source .bash_profile
 
 
-It's something so simple and yet so powerful! I've heard that for KSH, you would need to simply invoke the profile file name and it would be reloaded. Will need Â test this out for confirmation though :)
+It's something so simple and yet so powerful! I've heard that for KSH, you would need to simply invoke the profile file name and it would be reloaded. Will need  test this out for confirmation though :)

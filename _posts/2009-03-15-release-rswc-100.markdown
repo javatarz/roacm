@@ -32,7 +32,7 @@ Thus was born the **Random Selection Wallpaper Changer** (RSWC). An extremely si
 
 **Pre-Requisite: **A pre-requisite is that you have .NET 2.0 installed on your machine.
 
-**Future Plans: **The exe is 416kb, something I wish to reduce. I might rewrite the code in C++ to get rid of the .NET dependency (despite Microsoft claiming .NET is common enough to no longer be aÂ  "requirement" and even reduce the file size. Also, I _might_ contemplate creating a light weight application to change wallpapers at regular time intervals as well. (People requesting for such things would certainly compel me. I'm not motivated to do this for personal usage :))
+**Future Plans: **The exe is 416kb, something I wish to reduce. I might rewrite the code in C++ to get rid of the .NET dependency (despite Microsoft claiming .NET is common enough to no longer be a  "requirement" and even reduce the file size. Also, I _might_ contemplate creating a light weight application to change wallpapers at regular time intervals as well. (People requesting for such things would certainly compel me. I'm not motivated to do this for personal usage :))
 
 If someone requires it, I might work a way in to set the source folder and mode of setting the wallpaper and **still** keep it portable and single filed. I could write to registry but that isn't really portable in my opinion. Ideas/Suggestions/Feedback/Advanced Critique is always welcome ;)
 
