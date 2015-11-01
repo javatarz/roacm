@@ -1,5 +1,8 @@
+# Hidden files & folders
 .DS_Store
 .sass-cache/
+.deploy/
+
+# Configs and generated code
 _site/
 _deploy.yml
-.deploy/
