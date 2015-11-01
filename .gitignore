@@ -2,6 +2,7 @@
 .DS_Store
 .sass-cache/
 .deploy/
+.pygments-cache/
 
 # Configs and generated code
 _site/
