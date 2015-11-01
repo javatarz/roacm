@@ -15,7 +15,7 @@ tags:
 - WPF
 ---
 
-[![](http://karunab.com/wp-content/uploads/2009/05/vs-2010-logo.png)](http://en.wikipedia.org/wiki/Microsoft_Visual_Studio)Well, I've been browsing through Visual Studio 2010 for a while now. I've not gotten into coding but did get a chance to have a look at the User Interface for this product. Here are some of the things I've noticed.
+[![](//{{ site.url }}/images/uploads/2009/05/vs-2010-logo.png)](http://en.wikipedia.org/wiki/Microsoft_Visual_Studio)Well, I've been browsing through Visual Studio 2010 for a while now. I've not gotten into coding but did get a chance to have a look at the User Interface for this product. Here are some of the things I've noticed.
 
 
 
