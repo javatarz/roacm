@@ -1,5 +1,5 @@
 ---
-author: admin
+author: Karun Japhet
 comments: true
 date: 2014-10-03 03:20:21+00:00
 layout: page
@@ -17,4 +17,4 @@ It's a work in development and more features will be added as time goes on. I'd 
 [Desktoppr Downloader on GitHub](https://github.com/JAnderton/desktoppr-downloader)
 
 
-## 
+##
