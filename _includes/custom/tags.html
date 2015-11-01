@@ -1,0 +1,10 @@
+{% capture count %}{% if post %}{{ post.tags | category_links | size }}{% else %}{{ page.tags | category_links | size }}{% endif %}{% endcapture %}
+{% unless count == '0' %}
+<span class="categories">
+  {% if post %}
+    {{ post.tags | category_links }}
+  {% else %}
+    {{ page.tags | category_links }}
+  {% endif %}
+</span>
+{% endunless %}
