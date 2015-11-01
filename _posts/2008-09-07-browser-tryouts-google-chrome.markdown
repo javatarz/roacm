@@ -12,7 +12,7 @@ tags:
 - Browser
 ---
 
-[caption id="attachment_79" align="alignleft" width="207" caption="Google Chrome: The Next Gen Open Source Web Browser"][![Google Chrome: The Next Gen Open Source Web Browser](http://karunab.com/wp-content/uploads/2008/09/google-chrome-logo.png)](http://www.google.com/chrome)[/caption]
+[caption id="attachment_79" align="alignleft" width="207" caption="Google Chrome: The Next Gen Open Source Web Browser"][![Google Chrome: The Next Gen Open Source Web Browser](//{{ site.url }}/images/uploads/2008/09/google-chrome-logo.png)](http://www.google.com/chrome)[/caption]
 
 Having heard all the rage about Google Chrome, I decided to try it out this Friday morning before leaving for college. What's this I see? An online install? Of course it doesn't mean much to people who have connections which can download the 7.3MB installer in a few seconds but for others, its a bit more arduous. Here's a direct download link to the Google Chrome installer for others like me who have connections which are as slow as if not slower than broadband ;) [To download the full Google Chrome Installer (7.3 MB) click here](http://74.125.15.83/chrome/install/149.29/chrome_installer.exe).
 
