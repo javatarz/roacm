@@ -12,14 +12,14 @@ Got a bunch of movies and want them in a list along with how much space they are
 
 Here are some sample commands
 
-
-<blockquote>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘”
+```powershell
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**.**” “**true**”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**.**” “**true**” “**true**“
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies\HQ**”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies******” “**true**”
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies******” “**true**” “**true**“</blockquote>
-
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies******” “**true**” “**true**“
+```
 
 Add a shortcut with any of those and it will get the job done! ;)
 
