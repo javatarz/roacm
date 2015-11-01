@@ -13,48 +13,19 @@ Though today we have Google Now and a million other services to remind us when o
 
 ## Current features:
 
-
-
-
-
-	
   * Year wide schedule for Manchester United with times in IST.
-
-	
   * Statistics
-
-	
   * Results cached every 15 minutes.
-
-	
   * Data available (on request) as a consumable XML. (No charges, just ask for the XML location)
-
-	
   * Output in clean HTML table, quick to load and easy to view (if you want to scrape data off my page, it's easier to ask for the XML :))
-
-	
   * Open source code!
-
-
-
 
 ## Features coming soon:
 
-
-
-
-
-	
   * E-mail notification for matches
-
-	
   * SMS notification for matches
 
-
-
-
 ## Links
-
 
 [Manchester United's Season Schedule](http://karunab.com/soccer/manutd.php)
 [Manchester United's Season Schedule with statistics!](http://karunab.com/soccer/manutd.php?show=stats)
