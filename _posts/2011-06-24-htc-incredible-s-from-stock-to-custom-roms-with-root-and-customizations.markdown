@@ -1,5 +1,5 @@
 ---
-author: admin
+author: Karun Japhet
 comments: true
 date: 2011-06-24 16:27:29+00:00
 layout: post
