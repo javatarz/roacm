@@ -19,7 +19,7 @@ Needless to say the new taskbar is pretty cool. I do have a few suggestions thou
 
 
 	
-  1. **Aero Snap for minimization:** [Aero Snap](http://blogs.msdn.com/e7/archive/2009/03/17/designing-aero-snap.aspx)Â provides us with a set area on the screen, where if a window is dragged to, it snaps vertically or maximizes. Taking it to the left/right of the screen causes it to vertical snap to the left/right of the screen (respectively) while taking a window to the top causes it to maximize. Why not allow minimization when the window is dragged to the bottom (towards the taskbar).
+  1. **Aero Snap for minimization:** [Aero Snap](http://blogs.msdn.com/e7/archive/2009/03/17/designing-aero-snap.aspx) provides us with a set area on the screen, where if a window is dragged to, it snaps vertically or maximizes. Taking it to the left/right of the screen causes it to vertical snap to the left/right of the screen (respectively) while taking a window to the top causes it to maximize. Why not allow minimization when the window is dragged to the bottom (towards the taskbar).
 
 	
   2. **Jagged Icons:** Seriously.. this is 2009. Anything that expects to show up in the taskbar deserves a 256x256 pixel icon to be shipped with it. Also, I am not sure how the UI team didn't notice that the middle click to scroll (what I call "smooth/easy scroll") icon is terrible! For an OS with high emphasis on UX (User eXperience), this sure seems to be a bad move :P

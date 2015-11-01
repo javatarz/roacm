@@ -16,13 +16,13 @@ tags:
 
 The Windows key might have started as something a tad bit redundant (considering Ctrl+Esc does the same thing) but the Windows Key is so much more.
 
-I have already spoken about the Win+(1-9) to activate programs in Vistaâ€™s Quick Launch Toolbar and its transition to taskbar applications in Windows 7. Of course, everyone knows about Win+Tab activating Aero Flip 3D but there is more to this.
+I have already spoken about the Win+(1-9) to activate programs in Vista's Quick Launch Toolbar and its transition to taskbar applications in Windows 7. Of course, everyone knows about Win+Tab activating Aero Flip 3D but there is more to this.
 
 Here is one that really strikes me as super-useful. On Windows 7, you can now use Win+Up to maximize a window, Win+Down to restore a maximized window and minimize a restored one, Win+Left/Right to Aero Snap it to the left/right of the screen. Keyboard warriors such as myself are going to love this! :)
 
-Iâ€™ve already fallen head over heals for Aero Snap on my 1080p laptop monitor. It kind of makes up for my need for dual monitors. Aero snapping with the laptop track pad was a tad bit inconvenient. Issue no more! :)
+I've already fallen head over heals for Aero Snap on my 1080p laptop monitor. It kind of makes up for my need for dual monitors. Aero snapping with the laptop track pad was a tad bit inconvenient. Issue no more! :)
 
-Hereâ€™s a list of Win shortcuts I can think of which work in Windows 7. I have found that a lot of keyboard warriors donâ€™t know quite a few shortcuts. Sharing always helps ;)
+Here's a list of Win shortcuts I can think of which work in Windows 7. I have found that a lot of keyboard warriors don't know quite a few shortcuts. Sharing always helps ;)
 
 
 

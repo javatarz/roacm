@@ -19,7 +19,7 @@ A problem I've faced quite a few times is having a folder full of files with a p
 
 It's easy to rename all files when there are 10 of them. For folders with 100+ files, it gets a lot more tedious.
 
-In comes my laziness! Let's write a batch file to rename files for me. :) Reusability++; Folks in a similarÂ dilemmaÂ can try this batch file.
+In comes my laziness! Let's write a batch file to rename files for me. :) Reusability++; Folks in a similar dilemma can try this batch file.
 
 
 <blockquote>for /f "delims==" %%F in ('dir /b *.tmp') do ren "%%~nxF" "%%~nF"</blockquote>
