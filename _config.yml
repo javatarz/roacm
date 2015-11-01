@@ -9,6 +9,8 @@ email: karun@japhet.in
 subscribe_rss: /atom.xml
 simple_search: https://www.google.com/search
 date_format: "ordinal"
+time_format: "%H:%M %Z"
+timezone: Asia/Kolkata
 
 root: /
 permalink: /blog/:year/:month/:day/:title/
