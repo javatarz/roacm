@@ -21,163 +21,55 @@ tags:
 
 With the introduction of Functional Programming in Java 8 new possibilities have opened up. One use case I recently encountered was that of processing JSONs to return data inside them. Let us, for the sake of argument, say the data in an element could be one of the following:
 
-
-
-	
   * An `Integer` e.g. `1`
-
-	
   * A `String` e.g. `The quick brown fox jumps over the lazy dog`
-
-	
   * A `JsonObject` representing a Java Object e.g. `{"payload":[{"lastName\":\"AB","firstName":"Karun","email":"test[at]email.com"}`
-
-	
   * A `JsonArray` containing `Integer`s e.g. `[1, 2, 3]`
-
-	
   * A `JsonArray` containing `String`s e.g. `["String 1", "String 2"]`
-
-	
   * A `JsonArray` containing `JsonObject`s representing Java Objects e.g. `[{"lastName":"AB","firstName":"Karun","email":"test[at]email.com"},{"lastName":"FooBar","firstName":"Kung","email":"kung[at]foobar.com"}]`
-
 
 If you want such a wide variety of data parsed and handled (_relatively_) safely (i.e. with compile time type safety where possible), here is what you do.
 
 <!-- more -->
 
-
 ### Functional interface for Lambda definition
-
 
 First you need a `FunctionalInterface` that defines your operation. Here is a sample.
 
-    
+```java
     import com.google.gson.JsonElement;
     @FunctionalInterface
     public interface DataProcessor {
         public <T> T processData(final JsonElement data, final TypeReference<T> typeRef);
     }
-
+```
 
 This methods defines the task to be performed for parsing data which is a `JsonElement` (I'm using [google-gson](https://code.google.com/p/google-gson/) for my JSON parsing needs).
 
 
 ### Super Type Token management
 
-
 If your key eyes have picked it up, I have an undefined class here called `TypeReference` which is inspired from [Neal Gafter](https://www.blogger.com/profile/08579466817032124881)'s [old blog post](http://gafter.blogspot.in/2006/12/super-type-tokens.html) but has a extra method to check the super type for generics. I recommend reading through his blog post before proceeding.
 
 Here is my version. The only changes I've made are around the `superType` variable being added. If you apply wish to use `List<String>` as your return type reference, the `type` would be `List` and the `superType` would be `String`. If you use `String` as your return type reference, the `type` will be `String` and the `superType` will be `null`.
 
-    
-    import java.lang.reflect.Constructor;
-    import java.lang.reflect.InvocationTargetException;
-    import java.lang.reflect.ParameterizedType;
-    import java.lang.reflect.Type;
-    
-    public abstract class TypeReference<T> {
-    
-        private final Type type;
-        private final Type superType;
-        private volatile Constructor<?> constructor;
-    
-        protected TypeReference() {
-            final Type superclass = getClass().getGenericSuperclass();
-            if (superclass instanceof Class) {
-                throw new RuntimeException("Missing type parameter.");
-            }
-    
-            this.type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
-            this.superType = !(this.type instanceof Class) ? ((ParameterizedType) this.type).getActualTypeArguments()[0] : null;
-        }
-    
-        public T newInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-            if (constructor == null) {
-                final Class<?> rawType = type instanceof Class<?>
-                        ? (Class<?>) type
-                        : (Class<?>) ((ParameterizedType) type).getRawType();
-                constructor = rawType.getConstructor();
-            }
-            return (T) constructor.newInstance();
-        }
-    
-        public Type getType() {
-            return this.type;
-        }
-    
-        public Class getTypeClass() {
-            return (Class) (type instanceof Class ? type : ((ParameterizedType) type).getRawType());
-        }
-    
-        public Type getSuperType() {
-            return superType;
-        }
-    
-        public Class getSuperTypeClass() {
-            return (Class) (superType instanceof Class ? superType : ((ParameterizedType) superType).getRawType());
-        }
-    
-        public boolean hasSuperType() {
-            return superType != null;
-        }
-    }
-
+{% include_code lang:java java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/TypeReference.java %}
 
 Now we need a simple `User` class which maps to the sample data I provided earlier.
 
-    
-    public class User {
-    
-        private String firstName;
-        private String lastName;
-        private String email;
-    
-        public String getFirstName() {
-            return firstName;
-        }
-    
-        public void setFirstName(final String firstName) {
-            this.firstName = firstName;
-        }
-    
-        public String getLastName() {
-            return lastName;
-        }
-    
-        public void setLastName(final String lastName) {
-            this.lastName = lastName;
-        }
-    
-        public String getEmail() {
-            return email;
-        }
-    
-        public void setEmail(final String email) {
-            this.email = email;
-        }
-    
-        @Override
-        public String toString() {
-            return "User{" + "firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
-        }
-    }
-
-
-
+{% include_code lang:java java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/User.java %}
 
 ### Defining your data processor
 
-
 Here's why you just bumped your project up to use Java 8 as a minimum. You can pass functional parameters to methods ensuring the caller decides how their data is to be processed.
 
-    
+```java
     private static <T> T parseData(final DataProcessor<T> processor, final String data, final TypeReference<T> typeRef) {
         final JsonElement payload = new JsonParser().parse(data).getAsJsonObject().get("payload");
-    
+
         return processor.processData(payload, typeRef);
     }
-
+```
 
 This method parses your data as a JSON and takes the payload out (you'll see the complete structure of data in the main function below). The caller also provides you the processor to process his data along with the return type that is expected.
 
@@ -187,24 +79,24 @@ This method parses your data as a JSON and takes the payload out (you'll see the
 
 Time to define some lambdas based on the sample data we talked about earlier
 
-    
+```java
     private static final DataProcessor listProcessor = (data, typeRef) -> {
         final JsonArray payload = data.getAsJsonArray();
         final int resultSize = payload.size();
         final Gson gson = new Gson();
         final List result = new ArrayList<>();
-    
+
         for (int i = 0; i < resultSize; i++) {
             result.add(gson.fromJson(payload.get(i), typeRef.getSuperType()));
         }
-    
+
         return result;
     };
-    
+
     private static final DataProcessor itemProcessor = (data, typeRef) -> {
         return new Gson().fromJson(data, typeRef.getTypeClass());
     };
-
+```
 
 If your return type is a single item (not a `List`), you should be using `itemProcessor`. `listProcessor` returns a `List` of items defined as the `superType` of the `typeRef`.
 
@@ -214,41 +106,41 @@ If your return type is a single item (not a `List`), you should be using `itemPr
 
 Let us bring it all together and show you how to call your method now
 
-    
+```java
     public static void main(String[] args) {
         final String request1 = "{\"payload\":1}";
         final Integer result1 = parseData(itemProcessor, request1, new TypeReference<Integer>() {
         });
         System.out.println("\nResult 1: " + result1 + " | Data Type: " + result1.getClass());
-    
+
         final String request2 = "{\"payload\":\"The quick brown fox jumps over the lazy dog\"}";
         final String result2 = parseData(itemProcessor, request2, new TypeReference<String>() {
         });
         System.out.println("\nResult 2: " + result2 + " | Data Type: " + result2.getClass());
-    
+
         final String request3 = "{\"payload\":{\"lastName\":\"AB\",\"firstName\":\"Karun\",\"email\":\"test[at]email.com\"}}";
         final User result3 = parseData(itemProcessor, request3, new TypeReference() {
         });
         System.out.println("\nResult 3: " + result3 + " | Data Type: " + result3.getClass());
-    
+
         final String request4 = "{\"payload\":[1,2,3]}";
         final List<Integer> result4 = parseData(listProcessor, request4, new TypeReference<List<Integer>>() {
         });
         System.out.println("\nResult 4: ");
         result4.forEach(i -> System.out.println("  => " + i + " | Data Type: " + i.getClass()));
-    
+
         final String request5 = "{\"payload\":[\"String 1\", \"String 2\"]}";
         final List<String> result5 = parseData(listProcessor, request5, new TypeReference<List<String>>() {
         });
         System.out.println("\nResult 5: ");
         result5.forEach(str -> System.out.println("  => " + str + " | Data Type: " + str.getClass()));
-    
+
         final String request6 = "{\"payload\":[{\"lastName\":\"AB\",\"firstName\":\"Karun\",\"email\":\"test[at]email.com\"},{\"lastName\":\"FooBar\",\"firstName\":\"Kung\",\"email\":\"kung[at]foobar.com\"}]}";
         final List<User> result6 = parseData(listProcessor, request6, new TypeReference<List<User>>() { });
         System.out.println("\nResult 6: ");
         result6.forEach(user -> System.out.println(" => " + user + " | Data Type: " + user.getClass()));
     }
-
+```
 
 As you can see, `parseData` returns different data types (**that are type safe as long as you provided the correct _processor_ for the correct type of _data_**) that are compile time safe.
 
@@ -263,24 +155,23 @@ This way, you can have a `listProcessor` that can let the caller decide which `L
 
 #### Sample Output
 
-
-
-    
+```
     Result 1: 1 | Data Type: class java.lang.Integer
-    
+
     Result 2: The quick brown fox jumps over the lazy dog | Data Type: class java.lang.String
-    
+
     Result 3: User{firstName=Karun, lastName=AB, email=test[at]email.com} | Data Type: class com.karunab.test.lambda.User
-    
-    Result 4: 
+
+    Result 4:
       => 1 | Data Type: class java.lang.Integer
       => 2 | Data Type: class java.lang.Integer
       => 3 | Data Type: class java.lang.Integer
-    
-    Result 5: 
+
+    Result 5:
       => String 1 | Data Type: class java.lang.String
       => String 2 | Data Type: class java.lang.String
-    
-    Result 6: 
+
+    Result 6:
       => User{firstName=Karun, lastName=AB, email=test[at]email.com} | Data Type: class com.karunab.test.lambda.User
       => User{firstName=Kung, lastName=FooBar, email=kung[at]foobar.com} | Data Type: class com.karunab.test.lambda.User
+```
