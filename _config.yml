@@ -40,14 +40,48 @@ default_asides:
   - custom/asides/about.html
   - custom/asides/twitter.html
   - asides/recent_posts.html
+  - custom/asides/social_links.html
+
+disqus_short_name: roacm
+disqus_show_comment_count: true
 
 github_user: JAnderton
 github_repo_count: 3
 github_skip_forks: true
 github_show_profile_link: true
-disqus_show_comment_count: true
-twitter_tweet_button: true
-disqus_short_name: roacm
+
 twitter_user: javatarz
 twitter_widget_id: 660845451051008000
-googleplus_user: KarunAB
+twitter_tweet_button: true
+
+social_links:
+  -
+    user: {{site.github_user}}
+    base_url: https://github.com/
+    title: GitHub
+    icon_name: fa-github
+  -
+    user: 499797
+    base_url: https://stackoverflow.com/users/
+    title: Stack Overflow
+    icon_name: fa-stack-overflow
+  -
+    user: KarunJaphet
+    base_url: https://facebook.com/
+    title: Facebook
+    icon_name: fa-facebook
+  -
+    user: {{site.twitter_user}}
+    base_url: https://twitter.com/
+    title: Twitter
+    icon_name: fa-twitter
+  -
+    user: karunjaphet
+    base_url: https://www.linkedin.com/in/
+    title: LinkedIn
+    icon_name: fa-linkedin
+  -
+    user: KarunAB
+    base_url: https://plus.google.com/+
+    title: Google Plus
+    icon_name: fa-google-plus
