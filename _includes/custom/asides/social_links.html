@@ -1,0 +1,11 @@
+<section>
+  <h1>Contact</h1>
+
+  <p id="contact">
+      {% for social_site in site.social_links %}
+      <a href="{{social_site['base_url']}}{{social_site['user']}}"><i class="fa {{social_site['icon_name']}} fa-lg"></i></a>
+      {% endfor %}
+      <a href="mailto:{{site.email}}" rel="tooltip" title="{{site.email}}"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+</section>
