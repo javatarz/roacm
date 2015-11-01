@@ -37,11 +37,9 @@ paginate: 10
 titlecase: true
 
 default_asides:
+  - asides/about.html
   - asides/recent_posts.html
   - asides/github.html
-  - asides/delicious.html
-  - asides/pinboard.html
-  - asides/googleplus.html
 
 # blog_index_asides:
 # post_asides:
@@ -55,3 +53,4 @@ disqus_show_comment_count: true
 twitter_tweet_button: true
 disqus_short_name: roacm
 twitter_user: javatarz
+googleplus_user: KarunAB
