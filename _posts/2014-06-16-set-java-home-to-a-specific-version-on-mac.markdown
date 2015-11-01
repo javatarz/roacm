@@ -19,11 +19,12 @@ Installing Oracle's version of Java on your machine does (for most machines I've
 
 On a Mac, you can do this by using the following
 
-    
+```bash    
     export JAVA_HOME=$(/usr/libexec/java_home)
-
+```
 
 This information is littered across the internet and isn't hard to find at all. However, this specific machine, when upgraded from Java 1.7 to Java 1.8 kept insisting it's home is Java 1.7. The Java Home script at `/usr/libexec` on the mac should take care of this but it hadn't. In such situations you can explicitly tell it which version to load by passing a version parameter to it
 
-    
+```  
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+```
