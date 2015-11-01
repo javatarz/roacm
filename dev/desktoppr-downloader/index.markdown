@@ -15,6 +15,3 @@ They sync wallpapers to dropbox allowing you to get images automatically on your
 It's a work in development and more features will be added as time goes on. I'd be more than happy to take suggestions. :)
 
 [Desktoppr Downloader on GitHub](https://github.com/JAnderton/desktoppr-downloader)
-
-
-##
