@@ -10,19 +10,19 @@ categories:
 - News
 ---
 
-You might have heard about [Messenger Plus! Live](http://msgpluslive.net), a Windows Live Messenger add-on that has over 62 million users already. I've been on their [support forum](http://msghelp.net) for nearly 5 years now and been a beta tester for nearly 2 years.
+You might have heard about [Messenger Plus! Live](http://msgpluslive.net), a Windows Live Messenger add-on that has over 62 million users already. I've been on their [support forum](https://shoutbox.menthix.net/forumdisplay.php?fid=58) for nearly 5 years now and been a beta tester for nearly 2 years.
 
-Early on the morning of the 27th of October I stumbled upon a thread simply titled "[New Elite Members](http://msghelp.net/showthread.php?tid=92693)" and I found this interesting since it was the first time in my 5 years on the forum that new additions to the staff were being made. I opened it to see who the lucky people were. I expected a couple of lads to be added but the list had more like 12 people.
+Early on the morning of the 27th of October I stumbled upon a thread simply titled "[New Elite Members](https://shoutbox.menthix.net/showthread.php?tid=92693)" and I found this interesting since it was the first time in my 5 years on the forum that new additions to the staff were being made. I opened it to see who the lucky people were. I expected a couple of lads to be added but the list had more like 12 people.
 
 The first 3 people were all ones I knew so I skipped straight to the bottom of the page to leave a congratulatory message for them. After typing that out, I continued reading the page and to my surprise **I found my name on it** :-|
 
 I was absolutely shocked. I have spent a lot of time on the forum but over the past couple of years, my post count really hasn't moved much more than a couple of hundred. I do however spend a couple of hours every day helping out on the Messenger Plus! IRC support channel but I didn't really think any one noticed.
 
-I must say, I am absolutely honored. The decision was made by the staff and for the fool who voted for me, I have to say "HAHA.. you totally wasted your vote :p". But seriously, thanks a lot guys. Feels good to be part of the "[staff](http://msghelp.net/showteam.php)" of a forum with over 85,000 users for a software which has over 62 million users.
+I must say, I am absolutely honored. The decision was made by the staff and for the fool who voted for me, I have to say "HAHA.. you totally wasted your vote :p". But seriously, thanks a lot guys. Feels good to be part of the "[staff](https://shoutbox.menthix.net/showteam.php)" of a forum with over 85,000 users for a software which has over 62 million users.
 
 The forum and IRC have given me a lot. They have taught me most of the things I know, give me loads of friends and great experiences. And then to be made an Elite Member.. it's an honor.
 
-My [user bio](http://msghelp.net/member.php?uid=40401) now accurately represents my status in the community
+My [user bio](https://shoutbox.menthix.net/member.php?uid=40401) now accurately represents my status in the community
 
 
 <blockquote>Messenger Plus! User (since v2.x)
@@ -32,5 +32,10 @@ Messenger Plus! Live IRC Help Chan Op (since 2008)
 Messenger Plus! Live Elite Member (since 27/10/2009)</blockquote>
 
 
-Now to become [IRC oper](http://en.wikipedia.org/wiki/Internet_Relay_Chat_operator#Network_Administrator) (I'd probably need to kill segosa for that ;p), [MVP](http://en.wikipedia.org/wiki/Microsoft_Most_Valuable_Professional) and then [take over the world](http://en.wikiquote.org/wiki/Pinky_and_the_Brain#General_Quotes)!
-  *[IRC]: Internet Relay Chat
+Now to become [IRC operator](http://en.wikipedia.org/wiki/Internet_Relay_Chat_operator#Network_Administrator) (I'd probably need to kill segosa for that ;p), [MVP](http://en.wikipedia.org/wiki/Microsoft_Most_Valuable_Professional) and then [take over the world](http://en.wikiquote.org/wiki/Pinky_and_the_Brain#General_Quotes)!
+
+## Update (1st Nov, 2015)
+
+It's been a while since the Messenger Plus forums have died. It was sad. This, however, is an important memory and as such, I'd like the links on this post alive for as long as I can. Thanks @menthix for keeping the forum alive and hosting it!
+
+Old links belonged to http://msghelp.net. The forum is now hosted at https://shoutbox.menthix.net
