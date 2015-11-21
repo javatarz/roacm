@@ -16,7 +16,7 @@ timezone: Asia/Kolkata
 root: /
 permalink: /blog/:year/:month/:day/:title/
 
-plugins: _plugins
+plugins_dir: _plugins
 sass_dir: _sass
 code_dir: downloads/code
 category_dir: blog/categories
