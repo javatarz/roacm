@@ -56,7 +56,7 @@ twitter_tweet_button: true
 
 social_links:
   -
-    user: {{site.github_user}}
+    user: JAnderton
     base_url: https://github.com/
     title: GitHub
     icon_name: fa-github
@@ -66,12 +66,12 @@ social_links:
     title: Stack Overflow
     icon_name: fa-stack-overflow
   -
-    user: {{site.facebook_user}}
+    user: KarunJaphet
     base_url: https://facebook.com/
     title: Facebook
     icon_name: fa-facebook
   -
-    user: {{site.twitter_user}}
+    user: javatarz
     base_url: https://twitter.com/
     title: Twitter
     icon_name: fa-twitter
