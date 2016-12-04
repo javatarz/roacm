@@ -35,21 +35,21 @@ I was about to format my drive (because I had enough space to move data around a
 
 
 
-[![Error Checking option](//{{ site.url }}/images/uploads/Error-Checking-option-223x300.png)](//{{ site.url }}/images/uploads/Error-Checking-option.png)Right click on the drive, go to properties, open the "Tools" tab and under the error checking section, click "Check now". [  
+[![Error Checking option]({{ site.url }}/images/uploads/Error-Checking-option-223x300.png)]({{ site.url }}/images/uploads/Error-Checking-option.png)Right click on the drive, go to properties, open the "Tools" tab and under the error checking section, click "Check now". [  
 
-](//{{ site.url }}/images/uploads/Error-Checking-option.png)
-
-
+]({{ site.url }}/images/uploads/Error-Checking-option.png)
 
 
-[![check disk window](//{{ site.url }}/images/uploads/check-disk-window.png)](//{{ site.url }}/images/uploads/check-disk-window.png)
+
+
+[![check disk window]({{ site.url }}/images/uploads/check-disk-window.png)]({{ site.url }}/images/uploads/check-disk-window.png)
 
 
 
 
 You should be able to select the default options on the check disk window and run the scan. "Scan for and attempt recovery of bad sectors" is only recommended to be used when you're actually dealing with bad sectors. It's going to take a while to run that scan. The regular scan, however, should be done in 5-10 seconds on a 2TB HDD.[  
 
-](//{{ site.url }}/images/uploads/check-disk-window.png)
+]({{ site.url }}/images/uploads/check-disk-window.png)
 
 
 
