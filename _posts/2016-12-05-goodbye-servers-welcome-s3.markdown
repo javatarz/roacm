@@ -18,7 +18,7 @@ Why? S3 is free for the first year. Even post that period, my bills have been <$
 
 ## Continuous delivery
 
-[HTTPs blog on S3]({{ site.url }}/images/uploads/https-blog-on-s3.jpg)
+![HTTPs blog on S3]({{ site.url }}/images/uploads/https-blog-on-s3.jpg)
 
 [Snap CI](https://snap-ci.com/) is will integrate with your publically accessible GitHub repositories for free and trigger builds on commit! Connect to your github repository and get it to compile your markdown into html. [Deploying to S3](https://docs.snap-ci.com/deployments/aws-deployments/aws-s3-deployments/) is a piece of cake. Congratulations on having continuous delivery for your blog!
 
