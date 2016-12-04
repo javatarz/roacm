@@ -22,7 +22,7 @@ Custom resources allow you to store server side values that are available to dif
 
 Head on over to the Glassfish admin panel (should be at localhost:4848 for most of you), go to Resources > JNDI > Custom Resources and create a new entry which looks like the following:
 
-[![Glassfish Custom Resource](//{{ site.url }}/images/uploads/Glassfish-Custom-Resource-300x116.png)](//{{ site.url }}/images/uploads/Glassfish-Custom-Resource.png)
+[![Glassfish Custom Resource]({{ site.url }}/images/uploads/Glassfish-Custom-Resource-300x116.png)]({{ site.url }}/images/uploads/Glassfish-Custom-Resource.png)
 
 It is important to note here that if the name isn't "value" (exactly), you **will not be able to read this value** via a InitialContext lookup in your Java code. You will get an exception as follows:
 

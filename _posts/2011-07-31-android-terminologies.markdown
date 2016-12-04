@@ -17,7 +17,7 @@ tags:
 - S-Off
 ---
 
-![Confused Android](//{{ site.url }}/images/uploads/2011/07/Confused-Android.jpg)For a first time Android user looking to customize his phone, XDA-Dev can be filled with a lot of jargon. Hope this helps users understand at least a part of it.
+![Confused Android]({{ site.url }}/images/uploads/2011/07/Confused-Android.jpg)For a first time Android user looking to customize his phone, XDA-Dev can be filled with a lot of jargon. Hope this helps users understand at least a part of it.
 
 **Bootloader a.k.a HBoot:** This is the piece of software that runs before anything else on the phone. It basically packages it all up, tells what to run in what order etc. Every computer device has a bootloader in some form or another, be it an Android Phone, iPhone, Windows PC, iMac etc.
 The HBoot is accessible by switching your phone off, then holding down volume down as you turn it back on. The first line of the HBoot will tell you if you are S-OFF or S-ON.
@@ -31,7 +31,7 @@ The HBoot is accessible by switching your phone off, then holding down volume do
 **S-On/S-Off: **Short for security on/security off. If your phone is Security On, you can only flash (if you don't know what that means, let's say install) code that HTC has signed at "OS level" so to say.. There are folders which are protected.. these are folders that normally users wouldn't touch say files for radio, the /system partition, your OS files, recovery etc. If you aren't a user who "normally" uses his phone and you want to have custom ROMs or for that matter, root access.. you need S-Off.
 This will allow you to run unsigned scripts and eventually will let you get root access.
 
-![Confused Droid](//{{ site.url }}/images/uploads/2011/07/Confused-Droid.jpg)
+![Confused Droid]({{ site.url }}/images/uploads/2011/07/Confused-Droid.jpg)
 
 **Why get S-Off?**
 So you can root and/or install custom radio and/or install custom roms

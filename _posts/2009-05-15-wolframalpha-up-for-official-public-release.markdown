@@ -14,7 +14,7 @@ tags:
 - Wolfram|Alpha
 ---
 
-[![Wolfram|Alpha](//{{ site.url }}/images/uploads/2009/05/wolfram-alpha-logo.png)](//{{ site.url }}/images/uploads/2009/05/wolfram-alpha-logo.png)Have you heard of [Wolfram Alpha](http://www.wolframalpha.com/) (also called WoflramAlpha or Wolfram|Alpha)? If you haven't, you best do it quickly. Its going to be brought online in about 30 minutes from now. I can't wait! :D
+[![Wolfram|Alpha]({{ site.url }}/images/uploads/2009/05/wolfram-alpha-logo.png)]({{ site.url }}/images/uploads/2009/05/wolfram-alpha-logo.png)Have you heard of [Wolfram Alpha](http://www.wolframalpha.com/) (also called WoflramAlpha or Wolfram|Alpha)? If you haven't, you best do it quickly. Its going to be brought online in about 30 minutes from now. I can't wait! :D
 
 Wolfram|Alpha** **is an answer-engine developed by Wolfram Research headed by British CEO and founder, physicist [Stephen Wolfram](http://en.wikipedia.org/wiki/Stephen_Wolfram). It is an online service that answers factual queries directly by computing the answer instead of providing a list of documents or web pages that might contain the answer. It is an effort to make all the information known to man to be made available to everyone at their computational fingertips ;)
 
