@@ -7,3 +7,6 @@
 # Configs and generated code
 _site/
 _deploy.yml
+
+# Ignore vagrant internal files
+.vagrant/
