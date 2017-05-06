@@ -11,5 +11,6 @@ deploy:
   bucket: blog.karun.me
   acl: public_read
   skip_cleanup: true
+  local-dir: _site
   on:
     repo: JAnderton/roacm
