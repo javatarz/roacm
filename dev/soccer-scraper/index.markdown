@@ -21,6 +21,6 @@ Though today we have Google Now and a million other services to remind us when o
 
 ## Links
 
-[Source Code on GitHub](https://github.com/JAnderton/SoccerScraper)
+[Source Code on GitHub](https://github.com/javatarz/SoccerScraper)
 
 Please leave a commend and I'd be happy to answer any questions. This project is no longer supported.

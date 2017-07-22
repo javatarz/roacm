@@ -20,7 +20,7 @@ I recently found [Desktoppr](https://www.desktoppr.co), a service which has an i
 
 To fulfil my insatiable need for good high resolution wallpapers, I wrote a script to go through the thousands of pages of images they have, find the ones that are "right for my desktop" and download them. I define "right for my desktop" as being at least the same resolution as mine and if higher then the same aspect ratio. If your's is the same, feel free to use this script to download tons of wallpapers.
 
-**[Desktoppr Downloader is now available on GitHub](https://github.com/JAnderton/desktoppr-downloader)**
+**[Desktoppr Downloader is now available on GitHub](https://github.com/javatarz/desktoppr-downloader)**
 
 TODOs:
 

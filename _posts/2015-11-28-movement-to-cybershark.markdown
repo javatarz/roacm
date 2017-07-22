@@ -11,7 +11,7 @@ tags:
 - servers
 ---
 
-I had been procrastinating movement to a dev-ops style Chef deployment for my servers to ease it's management because of the age old "If it ain't broke..". Well, upgrades on Bumblebee were getting more expensive so I finally decided to take the leap. I introduce the [trion cookbook](https://github.com/JAnderton/trion-cookbooks) that I'm using to setup my servers.
+I had been procrastinating movement to a dev-ops style Chef deployment for my servers to ease it's management because of the age old "If it ain't broke..". Well, upgrades on Bumblebee were getting more expensive so I finally decided to take the leap. I introduce the [trion cookbook](https://github.com/javatarz/trion-cookbooks) that I'm using to setup my servers.
 
 I also realized that [Kimsufi](http://kimsufi.ie/) came up with cheaper servers (now as low as €4.99). Without automation to setup my servers, the thought of migration and building another [snowflake server](http://martinfowler.com/bliki/SnowflakeServer.html) scares me purely because of it's frailty. No more.
 
