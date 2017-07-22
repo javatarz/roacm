@@ -18,4 +18,4 @@ tags:
 
 As Reddit puts it, [Cloud to Butt is the funniest plugin ever](http://www.reddit.com/r/chrome/comments/1pkahp/cloud_to_butt_the_funniest_chrome_extension_you/) and they aren't wrong. Childish, but funny. Safari has an equivalent but alas it's not as effective. I really should say **wasn't that effective** because I just made it :P
 
-There is a [pending pull request](https://github.com/logancollins/cloud-to-butt-safari/pull/2) but if it isn't approved in time, you can always get the [downloadable](https://github.com/JAnderton/cloud-to-butt-safari/blob/master/CloudToButt.safariextz.zip) (and [source](https://github.com/JAnderton/cloud-to-butt-safari)) off [my fork](https://github.com/JAnderton).
+There is a [pending pull request](https://github.com/logancollins/cloud-to-butt-safari/pull/2) but if it isn't approved in time, you can always get the [downloadable](https://github.com/javatarz/cloud-to-butt-safari/blob/master/CloudToButt.safariextz.zip) (and [source](https://github.com/javatarz/cloud-to-butt-safari)) off [my fork](https://github.com/javatarz).
