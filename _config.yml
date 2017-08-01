@@ -85,3 +85,5 @@ social_links:
     base_url: https://plus.google.com/+
     title: Google Plus
     icon_name: fa-google-plus
+
+theme: jekyll-theme-cayman
