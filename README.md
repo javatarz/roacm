@@ -4,11 +4,7 @@ Source for the "Ramblings of a Coder's Mind" blog that's hosted at [blog.karun.m
 
 ## Pending migration tasks
 
-* Move codebase back to primary repo
 * Theme
 * Side bar
   * About information
   * Twitter feed
-* Index page
-  * Post preview
-  * Pagination
