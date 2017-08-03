@@ -12,6 +12,10 @@ I'm [Karun Japhet]({{site.bio_url}}) and this is my de**vlog** for all the weird
 
 Feel free to catch up with me on [Twitter](https://twitter.com/{{site.twitter_user}}) or [Facebook](https://facebook.com/{{site.facebook_user}}) ;) Did you check out [my portfolio page yet]({{site.bio_url}})?
 
+I'm also a O'Reilly Software Architecture speaker. You can watch a video on youtube.
+
+{% youtube "https://www.youtube.com/watch?v=4cJ4GyyOfII" %}
+
 [![Microsoft Imagine Cup 2008 - Interoperability Award winner](/assets/images/badges/ic08-interop-world-champ.jpg)]({{site.bio_url}})
 [![Oracle certified Java 6 programmer](/assets/images/badges/javase6programmer.jpg)]({{site.bio_url}})
 [![Accenture & MIT certified Application Developer](/assets/images/badges/accenture-mit-asda.jpg)]({{site.bio_url}})
