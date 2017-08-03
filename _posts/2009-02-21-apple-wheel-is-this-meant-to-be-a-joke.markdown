@@ -16,9 +16,9 @@ tags:
 
 First of all, I should say, the only source I have is [this youtube video](http://www.youtube.com/watch?v=XU9o0nKiOJE).
 
-Apple wheel is a "revolutionary" laptop with no keyboard,  just a giant scroll wheel :| I kid you not, that's what it says :-/
+Apple wheel is a "revolutionary" laptop with no keyboard,  just a giant scroll wheel :\| I kid you not, that's what it says :-/
 
-The guy in that video apparently took 45 minutes to type a mail (with a million mistakes) and he still likes the product... jeez. I like write a few hundred lines of code in that time :|
+The guy in that video apparently took 45 minutes to type a mail (with a million mistakes) and he still likes the product... jeez. I like write a few hundred lines of code in that time :\|
 
 Me and [SK](http://sk.isnewb.com) call this Apple's Reality Distortion Field. This is single handedly the shittiest technological innovation I have seen in my time on this planet. I'm sure there might be something equally (or may be more) stupid in the past but this certainly is the stupidest thing I have heard of in the mainstream.
 

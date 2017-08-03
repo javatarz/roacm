@@ -17,8 +17,9 @@ tags:
 
 I noticed that my old file list generator page didn't have a valid link any more. Since I'd go through and upload it again, I guess it would be worth it to add some minor documentation and make the path variable optional as well :)
 
-Here are some sample scripts
+<!-- more -->
 
+Here are some sample scripts
 
 <blockquote>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**.**” “**true**”
@@ -26,7 +27,6 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& �
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies\HQ**”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies******” “**true**”
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& ‘C:\Users\Karun\My Scripts\filelist.ps1**‘” “**H:\Movies******” “**true**” “**true**“</blockquote>
-
 
 Add a shortcut with any of those and it will get the job done! ;)
 
