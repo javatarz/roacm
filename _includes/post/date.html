@@ -1,5 +1,5 @@
 <span>
-  {% if post.date %}{{ post.date | date_to_rfc822 }} {% endif %}
+  {% if post.date %} <em>{{ post.date | date_to_rfc822 }}</em> {% endif %}
 
   {% if page.date %}<em><u>Created</u>: {{ page.date | date_to_rfc822 }}</em>{% endif %}
   {% if page.updated %} | <em><u>Updated</u>: {{ page.updated | date_to_rfc822 }}</em>{% endif %}
