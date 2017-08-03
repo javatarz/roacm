@@ -55,7 +55,7 @@ twitter_widget_id: 660845451051008000
 twitter_tweet_button: true
 
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-dinky
 gems:
   - jekyll-feed
   - jekyll-gist
