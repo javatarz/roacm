@@ -12,11 +12,10 @@ tags:
 - Browser
 ---
 
-
-
   1. **Custom Search Engine:** Right click the address bar and click Edit search engine. Click add, fill in a name and a keyword followed by the search query.
 For adding the Messenger Plus Forum Search engine I used the name as "Messenger Plus! Forum Search" (doesn't really matter what you use here), the keyword as "mpf" and the url as "http://msghelp.net/basicsearch.php?do=search&keywords=**_%s_**" where _%s_ represents the search query entered. As a result of adding this, I can now search the MP!F simply by typing "mpf ". I love search shortcuts :)
 
+<!-- more -->
 
   2. **Searching Google.com instead of your local (regional) google site:** This is really a continuation of the previous tip but I just felt it was worthy of being here :P There is a fault (imo) with the default google search engine in Chrome. The keyword is set to "google.com". Why type all that when you could simply use "**g**" ;) Also, if you have a look at the google search url in chrome, it uses a base query identifier to redirect to your local google. I just changed mine to "http://google.com/search?q=**_%s_**" because while posting google links (especially on irc) to have to remove my browser info every time and sometimes even my country tld in the google domain. This way, it makes it easier for me to paste links though I do realise that google might lose out on accurate statistics of its users because of this but I don't think it'd mind a handful of users changing their queries when it has billions of searches everyday ;) I've also changed my wiki keyword to "**w**" and urbandictionary.com keyword to "**ud**"
 

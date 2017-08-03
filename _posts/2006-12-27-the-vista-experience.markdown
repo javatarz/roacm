@@ -20,8 +20,8 @@ Despite all that, its an OS that I would like to use if MS doesn't screw it up w
 
 **Update:**
 
-
-<blockquote>Veteran Microsoft reporter Paul Thurrott agreed, contending at the time that the implementation of UAC in Vista build 5342 is a "sad, sad joke" given the number of dialog boxes that one must wade through to do simple tasks. However, Thurrott appears to have retracted those comments, claiming in his Windows Vista Beta 2 review, that UAC had been "completely overhauled" and is "less annoying," although he acknowledges that Microsoft is "still struggling to find a balance between security and annoyance."</blockquote>
-
+> Veteran Microsoft reporter Paul Thurrott agreed, contending at the time that the implementation of UAC in Vista build 5342 is a "sad, sad joke" given the number of dialog boxes that one must wade through to do simple tasks.
+> 
+> However, Thurrott appears to have retracted those comments, claiming in his Windows Vista Beta 2 review, that UAC had been "completely overhauled" and is "less annoying," although he acknowledges that Microsoft is "still struggling to find a balance between security and annoyance."
 
 Looks like I'm not alone ;) Thank you [Wikipedia](http://en.wikipedia.org/wiki/Criticism_of_Windows_Vista#User_Account_Control)!

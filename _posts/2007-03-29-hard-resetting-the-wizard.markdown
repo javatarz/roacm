@@ -17,9 +17,10 @@ The term "Wizard" refers to the [HTC Wizard](http://en.wikipedia.org/wiki/HTC_Wi
 Now the manual simply states that one should press the communications and voice buttons simultaneously and then press the reset key with your stylus. Well I can say honestly, **that didn't work for me.**
 
 Here is how you can **really** hard reset your [HTC Wizard](http://en.wikipedia.org/wiki/HTC_Wizard). I personally was using my I-Mate K-JAM. Before reading the following, make sure you read the _warnings_ given below and the _disclaimer_ while you're at it.
-1) Take your stylus and press and hold the reset key that you use for soft resetting. Don't press the key. Hold it, as in keep it pressed.
-2) Then press the voice and comm buttons simultaneously and keep them pressed.
-3) You can let go of the (soft) reset key now. Wait for the confirmation message on the screen which will instruct you to press the send key (left soft key) to reset.
+
+1. Take your stylus and press and hold the reset key that you use for soft resetting. Don't press the key. Hold it, as in keep it pressed.
+2. Then press the voice and comm buttons simultaneously and keep them pressed.
+3. You can let go of the (soft) reset key now. Wait for the confirmation message on the screen which will instruct you to press the send key (left soft key) to reset.
 
 That's it! You just successfully hard resetted your Windows Mobile 5.0 device.
 
