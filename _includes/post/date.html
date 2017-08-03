@@ -1,5 +1,9 @@
-{% if page.date %}{% capture time %}{{ page.date_time_html }}{% endcapture %}{% endif %}
-{% if post.date %}{% capture time %}{{ post.date_time_html }}{% endcapture %}{% endif %}
+<span>
+  {% if page.date %}Created: {{ page.date | date_to_rfc822 }} {% endif %}
+  {% if post.date %}Created: {{ post.date | date_to_rfc822 }}{% endif %}
 
-{% if page.updated %}{% capture updated %}{{ page.date_time_updated_html }}{% endcapture %}{% endif %}
-{% if post.updated %}{% capture updated %}{{ post.date_time_updated_html }}{% endcapture %}{% endif %}
+<br />
+
+  {% if page.updated %}Updated: {{ page.updated | date_to_rfc822 }} {% endif %}
+  {% if post.updated %}Updated: {{ post.updated | date_to_rfc822 }}{% endif %}
+</span>

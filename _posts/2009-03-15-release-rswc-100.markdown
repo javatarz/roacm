@@ -36,6 +36,6 @@ Thus was born the **Random Selection Wallpaper Changer** (RSWC). An extremely si
 
 If someone requires it, I might work a way in to set the source folder and mode of setting the wallpaper and **still** keep it portable and single filed. I could write to registry but that isn't really portable in my opinion. Ideas/Suggestions/Feedback/Advanced Critique is always welcome ;)
 
-**Known Limitation:** Setting png wallpapers sets the desktop to a plain coloured background (your [default background color]({{ site.url }}/images/uploads/2009/03/change-background-color.jpg)) because Windows doesn't support png wallpapers. It converts pngs into jpgs and then applies them and I shall do the same in the next update.
+**Known Limitation:** Setting png wallpapers sets the desktop to a plain coloured background (your [default background color]({{ site.url }}/assets/images/uploads/2009/03/change-background-color.jpg)) because Windows doesn't support png wallpapers. It converts pngs into jpgs and then applies them and I shall do the same in the next update.
 
 **Download:** [Random Selection Wallpaper Changer (RSWC) v1.00](http://karunab.com/dls/Random%20Selection%20Wallpaper%20Changer%20v1.00.exe) (416 KB)
