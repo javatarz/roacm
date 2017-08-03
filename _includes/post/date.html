@@ -1,9 +1,6 @@
 <span>
-  {% if page.date %}Created: {{ page.date | date_to_rfc822 }} {% endif %}
-  {% if post.date %}Created: {{ post.date | date_to_rfc822 }}{% endif %}
+  {% if post.date %}{{ post.date | date_to_rfc822 }} {% endif %}
 
-<br />
-
-  {% if page.updated %}Updated: {{ page.updated | date_to_rfc822 }} {% endif %}
-  {% if post.updated %}Updated: {{ post.updated | date_to_rfc822 }}{% endif %}
+  {% if page.date %}<em><u>Created</u>: {{ page.date | date_to_rfc822 }}</em>{% endif %}
+  {% if page.updated %} | <em><u>Updated</u>: {{ page.updated | date_to_rfc822 }}</em>{% endif %}
 </span>
