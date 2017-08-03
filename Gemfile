@@ -4,7 +4,8 @@ ruby RUBY_VERSION
 gem "jekyll", "3.4.5"
 
 # Theme
-gem "minima", "~> 2.0"
+gem "jekyll-theme-dinky", "~> 0.0.4"
+gem "minima"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
