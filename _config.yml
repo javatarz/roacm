@@ -1,11 +1,10 @@
-subtitle: Got Tech? Will Hack.
-description: A developer, human and is post-appropriate. Rarely in that order.
-url: https://blog.karun.me
-bio_url: https://karun.me
-
 title: Ramblings of a Coder's Mind
 author: Karun Japhet
 email: karun@japhet.in
+
+subtitle: Got Tech? Will Hack.
+url: https://blog.karun.me
+bio_url: https://karun.me
 
 subscribe_rss: /atom.xml
 simple_search: https://www.google.com/search
@@ -44,7 +43,7 @@ default_asides:
 disqus_short_name: roacm
 disqus_show_comment_count: true
 
-github_user: JAnderton
+github_user: javatarz
 github_repo_count: 3
 github_skip_forks: true
 github_show_profile_link: true
@@ -65,7 +64,7 @@ exclude:
 
 social_links:
   -
-    user: JAnderton
+    user: javatarz
     base_url: https://github.com/
     title: GitHub
     icon_name: fa-github
