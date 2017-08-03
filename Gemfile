@@ -1,14 +1,22 @@
 source "https://rubygems.org"
+ruby RUBY_VERSION
 
-gem 'octopress', '~> 3.0'
-gem 'octopress-date-format', '~> 3.0.3'
-gem 'stringex', '~> 2.5.2'
-gem 'sass-globbing', '~> 1.1.1'
-gem 'compass', '~> 1.0.3'
-gem 'haml', '~> 4.0.7'
-gem 'jekyll-sitemap', '~> 0.9.0'
-gem 'jekyll-paginate', '~> 1.1.0'
-gem 'rdiscount', '~> 2.1.8'
+gem "jekyll", "3.4.5"
+
+# Theme
+gem "jekyll-theme-dinky", "~> 0.0.4"
+gem "minima"
+
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+  gem "jekyll-feed", "~> 0.6"
+  gem 'jekyll-sitemap', '~> 0.9.0'
+  gem 'jekyll-paginate', '~> 1.1.0'
+  gem 'jekyll-gist', '~> 1.4.0'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Others
 gem 'pygments.rb', '~> 0.6.3'
-gem 'listen', '~> 3.0.3'
-gem 'aws-sdk-v1', '~> 1.66.0'

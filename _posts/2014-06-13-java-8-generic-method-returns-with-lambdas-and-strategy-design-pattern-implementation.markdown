@@ -36,13 +36,14 @@ If you want such a wide variety of data parsed and handled (_relatively_) safely
 
 First you need a `FunctionalInterface` that defines your operation. Here is a sample.
 
-```java
-    import com.google.gson.JsonElement;
-    @FunctionalInterface
-    public interface DataProcessor {
-        public <T> T processData(final JsonElement data, final TypeReference<T> typeRef);
-    }
-```
+{% highlight java %}
+import com.google.gson.JsonElement;
+
+@FunctionalInterface
+public interface DataProcessor {
+  public <T> T processData(final JsonElement data, final TypeReference<T> typeRef);
+}
+{% endhighlight %}
 
 This methods defines the task to be performed for parsing data which is a `JsonElement` (I'm using [google-gson](https://code.google.com/p/google-gson/) for my JSON parsing needs).
 
@@ -53,23 +54,23 @@ If your key eyes have picked it up, I have an undefined class here called `TypeR
 
 Here is my version. The only changes I've made are around the `superType` variable being added. If you apply wish to use `List<String>` as your return type reference, the `type` would be `List` and the `superType` would be `String`. If you use `String` as your return type reference, the `type` will be `String` and the `superType` will be `null`.
 
-{% include_code lang:java java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/TypeReference.java %}
+{% gist javatarz/fa5598cf32a1c6988ebdebd0e69f38a0 %}
 
 Now we need a simple `User` class which maps to the sample data I provided earlier.
 
-{% include_code lang:java java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/User.java %}
+{% gist javatarz/755648033a0c324e40473c7564ebe16a %}
 
 ### Defining your data processor
 
 Here's why you just bumped your project up to use Java 8 as a minimum. You can pass functional parameters to methods ensuring the caller decides how their data is to be processed.
 
-```java
+{% highlight java %}
     private static <T> T parseData(final DataProcessor<T> processor, final String data, final TypeReference<T> typeRef) {
         final JsonElement payload = new JsonParser().parse(data).getAsJsonObject().get("payload");
 
         return processor.processData(payload, typeRef);
     }
-```
+{% endhighlight %}
 
 This method parses your data as a JSON and takes the payload out (you'll see the complete structure of data in the main function below). The caller also provides you the processor to process his data along with the return type that is expected.
 
@@ -79,7 +80,7 @@ This method parses your data as a JSON and takes the payload out (you'll see the
 
 Time to define some lambdas based on the sample data we talked about earlier
 
-```java
+{% highlight java %}
     private static final DataProcessor listProcessor = (data, typeRef) -> {
         final JsonArray payload = data.getAsJsonArray();
         final int resultSize = payload.size();
@@ -96,7 +97,7 @@ Time to define some lambdas based on the sample data we talked about earlier
     private static final DataProcessor itemProcessor = (data, typeRef) -> {
         return new Gson().fromJson(data, typeRef.getTypeClass());
     };
-```
+{% endhighlight %}
 
 If your return type is a single item (not a `List`), you should be using `itemProcessor`. `listProcessor` returns a `List` of items defined as the `superType` of the `typeRef`.
 
@@ -106,7 +107,7 @@ If your return type is a single item (not a `List`), you should be using `itemPr
 
 Let us bring it all together and show you how to call your method now
 
-```java
+{% highlight java %}
     public static void main(String[] args) {
         final String request1 = "{\"payload\":1}";
         final Integer result1 = parseData(itemProcessor, request1, new TypeReference<Integer>() {
@@ -140,7 +141,7 @@ Let us bring it all together and show you how to call your method now
         System.out.println("\nResult 6: ");
         result6.forEach(user -> System.out.println(" => " + user + " | Data Type: " + user.getClass()));
     }
-```
+{% endhighlight %}
 
 As you can see, `parseData` returns different data types (**that are type safe as long as you provided the correct _processor_ for the correct type of _data_**) that are compile time safe.
 
@@ -155,7 +156,7 @@ This way, you can have a `listProcessor` that can let the caller decide which `L
 
 #### Sample Output
 
-```
+{% highlight java %}
     Result 1: 1 | Data Type: class java.lang.Integer
 
     Result 2: The quick brown fox jumps over the lazy dog | Data Type: class java.lang.String
@@ -174,4 +175,4 @@ This way, you can have a `listProcessor` that can let the caller decide which `L
     Result 6:
       => User{firstName=Karun, lastName=AB, email=test[at]email.com} | Data Type: class com.karunab.test.lambda.User
       => User{firstName=Kung, lastName=FooBar, email=kung[at]foobar.com} | Data Type: class com.karunab.test.lambda.User
-```
+{% endhighlight %}

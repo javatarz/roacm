@@ -17,7 +17,7 @@ tags:
 - WebUI
 ---
 
-[caption id="" align="alignleft" width="320" caption="rutorrent webUI screenshot (traffic statistics)"][![rutorrent webUI](http://rutorrent.googlecode.com/svn/wiki/images/scr1_big.jpg)](http://rutorrent.googlecode.com/svn/wiki/images/scr1_big.jpg)[/caption]
+[caption id="" align="alignleft" width="320" caption="rutorrent webUI screenshot (traffic statistics)"][![rutorrent webUI](http://rutorrent.googlecode.com/svn/wiki/assets/images/scr1_big.jpg)](http://rutorrent.googlecode.com/svn/wiki/assets/images/scr1_big.jpg)[/caption]
 
 As of today, the primary OS on my laptop is Ubuntu and since torrenting is a good way to get open source applications (such as Eclipse), I thought I should definitely invest the time to get a decent torrent client. I'm not saying that Transmission isn't a good client. I certainly can't say that since I haven't used it for more than 5 minutes. I simply lacks umph. It really doesn't impress me as much as uTorrent does on Windows. So let's look for an alternative client.
 
@@ -25,7 +25,7 @@ Using uTorrent with Wine is always a popular option, one most Windows to Linux c
 
 I have tried to install rTorrent before and failed. This time around, I had managed to get rTorrent to install and work fine but I couldn't get a webUI for it to work. So I had dt walk me through the process. I'll try to document as much of it as possible to help users going through the same issue.
 
-If you want to see a couple of screen shots of the end result before beginning, visit the [rutorrent website](http://code.google.com/p/rutorrent/) and check out the screen shots. The best part about it is the tracker based, per torrent and global settings along with the pretty amazing [traffic plug-in](http://rutorrent.googlecode.com/svn/wiki/images/scr1_big.jpg) which gives your multiple (group) views of your traffic statistics. It's pretty cool ;)
+If you want to see a couple of screen shots of the end result before beginning, visit the [rutorrent website](http://code.google.com/p/rutorrent/) and check out the screen shots. The best part about it is the tracker based, per torrent and global settings along with the pretty amazing [traffic plug-in](http://rutorrent.googlecode.com/svn/wiki/assets/images/scr1_big.jpg) which gives your multiple (group) views of your traffic statistics. It's pretty cool ;)
 
 <!-- more -->The first step is to install XMLRPC-C followed by libTorrent and finally rTorrent. These steps are pretty well documented in this [installation guide for XMLRPC-C](http://rtwi.jmk.hu/wiki/InstallationGuide#preparing) and this [installation guide for libTorrent and rTorrent](http://libtorrent.rakshasa.no/wiki/Install) with a few changes. I'll note the changes in commands in bold.
 
