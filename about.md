@@ -1,11 +1,7 @@
 ---
-author: Karun Japhet
-comments: false
-date: 2008-07-26 09:58:38+00:00
 layout: page
-slug: about
 title: About
-wordpress_id: 2
+permalink: /about/
 ---
 
 Hi there stranger!
