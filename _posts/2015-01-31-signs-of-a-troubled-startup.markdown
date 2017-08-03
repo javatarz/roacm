@@ -99,8 +99,7 @@ Fail Fast. Learn. Move on. If you can't do that, you're doing it wrong.
 
 I realise it sounds cliche but people like showing their world their perfectness. If you haven't already, I recommend watching [The Myth of the Genius Programmer from Google I/O 2009](https://www.youtube.com/watch?v=0SARbwvhupQ). It's a real eye opener. Especially the part where they mention why failed spike branches shouldn't be deleted (from **[35:51](http://youtu.be/0SARbwvhupQ?t=35m51s)** to [36:35](http://youtu.be/0SARbwvhupQ?t=36m35s)).
 
-https://www.youtube.com/watch?v=0SARbwvhupQ
-
+{% youtube "https://www.youtube.com/watch?v=0SARbwvhupQ" %}
 
 ## Never considering they might not make it big but be good and that's enough
 

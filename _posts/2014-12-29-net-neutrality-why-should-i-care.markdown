@@ -54,28 +54,28 @@ With Net Neutrality
 
 
 
-	
+
   * Regular data - normal speed
 
-	
+
   * 'Special' data - normal speed
 
 
 Without Net Neutrality when you pay them extra
 
-	
+
   * Regular data - **slower speed**
 
-	
+
   * 'Special' data - normal speed
 
 
 Without Net Neutrality when you don't pay them extra
 
-	
+
   * Regular data - **slower speed**
 
-	
+
   * 'Special' data - **slower speed**
 
 
@@ -139,7 +139,7 @@ There are tons of great YouTube videos out there but there are 2 in general I re
 
 CGP Grey hits it out of the park with amazing visualisations explaining what is Net Neutrality. It is a bit fast paced as all his videos are so you might want to rewind and hear stuff again if it's too fast for you.
 
-https://www.youtube.com/watch?v=wtt2aSV8wdw
+{% youtube "https://www.youtube.com/watch?v=wtt2aSV8wdw" %}
 
 
 #### John Oliver on Net Neutrality
@@ -147,6 +147,6 @@ https://www.youtube.com/watch?v=wtt2aSV8wdw
 
 John Oliver does what he does best. Makes fun off things and explains important issues.
 
-https://www.youtube.com/watch?v=fpbOEoRrHyU
+{% youtube "https://www.youtube.com/watch?v=fpbOEoRrHyU" %}
 
 _"please don't eat my baaaby.."_
