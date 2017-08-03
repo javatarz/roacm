@@ -18,7 +18,7 @@ tags:
 
 Your first thought on reading this probably is "Why in the world would I need to do that?" Well, I would have thought of it the same way a week back. But it seems some times, Windows does not want to give access to certain features such as Advanced File Sharing options. It states that the administrator on my machine has disallowed this operation. Guess what? I'm the only administrator on this machine! Since I was unable to find the option to get that feature working, I decided to resort to some good old Command Line usage :)
 
-To remove a file/folder from share ![]({{ site.url }}/images/uploads/2010/07/Windows-File-Sharing-Blocked-by-administrator-300x156.png)and type the following command in an elevated instance of command  prompt:
+To remove a file/folder from share ![]({{ site.url }}/assets/images/uploads/2010/07/Windows-File-Sharing-Blocked-by-administrator-300x156.png)and type the following command in an elevated instance of command  prompt:
 
 
 <blockquote>net share _<shareName>_ /delete</blockquote>

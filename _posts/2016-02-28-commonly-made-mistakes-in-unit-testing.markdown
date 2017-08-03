@@ -26,7 +26,7 @@ Before we go on, please ensure you've read through [Mocks Aren't Stubbs](http://
 ## Mocks vs Actual Implementations
 Consider a board game where the Board class runs the game with the help of it's collaborators `Player` and `Dice`.
 
-```java
+{% highlight java %}
 public class Board {
   private final List<Player> players;
   private final Dice dice;
@@ -66,11 +66,11 @@ class Player {
     position += moveCount;
   }
 }
-```
+{% endhighlight %}
 
 If we consider the `Board` to be the System Under Test, the most tempting trap to fall into is start testing the Board directly.
 
-```java
+{% highlight java %}
 public class BoardTest {
   @Test
   public void shouldMovePlayerForCorrectPlayer() {
@@ -86,7 +86,7 @@ public class BoardTest {
     assertThat(board.getCurrentPlayer(), is(player2));
   }
 }
-```
+{% endhighlight %}
 
 This is not the greatest example but it does attempt to show you the coupling between the different components. Player1's current position isn't predictable since it's coupling with dice. The dependency also means that if the dice has defects, the board can't be tested appropriately.
 
@@ -94,7 +94,7 @@ By swapping out player and dice instances with mocks, we have the ability to onl
 
 The above test can be refactored to look like
 
-```java
+{% highlight java %}
 public class BoardTest {
   @Test
   public void shouldMovePlayerForCorrectPlayer() {
@@ -113,7 +113,7 @@ public class BoardTest {
     assertThat(board.getCurrentPlayer(), is(player2));
   }
 }
-```
+{% endhighlight %}
 
 The test now allows you to check if `player1` was moved 3 places since the response provided by the dice is in your control. Mocks also allow you to test that `player2` was not called.
 
@@ -127,23 +127,23 @@ Typically a dice produces values between 1 and 6.
 
 It's corresponding test has to prove that rolling a dice always results in a value between 1-6.
 
-```java
+{% highlight java %}
 @Test
 public void shouldRollValidNumberOnDice() {
   assertThat(new Dice().roll(), isOneOf(1, 2, 3, 4, 5, 6));
 }
-```
+{% endhighlight %}
 
 This test proves that the value is inside the range but does not prove that it will **always** be in that range. Since the implementation contains a [PRNG](https://en.wikipedia.org/wiki/Pseudorandom_number_generator), the end result cannot be predicted.
 
 Most readers wouldn't have noticed the defect in the implementation.
-```java
+{% highlight java %}
 class Dice {
   public int roll() {
     return (int) Math.round(Math.random() * 6);
   }
 }
-```
+{% endhighlight %}
 The implementation can produce values 0-6. The fact that your test passed proves that it is a **flaky unit test**. The test has a 1/7 chance of failing. The fact that it didn't fail when you ran it is not surprising :)
 
 ## DI, your new best friend
@@ -151,7 +151,7 @@ The implementation can produce values 0-6. The fact that your test passed proves
 The anti-pattern to take away from the previous example is that the Dice class relies on a library and that the library is contained in the class. The fact that it can't be injected means that you can't control it.
 
 [Dependency Injection](http://martinfowler.com/articles/injection.html#FormsOfDependencyInjection) is your friend!
-```java
+{% highlight java %}
 class Dice {
   private final Random random;
   private final int numberOfFaces;
@@ -165,10 +165,10 @@ class Dice {
     return random.nextInt(numberOfFaces - 1) + 1;
   }
 }
-```
+{% endhighlight %}
 
 Now, your test can work with a mocked `Random` instance for more accurate results.
-```java
+{% highlight java %}
 @Test
 public void shouldRollValidNumberOnDice() {
   final Random random = mock(Random.class);
@@ -183,7 +183,7 @@ public void shouldRollValidNumberOnDice() {
   assertThat(dice.roll(), is(5));
   assertThat(dice.roll(), is(6));
 }
-```
+{% endhighlight %}
 
 We're currently making 2 assumptions on the collaborator.
 
@@ -192,7 +192,7 @@ We're currently making 2 assumptions on the collaborator.
 
 The first assumption is in part validated by the mocking library. If `Dice` called by any other parameter, the results wouldn't be what we want. But if you want to be extra sure, you could always make the test fail using an argument captor
 
-```java
+{% highlight java %}
 @Test
 public void shouldRollValidNumberOnDice() {
   final Random random = mock(Random.class);
@@ -209,11 +209,11 @@ public void shouldRollValidNumberOnDice() {
   assertThat(dice.roll(), is(6));
   assertThat(argumentCaptor.getAllValues(), is(asList(5, 5, 5, 5, 5, 5)));
 }
-```
+{% endhighlight %}
 
 The second assumption **should not** be validated by you.  If you look at the documentation for `random.nextInt()` you will notice
 
-```java
+{% highlight java %}
 /**
  * Returns a pseudorandom, uniformly distributed {@code int} value
  * between 0 (inclusive) and the specified value (exclusive), drawn from
@@ -221,7 +221,7 @@ The second assumption **should not** be validated by you.  If you look at the do
  ...
  */
 public int nextInt(int bound) {...}
-```
+{% endhighlight %}
 
 It is the responsibility of the library (`java.util.Random` in this case) to test itself.
 

@@ -56,13 +56,13 @@ Most big projects follow a multi-module POM structure. You can move your target 
 
 You can change the output directory to the desired path ensuring all compiled files go to your RAM drive. Just make sure you qualify your path well using the group and artifact IDs to ensure different projects don't overwrite each other's compiled code.
 
-```xml
-    <build>
-      <directory>
-        <strong>/mnt/ramdrive/compile/${project.groupId}/${project.artifactId}</strong>
-      </directory>
-    </build>
-```
+{% highlight xml %}
+  <build>
+    <directory>
+      <strong>/mnt/ramdrive/compile/${project.groupId}/${project.artifactId}</strong>
+    </directory>
+  </build>
+{% endhighlight %}
 
 The issue with this approach is that all users on the team are now bound by
 
@@ -72,13 +72,13 @@ The issue with this approach is that all users on the team are now bound by
 
 The first issue can be fixed by creating a property for the base path. This parameter can be passed as a compile time parameter with a default set in the POM
 
-```xml
-    <build>
-      <directory>
-        <strong>${target.baseDir}</strong>/${project.groupId}/${project.artifactId}
-      </directory>
-    </build>
-```
+{% highlight xml %}
+  <build>
+    <directory>
+      <strong>${target.baseDir}</strong>/${project.groupId}/${project.artifactId}
+    </directory>
+  </build>
+{% endhighlight %}
 
 The second issue can't be fixed using this approach. This can be fixed with the second approach
 
@@ -88,24 +88,24 @@ The second issue can't be fixed using this approach. This can be fixed with the 
 
 Maven allows you to have profiles for applying configs in specific scenarios.
 
-```xml
-    <profiles>
-      <profile>
-        <id><strong>ramDrive</strong></id>
-        <build>
-          <directory>
-            ${target.baseDir}/${project.groupId}/${project.artifactId}
-          </directory>
-        </build>
-      </profile>
-    </profiles>
-```
+{% highlight xml %}
+  <profiles>
+    <profile>
+      <id><strong>ramDrive</strong></id>
+      <build>
+        <directory>
+          ${target.baseDir}/${project.groupId}/${project.artifactId}
+        </directory>
+      </build>
+    </profile>
+  </profiles>
+{% endhighlight %}
 
 Now you can compile your code with a profile and it will use the specified directory for compilation
 
-```bash
+{% highlight bash %}
     mvn clean install -P<strong>ramDrive</strong> -D<strong>target.baseDir=/mnt/ramdrive/compile</strong>
-```
+{% endhighlight %}
 
 Congratulations, your code is compiled on RAM drive. Is it still not fast enough? Is the installation process slow? Well, you could move your M2 directory to the ram drive too
 
@@ -117,6 +117,6 @@ You can change your maven configuration to ask it to move your local maven repos
 
 Update your settings.xml with the location of your local repository
 
-```xml
+{% highlight xml %}
     <localRepository>/mnt/ramdrive/mvn-repo</localRepository>
-```
+{% endhighlight %}

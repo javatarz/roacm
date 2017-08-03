@@ -41,21 +41,21 @@ My solution provides a Java port of this solution using Lambdas. Here are the st
 
 We've added [keylog.txt](https://projecteuler.net/project/keylog.txt) into the project's build path so we can read it. Thanks to the magic of Java 7's NIO Files API, it's a one line job to read files now.
 
-```java
+{% highlight java %}
     final List<String> passcodes = Files.readAllLines(Paths.get("./keylog.txt"));
-```
+{% endhighlight %}
 
 This can optionally be replaced with the following lines for testing the solution. The explanation further will hinge on these values
 
-```java
+{% highlight java %}
     final List<String> passcodes = Arrays.asList(new String[] { "123", "125", "536" });
-```
+{% endhighlight %}
 
 ## Processing passcodes
 
 This processing requires someone to first iterate through the passcodes, find all digits in the passcode to maintain a unique set of digits required for the overall solution (called the 'digit universe') and calculate 'connections' between digits (order of appearance of digits in the solution)
 
-```java
+{% highlight java %}
     final Consumer passcodeConsumer = passcode -> {
     	digitSeparator.apply(passcode).forEach(addToDigitUniverse);
     	digitSeparator.apply(passcode).forEach(updateConnections);
@@ -63,33 +63,33 @@ This processing requires someone to first iterate through the passcodes, find al
     	connections.entrySet().forEach(connectionMerge);
     	connections.clear();
     };
-```
+{% endhighlight %}
 
 Each of the lambdas and data structures used here are described below
 
 
 ### Digit Separator
 
-```java
+{% highlight java %}
     final Function<String, IntStream> digitSeparator = str -> str.chars().map(c -> Integer.valueOf(String.valueOf((char) c)));
-```
+{% endhighlight %}
 
 This function simply iterates through the characters of the string and converts them into integers. As you see, this function will be required multiple times later
 
 
 ### Maintaining a Digit Universe
 
-```java
+{% highlight java %}
     final Set<Integer> digitUniverse = new HashSet<>();
     final IntConsumer addToDigitUniverse = i -> digitUniverse.add(i);
-```
+{% endhighlight %}
 
 This is a straight forward function to update the data structure for the digit universe. The chosen data structure is a [Java Set](http://docs.oracle.com/javase/7/docs/api/java/util/Set.html) to ensure values are unique. Since the order of appearance isn't important to us and the [HashSet](http://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html) implementation's performance is good enough for our requirement, we can use it.
 
 
 ### Updating Connections
 
-```java
+{% highlight java %}
     final Map<Integer, Set<Integer>> connections = new HashMap<>();
 
     final IntConsumer updateConnections = digit -> {
@@ -100,7 +100,7 @@ This is a straight forward function to update the data structure for the digit u
     		connections.put(digit, new HashSet<>());
     	}
     };
-```
+{% endhighlight %}
 
 The connections data structure maintains relationships between digits defining the order which digits occur. For a number 541, the relationship would suggest digits 4 and 1 come after 5 and that the digit 1 comes after 4. When the number 541 is processed, the connections map will contain the following content (assuming it was empty earlier)
 
@@ -121,7 +121,7 @@ The 'connections' state is processed to update the master data set of connection
 
 ### Connection merging
 
-```java
+{% highlight java %}
     final Consumer<Map.Entry<Integer, Set>> connectionMerge = entry -> {
     	final Integer key = entry.getKey();
     	final Set<Integer> contenderValues = entry.getValue();
@@ -134,7 +134,7 @@ The 'connections' state is processed to update the master data set of connection
 
     	targetValues.addAll(contenderValues);
     };
-```
+{% endhighlight %}
 
 The connection merge is applied on an entry of the connection data structure. the key and contenderValues are variables that hold information about an entry in the connections map. If the passcode being processed was 541, each of rows mentioned above as being in the connection map (such as "5 -> [1, 4]") will be an entry this consumer will consume.
 
@@ -145,18 +145,18 @@ Once the merge is complete the passcodeConsumer has to ensure that the consumer 
 
 ## Finding longest solutions
 
-```java
+{% highlight java %}
     masterConnections.forEach((k, v) -> {
     	final String possibleSolution = findPossibleSolution(new LinkedHashSet<>(), k);
     	if (possibleSolution.length() > 0) {
     		System.out.println("Possible Solution: " + possibleSolution + " (Vertex: " + k + ")");
     	}
     });
-```
+{% endhighlight %}
 
 This step iterates through every entry in the masterConnection map considering that its a master and finds the longest solution for each vertex in the graph. If the possibleSolution length is 0, there was no solution that used all digits in the digitUniverse.
 
-```java
+{% highlight java %}
     private static final String findPossibleSolution(final Set<Integer> parentNodes, final Integer currentNode) {
     	final Set<Integer> childNodes = masterConnections.get(currentNode);
     	parentNodes.add(currentNode);
@@ -169,7 +169,7 @@ This step iterates through every entry in the masterConnection map considering t
 
     	return childNodes.stream().map(node -> findPossibleSolution(new LinkedHashSet<>(parentNodes), node)).reduce("", (a, b) -> (a.length() <= b.length() ? a : b));
     }
-```
+{% endhighlight %}
 
 The findPossibleSolution method recursively digs through the child nodes of the currentNode to find child nodes.
 
@@ -183,7 +183,7 @@ When the current node is not a leaf node, all child nodes are iterated through a
 
 All you now need is a main function to do your bidding
 
-```java
+{% highlight java %}
     public static void main(String[] args) throws IOException {
     	final List<String> passcodes = Files.readAllLines(Paths.get("./keylog.txt"));
 
@@ -196,14 +196,14 @@ All you now need is a main function to do your bidding
     		}
     	});
     }
-```
+{% endhighlight %}
 
 ## Update
 
 Alex's original solution assumes that digits will not be repeated. This is an assumption that is validated by the input data set for the problem. But in real life, this does not hold true. If your input is **123** and **325** the only solution you can have is 12325 since the two inputs clearly show that the digit 2 appears before and after 3 (unless the digit 3 is also repeated; which though would be a valid solution, it wouldn't be an optimal one since the problem requires the shortest answer). This solution cannot be fetched as long as data is stored in [Set](http://docs.oracle.com/javase/7/docs/api/java/util/Set.html)s because they wade out repetitions. The implementation can be migrated to use [List](http://docs.oracle.com/javase/7/docs/api/java/util/List.html)s instead. The other change required would be the master connections data structure should now possess the ability to track which node connections have been traversed in the recursion. To ensure there is no inappropriate data sharing in the recursion, each recursive call is isolated by performing deep copy on the parent list (and master connections data structures).
 
-{% include_code lang:java project-euler-79-passcode-derrivation-using-lambdas/PasscodeGenerator.java %}
+include_code lang:java project-euler-79-passcode-derrivation-using-lambdas/PasscodeGenerator.java
 
 The path class simply defines a structure to track nodes and whether they have been traversed yet.
 
-{% include_code lang:java project-euler-79-passcode-derrivation-using-lambdas/Path.java %}
+include_code lang:java project-euler-79-passcode-derrivation-using-lambdas/Path.java

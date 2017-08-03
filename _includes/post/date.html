@@ -1,5 +1,6 @@
-{% if page.date %}{% capture time %}{{ page.date_time_html }}{% endcapture %}{% endif %}
-{% if post.date %}{% capture time %}{{ post.date_time_html }}{% endcapture %}{% endif %}
+<span>
+  {% if post.date %} <em>{{ post.date | date_to_rfc822 }}</em> {% endif %}
 
-{% if page.updated %}{% capture updated %}{{ page.date_time_updated_html }}{% endcapture %}{% endif %}
-{% if post.updated %}{% capture updated %}{{ post.date_time_updated_html }}{% endcapture %}{% endif %}
+  {% if page.date %}<em><u>Created</u>: {{ page.date | date_to_rfc822 }}</em>{% endif %}
+  {% if page.updated %} | <em><u>Updated</u>: {{ page.updated | date_to_rfc822 }}</em>{% endif %}
+</span>
