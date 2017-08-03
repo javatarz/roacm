@@ -1,5 +1,5 @@
 subtitle: Got Tech? Will Hack.
-description: A Geek, Coder, Designer, Solutionizer, Blogger, Traveller, Photographer, Developer, Tester, Tech Lover, Tech Hacker & Human. :-)
+description: A developer, human and is post-appropriate. Rarely in that order.
 url: https://blog.karun.me
 bio_url: https://karun.me
 
@@ -53,6 +53,15 @@ facebook_user: KarunJaphet
 twitter_user: javatarz
 twitter_widget_id: 660845451051008000
 twitter_tweet_button: true
+
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+  - jekyll-gist
+exclude:
+  - Gemfile
+  - Gemfile.lock
 
 social_links:
   -

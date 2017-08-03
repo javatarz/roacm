@@ -21,8 +21,8 @@ We figured that compilations overwriting class files were OK but having to edit 
 
 This is **significantly** faster. Package times went down from **6 minutes** to **18 seconds**. Of course, a SSD would have helped but looking at the difference, it's well worth the effort :)
 
-```bash    
+{% highlight bash %}
     mvn process-resources
-```
+{% endhighlight %}
 
 Go try it out!
