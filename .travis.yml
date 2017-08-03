@@ -13,4 +13,4 @@ deploy:
   skip_cleanup: true
   local-dir: _site
   on:
-    repo: JAnderton/roacm
+    repo: javatarz/roacm
