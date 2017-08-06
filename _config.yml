@@ -29,7 +29,7 @@ rdiscount:
 highlighter: pygments
 paginate_path: "posts/:num"
 excerpt_link: "Read on &rarr;"
-excerpt_separator: "<!--more-->"
+excerpt_separator: "<!-- more -->"
 recent_posts: 5
 paginate: 10
 titlecase: true
