@@ -10,8 +10,8 @@
 {% endunless %}
 
 <div class="entry-content">
-  {% if content contains "<!-- more -->" %}
-    {{ content | split: "<!-- more -->" | first }}
+  {% if content contains site.excerpt_separator %}
+    {{ content | split: site.excerpt_separator | first }}
     <p>
       <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
     </p>
