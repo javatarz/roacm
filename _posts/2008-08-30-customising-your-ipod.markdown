@@ -12,8 +12,6 @@ tags:
 - iPod
 ---
 
-[caption id="attachment_67" align="alignleft" width="321" caption="iPod 30GB (5.5 Generation; Black)"][!iPod 30GB (5.5G; Black) /assets/images/uploads/2008/08/ipod_55g_black.png)]({{ site.url }}/assets/images/uploads/2008/08/ipod_55g_black.png)[/caption]
-
 Every gadget I've owned to this day has been personalised. Its just something I have to do (if the hacks make the device better). I've done it so far with my i-Mate KJAM (custom ROMs for WM5 and WM6 and even cooking some up once in a while), my brother's PSP and my computer (that counts too, doesn't it? :P) among others.But when my brother came home last month, he exchanged the 2nd hand 30 GB iPod (5.5 Generation; Black) that he had.
 
 I had always heard of the legend that is the iPod but never actually used it, believe it or not. I did like my Sony NW-A608 because of its size and battery life but after testing the iPod out for a few days, I decided to keep it because the 2GB Network walk man was no longer enough for me, it was when I got it 3 years ago but not any more.
