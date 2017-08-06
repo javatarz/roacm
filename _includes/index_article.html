@@ -3,7 +3,7 @@
   <p class="meta">
     {% include post/date.html %}{{ time }}
     {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
-       | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread"
+       | <script id="dsq-count-scr" src="//{{ site.disqus_short_name }}.disqus.com/count.js" async></script> <a href="{{ root_url }}{{ post.url }}#disqus_thread"
          data-disqus-identifier="{% if post.meta.disqus_id %}{{ post.meta.disqus_id }}{% else %}{{ site.url }}{{ post.url }}{% endif %}">Comments</a>
     {% endif %}
   </p>
@@ -12,13 +12,11 @@
 <div class="entry-content">
   {% if content contains "<!-- more -->" %}
     {{ content | split: "<!-- more -->" | first }}
+    <p>
+      <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
+    </p>
   {% else %}
     {{ content | truncatewords:100 }}
   {% endif %}
 </div>
-{% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
-{% if excerpted == 'true' %}
-  <footer>
-    <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
-  </footer>
 {% endif %}
