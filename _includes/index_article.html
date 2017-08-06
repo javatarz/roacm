@@ -10,12 +10,21 @@
 {% endunless %}
 
 <div class="entry-content">
+  {% assign word_count = content | number_of_words %}
+  {% assign excerpted = true %}
+
   {% if content contains site.excerpt_separator %}
     {{ content | split: site.excerpt_separator | first }}
+  {% elsif word_count > 100 %}
+    {{ content | truncatewords: 100, ""}}
+  {% else %}
+    {{ content }}
+    {% assign excerpted = false %}
+  {% endif %}
+
+  {% if excerpted %}
     <p>
       <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
     </p>
-  {% else %}
-    {{ content | truncatewords:100 }}
   {% endif %}
 </div>
