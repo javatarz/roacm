@@ -18,13 +18,14 @@ With the release of the first beta of Visual Studio 2010 which includes support 
 
 I don't go for Hello World programs. Apart from C, the first code I've written in every other language (since I heard this question) has been the same. Keeping up tradition, here's the F# port.
 
-
+{% highlight fsharp %}
 let Check (x: int) = float(int(sqrt(float x))) = sqrt(float x)
 for x = 32 to 99 do
 let sqVal = pown x 2
 if (Check(sqVal / 100) && Check(sqVal % 100)) then
 System.Console.WriteLine(sqVal);
 done
+{% endhighlight %}
 
 This code aims to find every 4 digit number that is a perfect square whose upper and lower two digits are both perfect squares. This question was part of my sem 1 C paper and got me a 0/10. Clearly the examiner didn't understand my answer. :P In honor of the great act of stupidity on my side (of writing such a solution in an exam), I recreate this in every concievable language as my first code :)
 

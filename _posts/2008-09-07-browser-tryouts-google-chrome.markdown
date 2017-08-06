@@ -12,8 +12,6 @@ tags:
 - Browser
 ---
 
-[caption id="attachment_79" align="alignleft" width="207" caption="Google Chrome: The Next Gen Open Source Web Browser"][![Google Chrome: The Next Gen Open Source Web Browser]({{ site.url }}/assets/images/uploads/2008/09/google-chrome-logo.png)](http://www.google.com/chrome)[/caption]
-
 Having heard all the rage about Google Chrome, I decided to try it out this Friday morning before leaving for college. What's this I see? An online install? Of course it doesn't mean much to people who have connections which can download the 7.3MB installer in a few seconds but for others, its a bit more arduous. Here's a direct download link to the Google Chrome installer for others like me who have connections which are as slow as if not slower than broadband ;) [To download the full Google Chrome Installer (7.3 MB) click here](http://74.125.15.83/chrome/install/149.29/chrome_installer.exe).
 
 Chrome is Google's Next Generation browser and I must say, it does feel good :) (This post is being written in Chrome :P). It did take some time to load up the page but I suspect that's because of the page not being cached yet and that Chrome doesn't seem to have Google Gears. O.o I distinctly remember reading that Chrome has the [Gears](http://gears.google.com/) engine in the [Chrome Web Comic](http://www.google.com/googlebooks/chrome/) but when I tried enabling Turbo in the Wordpress panel for Chrome it said that I didn't have Gears installed. So it sent me to the Gears webpage which said my browser wasn't supported. :P [Seems like I'm not the only one who noticed](http://wordpress.org/support/topic/201069) ;)
