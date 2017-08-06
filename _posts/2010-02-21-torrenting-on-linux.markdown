@@ -165,8 +165,6 @@ cd trafic
 gedit conf.php
 {% endhighlight %}
 
-
-
 Make sure you set _$isAutoStart_ to _**false**_ since .rtorrent.rc starts the plug-in up.
 
 And you're done. Enjoy torrenting on linux with rTorrent and ruTorrent WebUI awesomeness :)
