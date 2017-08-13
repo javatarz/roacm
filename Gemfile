@@ -5,9 +5,8 @@ gem "jekyll", "3.4.5"
 
 # Theme
 gem "jekyll-theme-dinky", "~> 0.0.4"
-gem "minima"
 
-# If you have any plugins, put them here!
+# Plugins
 group :jekyll_plugins do
   gem 'jekyll-feed', '~> 0.6'
   gem 'jekyll-sitemap', '~> 0.9.0'
@@ -17,7 +16,7 @@ group :jekyll_plugins do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Others
 gem 'pygments.rb', '~> 0.6.3'
