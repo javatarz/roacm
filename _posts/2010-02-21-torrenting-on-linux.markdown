@@ -27,7 +27,7 @@ I have tried to install rTorrent before and failed. This time around, I had mana
 
 If you want to see a couple of screen shots of the end result before beginning, visit the [rutorrent website](http://code.google.com/p/rutorrent/) and check out the screen shots. The best part about it is the tracker based, per torrent and global settings along with the pretty amazing [traffic plug-in](http://rutorrent.googlecode.com/svn/wiki/assets/images/scr1_big.jpg) which gives your multiple (group) views of your traffic statistics. It's pretty cool ;)
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 The first step is to install XMLRPC-C followed by libTorrent and finally rTorrent. These steps are pretty well documented in this [installation guide for XMLRPC-C](http://rtwi.jmk.hu/wiki/InstallationGuide#preparing) and this [installation guide for libTorrent and rTorrent](http://libtorrent.rakshasa.no/wiki/Install) with a few changes. I'll note the changes in commands in bold.
 

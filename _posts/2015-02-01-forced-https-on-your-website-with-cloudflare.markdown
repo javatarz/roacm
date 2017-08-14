@@ -19,7 +19,7 @@ Side note, I recommend every user have [HTTPS everywhere](https://www.eff.org/ht
 
 Though it's not perfect, you can get a SSL for your website for free.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ## Why do I need SSL?
 

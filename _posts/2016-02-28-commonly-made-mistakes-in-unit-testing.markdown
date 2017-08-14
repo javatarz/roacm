@@ -21,7 +21,7 @@ Classes do not exist independent of one another. They usually have dependencies.
 ### Pre-requisites to the post before going forward
 Before we go on, please ensure you've read through [Mocks Aren't Stubbs](http://martinfowler.com/articles/mocksArentStubs.html) by [Martin Fowler](http://martinfowler.com/). This post assumes that you've gone through the article before continuing on to commonly made mistakes in Unit Testing
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ## Mocks vs Actual Implementations
 Consider a board game where the Board class runs the game with the help of it's collaborators `Player` and `Dice`.

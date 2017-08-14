@@ -20,7 +20,7 @@ Despite the clunky nature of the language syntax, it still is the language of ch
 
 If you're also a fan of functional programming language and have worked any *modern* programming language, you'll recognize that Java's syntax hinders your productivity because of the large amounts of boilerplate the language will generate. While newer JVM based lanaguages like [Kotlin](https://kotlinlang.org/docs/reference/data-classes.html) solve these problems in different ways, the open source community created [Project Lombok](https://projectlombok.org/features/all) to provide similar syntactic sugar in the world's most popular enterprise programming language.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ## What is Lombok?
 

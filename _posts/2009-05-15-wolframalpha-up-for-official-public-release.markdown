@@ -18,7 +18,7 @@ Have you heard of [Wolfram Alpha](http://www.wolframalpha.com/) (also called Wof
 
 Wolfram\|Alpha is an answer-engine developed by Wolfram Research headed by British CEO and founder, physicist [Stephen Wolfram](http://en.wikipedia.org/wiki/Stephen_Wolfram). It is an online service that answers factual queries directly by computing the answer instead of providing a list of documents or web pages that might contain the answer. It is an effort to make all the information known to man to be made available to everyone at their computational fingertips ;)
 
-<!-- more -->
+{{ site.excerpt_separator }}
 Cyc founder [Douglas Lenat](http://en.wikipedia.org/wiki/Douglas_Lenat) was one of the few given an opportunity to test Wolfram Alpha before its release:
 
 <blockquote>"The resulting mosaic covers a large portion of the space of queries that the average person might genuinely want to ask. [...] It handles a much wider range of queries than [Cyc](http://en.wikipedia.org/wiki/Cyc), but much narrower than Google; it understands some of what it is displaying as an answer, but only some of it [...] The bottom line is that there is a large range of queries it can't parse, and a large range of parsable queries it can't answer."</blockquote>

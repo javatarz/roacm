@@ -19,7 +19,7 @@ I am concerned because they seem to not be getting their basics right. Most sta
 
 Sometimes it is hard to spot these from the outside but if you do see these signs, you better have taken your ERT training seriously because the building is on fire and you better be prepared to evacuate people.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 
 ## Acting as the 'next big thing'

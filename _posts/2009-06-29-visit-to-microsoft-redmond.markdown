@@ -23,7 +23,7 @@ Before I begin, I'd like to thank Microsoft for having us in Seattle despite the
 
 There are quite a few things that I saw a lot of which, I wasn't allowed to take pictures of. If I was, I have uploaded them to my [Picasa Web albums here](http://picasaweb.google.com/john.anderton).
 
-Beware, the post is (4500 words) HUGE. Sorry about that. :P Without further adieu, let's begin!<!-- more -->
+Beware, the post is (4500 words) HUGE. Sorry about that. :P Without further adieu, let's begin!{{ site.excerpt_separator }}
 
 
 # **Day 0** (Trip to Seattle):

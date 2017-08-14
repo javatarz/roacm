@@ -17,7 +17,7 @@ tags:
 
 I noticed that my old file list generator page didn't have a valid link any more. Since I'd go through and upload it again, I guess it would be worth it to add some minor documentation and make the path variable optional as well :)
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 Here are some sample scripts
 

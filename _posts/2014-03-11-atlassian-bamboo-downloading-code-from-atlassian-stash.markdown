@@ -20,7 +20,7 @@ tags:
 
 The Atlassian suite of tools are a good way to have your organization's workflow administered. If you're using Atlassian Stash to manage your source code and are attempting to get Atlassian Bamboo to download code off Stash's copy of git, the answer isn't quite straight forward.
 
-Having experience with Atlassian's tools for over a year, one gets used to excellent integration wrapped up with beautiful UI but when it comes to setting up flawless CI with Bamboo, you're let down (either that or my integration is non-standard; don't see how).<!-- more -->
+Having experience with Atlassian's tools for over a year, one gets used to excellent integration wrapped up with beautiful UI but when it comes to setting up flawless CI with Bamboo, you're let down (either that or my integration is non-standard; don't see how).{{ site.excerpt_separator }}
 
 Here forth, I'm assuming users have necessary rights to perform these actions. If not, contact your Bamboo/Stash admin
 
