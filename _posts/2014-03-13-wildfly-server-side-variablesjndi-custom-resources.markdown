@@ -25,7 +25,7 @@ As you probably know, [Oracle stopped development of Glassfish's commercial vers
 
 A while back we discussed how you could use [JNDI custom resources on Glassfish to set environment variables](http://karunab.com/2013/05/14/glassfish-jndi-custom-resource-reading-primitives/). Migration for our team meant information setup as environment variables need to be setup again.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 
 # Adding a XA Data Source

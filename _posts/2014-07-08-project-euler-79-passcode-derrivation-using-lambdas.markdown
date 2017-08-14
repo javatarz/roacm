@@ -24,7 +24,7 @@ Before I begin, I'd like to acknowledge [Alex Michael](http://alexmic.net/) for 
 
 My solution provides a Java port of this solution using Lambdas. Here are the steps to the solution
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 # Solution Process
 

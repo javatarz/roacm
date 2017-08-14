@@ -15,7 +15,7 @@ If you're a dev and you self host your blog, I'd love to hear why. Why do you se
 
 Why? S3 is free for the first year. Even post that period, my bills have been <$0.02/month which is a **99.951% reduction in cost**.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 ## Continuous delivery
 
 ![HTTPs blog on S3]({{ site.url }}/assets/images/uploads/https-blog-on-s3.jpg)

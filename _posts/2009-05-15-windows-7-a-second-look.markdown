@@ -15,7 +15,7 @@ tags:
 I've had a bit of reprieve from work here and I finally got some time to install Windows 7 on my laptop. Though my desktop has had the latest builds available to me, they have all been on a test drive. My laptop however had to wait until I was done with my academic work before it could move permanently to Windows 7 and afford any issues that might come its way.
 
 So here are a few things I've found interesting in Windows 7 that should make your Windows 7 User eXperience a lot more enjoyable.
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ## Basic Application Overhaul
 

@@ -26,7 +26,7 @@ If you're working on huge maven projects and have a slow disk, compilation, pack
 
 A code base which used to take **22 minutes** to compile went down to **3 minutes**. This just goes to show the effect that disk IO bottlenecks can have on your system.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 
 # What is a RAM Drive?

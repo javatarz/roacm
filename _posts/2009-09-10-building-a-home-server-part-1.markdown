@@ -26,7 +26,7 @@ If you said yes to (most) of the above questions, having a Home Server could hel
 
 Lets get into it then. From now, I'll walk you through how to make your old machine into a [Network Attached Server (NAS)](http://en.wikipedia.org/wiki/Network-attached_storage).
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 
 ### _1) Hardware_

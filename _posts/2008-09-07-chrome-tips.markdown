@@ -17,7 +17,7 @@ tags:
 Right click the address bar and click Edit search engine. Click add, fill in a name and a keyword followed by the search query.
 For adding the Messenger Plus Forum Search engine I used the name as "Messenger Plus! Forum Search" (doesn't really matter what you use here), the keyword as "mpf" and the url as "http://msghelp.net/basicsearch.php?do=search&keywords=**_%s_**" where _%s_ represents the search query entered. As a result of adding this, I can now search the MP!F simply by typing "mpf ". I love search shortcuts :)
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ## Searching Google.com instead of your local (regional) google site
 

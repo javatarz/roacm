@@ -30,7 +30,7 @@ With the introduction of Functional Programming in Java 8 new possibilities have
 
 If you want such a wide variety of data parsed and handled (_relatively_) safely (i.e. with compile time type safety where possible), here is what you do.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 ### Functional interface for Lambda definition
 

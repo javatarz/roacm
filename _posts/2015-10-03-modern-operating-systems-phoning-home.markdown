@@ -18,7 +18,7 @@ tags:
 
 It seriously irks me when general public operating systems build in default features that send data to their servers without clearly indicating so. Both Microsoft (with Windows 10) and Apple (with Yosemite) have done so. Disabling these features doesn't take long so here's what you need to do.
 
-<!-- more -->
+{{ site.excerpt_separator }}
 
 # Windows 10
 
