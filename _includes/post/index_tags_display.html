@@ -1,0 +1,3 @@
+{% if post.tags.size > 0 %}
+  | <strong>Tag{% if post.tags.size > 1 %}s{% endif %}</strong>: {{ post.tags | sort | join: ", " }}
+{% endif %}

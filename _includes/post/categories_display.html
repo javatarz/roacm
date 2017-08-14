@@ -1,0 +1,7 @@
+{% assign post = page %}
+{% if post.categories.size > 0 %}
+<span>
+  <strong>Categor{% if post.categories.size > 1 %}ies{% else %}y{% endif %}</strong>:
+  {{ post.categories | sort | join: ", " }}
+</span>
+{% endif %}
