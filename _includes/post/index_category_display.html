@@ -1,0 +1,3 @@
+{% if post.categories.size > 0 %}
+  | <strong>Categor{% if post.categories.size > 1 %}ies{% else %}y{% endif %}</strong>: {{ post.categories | sort | join: ", " }}
+{% endif %}
