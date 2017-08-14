@@ -20,3 +20,5 @@ end
 
 # Others
 gem 'pygments.rb', '~> 0.6.3'
+gem 'thor', '~> 0.19.4'
+gem 'stringex', '~> 2.7.1'
