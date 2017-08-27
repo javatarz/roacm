@@ -184,12 +184,18 @@ will provide no feedback. The code will compile and set `employeeId`s to `firstN
 
 ## Where is Lombok appropriate?
 
-1. Do you have a project where you have a strict set of contributors?
-2. Do your contributors understand Lombok well and how it works?
-3. Do your contributors understand how to properly unit test and do they understand the automation test pyramid?
-4. Do you have strict code quality control?
-5. Is the team willing to invest time and effort into training new team members about Lombok and potential downsides?
-6. Do most of your models use [value objects](https://www.martinfowler.com/bliki/ValueObject.html) and avoid primitives?
+1. **Do you have a project where you have a strict set of contributors?**
+  * _because you'll have to walk them through the rules of appropriate usage of lombok_
+2. **Do your contributors understand Lombok well and how it works?**
+  * _because you will have unexpected defects due to refactoring if they don't_
+3. **Do your contributors understand how to properly unit test and do they understand the automation test pyramid?**
+  * _appropriate high level testing could catch functional defects. you don't want unit tests checking constructors and getters_
+4. **Do you have strict code quality control?**
+  * _without a way to check for inappropriate usage of lombok, defects can very easily creep in_
+5. **Is the team willing to invest time and effort into training new team members about Lombok and potential downsides?**
+  * _your learnings have to be passed to every future member of the codebase_
+6. **Do most of your models use [value objects](https://www.martinfowler.com/bliki/ValueObject.html) and avoid primitives?**
+  * _because reordering non-primitive fields will lead to compile exceptions providing feedback_
 
 If your team can answer _yes_ to all of the above, you should use Lombok.
 
