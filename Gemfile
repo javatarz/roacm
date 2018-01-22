@@ -19,6 +19,6 @@ end
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Others
-gem 'pygments.rb', '~> 0.6.3'
+gem 'pygments.rb', '~> 1.2.1'
 gem 'thor', '~> 0.19.4'
 gem 'stringex', '~> 2.7.1'
