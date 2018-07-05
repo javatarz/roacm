@@ -18,7 +18,7 @@ _This isn't revolutionary stuff. This is an attempt at defining a structure that
 
 {{ site.excerpt_separator }}
 
-## Rule
+## Role
 
 ### The Master of Ceremonies
 
