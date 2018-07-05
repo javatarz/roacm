@@ -12,7 +12,7 @@ tags:
 
 [Showcases](https://shreedamani.wordpress.com/tag/agile-showcase/) are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).
 
-On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). We added structure to our showcases by running it like [a theatre recording TV shows]((https://en.wikipedia.org/wiki/List_of_theatre_personnel)).
+On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). We added structure to our showcases by running it like [a theatre recording TV shows](https://en.wikipedia.org/wiki/List_of_theatre_personnel).
 
 _This isn't revolutionary stuff. This is an attempt at defining a structure that should make it easier to organize showcases based off a check-list._
 
@@ -26,34 +26,34 @@ The MC is the face of the operations. They are responsible to dessiminate inform
 
 #### Best practices for MCs
 
-* Running commentary: Always keep speaking. Is there an issue? Keep the show rolling. Be transparent. Your support (folks below) will keep feeding you information.
+Running commentary: Always keep speaking. Is there an issue? Keep the show rolling. Be transparent. Your support (folks below) will keep feeding you information when necessary.
 
-### The Stage Hand
+### The Stagehand
 
 This is the magician that controls the lighting on stage. This person actually runs the slides and the demos ensuring everything is smooth
 
-#### Best practices for Stage Hands
+#### Best practices for Stagehands
 
 * Practice your demos repeatedly till it's muscle memory
 * Ensure the demo windows are already prepared with data entry. Avoid copy pasting unless it cannot be avoided.
 * Ensure the content on the screen is visible on the media the stakeholders consume it on. If the stakeholders get together in a room and look at a screen projected on the screen or a big TV, please ensure that the font size is readable.
 
-### The Conductor/Stage Manager
+### The Conductor
 
 This is the person who runs the show. This person is responsible to stay on the demo co-ordination chat and spot issues and handle them before they become a thing. This person is also responsible to give instant feedback to people running the showcase when needed.
 
-#### Best practices for The Conductor/Stage Manager
+#### Best practices for The Conductor
 
 * Ensure you have an eye on the demo co-ordination chat. Delegate replying to another window if required
 * Ensure the MC is providing running commentary
 * Step in only if it is absolutely required
 * Keep an eye out for schedule
 
-### The Stage Tech
+### The Theatre Tech
 
-The person who watches the logs and statuses for the services involved in the demo. If there is anything going wrong, talk to the conductor/stage manager immediately.
+The person who watches the logs and statuses for the services involved in the demo. If there is anything going wrong, talk to the conductor immediately.
 
-#### Best practices for the Stage Techs
+#### Best practices for the Theatre Techs
 
 * Have appropriate windows ready to perform the tasks you might need to in a hurry (bouncing services)
 * Have windows showing instance health
@@ -63,12 +63,15 @@ The person who watches the logs and statuses for the services involved in the de
 
 This person is in the room (with clients) and is responsible to keep time. If the discussion goes off, it is your responsibility to cut the discussion off and setup a followup discussion.
 
-If the clients are in multiple locations, have a timekeeper per location. Might be the conductor/stage manager when available.
+If the clients are in multiple locations, have a timekeeper per location. Might be the conductor when available in a location.
 
 ### The Scribes
 
 Multiple people taking notes and sharing them after the demo. They are responsible to pick up body queues from the people around them and take notes on follow up discussions that we need to have.
-It'd be nice if the scribes can also be active on the demo co-ordination hangouts channel and provide instantaneous feedback.
+
+#### Best practices for The Scribe
+
+Be active on a demo co-ordination chat channel and provide instantaneous feedback from different locations. This helps the conductor get more information and is key to their effectiveness.
 
 ### The Playwright
 
@@ -87,7 +90,7 @@ Know the people on your team. Identify which team members can do what roles. Inv
 ### Prep work for the venue
 
 1. If your client site requires you to book rooms, do so as far out in advance as possible.
-1. If your team is distributed, make sure the room has a good VC with a computer you can use to run the demo. Ensure your laptop can easily connect to the VC equiment in the room.
+1. If your team is distributed, make sure the room has a good VC with a computer you can use to run the demo. Ensure your laptop can easily connect to the VC equipment in the room.
 1. Know your venue and plan your seating. Presenters closer to the screen. Stakeholders in clean view of the screen and the presenters.
 
 ### Prep on the day
