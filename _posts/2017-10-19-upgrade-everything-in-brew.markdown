@@ -18,6 +18,8 @@ If you're using these tools and would like to upgrade all of the applications yo
 brew update && brew upgrade && (brew cask outdated | cut -f 1 -d " " | xargs brew cask reinstall) && brew cleanup && brew cask cleanup
 ```
 
+{{ site.excerpt_separator }}
+
 ## Breaking it down
 1. Update brew with information from the latest taps: `brew update`
 2. Upgrade apps in brew: `brew upgrade`
