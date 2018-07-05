@@ -12,9 +12,9 @@ tags:
 
 Showcases are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for remote teams).
 
-On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). Here is how to we added structure by defining roles ([analogous to execution at a theatre](https://en.wikipedia.org/wiki/List_of_theatre_personnel)) and content (analogous to a TV show) each showcase needs.
+On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). We added structure to our showcases by running it like [a theatre recording TV shows]((https://en.wikipedia.org/wiki/List_of_theatre_personnel)).
 
-_This isn't revolutionary stuff. Just trying to provide a defined structure so it's easier to organize things based off a check-list._
+_This isn't revolutionary stuff. This is an attempt at defining a structure that should make it easier to organize showcases based off a check-list._
 
 {{ site.excerpt_separator }}
 
