@@ -2,7 +2,7 @@
 layout: post
 comments: true
 author: Karun Japhet
-title: "The Science in the Art of the Showcase (for remote teams)"
+title: "The Science in the Art of the Showcase (for distributed teams)"
 categories:
   - Agile Practices
 tags:
@@ -10,7 +10,7 @@ tags:
   - distributed teams
 ---
 
-Showcases are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for remote teams).
+Showcases are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).
 
 On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). We added structure to our showcases by running it like [a theatre recording TV shows]((https://en.wikipedia.org/wiki/List_of_theatre_personnel)).
 
