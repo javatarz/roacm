@@ -12,7 +12,7 @@ tags:
 
 Showcases are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for remote teams).
 
-On one of our recent teams, our showcases have had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). This is an attempt to provide additional structure by defining roles ([analogous to execution at a theatre](https://en.wikipedia.org/wiki/List_of_theatre_personnel)) and content (analogous to a TV show) each showcase needs.
+On one of our recent teams, our showcases had challenges. Each of these challenges is a [piece of feedback](http://www.extremeprogramming.org/values.html). Here is how to we added structure by defining roles ([analogous to execution at a theatre](https://en.wikipedia.org/wiki/List_of_theatre_personnel)) and content (analogous to a TV show) each showcase needs.
 
 _This isn't revolutionary stuff. Just trying to provide a defined structure so it's easier to organize things based off a check-list._
 
@@ -71,6 +71,8 @@ Multiple people taking notes and sharing them after the demo. They are responsib
 It'd be nice if the scribes can also be active on the demo co-ordination hangouts channel and provide instantaneous feedback.
 
 ### The Playwright
+
+This person is primarily responsible for the content of the showcase.
 
 The content of a showcase should be like a TV show. A major milestone/deliverable is like a season and should have an overarching story (aka [narrative arc](https://en.wikipedia.org/wiki/Story_arc)). Each showcase is like an episode and should have a subsection of the [narrative arc](https://en.wikipedia.org/wiki/Story_arc).
 
