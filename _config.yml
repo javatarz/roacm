@@ -55,7 +55,7 @@ twitter_tweet_button: true
 
 markdown: kramdown
 theme: jekyll-theme-dinky
-gems:
+plugins:
   - jekyll-feed
   - jekyll-gist
 exclude:
@@ -74,11 +74,6 @@ social_links:
     title: Stack Overflow
     icon_name: fa-stack-overflow
   -
-    user: KarunJaphet
-    base_url: https://facebook.com/
-    title: Facebook
-    icon_name: fa-facebook
-  -
     user: javatarz
     base_url: https://twitter.com/
     title: Twitter
@@ -88,10 +83,3 @@ social_links:
     base_url: https://www.linkedin.com/in/
     title: LinkedIn
     icon_name: fa-linkedin
-  -
-    user: KarunAB
-    base_url: https://plus.google.com/+
-    title: Google Plus
-    icon_name: fa-google-plus
-
-theme: jekyll-theme-dinky
