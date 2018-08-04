@@ -4,6 +4,11 @@ Source for the "Ramblings of a Coder's Mind" blog that's hosted at [blog.karun.m
 
 [![Build Status](https://travis-ci.org/javatarz/roacm.svg?branch=master)](https://travis-ci.org/javatarz/roacm)
 
-## Creating a new post
+## Local development
 
-Execute `thor jekyll:new Post title here` from the project root
+Execute all of these commands from the project root directory
+
+1. Creating a new post: `thor jekyll:new Post title here` 
+1. Build: `bundle install`
+1. Render website locally: `jekyll s`
+1. Render website locally and continue to watch for updates: `jekyll s --watch`
