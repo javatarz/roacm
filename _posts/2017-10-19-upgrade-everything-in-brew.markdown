@@ -15,7 +15,7 @@ tags:
 If you're using these tools and would like to upgrade all of the applications you have, run the following command.
 
 ```bash
-brew update && brew upgrade && (brew cask outdated | cut -f 1 -d " " | xargs brew cask reinstall) && brew cleanup && brew cask cleanup
+brew update && brew upgrade && (brew cask outdated | cut -f 1 -d " " | xargs brew cask reinstall) && brew cleanup
 ```
 
 {{ site.excerpt_separator }}
@@ -28,4 +28,6 @@ brew update && brew upgrade && (brew cask outdated | cut -f 1 -d " " | xargs bre
   2. Cut out the app names: `cut -f 1 -d " "`
   3. Upgrade brew cask apps: `xargs brew cask reinstall`
 4. Remove installers for brew apps (to release disk space): `brew cleanup`
-5. Remove installers for brew cask apps (to release disk space): `brew cask cleanup`
+
+Note: `brew cask cleanup` is now deprecated.
+
