@@ -1,21 +1,21 @@
 <footer>
   <h3>About</h3>
-  <p><a href="{{ site.bio_url }}" target="_blank">{{ site.author }}</a> is a developer, human and is post-appropriate.<br />Rarely in that order.</p>
+  <p><a href="{{ site.bio_url }}" target="_blank" rel="noopener">{{ site.author }}</a> is a developer, human and is post-appropriate.<br />Rarely in that order.</p>
   <p><small><a href="/about">{{ site.excerpt_link }}</a></small></p>
 
   <h3>Contact</h3>
   <p id="contact">
       {% for social_site in site.social_links %}
-      <a href="{{social_site['base_url']}}{{social_site['user']}}" target="_blank"><i class="fab {{social_site['icon_name']}} fa-lg"></i></a>
+      <a href="{{social_site['base_url']}}{{social_site['user']}}" target="_blank" rel="noopener"><i class="fab {{social_site['icon_name']}} fa-lg"></i></a>
       {% endfor %}
-      <a href="mailto:{{site.email}}" rel="tooltip" title="{{site.email}}" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
-      <a href="/atom.xml" title="RSS Feed" target="_blank"><i class="fa fa-rss fa-lg"></i></a>
+      <a href="mailto:{{site.email}}" rel="tooltip" title="{{site.email}}" target="_blank" rel="noopener"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
   </p>
 
   <p>
     <small>
       Copyright &copy; 2006 - {{ site.time | date: "%Y" }} <br />
-      <a href="{{site.bio_url}}" target="_blank">{{ site.author }}</a> <br />
+      <a href="{{site.bio_url}}" target="_blank" rel="noopener">{{ site.author }}</a> <br />
       Powered by <a href="http://jekyllrb.com/">Jekyll</a>
     </small>
   </p>
