@@ -29,4 +29,4 @@ You can watch the launch live on the [Wolfram\|Alpha launch webcast](http://www.
 
 I do believe the Wolfram engine has the capability to be the next Google. I'm not saying that Google will lose out because it still serves a distinct purpose. If you need to find webpages, you still need Google. But I believe Wolfram won't take time to eat up Google's information based search market as long as Wolfram can solve their performance issues (load handling and providing good response times mainly).
 
-**Update:** 10 mins since "release" time and all the Wolfram sites seem to be down. Even the blog. Another [DDOS in the making](http://karunab.com/2009/01/10/windows-7-public-beta-serial-key-fiasco/) and I'm not surprised. I guess users will have better luck over the next few hours/days :) Its a service which seems worth waiting.
+**Update:** 10 mins since "release" time and all the Wolfram sites seem to be down. Even the blog. Another [DDOS in the making](http://blog.karun.me/blog/2009/01/10/windows-7-public-beta-serial-key-fiasco/) and I'm not surprised. I guess users will have better luck over the next few hours/days :) Its a service which seems worth waiting.

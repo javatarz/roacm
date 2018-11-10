@@ -39,4 +39,6 @@ TODOs:
   * Image duplication is decided by file name. Attempt to use file hashes for this (I've contacted the Desktoppr team to check if this can be added in the API)
 
 
-_Update:_ The Desktoppr Downloader project now has it's own page! [http://karunab.com/dev/desktoppr-downloader/](k:%20http://karunab.com/dev/desktoppr-downloader/)
+_Update:_ ~~The Desktoppr Downloader project now has it's own page!~~
+
+_Update 2:_ The destoppr downloader page no longer exists. The code is still accessible from [Github](https://github.com/javatarz/desktoppr-downloader).

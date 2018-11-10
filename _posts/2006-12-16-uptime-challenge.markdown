@@ -21,6 +21,6 @@ I don't want to give away much right now but all I can say is its a project that
 
 Soon you shall see the update on the dev page. But for now, its over and out.
 
-**Update:** The script was uploaded just in time for the competition. [Go check it out](http://karunab.com/uptime) ;)
+**Update:** The script was uploaded just in time for the competition. ~~Go check it out ;)~~
 
 **Update (14/07/2011):** This script is no longer supported. All the server side code has been managed out.

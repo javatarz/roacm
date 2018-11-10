@@ -15,7 +15,7 @@ tags:
 - Source
 ---
 
-On a lazy Sunday afternoon when you've got nothing better to do, you either write [rather useless scripts](http://karunab.com/2009/12/06/clean-file-list-generation-with-powershell-script/) or update them. I chose to do the latter.
+On a lazy Sunday afternoon when you've got nothing better to do, you either write [rather useless scripts](http://blog.karun.me/blog/2009/12/06/clean-file-list-generation-with-powershell-script/) or update them. I chose to do the latter.
 
 The [file list generation script](Clean File List Generation with PowerShell Script) I wrote some time back was mainly to generate a list of movies I have. When I generated a list of all the HD movies I have on disk, I realized, my list was being ruined by loads of sample files which escape the file filter because they are the same extension as the videos themselves. So I decided to write a simple fix to remove all files with "sample" in it. Of course, this is activated by a command line switch which is by default off. The extension list now ignores all images (pngs, jpgs and bmps) so my file list no longer has any screen shots.
 

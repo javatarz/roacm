@@ -30,6 +30,6 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe _-command_ “**& �
 
 Add a shortcut with any of those and it will get the job done! ;)
 
-[View Script Source Code](https://github.com/javatarz/Scriptlets/blob/master/filelist.ps1) | [File List Generator page](http://karunab.com/dev/file-list-generator/)
+[View Script Source Code](https://github.com/javatarz/Scriptlets/blob/master/filelist.ps1)
 
 If you’re having trouble executing the script, you should consider signing your PowerShell scripts. [Scott Hanselman has written a great post on how to do so](http://www.hanselman.com/blog/SigningPowerShellScripts.aspx). Go read it! You could simply _Set-ExecutionPolicy_ to _Unrestricted_ but then you’d be leaving your system open to attacks. Don’t blame anyone but yourself if you run someone else’s unsafe code and screw something up :) You have been warned :)
