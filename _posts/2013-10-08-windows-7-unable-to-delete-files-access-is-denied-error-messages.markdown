@@ -25,7 +25,7 @@ If you're like many, you have admin privileges to your machine but you still can
 
 
 
-The most popular solution is one I've already written about. The [takeown method I've written about  in my previous post named "The Undeletables"](http://karunab.com/2007/01/24/the-undeletables/) is one which has existed since Vista and continues to work for many on Windows 7. The ["Take Ownership" script](http://www.sevenforums.com/tutorials/1911-take-ownership-shortcut.html)  is an extension of this method and adds a "Take Ownership" option to the right click context menu of every file and folder in explorer. Last time I had this problem, it was because I had directories which were restricted ones (Windows directories) on a drive where an old Windows resided. This script helped me clear that. Alas, this time, it didn't work.
+The most popular solution is one I've already written about. The [takeown method I've written about  in my previous post named "The Undeletables"](http://blog.karun.me/blog/2007/01/24/the-undeletables/) is one which has existed since Vista and continues to work for many on Windows 7. The ["Take Ownership" script](http://www.sevenforums.com/tutorials/1911-take-ownership-shortcut.html)  is an extension of this method and adds a "Take Ownership" option to the right click context menu of every file and folder in explorer. Last time I had this problem, it was because I had directories which were restricted ones (Windows directories) on a drive where an old Windows resided. This script helped me clear that. Alas, this time, it didn't work.
 
 
 

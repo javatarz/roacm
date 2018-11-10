@@ -20,22 +20,16 @@ My new laptop is a work box and doesn't inherit the obsessive compulsiveness of 
 Thus was born the **Random Selection Wallpaper Changer** (RSWC). An extremely simplistic, single exe application that does what is required.
 
 **Default Values:**
-
-
-
-	
   * RSWC takes images (bmp, jpg, png) from the user's _My Pictures_ folder.
-
-	
   * It sets this image as your desktop wallpaper using stretched mode.
 
 
-**Pre-Requisite: **A pre-requisite is that you have .NET 2.0 installed on your machine.
+**Pre-Requisite:** A pre-requisite is that you have .NET 2.0 installed on your machine.
 
-**Future Plans: **The exe is 416kb, something I wish to reduce. I might rewrite the code in C++ to get rid of the .NET dependency (despite Microsoft claiming .NET is common enough to no longer be a  "requirement" and even reduce the file size. Also, I _might_ contemplate creating a light weight application to change wallpapers at regular time intervals as well. (People requesting for such things would certainly compel me. I'm not motivated to do this for personal usage :))
+**Future Plans:** The exe is 416kb, something I wish to reduce. I might rewrite the code in C++ to get rid of the .NET dependency (despite Microsoft claiming .NET is common enough to no longer be a  "requirement" and even reduce the file size. Also, I _might_ contemplate creating a light weight application to change wallpapers at regular time intervals as well. (People requesting for such things would certainly compel me. I'm not motivated to do this for personal usage :))
 
 If someone requires it, I might work a way in to set the source folder and mode of setting the wallpaper and **still** keep it portable and single filed. I could write to registry but that isn't really portable in my opinion. Ideas/Suggestions/Feedback/Advanced Critique is always welcome ;)
 
-**Known Limitation:** Setting png wallpapers sets the desktop to a plain coloured background (your [default background color]({{ site.url }}/assets/images/uploads/2009/03/change-background-color.jpg)) because Windows doesn't support png wallpapers. It converts pngs into jpgs and then applies them and I shall do the same in the next update.
+**Known Limitation:** Setting png wallpapers sets the desktop to a plain coloured background (your default background color) because Windows doesn't support png wallpapers. It converts pngs into jpgs and then applies them and I shall do the same in the next update.
 
-**Download:** [Random Selection Wallpaper Changer (RSWC) v1.00](http://karunab.com/dls/Random%20Selection%20Wallpaper%20Changer%20v1.00.exe) (416 KB)
+~~**Download:** Random Selection Wallpaper Changer (RSWC) v1.00 (416 KB)~~

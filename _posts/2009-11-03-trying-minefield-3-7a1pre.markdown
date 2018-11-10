@@ -15,7 +15,7 @@ tags:
 - Windows 7
 ---
 
-Ever since I started using Win7 ([first public beta](http://karunab.com/2009/01/10/windows-7-public-beta-serial-key-fiasco/)) I have liked one thing about Internet Explorer that Firefox couldn't do. This was the ability to use Win7's Aero prowess completely rendering each tab in the Aero preview for Firefox. At the time, Microsoft hadn't come out with the [Win7 UX Interaction Guide](http://msdn.microsoft.com/en-us/library/aa511258.aspx) but it's been out for a few months and I was quite disappointed that Mozilla didn't jump at the opportunity to release an upgrade.
+Ever since I started using Win7 ([first public beta](http://blog.karun.me/blog/2009/01/10/windows-7-public-beta-serial-key-fiasco/)) I have liked one thing about Internet Explorer that Firefox couldn't do. This was the ability to use Win7's Aero prowess completely rendering each tab in the Aero preview for Firefox. At the time, Microsoft hadn't come out with the [Win7 UX Interaction Guide](http://msdn.microsoft.com/en-us/library/aa511258.aspx) but it's been out for a few months and I was quite disappointed that Mozilla didn't jump at the opportunity to release an upgrade.
 
 A couple of weeks back, I saw screen shots of my friends' browsers and noticed they were using Minefield. They confirmed that 3.7a1pre does indeed have full Aero support so I finally upgraded. I must say, it's a great update.
 
