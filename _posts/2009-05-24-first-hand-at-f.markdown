@@ -18,6 +18,8 @@ With the release of the first beta of Visual Studio 2010 which includes support 
 
 I don't go for Hello World programs. Apart from C, the first code I've written in every other language (since I heard this question) has been the same. Keeping up tradition, here's the F# port.
 
+{{ site.excerpt_separator }}
+
 {% highlight fsharp %}
 let Check (x: int) = float(int(sqrt(float x))) = sqrt(float x)
 for x = 32 to 99 do
