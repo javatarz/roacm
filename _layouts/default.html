@@ -16,5 +16,7 @@
     {% if disqus_show_comment_count %}
       <script id="dsq-count-scr" src="//{{ site.disqus_short_name }}.disqus.com/count.js" async></script>
     {% endif %}
+
+    {% include body/deferred_styles.html %}
   </body>
 </html>
