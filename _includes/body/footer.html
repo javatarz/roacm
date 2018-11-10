@@ -6,7 +6,7 @@
   <h3>Contact</h3>
   <p id="contact">
       {% for social_site in site.social_links %}
-      <a href="{{social_site['base_url']}}{{social_site['user']}}" target="_blank"><i class="fa {{social_site['icon_name']}} fa-lg"></i></a>
+      <a href="{{social_site['base_url']}}{{social_site['user']}}" target="_blank"><i class="fab {{social_site['icon_name']}} fa-lg"></i></a>
       {% endfor %}
       <a href="mailto:{{site.email}}" rel="tooltip" title="{{site.email}}" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
       <a href="/atom.xml" title="RSS Feed" target="_blank"><i class="fa fa-rss fa-lg"></i></a>
