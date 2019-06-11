@@ -15,12 +15,11 @@ Github explains pretty well [how to sign commits](https://help.github.com/en/art
 ```bash
 git config --global commit.gpgsign true
 ```
-
 What if you have different signatures for your personal ID and your work ID?
 
 {{ site.excerpt_separator }}
 
-First, you create multiple signatures. Run `gpg -K --keyid-format SHORT` to see all available keys. The output looks like
+First, you create multiple signatures. It is important that the **email address in the signature is the same as the one for the user who has authored the commit**. Run `gpg -K --keyid-format SHORT` to see all available keys. The output looks like
 
 ```
 /Users/karun/.gnupg/pubring.kbx
@@ -40,8 +39,8 @@ Fetch the ID for each of the signatures. The ID for the personal signature is 11
 
 Personally, I have aliases for personal and work signatures and every time I checkout a project, run the alias once.
 ```bash
-alias signpersonal="git config user.signingkey 11111111"
-alias signwork="git config user.signingkey 33333333"
+alias signpersonal= "git config user.signingkey 11111111 && git config user.email \"karun@personal.com\""
+alias signwork    = "git config user.signingkey 33333333 && git config user.email \"karun@work.com\""
 ```
 
 Run `git log --show-signature` to verify if a commit used the right signature. Happy commit-signing.
