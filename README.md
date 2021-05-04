@@ -6,9 +6,4 @@ Source for the "Ramblings of a Coder's Mind" blog that's hosted at [blog.karun.m
 
 ## Local development
 
-Execute all of these commands from the project root directory
-
-1. Build: `bundle install`
-1. Creating a new post: `thor jekyll:new Post title here`
-1. Render website locally: `jekyll s`
-1. Render website locally and continue to watch for updates: `jekyll s --watch`
+`JEKYLL_VERSION=3.8 docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" -it jekyll/jekyll:$JEKYLL_VERSION jekyll serve --watch`
