@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby RUBY_VERSION
 
-gem "jekyll", "~> 3.8.6"
+# gem "jekyll", "~> 3.8.6"
 
 # Theme
 gem "jekyll-theme-dinky", "~> 0.1.0"
