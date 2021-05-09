@@ -58,6 +58,7 @@ theme: jekyll-theme-dinky
 plugins:
   - jekyll-feed
   - jekyll-gist
+  - jekyll-target-blank
 exclude:
   - Gemfile
   - Gemfile.lock
