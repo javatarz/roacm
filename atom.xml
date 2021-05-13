@@ -4,7 +4,7 @@
   <title><![CDATA[Ramblings of a Coder's Mind]]></title>
   <link href="https://blog.karun.me/atom.xml" rel="self"/>
   <link href="https://blog.karun.me/"/>
-  <updated>2021-05-13T11:35:12+05:30</updated>
+  <updated>2021-05-13T11:40:28+05:30</updated>
   <id>https://blog.karun.me/</id>
   <author>
     <name><![CDATA[Karun Japhet]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Data storage patterns, versioning and partitions]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2021/05/09/data-storage-patterns-versioning-and-partitions/"/>
+    <link href="https://blog.karun.me/blog/2021/05/09/data-storage-patterns-versioning-and-partitions/"/>
     <updated>2021-05-09T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2021/05/09/data-storage-patterns-versioning-and-partitions</id>
+    <id>https://blog.karun.me/blog/2021/05/09/data-storage-patterns-versioning-and-partitions</id>
     <content type="html"><![CDATA[<p>When you have large volumes of data, storing it logically helps users discover information and makes understanding the information easier. In this post, we talk about some of the techniques we use to do so in our application.</p>
 
 <p>In this post, we are going to use the terminology of AWS S3 buckets to store information. The same techniques can be applied on other cloud, non cloud providers and bare metal servers. Most setups will include a high bandwidth low latency network attached storage with proximity to the processing cluster or disks on HDFS if the entire platform uses HDFS. Your mileage may vary based on your team’s setup and use case. We are also going to talk about techniques which have allowed us to efficiently process this information using Apache Spark as our processing engine. Similar techniques are available for other data processing engines.</p>
@@ -179,9 +179,9 @@
   
   <entry>
     <title type="html"><![CDATA[Version controlled configuration and secrets management for Terraform]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform/"/>
+    <link href="https://blog.karun.me/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform/"/>
     <updated>2019-08-26T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform</id>
+    <id>https://blog.karun.me/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform</id>
     <content type="html"><![CDATA[<p><a href="https://www.terraform.io/">Terraform</a> is a tool to build your infrastructure as code. We’ve been having a few challenges while trying to figure out how to how to manage configuration and secrets when integrating terraform with our CD pipeline.</p>
 
 <!-- more -->
@@ -530,9 +530,9 @@ eval &quot;$secrets $config terraform apply -auto-approve&quot;</pre></noscript>
   
   <entry>
     <title type="html"><![CDATA[Managing multiple signatures for git repositories]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2019/06/11/managing-multiple-signatures-for-git-repositories/"/>
+    <link href="https://blog.karun.me/blog/2019/06/11/managing-multiple-signatures-for-git-repositories/"/>
     <updated>2019-06-11T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2019/06/11/managing-multiple-signatures-for-git-repositories</id>
+    <id>https://blog.karun.me/blog/2019/06/11/managing-multiple-signatures-for-git-repositories</id>
     <content type="html"><![CDATA[<p>Github explains pretty well <a href="https://help.github.com/en/articles/signing-commits">how to sign commits</a>. You can make it automatic by globally setting <code>commit.gpgsign = true</code> by using</p>
 
 <pre><code class="language-bash">git config --global commit.gpgsign true
@@ -569,9 +569,9 @@ alias signwork    = "git config user.signingkey 33333333 &amp;&amp; git config u
   
   <entry>
     <title type="html"><![CDATA[Fixing broken Social logins on your browser]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2019/04/16/fixing-broken-social-logins-on-your-browser/"/>
+    <link href="https://blog.karun.me/blog/2019/04/16/fixing-broken-social-logins-on-your-browser/"/>
     <updated>2019-04-16T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2019/04/16/fixing-broken-social-logins-on-your-browser</id>
+    <id>https://blog.karun.me/blog/2019/04/16/fixing-broken-social-logins-on-your-browser</id>
     <content type="html"><![CDATA[<p>Privacy vs Convienience is a constant battle. Personally, I prefer dialing up my privacy up to 11 to avoid being tracked. Every once in a while, <em>social logins</em> are important because it’s the only way to use a service. If this service is an internal company login that only uses social login via the company’s Google ID, you don’t have much of a chance.</p>
 
 <p>If your login just won’t work, try changing the following settings</p>
@@ -588,9 +588,9 @@ alias signwork    = "git config user.signingkey 33333333 &amp;&amp; git config u
   
   <entry>
     <title type="html"><![CDATA[The untold guide to troubleshoot Phillips Hue and Google Assistant Integration]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration/"/>
+    <link href="https://blog.karun.me/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration/"/>
     <updated>2018-11-10T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration</id>
+    <id>https://blog.karun.me/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration</id>
     <content type="html"><![CDATA[<p>Recently, I moved into a new home and was setting up my <a href="https://www2.meethue.com/en-us">Phillips Hue</a> lights with my <a href="https://assistant.google.com/#?modal_active=none">Google Home assistants</a> around my house for convenience. I noticed a couple of hick-ups since the last time I did this.</p>
 
 <!-- more -->
@@ -614,9 +614,9 @@ alias signwork    = "git config user.signingkey 33333333 &amp;&amp; git config u
   
   <entry>
     <title type="html"><![CDATA[Efficient logback logging on JVM]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2018/11/01/efficient-logback-logging-on-jvm/"/>
+    <link href="https://blog.karun.me/blog/2018/11/01/efficient-logback-logging-on-jvm/"/>
     <updated>2018-11-01T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2018/11/01/efficient-logback-logging-on-jvm</id>
+    <id>https://blog.karun.me/blog/2018/11/01/efficient-logback-logging-on-jvm</id>
     <content type="html"><![CDATA[<p>Efficient logging that doesn’t bring your application down is simple to setup but is often overlooked. Here are some quick tips on how to achieve exactly that
 <!-- more --></p>
 
@@ -693,9 +693,9 @@ logger.info("Large object value was {} and long operation printed {}", largeObje
   
   <entry>
     <title type="html"><![CDATA[The Science in the Art of the Showcase (for distributed teams)]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams/"/>
+    <link href="https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams/"/>
     <updated>2018-07-03T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams</id>
+    <id>https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams</id>
     <content type="html"><![CDATA[<p><a href="https://shreedamani.wordpress.com/tag/agile-showcase/">Showcases</a> are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).</p>
 
 <p>On one of our recent teams, our showcases had challenges. Each of these challenges is a <a href="http://www.extremeprogramming.org/values.html">piece of feedback</a>. We added structure to our showcases by running it like <a href="https://en.wikipedia.org/wiki/List_of_theatre_personnel">a theatre recording TV shows</a>.</p>
@@ -801,9 +801,9 @@ logger.info("Large object value was {} and long operation printed {}", largeObje
   
   <entry>
     <title type="html"><![CDATA[Upgrade everything in brew]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2017/10/19/upgrade-everything-in-brew/"/>
+    <link href="https://blog.karun.me/blog/2017/10/19/upgrade-everything-in-brew/"/>
     <updated>2017-10-19T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2017/10/19/upgrade-everything-in-brew</id>
+    <id>https://blog.karun.me/blog/2017/10/19/upgrade-everything-in-brew</id>
     <content type="html"><![CDATA[<p><a href="https://brew.sh/">Homebrew</a> is a the missing package manager for Mac OS. <a href="https://caskroom.github.io/">Brew cask</a> extends <a href="https://brew.sh/">Homebrew</a> and brings its elegance, simplicity, and speed to Mac OS applications and large binaries alike.</p>
 
 <p>If you’re using these tools and would like to upgrade all of the applications you have, run the following command.</p>
@@ -831,9 +831,9 @@ logger.info("Large object value was {} and long operation printed {}", largeObje
   
   <entry>
     <title type="html"><![CDATA[Lombok usage in large enterprises]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2017/08/13/lombok-usage-in-large-enterprises/"/>
+    <link href="https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises/"/>
     <updated>2017-08-13T00:00:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2017/08/13/lombok-usage-in-large-enterprises</id>
+    <id>https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises</id>
     <content type="html"><![CDATA[<h2 id="verbosity-of-java">Verbosity of Java</h2>
 
 <p>Java is a verbose language. No one disputes it.</p>
@@ -1037,9 +1037,9 @@ public class Person {
   
   <entry>
     <title type="html"><![CDATA[Hosting blogs for 1&cent; a month]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2016/12/05/hosting-blogs-for-1-cent-a-month/"/>
+    <link href="https://blog.karun.me/blog/2016/12/05/hosting-blogs-for-1-cent-a-month/"/>
     <updated>2016-12-05T02:04:56+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2016/12/05/hosting-blogs-for-1-cent-a-month</id>
+    <id>https://blog.karun.me/blog/2016/12/05/hosting-blogs-for-1-cent-a-month</id>
     <content type="html"><![CDATA[<p>If you’re a dev and you self host your blog, I’d love to hear why. Why do you self host blogs? For most simple blogs in this day and age, migration to a static site like <a href="https://wordpress.org/plugins/jekyll-exporter/">Jekyll</a> or <a href="https://jason.pureconcepts.net/2013/01/migrating-wordpress-octopress/">Octopress</a> is pretty easy. I did this <a href="https://blog.karun.me/blog/2015/11/28/movement-to-cybershark/">a while back</a>. This can be followed up by asking <a href="https://davidwalsh.name/hosting-website-amazon-s3">Amazon S3</a> to host your website. You can even <a href="https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/">get cloudflare to front the SSL for free</a>.</p>
 
 <p>Why? S3 is free for the first year. Even post that period, my bills have been &lt;$0.02/month which is a <strong>99.951% reduction in cost</strong>.</p>
@@ -1061,9 +1061,9 @@ public class Person {
   
   <entry>
     <title type="html"><![CDATA[Commonly made mistakes in Unit Testing]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/"/>
+    <link href="https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/"/>
     <updated>2016-02-28T09:24:50+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2016/02/28/commonly-made-mistakes-in-unit-testing</id>
+    <id>https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing</id>
     <content type="html"><![CDATA[<h2 id="what-is-unit-testing">What is Unit Testing?</h2>
 
 <p>Unit testing is all about focusing on one element of the software at a time. This unit is called the often called the ‘System Under Test’ (refer <a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren’t Stubbs</a>).
@@ -1274,9 +1274,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Movement to Cybershark]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/11/28/movement-to-cybershark/"/>
+    <link href="https://blog.karun.me/blog/2015/11/28/movement-to-cybershark/"/>
     <updated>2015-11-28T11:09:58+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/11/28/movement-to-cybershark</id>
+    <id>https://blog.karun.me/blog/2015/11/28/movement-to-cybershark</id>
     <content type="html"><![CDATA[<p>I had been procrastinating movement to a dev-ops style Chef deployment for my servers to ease it’s management because of the age old “If it ain’t broke..”. Well, upgrades on Bumblebee were getting more expensive so I finally decided to take the leap. I introduce the <a href="https://github.com/javatarz/trion-cookbooks">trion cookbook</a> that I’m using to setup my servers.</p>
 
 <p>I also realized that <a href="http://kimsufi.ie/">Kimsufi</a> came up with cheaper servers (now as low as €4.99). Without automation to setup my servers, the thought of migration and building another <a href="http://martinfowler.com/bliki/SnowflakeServer.html">snowflake server</a> scares me purely because of it’s frailty. No more.</p>
@@ -1291,9 +1291,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Modern Operating Systems Phoning Home]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/10/03/modern-operating-systems-phoning-home/"/>
+    <link href="https://blog.karun.me/blog/2015/10/03/modern-operating-systems-phoning-home/"/>
     <updated>2015-10-03T19:52:00+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/10/03/modern-operating-systems-phoning-home</id>
+    <id>https://blog.karun.me/blog/2015/10/03/modern-operating-systems-phoning-home</id>
     <content type="html"><![CDATA[<p>It seriously irks me when general public operating systems build in default features that send data to their servers without clearly indicating so. Both Microsoft (with Windows 10) and Apple (with Yosemite) have done so. Disabling these features doesn’t take long so here’s what you need to do.</p>
 
 <!-- more -->
@@ -1314,9 +1314,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Reducing Maven Package times due to resource copying]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying/"/>
+    <link href="https://blog.karun.me/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying/"/>
     <updated>2015-07-11T12:36:33+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying</id>
+    <id>https://blog.karun.me/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying</id>
     <content type="html"><![CDATA[<p>I once worked on a web application with a 250+MB <em>code base</em>. This consisted of 200,000 images. For every development cycle, you had to compile and deploy the code on the server which was painful to say the least. The size wasn’t the problem as much as the number of resources. The code took less than 20 seconds to compile.</p>
 
 <p>We figured that compilations overwriting class files were OK but having to edit any resource just took too long. In such cases, you can use maven’s process-resources plugin to ask maven to only copy the new resources to your target directory.</p>
@@ -1331,9 +1331,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Maven Compilation in Ram Drive]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/07/11/maven-compilation-in-ram-drive/"/>
+    <link href="https://blog.karun.me/blog/2015/07/11/maven-compilation-in-ram-drive/"/>
     <updated>2015-07-11T12:16:42+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/07/11/maven-compilation-in-ram-drive</id>
+    <id>https://blog.karun.me/blog/2015/07/11/maven-compilation-in-ram-drive</id>
     <content type="html"><![CDATA[<p>If you’re working on huge maven projects and have a slow disk, compilation, packaging and install times can sore quite high. If getting faster hard disks isn’t possible, why not try moving the compilation to a ram drive?</p>
 
 <p>A code base which used to take <strong>22 minutes</strong> to compile went down to <strong>3 minutes</strong>. This just goes to show the effect that disk IO bottlenecks can have on your system.</p>
@@ -1417,9 +1417,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Forced HTTPs on your website with CloudFlare]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/"/>
+    <link href="https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/"/>
     <updated>2015-02-01T21:04:49+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/02/01/forced-https-on-your-website-with-cloudflare</id>
+    <id>https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare</id>
     <content type="html"><![CDATA[<p>I’m a supporter of the <a href="https://www.eff.org/https-everywhere">HTTPS everywhere movement</a> by the <a href="https://www.eff.org/">EFF</a>. They advocate users use (all) websites with HTTPS for extra security. This means everyone should probably fork out a few dollars to get their own certificates. Unless you’re buying a domain at NameCheap (in which case they tend to throw in a SSL certificate for the first year), you’d have to shell out $8-$12 to get one.</p>
 
 <p>Side note, I recommend every user have <a href="https://www.eff.org/https-everywhere">HTTPS everywhere</a> installed on every browser.</p>
@@ -1492,9 +1492,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Signs of a troubled startup]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2015/01/31/signs-of-a-troubled-startup/"/>
+    <link href="https://blog.karun.me/blog/2015/01/31/signs-of-a-troubled-startup/"/>
     <updated>2015-01-31T22:36:08+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2015/01/31/signs-of-a-troubled-startup</id>
+    <id>https://blog.karun.me/blog/2015/01/31/signs-of-a-troubled-startup</id>
     <content type="html"><![CDATA[<p>India has been developing the startup culture quite seriously over the past half a decade. In this time I’ve seen dozens of ventures pop up and quite a few of them fizzle out. If you’ve gone through a startup bootcamp or an equivalent program, you’ve probably heard the stats. Failure rate of startups is pretty high. I admit, I am concerned. Not about the high failure rate. It’s about <strong>why</strong> quite a few Indian startups are failing these days.</p>
 
 <p>I am concerned because they seem to not be getting their basics right. Most startup schools and accelerators tell you things that usually go wrong. Repeatedly. Yet there are other things they don’t tell you. Things they’d think are common sense.</p>
@@ -1580,9 +1580,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Net Neutrality: Why should I care?]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2014/12/29/net-neutrality-why-should-i-care/"/>
+    <link href="https://blog.karun.me/blog/2014/12/29/net-neutrality-why-should-i-care/"/>
     <updated>2014-12-29T22:04:17+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2014/12/29/net-neutrality-why-should-i-care</id>
+    <id>https://blog.karun.me/blog/2014/12/29/net-neutrality-why-should-i-care</id>
     <content type="html"><![CDATA[<p>Yes, that’s one of the most often asked questions right after “What is that?”. I don’t often provide this explanation to techies because doing that is as simple as giving them a few lines of explanation and pointing them to a good website with information. The real challenge, if you ask me, is explaining this problem to the everyday <em>Joe</em> out there. Especially since, in a place like India you’re likely to hear “we have bigger problems than _<insert issue="" here="">_". This to me sounds like a blanket excuse for not wanting to deal with an issue at hand and here's how I tend to answer such queries.</insert></p>
 
 <!-- more -->
@@ -1704,9 +1704,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Mac: Camera not available]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2014/12/10/mac-camera-not-available/"/>
+    <link href="https://blog.karun.me/blog/2014/12/10/mac-camera-not-available/"/>
     <updated>2014-12-10T01:06:22+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2014/12/10/mac-camera-not-available</id>
+    <id>https://blog.karun.me/blog/2014/12/10/mac-camera-not-available</id>
     <content type="html"><![CDATA[<p>My Macbook Pro sometimes doesn’t detect it’s web camera when I’m trying to join a video call and it’s painful to have to reboot the machine to fix it. A simpler way (especially if you have root access to your machine) is to kill VDCAssistant from the command line.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo killall VDCAssistant</code></pre></figure>
@@ -1717,9 +1717,9 @@ public int nextInt(int bound) {...}</code></pre></figure>
   
   <entry>
     <title type="html"><![CDATA[Removing uTorrent ads]]></title>
-    <link href="https://blog.karun.me/roacm/blog/2014/11/30/removing-utorrent-ads/"/>
+    <link href="https://blog.karun.me/blog/2014/11/30/removing-utorrent-ads/"/>
     <updated>2014-11-30T16:39:04+05:30</updated>
-    <id>https://blog.karun.me/roacm/blog/2014/11/30/removing-utorrent-ads</id>
+    <id>https://blog.karun.me/blog/2014/11/30/removing-utorrent-ads</id>
     <content type="html"><![CDATA[<p>When BitTorrent bought over μTorrent, they promised users that all adverts would be optional. They have, however, made it harder and harder to hide the adverts including now a set of hidden options. Thankfully users have found how to access those hidden options.</p>
 
 <h2 id="turn-off-all-adsfeatured-contentbundle-crap-in-μtorrentbittorrent">Turn off ALL Ads/Featured Content/Bundle Crap in μtorrent/Bittorrent:</h2>

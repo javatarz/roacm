@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Java 8: Generic Method Returns with Lambdas and Strategy Design Pattern implementation</h1>
+  <p>With the introduction of Functional Programming in Java 8 new possibilities have opened up. One use case I recently encountered was that of processing JSONs to return data inside them. Let us, for the sake of argument, say the data in an element could be one of the following:</p>
+
+<ul>
+  <li>An <code>Integer</code> e.g. <code>1</code>
+</li>
+  <li>A <code>String</code> e.g. <code>The quick brown fox jumps over the lazy dog</code>
+</li>
+  <li>A <code>JsonObject</code> representing a Java Object e.g. <code>{"payload":[{"lastName\":\"AB","firstName":"Karun","email":"test[at]email.com"}</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>Integer</code>s e.g. <code>[1, 2, 3]</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>String</code>s e.g. <code>["String 1", "String 2"]</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>JsonObject</code>s representing Java Objects e.g. <code>[{"lastName":"AB","firstName":"Karun","email":"test[at]email.com"},{"lastName":"FooBar","firstName":"Kung","email":"kung[at]foobar.com"}]</code>
+</li>
+</ul>
+
+<p>If you want such a wide variety of data parsed and handled (<em>relatively</em>) safely (i.e. with compile time type safety where possible), here is what you do.</p>
+
+<!-- more -->
+
+<h3 id="functional-interface-for-lambda-definition">Functional interface for Lambda definition</h3>
+
+<p>First you need a <code>FunctionalInterface</code> that defines your operation. Here is a sample.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">import com.google.gson.JsonElement;
+
+@FunctionalInterface
+public interface DataProcessor {
+  public &lt;T&gt; T processData(final JsonElement data, final TypeReference&lt;T&gt; typeRef);
+}</code></pre></figure>
+
+<p>This methods defines the task to be performed for parsing data which is a <code>JsonElement</code> (I’m using <a href="https://code.google.com/p/google-gson/" target="_blank" rel="noopener noreferrer">google-gson</a> for my JSON parsing needs).</p>
+
+<h3 id="super-type-token-management">Super Type Token management</h3>
+
+<p>If your key eyes have picked it up, I have an undefined class here called <code>TypeReference</code> which is inspired from <a href="https://www.blogger.com/profile/08579466817032124881" target="_blank" rel="noopener noreferrer">Neal Gafter</a>’s <a href="http://gafter.blogspot.in/2006/12/super-type-tokens.html" target="_blank" rel="noopener noreferrer">old blog post</a> but has a extra method to check the super type for generics. I recommend reading through his blog post before proceeding.</p>
+
+<p>Here is my version. The only changes I’ve made are around the <code>superType</code> variable being added. If you apply wish to use <code>List&lt;String&gt;</code> as your return type reference, the <code>type</code> would be <code>List</code> and the <code>superType</code> would be <code>String</code>. If you use <code>String</code> as your return type reference, the <code>type</code> will be <code>String</code> and the <code>superType</code> will be <code>null</code>.</p>
+
+<noscript><pre>import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+public abstract class TypeReference&lt;T&gt; {
+
+  private final Type type;
+  private final Type superType;
+  private volatile Constructor&lt;?&gt; constructor;
+
+  protected TypeReference() {
+    final Type superclass = getClass().getGenericSuperclass();
+    if (superclass instanceof Class) {
+      throw new RuntimeException("Missing type parameter.");
+    }
+
+    this.type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
+    this.superType = !(this.type instanceof Class) ? ((ParameterizedType) this.type).getActualTypeArguments()[0] : null;
+  }
+
+  public T newInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    if (constructor == null) {
+      final Class&lt;?&gt; rawType = type instanceof Class&lt;?&gt;
+        ? (Class&lt;?&gt;) type
+        : (Class&lt;?&gt;) ((ParameterizedType) type).getRawType();
+      constructor = rawType.getConstructor();
+    }
+    return (T) constructor.newInstance();
+  }
+
+  public Type getType() {
+    return this.type;
+  }
+
+  public Class getTypeClass() {
+    return (Class) (type instanceof Class ? type : ((ParameterizedType) type).getRawType());
+  }
+
+  public Type getSuperType() {
+    return superType;
+  }
+
+  public Class getSuperTypeClass() {
+    return (Class) (superType instanceof Class ? superType : ((ParameterizedType) superType).getRawType());
+  }
+
+  public boolean hasSuperType() {
+    return superType != null;
+  }
+}</pre></noscript>
+<script src="https://gist.github.com/javatarz/fa5598cf32a1c6988ebdebd0e69f38a0.js"> </script>
+
+<p>Now we need a simple <code>User</code> class which maps to the sample data I provided earlier.</p>
+
+<noscript><pre>class User {
+
+  private String firstName;
+  private String lastName;
+  private String email;
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(final String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(final String email) {
+    this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" + "firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+  }
+}</pre></noscript>
+<script src="https://gist.github.com/javatarz/755648033a0c324e40473c7564ebe16a.js"> </script>
+
+<h3 id="defining-your-data-processor">Defining your data processor</h3>
+
+<p>Here’s why you just bumped your project up to use Java 8 as a minimum. You can pass functional parameters to methods ensuring the caller decides how their data is to be processed.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">private static &lt;T&gt; T parseData(final DataProcessor&lt;T&gt; processor, final String data, final TypeReference&lt;T&gt; typeRef) {
+        final JsonElement payload = new JsonParser().parse(data).getAsJsonObject().get("payload");
+
+        return processor.processData(payload, typeRef);
+    }</code></pre></figure>
+
+<p>This method parses your data as a JSON and takes the payload out (you’ll see the complete structure of data in the main function below). The caller also provides you the processor to process his data along with the return type that is expected.</p>
+
+<h3 id="sample-lambdas">Sample Lambdas</h3>
+
+<p>Time to define some lambdas based on the sample data we talked about earlier</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">private static final DataProcessor listProcessor = (data, typeRef) -&gt; {
+        final JsonArray payload = data.getAsJsonArray();
+        final int resultSize = payload.size();
+        final Gson gson = new Gson();
+        final List result = new ArrayList&lt;&gt;();
+
+        for (int i = 0; i &lt; resultSize; i++) {
+            result.add(gson.fromJson(payload.get(i), typeRef.getSuperType()));
+        }
+
+        return result;
+    };
+
+    private static final DataProcessor itemProcessor = (data, typeRef) -&gt; {
+        return new Gson().fromJson(data, typeRef.getTypeClass());
+    };</code></pre></figure>
+
+<p>If your return type is a single item (not a <code>List</code>), you should be using <code>itemProcessor</code>. <code>listProcessor</code> returns a <code>List</code> of items defined as the <code>superType</code> of the <code>typeRef</code>.</p>
+
+<h3 id="using-your-lambdas">Using your lambdas</h3>
+
+<p>Let us bring it all together and show you how to call your method now</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public static void main(String[] args) {
+        final String request1 = "{\"payload\":1}";
+        final Integer result1 = parseData(itemProcessor, request1, new TypeReference&lt;Integer&gt;() {
+        });
+        System.out.println("\nResult 1: " + result1 + " | Data Type: " + result1.getClass());
+
+        final String request2 = "{\"payload\":\"The quick brown fox jumps over the lazy dog\"}";
+        final String result2 = parseData(itemProcessor, request2, new TypeReference&lt;String&gt;() {
+        });
+        System.out.println("\nResult 2: " + result2 + " | Data Type: " + result2.getClass());
+
+        final String request3 = "{\"payload\":{\"lastName\":\"AB\",\"firstName\":\"Karun\",\"email\":\"test[at]email.com\"}}";
+        final User result3 = parseData(itemProcessor, request3, new TypeReference() {
+        });
+        System.out.println("\nResult 3: " + result3 + " | Data Type: " + result3.getClass());
+
+        final String request4 = "{\"payload\":[1,2,3]}";
+        final List&lt;Integer&gt; result4 = parseData(listProcessor, request4, new TypeReference&lt;List&lt;Integer&gt;&gt;() {
+        });
+        System.out.println("\nResult 4: ");
+        result4.forEach(i -&gt; System.out.println("  =&gt; " + i + " | Data Type: " + i.getClass()));
+
+        final String request5 = "{\"payload\":[\"String 1\", \"String 2\"]}";
+        final List&lt;String&gt; result5 = parseData(listProcessor, request5, new TypeReference&lt;List&lt;String&gt;&gt;() {
+        });
+        System.out.println("\nResult 5: ");
+        result5.forEach(str -&gt; System.out.println("  =&gt; " + str + " | Data Type: " + str.getClass()));
+
+        final String request6 = "{\"payload\":[{\"lastName\":\"AB\",\"firstName\":\"Karun\",\"email\":\"test[at]email.com\"},{\"lastName\":\"FooBar\",\"firstName\":\"Kung\",\"email\":\"kung[at]foobar.com\"}]}";
+        final List&lt;User&gt; result6 = parseData(listProcessor, request6, new TypeReference&lt;List&lt;User&gt;&gt;() { });
+        System.out.println("\nResult 6: ");
+        result6.forEach(user -&gt; System.out.println(" =&gt; " + user + " | Data Type: " + user.getClass()));
+    }</code></pre></figure>
+
+<p>As you can see, <code>parseData</code> returns different data types (<strong>that are type safe as long as you provided the correct <em>processor</em> for the correct type of <em>data</em></strong>) that are compile time safe.</p>
+
+<h3 id="why-use-the-supertype-in-typereference">Why use the superType in TypeReference?</h3>
+
+<p>At this point you could argue that the <code>superType</code> could be skipped because the <code>listProcessor</code> only uses <code>typeRef.getSuperType()</code> and instead could easily use <code>typeRef.getTypeClass()</code> and get away with it. You’d be correct. But it would mean everyone would have to live with my choice of the collection (in this case, an <code>ArrayList</code>). Instead you can use <code>typeRef.newInstance()</code> to generate new instances of any class with a default constructor (like <code>ArrayList</code>, <code>Vector</code>, <code>HashMap</code> etc.) and operate on it.</p>
+
+<p>This way, you can have a <code>listProcessor</code> that can let the caller decide which <code>List</code> implementation they want to use. All the more power to <a href="http://en.wikipedia.org/wiki/Strategy_pattern" target="_blank" rel="noopener noreferrer">Strategy Pattern</a>! Your lambdas now represent individual strategies.</p>
+
+<h4 id="sample-output">Sample Output</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">Result 1: 1 | Data Type: class java.lang.Integer
+
+    Result 2: The quick brown fox jumps over the lazy dog | Data Type: class java.lang.String
+
+    Result 3: User{firstName=Karun, lastName=AB, email=test[at]email.com} | Data Type: class com.karunab.test.lambda.User
+
+    Result 4:
+      =&gt; 1 | Data Type: class java.lang.Integer
+      =&gt; 2 | Data Type: class java.lang.Integer
+      =&gt; 3 | Data Type: class java.lang.Integer
+
+    Result 5:
+      =&gt; String 1 | Data Type: class java.lang.String
+      =&gt; String 2 | Data Type: class java.lang.String
+
+    Result 6:
+      =&gt; User{firstName=Karun, lastName=AB, email=test[at]email.com} | Data Type: class com.karunab.test.lambda.User
+      =&gt; User{firstName=Kung, lastName=FooBar, email=kung[at]foobar.com} | Data Type: class com.karunab.test.lambda.User</code></pre></figure>
+
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 13th June 2014
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Categories</strong>:
+  Development, Tutorials
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  Design Pattern, Functional Programming, Generics, Java 8, Lambda, Strategy Pattern, code sample
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2014/06/13/java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/';
+        this.page.identifier = 'https://blog.karun.me/blog/2014/06/13/java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/roacm/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/roacm/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/roacm/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+
+  </body>
+</html>
