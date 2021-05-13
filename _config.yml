@@ -13,7 +13,7 @@ time_format: "%H:%M %Z"
 timezone: Asia/Kolkata
 
 root: /
-permalink: /roacm/blog/:year/:month/:day/:title/
+permalink: /blog/:year/:month/:day/:title/
 
 plugins_dir: _plugins
 sass_dir: _sass
