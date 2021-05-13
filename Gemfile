@@ -13,6 +13,7 @@ group :jekyll_plugins do
   gem 'jekyll-paginate', '~> 1.1.0'
   gem 'jekyll-gist', '~> 1.5.0'
   gem "jekyll-youtube", '~> 1.0.0'
+  gem 'jekyll-target-blank', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -22,3 +23,4 @@ end
 gem 'pygments.rb', '~> 1.2.1'
 gem 'thor', '~> 0.20.0'
 gem 'stringex', '~> 2.8.2'
+gem 'kramdown-parser-gfm', '~> 1.1.0'

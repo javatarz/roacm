@@ -18,9 +18,9 @@ tags:
 <!-- more -->
 ## Life before version control
 Before we can do that, it's important to understand build process before we began on this journey.
-[![Terraform managed environments](https://github.com/javatarz/roacm/raw/master/assets/images/uploads/terraform-environments.jpg)](https://github.com/javatarz/roacm/raw/master/assets/images/uploads/terraform-environments.jpg)
+[![Terraform managed environments]({{ site.url }}/assets/images/uploads/terraform-environments.jpg)]({{ site.url }}/assets/images/uploads/terraform-environments.jpg)
 
-Our build model for this project was branch based. Each environment maps to a branch (`master -> dev`, `uat -> uat` and `production -> production`). All other (feature) branches only ran the plan stage against the `dev` environment.
+Our build model for this project was branch based. Each environment maps to a branch (`main -> dev`, `uat -> uat` and `production -> production`). All other (feature) branches only ran the plan stage against the `dev` environment.
 
 As you can notice, the configurations, secrets and keys are all maintained on the build agent. This means, every developer wanting to run plan and test their changes needs to replicate the `terraform_variables` directory. Any mistakes in doing so masks actual issues that your pipeline might face leading to delayed feedback.
 
@@ -65,7 +65,7 @@ We moved the variables into the `config` directory by making a directory for eve
 {% highlight bash %}
 terraform
 ├── config
-│   ├── master
+│   ├── main
 │   │   ├── module-1.tfvars
 │   │   └── module-2.tfvars
 │   ├── production
@@ -107,20 +107,20 @@ Secrets like passwords can be version controlled in a similar way though they re
 `functions.sh` gets a new addition to support reading all secrets
 {% gist javatarz/f78a72e02ce9aced0636d61672a2b777 %}
 
-The astute amongst you probably noticed that we're using OpenSSL v1.0.2s because v1.1.x changes the syntax on encryption/decryption of files. Also, you might have noticed the use of environment variables like `MASTER_PASSWORD_master`, `MASTER_PASSWORD_uat` and `MASTER_PASSWORD_production` as the encryption keys. These values are stored on our CI server (in our case [GitLab](https://gitlab.com/)) which makes these values available to our CI agent during execution.
+The astute amongst you probably noticed that we're using OpenSSL v1.0.2s because v1.1.x changes the syntax on encryption/decryption of files. Also, you might have noticed the use of environment variables like `SECRET_KEY_main`, `SECRET_KEY_uat` and `SECRET_KEY_production` as the encryption keys. These values are stored on our CI server (in our case [GitLab](https://gitlab.com/)) which makes these values available to our CI agent during execution.
 
 For local development, we have scripts to encrypt and decrypt configuration files either one at a time or in bulk per environment. It's worth noting that re-encryption of the same file will show up on your `git diff` since the encrypted file's metadata changes. Only check in encrypted files when their contents have changed (helping you debug future issues)
 
-`encrypt.sh` takes `MASTER_PASSWORD` as an environment variable for making local usage easier.
+`encrypt.sh` takes `SECRET_KEY` as an environment variable for making local usage easier.
 {% gist javatarz/8775d0d2a9ad124eefff9df6b2d431eb %}
 
-`decrypt.sh` also takes the same `MASTER_PASSWORD` as an environment variable for making local usage easier.
+`decrypt.sh` also takes the same `SECRET_KEY` as an environment variable for making local usage easier.
 {% gist javatarz/f1e33a666587f4ade051e725e196742e %}
 
 ### Testing secret files
-If all files for an environment aren't checked with the same key, you'll face a runtime error. Since files can be encrypted individually, you must test if all files have been encrypted correctly. This test is also useful when you're rotating the `MASTER_PASSWORD` for an environment.
+If all files for an environment aren't checked with the same key, you'll face a runtime error. Since files can be encrypted individually, you must test if all files have been encrypted correctly. This test is also useful when you're rotating the `SECRET_KEY` for an environment.
 
-`test_encryption.sh` needs `MASTER_PASSWORD_<env>` values set so it can be executed locally.
+`test_encryption.sh` needs `SECRET_KEY_<env>` values set so it can be executed locally.
 {% gist javatarz/5aedf7066b408511975d3cb97ce0ee5a %}
 
 ### End result
@@ -128,7 +128,7 @@ Our final project structure contains the following files
 ```
 terraform
 ├── config
-│   ├── master
+│   ├── main
 │   │   ├── module-1.tfvars
 │   │   ├── module-1.tfsecrets.enc
 │   │   ├── module-2.tfvars
