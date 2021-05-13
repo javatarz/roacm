@@ -20,24 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Version info
+      - name: Build the site in the jekyll/builder container
         run: |
-          ruby --version
-          gem --version
-          bundle --version
-      - name: List dependency versions
-        run: bundle exec github-pages versions
-      - name: Checking DNS
-        run: bundle exec github-pages health-check
-      - name: Checking Jekyll configuration
-        run: bundle exec jekyll doctor
-      - name: Building site
-        run: bundle exec jekyll build --config _config.yml,_config_test.yml --profile
-      - name: Checking HTML files
-        run: bundle exec htmlproofer ./_site --allow-hash-href --assume-extension --http-status-ignore "403,429" --only-4xx
-      - name: Cleaning up
-        run: bundle exec jekyll clean
+          docker run \
+          -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+          jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+      - name: Push changes
+        uses: ptienchuan/deploy-github-pages-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_PAT }}
+        with:
+          source-directory: "_site"
+          target-branch: "gh-pages"
+          user-name: "deploy[bot]"
+          user-email: "deploy[bot]@noreply.github.com"

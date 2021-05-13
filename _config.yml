@@ -62,6 +62,7 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - vendor
 
 social_links:
   -
