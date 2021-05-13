@@ -3,18 +3,41 @@ name: Jekyll site CI
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+
+env:
+  RUBY_VERSION: 2.6.3
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the site in the jekyll/builder container
-      run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Version info
+        run: |
+          ruby --version
+          gem --version
+          bundle --version
+      - name: List dependency versions
+        run: bundle exec github-pages versions
+      - name: Checking DNS
+        run: bundle exec github-pages health-check
+      - name: Checking Jekyll configuration
+        run: bundle exec jekyll doctor
+      - name: Building site
+        run: bundle exec jekyll build --config _config.yml,_config_test.yml --profile
+      - name: Checking HTML files
+        run: bundle exec htmlproofer ./_site --allow-hash-href --assume-extension --http-status-ignore "403,429" --only-4xx
+      - name: Cleaning up
+        run: bundle exec jekyll clean
