@@ -12,7 +12,7 @@ date_format: "ordinal"
 time_format: "%H:%M %Z"
 timezone: Asia/Kolkata
 
-root: /
+root: /roacm
 permalink: /blog/:year/:month/:day/:title/
 
 plugins_dir: _plugins
@@ -58,9 +58,11 @@ theme: jekyll-theme-dinky
 plugins:
   - jekyll-feed
   - jekyll-gist
+  - jekyll-target-blank
 exclude:
   - Gemfile
   - Gemfile.lock
+  - vendor
 
 social_links:
   -

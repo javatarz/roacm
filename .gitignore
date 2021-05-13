@@ -7,3 +7,4 @@
 # Configs and generated code
 _site/
 _deploy.yml
+vendor/
