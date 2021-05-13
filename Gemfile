@@ -23,3 +23,5 @@ end
 gem 'pygments.rb', '~> 1.2.1'
 gem 'thor', '~> 0.20.0'
 gem 'stringex', '~> 2.8.2'
+gem "github-pages", :group => :jekyll_plugins
+gem "html-proofer", :group => :test
