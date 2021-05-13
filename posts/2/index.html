@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <div class="blog-index">
+  
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/">Commonly made mistakes in Unit Testing</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <h2 id="what-is-unit-testing">What is Unit Testing?</h2>
+
+<p>Unit testing is all about focusing on one element of the software at a time. This unit is called the often called the ‘System Under Test’ (refer <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank" rel="noopener noreferrer">Mocks Aren’t Stubbs</a>).
+In order to test only one unit at a time, all other units need to <strong>not</strong> be test at the same time. As obvious as that sounds, it’s easy to miss.</p>
+
+<p>Classes do not exist independent of one another. They usually have dependencies. Such dependencies are called the ‘Collaborators’. There are multiple ways to manage collaborators that have been talked about by Martin in his article.</p>
+
+<h3 id="pre-requisites-to-the-post-before-going-forward">Pre-requisites to the post before going forward</h3>
+<p>Before we go on, please ensure you’ve read through <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank" rel="noopener noreferrer">Mocks Aren’t Stubbs</a> by <a href="http://martinfowler.com/" target="_blank" rel="noopener noreferrer">Martin Fowler</a>. This post assumes that you’ve gone through the article before continuing on to commonly made mistakes in Unit Testing</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/11/28/movement-to-cybershark/">Movement to Cybershark</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>I had been procrastinating movement to a dev-ops style Chef deployment for my servers to ease it’s management because of the age old “If it ain’t broke..”. Well, upgrades on Bumblebee were getting more expensive so I finally decided to take the leap. I introduce the <a href="https://github.com/javatarz/trion-cookbooks" target="_blank" rel="noopener noreferrer">trion cookbook</a> that I’m using to setup my servers.</p> <p>I also realized that <a href="http://kimsufi.ie/" target="_blank" rel="noopener noreferrer">Kimsufi</a> came up with cheaper servers (now as low as €4.99). Without automation to setup my servers, the thought of migration and building another <a href="http://martinfowler.com/bliki/SnowflakeServer.html" target="_blank" rel="noopener noreferrer">snowflake server</a> scares me purely because of it’s frailty. No more.</p> <p>I’ve now officially
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2015/11/28/movement-to-cybershark/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/10/03/modern-operating-systems-phoning-home/">Modern Operating Systems Phoning Home</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>It seriously irks me when general public operating systems build in default features that send data to their servers without clearly indicating so. Both Microsoft (with Windows 10) and Apple (with Yosemite) have done so. Disabling these features doesn’t take long so here’s what you need to do.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2015/10/03/modern-operating-systems-phoning-home/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying/">Reducing Maven Package times due to resource copying</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>I once worked on a web application with a 250+MB <em>code base</em>. This consisted of 200,000 images. For every development cycle, you had to compile and deploy the code on the server which was painful to say the least. The size wasn’t the problem as much as the number of resources. The code took less than 20 seconds to compile.</p> <p>We figured that compilations overwriting class files were OK but having to edit any resource just took too long. In such cases, you can use maven’s process-resources plugin to ask maven to only copy the new resources to your target directory.</p>
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/07/11/maven-compilation-in-ram-drive/">Maven Compilation in Ram Drive</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>If you’re working on huge maven projects and have a slow disk, compilation, packaging and install times can sore quite high. If getting faster hard disks isn’t possible, why not try moving the compilation to a ram drive?</p>
+
+<p>A code base which used to take <strong>22 minutes</strong> to compile went down to <strong>3 minutes</strong>. This just goes to show the effect that disk IO bottlenecks can have on your system.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2015/07/11/maven-compilation-in-ram-drive/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/">Forced HTTPs on your website with CloudFlare</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>I’m a supporter of the <a href="https://www.eff.org/https-everywhere" target="_blank" rel="noopener noreferrer">HTTPS everywhere movement</a> by the <a href="https://www.eff.org/" target="_blank" rel="noopener noreferrer">EFF</a>. They advocate users use (all) websites with HTTPS for extra security. This means everyone should probably fork out a few dollars to get their own certificates. Unless you’re buying a domain at NameCheap (in which case they tend to throw in a SSL certificate for the first year), you’d have to shell out $8-$12 to get one.</p>
+
+<p>Side note, I recommend every user have <a href="https://www.eff.org/https-everywhere" target="_blank" rel="noopener noreferrer">HTTPS everywhere</a> installed on every browser.</p>
+
+<p>Though it’s not perfect, you can get a SSL for your website for free.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2015/01/31/signs-of-a-troubled-startup/">Signs of a troubled startup</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>India has been developing the startup culture quite seriously over the past half a decade. In this time I’ve seen dozens of ventures pop up and quite a few of them fizzle out. If you’ve gone through a startup bootcamp or an equivalent program, you’ve probably heard the stats. Failure rate of startups is pretty high. I admit, I am concerned. Not about the high failure rate. It’s about <strong>why</strong> quite a few Indian startups are failing these days.</p>
+
+<p>I am concerned because they seem to not be getting their basics right. Most startup schools and accelerators tell you things that usually go wrong. Repeatedly. Yet there are other things they don’t tell you. Things they’d think are common sense.</p>
+
+<p>Sometimes it is hard to spot these from the outside but if you do see these signs, you better have taken your ERT training seriously because the building is on fire and you better be prepared to evacuate people.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2015/01/31/signs-of-a-troubled-startup/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/12/29/net-neutrality-why-should-i-care/">Net Neutrality: Why should I care?</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>Yes, that’s one of the most often asked questions right after “What is that?”. I don’t often provide this explanation to techies because doing that is as simple as giving them a few lines of explanation and pointing them to a good website with information. The real challenge, if you ask me, is explaining this problem to the everyday <em>Joe</em> out there. Especially since, in a place like India you’re likely to hear “we have bigger problems than _<insert issue="" here="">_". This to me sounds like a blanket excuse for not wanting to deal with an issue at hand and here's how I tend to answer such queries.</insert></p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2014/12/29/net-neutrality-why-should-i-care/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/12/10/mac-camera-not-available/">Mac: Camera not available</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>My Macbook Pro sometimes doesn’t detect it’s web camera when I’m trying to join a video call and it’s painful to have to reboot the machine to fix it. A simpler way (especially if you have root access to your machine) is to kill VDCAssistant from the command line.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo killall VDCAssistant</code></pre></figure>
+
+<p>Once you’re done, restart the application that was attempting to use your web camera :)</p>
+
+    
+  
+
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/11/30/removing-utorrent-ads/">Removing uTorrent ads</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>When BitTorrent bought over μTorrent, they promised users that all adverts would be optional. They have, however, made it harder and harder to hide the adverts including now a set of hidden options. Thankfully users have found how to access those hidden options.</p> <h2 id="turn-off-all-adsfeatured-contentbundle-crap-in-μtorrentbittorrent">Turn off ALL Ads/Featured Content/Bundle Crap in μtorrent/Bittorrent:</h2> <h4 id="options--preferences--advanced">Options &gt; Preferences &gt; Advanced</h4> <p>Turn ALL settings to <strong>false</strong>:</p> <ul> <li>bt.enable_pulse</li> <li>distributed_share.enable</li> <li>gui.show_notorrents_node</li> <li>offers.left_rail_offer_enabled</li> <li>gui.show_plus_upsell</li> <li>offers.content_offer_autoexec</li> <li>offers.sponsored_torrent_offer_enabled</li> <li>offers.featured_content_badge_enabled</li> <li>offers.featured_content_notifications_enabled</li> <li>offers.featured_content_rss_enabled</li> </ul> <h4 id="options--preferences--hold-shiftf2-while-clicking-advanced-hidden-fields">Options &gt; Preferences &gt; Hold Shift+F2 while clicking Advanced (Hidden fields)</h4> <p>Turn ALL settings to <strong>false</strong>:</p> <ul> <li>gui.show_gate_notify</li> <li>gui.show_plus_av_upsell</li> <li>gui.show_plus_conv_upsell</li> <li>gui.show_plus_upsell_nodes</li> </ul> <p>Source: <a href="http://forum.utorrent.com/topic/81421-321-how-to-turn-off-ads-except-for-the-silly-upgrade-banner/page-3#entry496240" target="_blank" rel="noopener noreferrer">Forum
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2014/11/30/removing-utorrent-ads/">Read on →</a>
+    </p>
+  
+</a></p>
+</div>
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/3">← Older</a>
+    
+    
+    <a class="next" href="/">Newer →</a>
+    
+  </div>
+</div>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

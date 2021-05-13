@@ -1,27 +1,1759 @@
----
-layout: null
----
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[{{ site.title | cdata_escape }}]]></title>
-  <link href="{{ site.url }}/atom.xml" rel="self"/>
-  <link href="{{ site.url }}/"/>
-  <updated>{{ site.time | date_to_xmlschema }}</updated>
-  <id>{{ site.url }}/</id>
+  <title><![CDATA[Ramblings of a Coder's Mind]]></title>
+  <link href="https://blog.karun.me/atom.xml" rel="self"/>
+  <link href="https://blog.karun.me/"/>
+  <updated>2021-05-13T11:12:42+05:30</updated>
+  <id>https://blog.karun.me/</id>
   <author>
-    <name><![CDATA[{{ site.author | strip_html }}]]></name>
-    {% if site.email %}<email><![CDATA[{{ site.email }}]]></email>{% endif %}
+    <name><![CDATA[Karun Japhet]]></name>
+    <email><![CDATA[karun@japhet.in]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  {% for post in site.posts limit: 20 %}
+  
   <entry>
-    <title type="html"><![CDATA[{% if site.titlecase %}{{ post.title | titlecase | cdata_escape }}{% else %}{{ post.title | cdata_escape }}{% endif %}]]></title>
-    <link href="{{ site.url }}{{ post.url }}"/>
-    <updated>{{ post.date | date_to_xmlschema }}</updated>
-    <id>{{ site.url }}{{ post.id }}</id>
-    <content type="html"><![CDATA[{{ post.content | expand_urls: site.url | cdata_escape }}]]></content>
+    <title type="html"><![CDATA[Data storage patterns, versioning and partitions]]></title>
+    <link href="https://blog.karun.me/blog/2021/05/09/data-storage-patterns-versioning-and-partitions/"/>
+    <updated>2021-05-09T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2021/05/09/data-storage-patterns-versioning-and-partitions</id>
+    <content type="html"><![CDATA[<p>When you have large volumes of data, storing it logically helps users discover information and makes understanding the information easier. In this post, we talk about some of the techniques we use to do so in our application.</p>
+
+<p>In this post, we are going to use the terminology of AWS S3 buckets to store information. The same techniques can be applied on other cloud, non cloud providers and bare metal servers. Most setups will include a high bandwidth low latency network attached storage with proximity to the processing cluster or disks on HDFS if the entire platform uses HDFS. Your mileage may vary based on your team’s setup and use case. We are also going to talk about techniques which have allowed us to efficiently process this information using Apache Spark as our processing engine. Similar techniques are available for other data processing engines.</p>
+
+<h1 id="managing-storage-on-disk">Managing storage on disk</h1>
+
+<p>When you have large volumes of data, we have found it useful to separate data that comes in from the upstream providers (if any) from any insights we process and produce. This allows us to segregate access (different parts have different PII classifications) and apply different retention policies.</p>
+
+<p><a href="https://blog.karun.me/assets/images/uploads/data-seggregation-using-buckets.png"><img src="https://blog.karun.me/assets/images/uploads/data-seggregation-using-buckets-622x422.png" alt="Data processing pipeline between various buckets and the operations performed when data moves from one bucket to the other" /></a></p>
+
+<p>We would separate each of these datasets so it’s clear where each came from. When setting up the location to store your data, refer to local laws (like GDPR) for details on data residency requirements.</p>
+
+<h2 id="provider-buckets">Provider buckets</h2>
+
+<p>Providers tend to make their own directories to send us data. This allows them to have access over how long they want to retain data or if they need to modify information. Data is rarely modified but when it is, a heads up is given to re-process information.</p>
+
+<p>If this was an event driven system, we would have different event types suggesting that the data from an earlier date was modified. Since the volume of data is large and the batch nature of data transfer on our platform, verbal/written communication is preferred by our data providers which allows us to re-trigger our data pipelines for the affected days.</p>
+
+<p><a href="https://blog.karun.me/assets/images/uploads/provider-buckets-data-layout.png"><img src="https://blog.karun.me/assets/images/uploads/provider-buckets-data-layout-650x373.png" alt="The preferred layout of provider buckets" /></a></p>
+
+<h2 id="landing-bucket">Landing bucket</h2>
+
+<p><a href="https://blog.karun.me/assets/images/uploads/landing-bucket-data-layout.png"><img src="https://blog.karun.me/assets/images/uploads/landing-bucket-data-layout-650x537.png" alt="Landing bucket data layout" /></a></p>
+
+<p>Most data platforms either procure data or produce it internally. The usual mechanism is for a provider to write data into its own bucket and give its consumers (our platform) access. We copy the data into a landing bucket. This data is a full replica of what the provider gives us without any processing. Keeping data we received from the provider separate from data we process and insights we derive allows us to</p>
+
+<ol>
+  <li>Ensure that we don’t accidentally share raw data with others (we are contractually obligated not to share source data)</li>
+  <li>Apply different access policies to raw data when it contains any PII</li>
+  <li>Preserve an untouched copy of the source if we ever have to re-process the data (providers delete data from their bucket within a month or so)</li>
+</ol>
+
+<h2 id="core-bucket">Core bucket</h2>
+
+<p>The data in the landing bucket might be in a format sub optimal for processing (like CSV). The data might also be dirty. We take this opportunity to clean up the data and change the format to something more suitable for processing. For our use case, a downstream pipeline usually consumes a part of what the upstream pipeline produces. Since only a subset of the data is read downstream by a single job, using a file format that allows optimized columnar reads helped us boost performance and thus we use formats like ORC and parquet in our system. The output after this cleanup and transformation is written to the core bucket (since this data is clean input that’s optimised for further processing and thus core to the functioning of the platform).</p>
+
+<p><a href="https://blog.karun.me/assets/images/uploads/core-bucket-data-layout.png"><img src="https://blog.karun.me/assets/images/uploads/core-bucket-data-layout-650x757.png" alt="Core bucket data layout" /></a></p>
+
+<p>While landing has an exact replica of what the data provider gave us, core’s raw data just transforms it to a more appropriate format (parquet/ORC for our use case) and processing applies some data cleanup strategies, adds meta-data and a few processed columns.</p>
+
+<h2 id="derived-bucket">Derived bucket</h2>
+
+<p>Your data platform probably has multiple models running on top of the core data that produce multiple insights. We write the output for each of these into its own directory.</p>
+
+<p><a href="https://blog.karun.me/assets/images/uploads/derived-bucket-data-layout.png"><img src="https://blog.karun.me/assets/images/uploads/derived-bucket-data-layout-650x1312.png" alt="Derived bucket data layout" /></a></p>
+
+<h2 id="advantages-of-data-segregation">Advantages of data segregation</h2>
+
+<ol>
+  <li>Separating the data makes it easier to find the data. When you have terabytes or petabytes of information across your organization with multiple teams working on this data platform, it becomes easy to lose track of the information that is already available and it can be hard to find it if they are stored in different places. Having some way to find information is helpful. For us, separating the data by whether we get it from an upstream system, we produce it or we send it out to a downstream system helps teams find information easily.</li>
+  <li>Different rules apply to different datasets. You might be obligated to delete data from raw information you have purchased under certain conditions (like when they have PII). Rules for retaining derived data are different if it does not contain any PII.</li>
+  <li>Most platforms allow archiving of data. Separating the dataset makes it easier to archive different datasets. (we’ll talk about other aspects of archiving during data partitioning)</li>
+</ol>
+
+<h1 id="data-partitioning">Data partitioning</h1>
+
+<p>Partitioning is a technique that allows your processing engine (like Spark) to read data more efficiently thus making the program more efficient. The most optimal way to partition data is based on the way it is read, written and/or processed. Since most data is written once and read multiple times, optimising a dataset for reads makes sense.</p>
+
+<p>We create a core bucket for each region we operate in (based on data residency laws of the area). For example, since the EU data cannot leave the EU, we create a derived-bucket in one of the regions in the EU. Under this bucket, we separate the data based on the country, the model that’s producing the data, a version of the data (based on its schema) and the date partition based on which the data was created.</p>
+
+<p>Reading data from a path like <code>derived-bucket/country=uk/model=alpha/version=1.0</code> will give you a data set with columns year, month and day. This is useful when you are looking for data across different dates. When filtering the data based on a certain month, frameworks like spark allow the use of <a href="https://medium.com/inspiredbrilliance/spark-optimization-techniques-a192e8f7d1e4">push down predicates</a> making reads more efficient.</p>
+
+<h1 id="data-versioning">Data versioning</h1>
+
+<p>We change the version of the data every time there is a breaking change. Our versioning strategy is similar to the one talked about in the book for <a href="https://www.databaserefactoring.com/">Database Refactoring</a> with a few changes for scale. The book talks about many types of refactoring and the <a href="http://www.agiledata.org/essays/renameColumn.html">column rename</a> is a common and interesting use case.</p>
+
+<p>Since the data volume is comparatively low in databases (megabytes to gigabytes), migrating everything to the latest schema is (comparatively) inexpensive. It is important to make sure the application is usable at all points and that there is no point at which the application is not usable.</p>
+
+<h2 id="versioning-on-large-data-sets">Versioning on large data sets</h2>
+
+<p>When the data volume is high (think terabytes to petabytes), running migrations like this is a very expensive process in terms of the time and resources taken. Also, the application downtime during the migration is large or there’s 2 copies of the dataset created (which makes storage more expensive).</p>
+
+<h3 id="non-breaking-schema-changes">Non breaking schema changes</h3>
+
+<p>Let’s say you have a dataset that maps the real names to superhero names that you have written to <code>model=superhero-identities/year=2021/month=05/day=01</code>.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">+--------------+-----------------+
+|  real_name   | superhero_name  |
++--------------+-----------------+
+| Tony Stark   | Iron Man        |
+| Steve Rogers | Captain America |
++--------------+-----------------+</code></pre></figure>
+
+<p>The next day, if you would like to add their home location, you can write the following data set to the directory <code>day=02</code>.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">+------------------+----------------+--------------------------+
+|    real_name     | superhero_name |      home_location       |
++------------------+----------------+--------------------------+
+| Bruce Banner     | Hulk           | Dayton, Ohio             |
+| Natasha Romanoff | Black Widow    | Stalingrad, Soviet Union |
++------------------+----------------+--------------------------+</code></pre></figure>
+
+<p>Soon after, you realize that storing the real name is too risky. The data you have already published was public knowledge but moving forward, you would like to stop publishing real names. Thus on <code>day=03</code>, you remove the <code>real_name</code> column.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">+----------------+---------------------------+
+| superhero_name |       home_location       |
++----------------+---------------------------+
+| Spider-Man     | Queens, New York          |
+| Ant-Man        | San Francisco, California |
++----------------+---------------------------+</code></pre></figure>
+
+<p>When you read <code>derived-bucket/country=uk/model=superhero-identities/</code> using spark, the framework will read the first schema and use it to read the entire dataset. As a result, you do not see the new <code>home_location</code> column.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">scala&gt; spark.read.
+  parquet(&quot;model=superhero-identities&quot;).
+  show()
++----------------+---------------+----+-----+---+
+|       real_name| superhero_name|year|month|day|
++----------------+---------------+----+-----+---+
+|Natasha Romanoff|    Black Widow|2021|    5|  2|
+|    Bruce Banner|           Hulk|2021|    5|  2|
+|            null|        Ant-Man|2021|    5|  3|
+|            null|     Spider-Man|2021|    5|  3|
+|    Steve Rogers|Captain America|2021|    5|  1|
+|      Tony Stark|       Iron Man|2021|    5|  1|
++----------------+---------------+----+-----+---+</code></pre></figure>
+
+<p>Asking Spark to merge the schema for you shows all columns (with missing values shown as <code>null</code>)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">scala&gt; spark.read.option(&quot;mergeSchema&quot;, &quot;true&quot;).
+  parquet(&quot;model=superhero-identities&quot;).
+  show()
++----------------+---------------+--------------------+----+-----+---+
+|       real_name| superhero_name|       home_location|year|month|day|
++----------------+---------------+--------------------+----+-----+---+
+|Natasha Romanoff|    Black Widow|Stalingrad, Sovie...|2021|    5|  2|
+|    Bruce Banner|           Hulk|        Dayton, Ohio|2021|    5|  2|
+|            null|        Ant-Man|San Francisco, Ca...|2021|    5|  3|
+|            null|     Spider-Man|    Queens, New York|2021|    5|  3|
+|    Steve Rogers|Captain America|                null|2021|    5|  1|
+|      Tony Stark|       Iron Man|                null|2021|    5|  1|
++----------------+---------------+--------------------+----+-----+---+</code></pre></figure>
+
+<p>As your model’s schema evolves, using features like merge schema allows you to read the available data across various partitions and then process it. While we have showcased spark’s abilities to merge schemas for parquet files, such capabilities are also available with other file formats.</p>
+
+<h3 id="breaking-changes-or-parallel-runs">Breaking changes or parallel runs</h3>
+
+<p>Sometimes, you evolve and improve your model. It is useful to do <a href="https://en.wikipedia.org/wiki/Parallel_running">parallel runs</a> and compare the result to verify that it is indeed better before the business switches to use the newer version.</p>
+
+<p>In such cases we bump up the version of the solution. Let’s assume job alpha v1.0.36 writes to the directory <code>derived-bucket/country=uk/model=alpha/version=1.0</code>. When we have a newer version of the model (that either has a very different schema or has to be run in parallel), we bump the version of the job (and the location it writes to) to 2.0 making the job alpha v2.0.0 and it’s output directory <code>derived-bucket/country=uk/model=alpha/version=2.0</code>.</p>
+
+<p>If this change was made and deployed on 1st of Feb and this job runs daily, the latest date partition under <code>model=alpha/version=1.0</code> will be <code>year=2020/month=01/day=31</code>. From the 1st of Feb, all data will be written to the <code>model=alpha/version=2.0</code> directory. If the data in version 2.0 is not sufficient for the business on 1st Feb, we either run backfill jobs to get more data under this partition or we run both version 1 and 2 until version 2’s data is ready to be used by the business.</p>
+
+<p>The version on disk represents the version of the schema and can be matched up with the versioning of the artifact when using <a href="https://semver.org">Semantic Versioning</a>.</p>
+
+<h2 id="advantages">Advantages</h2>
+<ol>
+  <li>Each version partition on disk has the same schema (making reads easier)</li>
+  <li>Downstream systems can choose when to migrate from one version to another</li>
+  <li>A new version can be tested out without affecting the existing data pipeline chain</li>
+</ol>
+
+<h1 id="summary">Summary</h1>
+<p>Applications, system architecture and your data <a href="https://evolutionaryarchitecture.com/">always evolve</a>. Your decisions in how you store and access your data affect your system’s ability to evolve. Using techniques like versioning and partitioning helps your system continue to evolve with minimal overhead cost. Thus, we recommend integrating these techniques into your product at its inception so the team has a strong foundation to build upon.</p>
+
+<p><em>Thanks to <a href="https://www.linkedin.com/in/sanjoyb/">Sanjoy</a>, <a href="https://www.linkedin.com/in/anaynayak/">Anay</a> <a href="https://www.linkedin.com/in/sathishmandapaka/">Sathish</a>, <a href="https://www.linkedin.com/in/jayant-p/">Jayant</a> and <a href="https://www.linkedin.com/in/priyaaank/">Priyank</a> for their draft reviews and early feedback. Thanks to <a href="https://www.linkedin.com/in/nikita-oliver/">Niki</a> for using her artwork wizardry skills.</em></p>
+]]></content>
   </entry>
-  {% endfor %}
+  
+  <entry>
+    <title type="html"><![CDATA[Version controlled configuration and secrets management for Terraform]]></title>
+    <link href="https://blog.karun.me/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform/"/>
+    <updated>2019-08-26T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2019/08/26/version-controlled-configuration-and-secrets-management-for-terraform</id>
+    <content type="html"><![CDATA[<p><a href="https://www.terraform.io/">Terraform</a> is a tool to build your infrastructure as code. We’ve been having a few challenges while trying to figure out how to how to manage configuration and secrets when integrating terraform with our CD pipeline.</p>
+
+<!-- more -->
+<h2 id="life-before-version-control">Life before version control</h2>
+<p>Before we can do that, it’s important to understand build process before we began on this journey.
+<a href="https://blog.karun.me/assets/images/uploads/terraform-environments.jpg"><img src="https://blog.karun.me/assets/images/uploads/terraform-environments.jpg" alt="Terraform managed environments" /></a></p>
+
+<p>Our build model for this project was branch based. Each environment maps to a branch (<code>main -&gt; dev</code>, <code>uat -&gt; uat</code> and <code>production -&gt; production</code>). All other (feature) branches only ran the plan stage against the <code>dev</code> environment.</p>
+
+<p>As you can notice, the configurations, secrets and keys are all maintained on the build agent. This means, every developer wanting to run plan and test their changes needs to replicate the <code>terraform_variables</code> directory. Any mistakes in doing so masks actual issues that your pipeline might face leading to delayed feedback.</p>
+
+<p>Next, let’s look at what our codebase looked like</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">terraform
+├── module-1
+│   ├── backend.tf
+│   ├── data.tf
+│   ├── resources.tf
+│   ├── provider.tf
+│   └── variables.tf
+├── module-2
+│   ├── backend.tf
+│   ├── data.tf
+│   ├── resources.tf
+│   ├── provider.tf
+│   └── variables.tf
+└── scripts
+    └── provision
+        ├── apply.sh
+        ├── init.sh
+        └── plan.sh</code></pre></figure>
+
+<p>The provisioning scripts help us consistently run different stages across modules. Each module is an independent area of our infrastructure (such as core networking, HTTP services etc.)</p>
+
+<p>Each of the provisioning scripts accepted a <code>WORKSPACE_NAME</code> (branch for execution that maps to the environment terraform is running for) and <code>MODULE_NAME</code> (module being executed).</p>
+
+<p><code>init.sh</code> ran the <code>terraform init</code> stage of the pipeline downloading the necessary plugins and initializing the backend</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+cd $MODULE_NAME
+
+echo &quot;init default.tfstate&quot;
+terraform init -backend-config=&quot;key=default.tfstate&quot;
+
+echo &quot;select or create new workspace $WORKSPACE_NAME&quot;
+terraform workspace select $WORKSPACE_NAME || terraform workspace new $WORKSPACE_NAME
+
+echo &quot;init $MODULE_NAME/terraform.tfstate&quot;
+terraform init -backend-config=&quot;key=$MODULE_NAME/terraform.tfstate&quot; -force-copy -reconfigure</pre></noscript>
+<script src="https://gist.github.com/javatarz/52c755ca164de009f1e37bebfdac46ea.js"> </script>
+
+<p><code>plan.sh</code> ran the <code>terraform plan</code> stage allowing users to review their changes before applying them.</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+cd $MODULE_NAME
+
+echo &quot;select or create new workspace $WORKSPACE_NAME&quot;
+terraform workspace select $WORKSPACE_NAME || terraform workspace new $WORKSPACE_NAME
+
+echo &quot;plan with var file ~/terraform_variables/$WORKSPACE_NAME/$MODULE_NAME.tfvars&quot;
+terraform plan -var-file=~/terraform_variables/$WORKSPACE_NAME/$MODULE_NAME.tfvars -out=$MODULE_NAME.tfplan -input=false</pre></noscript>
+<script src="https://gist.github.com/javatarz/5ab158cd0aa7ba492872cff7061d8814.js"> </script>
+
+<p><code>apply.sh</code> applied the changes onto an environment. Developers do not run this command from local to ensure consistency on the environment</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+cd $MODULE_NAME
+
+echo &quot;select or create new workspace $WORKSPACE_NAME&quot;
+terraform workspace select $WORKSPACE_NAME || terraform workspace new $WORKSPACE_NAME
+
+echo &quot;apply with var file ~/terraform_variables/$WORKSPACE_NAME/$MODULE_NAME.tfvars&quot;
+terraform apply -var-file=~/terraform_variables/$WORKSPACE_NAME/$MODULE_NAME.tfvars -auto-approve</pre></noscript>
+<script src="https://gist.github.com/javatarz/48795c981c5495d38184a4cf52a1cd2c.js"> </script>
+
+<h2 id="version-controlling-configuration">Version controlling configuration</h2>
+<p>We moved the variables into the <code>config</code> directory by making a directory for every branch for each of the 3 environments we had.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">terraform
+├── config
+│   ├── main
+│   │   ├── module-1.tfvars
+│   │   └── module-2.tfvars
+│   ├── production
+│   │   ├── module-1.tfvars
+│   │   └── module-2.tfvars
+│   ├── uat
+│   │   ├── module-1.tfvars
+│   │   └── module-2.tfvars
+├── module-1
+│   └── ...
+├── module-2
+|   └── ...
+└── scripts
+    ├── provision
+    │   ├── apply.sh
+    │   ├── functions.sh
+    │   ├── init.sh
+    │   └── plan.sh
+    └── test_variable_names.sh</code></pre></figure>
+
+<p>According to <a href="https://www.terraform.io/docs/configuration/variables.html#environment-variables">terraform’s documentation</a>, you can export a variable that your terraform codes need with a prefix of <code>TF_VAR</code>.</p>
+
+<p><code>functions.sh</code> provides convenience functions to read the configuration and secrets.</p>
+<noscript><pre>#!/bin/bash
+
+function fetch_variables() {
+    workspace_name=$1
+    module_name=$2
+
+    echo $(cat ../config/$workspace_name/$module_name.tfvars | sed &#39;/^$/D&#39; | sed &#39;s/.*/TF_VAR_&amp; /&#39; | tr -d &#39;\n&#39;)
+}</pre></noscript>
+<script src="https://gist.github.com/javatarz/d9314848516e919952fbfc7c681a5488.js"> </script>
+
+<p><code>fetch_variables</code> read the <code>tfvars</code> file, removes empty lines (that were added for readability), prefixed the name with <code>TF_VAR</code> and joined all entries into a single line. The string this method returns can be used as a prefix to the <code>terraform</code> command while running <code>plan</code> and <code>apply</code> making them environment variables.</p>
+
+<p><em>Updated plan and apply scripts are placed in the secrets management section for brevity</em></p>
+
+<h3 id="testing-configuration-files">Testing configuration files</h3>
+<p>The only limitation is that <strong>none of these variables can have a hyphen</strong> in the name because of <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Definitions">shell variable naming rules</a>. As with any potential mistake, a test providing feedback helps protect you from run time failures. <code>test_variable_names.sh</code> does this check for us.</p>
+
+<noscript><pre>#!/bin/bash
+
+function parse_and_test_properties_entries() {
+    prop=$1
+    if [[ &quot;$prop&quot; == &quot;&quot; || $prop = \#* ]]; then
+        continue
+    fi
+
+    key=&quot;$(cut -d&#39;=&#39; -f1 &lt;&lt;&lt;&quot;$prop&quot;)&quot;
+    if [[ $key =~ &quot;-&quot; ]]; then
+        echo &quot;$filename contains \&quot;$key\&quot; which contains a hyphen&quot;
+        exit 1
+    fi
+}
+
+function parse_file() {
+    filename=$1
+    OLD_IFS=$IFS
+    props=$(cat $filename)
+
+    IFS=$&#39;\n&#39;
+    for prop in ${props[@]}; do
+        parse_and_test_properties_entries $prop
+    done
+    IFS=$OLD_IFS
+}
+
+base_dir=&quot;config&quot;
+for sub_dir in $(find $base_dir -mindepth 1 -maxdepth 1 -type d); do
+    workspace_name=${sub_dir#&quot;$base_dir/&quot;}
+
+    for input_file in config/$workspace_name/*.tfvars; do
+        parse_file $input_file
+    done
+
+    echo &quot;All variables are named correctly in config/$workspace_name&quot;
+done</pre></noscript>
+<script src="https://gist.github.com/javatarz/1497470a61c9f06689deaaf19a1610e1.js"> </script>
+
+<h2 id="version-controlling-secrets">Version controlling secrets</h2>
+<p>Secrets like passwords can be version controlled in a similar way though they require encryption to keep them safe. We’re using <a href="https://www.openssl.org/">OpenSSL</a> with a <a href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm">symmetric key</a> to encrypt our secrets. Each secret is put into a <code>tfsecrets</code> file (internally a property file just like <code>tfvars</code> files for configuration). When encrypted, the file will have an extension of <code>.tfsecrets.enc</code>. When the <code>plan</code> or <code>apply</code> stages are executed, files are decrypted <strong>in memory</strong> (and not on disk, for security reasons) and used the same way.</p>
+
+<p><code>functions.sh</code> gets a new addition to support reading all secrets</p>
+<noscript><pre>function fetch_secrets() {
+    workspace_name=$1
+    module_name=$2
+    secret_key_for_workspace=$(eval &quot;echo \$SECRET_KEY_$workspace_name&quot;)
+    echo $(openssl enc -aes-256-cbc -d -in ../config/$workspace_name/$module_name.tfsecrets.enc -pass pass:$secret_key_for_workspace | sed &#39;/^$/D&#39; | sed &#39;s/.*/TF_VAR_&amp; /&#39; | tr -d &#39;\n&#39;)
+}</pre></noscript>
+<script src="https://gist.github.com/javatarz/f78a72e02ce9aced0636d61672a2b777.js"> </script>
+
+<p>The astute amongst you probably noticed that we’re using OpenSSL v1.0.2s because v1.1.x changes the syntax on encryption/decryption of files. Also, you might have noticed the use of environment variables like <code>SECRET_KEY_main</code>, <code>SECRET_KEY_uat</code> and <code>SECRET_KEY_production</code> as the encryption keys. These values are stored on our CI server (in our case <a href="https://gitlab.com/">GitLab</a>) which makes these values available to our CI agent during execution.</p>
+
+<p>For local development, we have scripts to encrypt and decrypt configuration files either one at a time or in bulk per environment. It’s worth noting that re-encryption of the same file will show up on your <code>git diff</code> since the encrypted file’s metadata changes. Only check in encrypted files when their contents have changed (helping you debug future issues)</p>
+
+<p><code>encrypt.sh</code> takes <code>SECRET_KEY</code> as an environment variable for making local usage easier.</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+if [ -z &quot;$SECRET_KEY&quot; ]; then
+    echo &quot;Set a SECRET_KEY for \&quot;$WORKSPACE_NAME\&quot; encryption&quot;
+    exit 1
+fi
+
+function encrypt_file() {
+    input_file=$1
+    target_file=&quot;$input_file.enc&quot;
+    echo &quot;Encrypting $input_file to $target_file&quot;
+    openssl enc -aes-256-cbc -salt -in $input_file -out $target_file -pass pass:$SECRET_KEY
+    rm -f $input_file
+}
+
+if [ -z $1 ]; then
+    echo &quot;Usage:&quot;
+    echo &quot;  ./scripts/encrypt.sh &lt;filePathFromProjectRoot&gt;&quot;
+    echo &quot;  ./scripts/encrypt.sh all&quot;
+    exit 2
+elif [ &quot;$1&quot; == &quot;all&quot; ]; then
+    for input_file in config/$WORKSPACE_NAME/*.tfsecrets; do
+        encrypt_file $input_file
+    done
+else
+    encrypt_file $1
+fi</pre></noscript>
+<script src="https://gist.github.com/javatarz/8775d0d2a9ad124eefff9df6b2d431eb.js"> </script>
+
+<p><code>decrypt.sh</code> also takes the same <code>SECRET_KEY</code> as an environment variable for making local usage easier.</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+if [ -z &quot;$SECRET_KEY&quot; ]; then
+    echo &quot;Set a SECRET_KEY for \&quot;$WORKSPACE_NAME\&quot; decryption&quot;
+    exit 1
+fi
+
+function decrypt_file() {
+    input_file=$1
+    target_file=${input_file%&quot;.enc&quot;}
+    echo &quot;Decrypting $input_file to $target_file&quot;
+    openssl enc -aes-256-cbc -d -in $input_file -out $target_file -pass pass:$SECRET_KEY
+    rm -f $input_file
+}
+
+if [ -z $1 ]; then
+    echo &quot;Usage:&quot;
+    echo &quot;  ./scripts/decrypt.sh &lt;filePathFromProjectRoot&gt;&quot;
+    echo &quot;  ./scripts/decrypt.sh all&quot;
+    exit 2
+elif [ &quot;$1&quot; == &quot;all&quot; ]; then
+    for input_file in config/$WORKSPACE_NAME/*.tfsecrets.enc
+    do
+        decrypt_file $input_file
+    done
+else
+    decrypt_file $1
+fi</pre></noscript>
+<script src="https://gist.github.com/javatarz/f1e33a666587f4ade051e725e196742e.js"> </script>
+
+<h3 id="testing-secret-files">Testing secret files</h3>
+<p>If all files for an environment aren’t checked with the same key, you’ll face a runtime error. Since files can be encrypted individually, you must test if all files have been encrypted correctly. This test is also useful when you’re rotating the <code>SECRET_KEY</code> for an environment.</p>
+
+<p><code>test_encryption.sh</code> needs <code>SECRET_KEY_&lt;env&gt;</code> values set so it can be executed locally.</p>
+<noscript><pre>#!/bin/bash
+
+base_dir=&quot;config&quot;
+
+for sub_dir in $(find $base_dir -mindepth 1 -maxdepth 1 -type d); do
+    workspace_name=${sub_dir#&quot;$base_dir/&quot;}
+    password_var_name=&quot;\$SECRET_KEY_$workspace_name&quot;
+    secret_key_for_workspace=$(eval &quot;echo $password_var_name&quot;)
+
+    if [ -z &quot;$secret_key_for_workspace&quot; ]; then
+        echo &quot;Variable $password_var_name has not been set. Unable to test&quot;
+        exit 1
+    fi
+
+    for input_file in config/$workspace_name/*.tfsecrets.enc
+    do
+        openssl enc -aes-256-cbc -d -in $input_file -pass pass:$secret_key_for_workspace &amp;&gt; /dev/null
+        if [ $? != 0 ]; then
+            echo &quot;Unable to decrypt $input_file with $password_var_name&quot;
+            exit 1
+        fi
+    done
+
+    echo &quot;Successfully decrypted all secrets in config/$workspace_name&quot;
+done</pre></noscript>
+<script src="https://gist.github.com/javatarz/5aedf7066b408511975d3cb97ce0ee5a.js"> </script>
+
+<h3 id="end-result">End result</h3>
+<p>Our final project structure contains the following files</p>
+<pre><code>terraform
+├── config
+│   ├── main
+│   │   ├── module-1.tfvars
+│   │   ├── module-1.tfsecrets.enc
+│   │   ├── module-2.tfvars
+│   │   └── module-2.tfsecrets.enc
+│   ├── production
+│   │   ├── module-1.tfvars
+│   │   ├── module-1.tfsecrets.enc
+│   │   ├── module-2.tfvars
+│   │   └── module-2.tfsecrets.enc
+│   ├── uat
+│   │   ├── module-1.tfvars
+│   │   ├── module-1.tfsecrets.enc
+│   │   ├── module-2.tfvars
+│   │   └── module-2.tfsecrets.enc
+├── module-1
+│   └── ...
+├── module-2
+|   └── ...
+└── scripts
+    ├── decrypt.sh
+    ├── encrypt.sh
+    ├── provision
+    │   ├── apply.sh
+    │   ├── functions.sh
+    │   ├── init.sh
+    │   └── plan.sh
+    ├── test_encryption.sh
+    └── test_variable_names.sh
+</code></pre>
+
+<p><code>plan.sh</code> uses <code>functions.sh</code> to load configuration and secrets</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+source $(dirname &quot;$0&quot;)/functions.sh
+
+cd $MODULE_NAME
+
+echo &quot;select or create new workspace $WORKSPACE_NAME&quot;
+terraform workspace select $WORKSPACE_NAME || terraform workspace new $WORKSPACE_NAME
+
+echo &quot;plan with var file config/$WORKSPACE_NAME/$MODULE_NAME.tfvars&quot;
+config=$(fetch_variables $WORKSPACE_NAME $MODULE_NAME)
+secrets=$(fetch_secrets $WORKSPACE_NAME $MODULE_NAME)
+eval &quot;$secrets $config terraform plan -out=$MODULE_NAME.tfplan -input=false&quot;</pre></noscript>
+<script src="https://gist.github.com/javatarz/3efb6a5d416d4149678b427bc37ff154.js"> </script>
+
+<p><code>apply.sh</code> uses <code>functions.sh</code> in a similar fashion</p>
+<noscript><pre>#!/bin/bash
+set -e
+
+source $(dirname &quot;$0&quot;)/functions.sh
+
+cd $MODULE_NAME
+
+echo &quot;select or create new workspace $WORKSPACE_NAME&quot;
+terraform workspace select $WORKSPACE_NAME || terraform workspace new $WORKSPACE_NAME
+
+echo &quot;apply with var file config/$WORKSPACE_NAME/$MODULE_NAME.tfvars&quot;
+config=$(fetch_variables $WORKSPACE_NAME $MODULE_NAME)
+secrets=$(fetch_secrets $WORKSPACE_NAME $MODULE_NAME)
+eval &quot;$secrets $config terraform apply -auto-approve&quot;</pre></noscript>
+<script src="https://gist.github.com/javatarz/8e77d8ee1474a4d06faf9a4cc19ec0df.js"> </script>
+
+<p>And thus, our terraform project requires no data from the CI agent and can be executed perfectly from any box as long as it has the latest code checked out and the correct version of terraform.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Managing multiple signatures for git repositories]]></title>
+    <link href="https://blog.karun.me/blog/2019/06/11/managing-multiple-signatures-for-git-repositories/"/>
+    <updated>2019-06-11T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2019/06/11/managing-multiple-signatures-for-git-repositories</id>
+    <content type="html"><![CDATA[<p>Github explains pretty well <a href="https://help.github.com/en/articles/signing-commits">how to sign commits</a>. You can make it automatic by globally setting <code>commit.gpgsign = true</code> by using</p>
+
+<pre><code class="language-bash">git config --global commit.gpgsign true
+</code></pre>
+<p>What if you have different signatures for your personal ID and your work ID?</p>
+
+<!-- more -->
+
+<p>First, you create multiple signatures. It is important that the <strong>email address in the signature is the same as the one for the user who has authored the commit</strong>. Run <code>gpg -K --keyid-format SHORT</code> to see all available keys. The output looks like</p>
+
+<pre><code>/Users/karun/.gnupg/pubring.kbx
+-------------------------------
+sec   rsa4096/11111111 2019-06-11 [SC]
+      1234567890123456789012345678901211111111
+uid         [ultimate] Karun Japhet &lt;karun@personal.com&gt;
+ssb   rsa4096/22222222 2019-06-11 [E]
+
+sec   rsa4096/33333333 2019-06-11 [SC]
+      0987654321098765432109876543210933333333
+uid         [ultimate] Karun Japhet &lt;karunj@work.com&gt;
+ssb   rsa4096/44444444 2019-06-11 [E]
+</code></pre>
+
+<p>Fetch the ID for each of the signatures. The ID for the personal signature is 11111111 and that for the work signature is 33333333. To assign a signature to the repo, execute <code>git config user.signingkey &lt;ID&gt;</code>.</p>
+
+<p>Personally, I have aliases for personal and work signatures and every time I checkout a project, run the alias once.</p>
+<pre><code class="language-bash">alias signpersonal= "git config user.signingkey 11111111 &amp;&amp; git config user.email \"karun@personal.com\""
+alias signwork    = "git config user.signingkey 33333333 &amp;&amp; git config user.email \"karun@work.com\""
+</code></pre>
+
+<p>Run <code>git log --show-signature</code> to verify if a commit used the right signature. Happy commit-signing.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing broken Social logins on your browser]]></title>
+    <link href="https://blog.karun.me/blog/2019/04/16/fixing-broken-social-logins-on-your-browser/"/>
+    <updated>2019-04-16T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2019/04/16/fixing-broken-social-logins-on-your-browser</id>
+    <content type="html"><![CDATA[<p>Privacy vs Convienience is a constant battle. Personally, I prefer dialing up my privacy up to 11 to avoid being tracked. Every once in a while, <em>social logins</em> are important because it’s the only way to use a service. If this service is an internal company login that only uses social login via the company’s Google ID, you don’t have much of a chance.</p>
+
+<p>If your login just won’t work, try changing the following settings</p>
+
+<!-- more -->
+
+<h2 id="privacy-badger">Privacy Badger</h2>
+<p>Allow calls to <code>accounts.google.com</code> &amp; <code>apis.google.com</code></p>
+
+<h2 id="firefox-settings">Firefox settings</h2>
+<p>Allow Third party trackers in Firefox through Settings &gt; Privacy &amp; Security &gt; Cookies &gt; Third-party trackers</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The untold guide to troubleshoot Phillips Hue and Google Assistant Integration]]></title>
+    <link href="https://blog.karun.me/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration/"/>
+    <updated>2018-11-10T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2018/11/10/the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration</id>
+    <content type="html"><![CDATA[<p>Recently, I moved into a new home and was setting up my <a href="https://www2.meethue.com/en-us">Phillips Hue</a> lights with my <a href="https://assistant.google.com/#?modal_active=none">Google Home assistants</a> around my house for convenience. I noticed a couple of hick-ups since the last time I did this.</p>
+
+<!-- more -->
+
+<h2 id="logging-into-phillips-hue-app">Logging into Phillips Hue app</h2>
+<p>If the app does not ask you to hit the button on your bridge, your account <strong>already has a bridge</strong> associated with it.</p>
+
+<p>You can see what bridge is associated with your <a href="https://account.meethue.com">MeetHue account</a> on the <a href="https://account.meethue.com/bridge">bridges page</a>.</p>
+
+<p><img src="https://chapterbreak.net/wp-content/uploads/2015/12/only-one.gif" alt="There can only be one" title="There can only be one" /></p>
+
+<p>Remove any older bridges you might have on your account and try logging into the Phillips Hue app again. Once complete, you should be able to link your Google Home assistant to your Phillips Hue app.</p>
+
+<h2 id="other-house-keeping-for-security-reasons">Other House Keeping for security reasons</h2>
+
+<p>You can cleanup how many <a href="https://account.meethue.com/apps">apps have access to your account</a> and <a href="https://account.meethue.com/bridge">how many other users have access to your bridge</a>. If you see anything that your don’t recognize, remove it. After all, these apps and Hue account users can control the lights in your house. If you don’t know them, remove their access.</p>
+
+<p>In my case, the only users on my bridge are the family members in my house and the only apps I have are the Phillips Hue Android app (for mobile access remotely) and Google (assistant integration).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Efficient logback logging on JVM]]></title>
+    <link href="https://blog.karun.me/blog/2018/11/01/efficient-logback-logging-on-jvm/"/>
+    <updated>2018-11-01T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2018/11/01/efficient-logback-logging-on-jvm</id>
+    <content type="html"><![CDATA[<p>Efficient logging that doesn’t bring your application down is simple to setup but is often overlooked. Here are some quick tips on how to achieve exactly that
+<!-- more --></p>
+
+<h2 id="async-logging">Async Logging</h2>
+
+<p>Most applications these days should have a single (console) appender. This can be linked up with your log aggregator of choice. If your application cannot aggregate logs off the console stream, file is your next best alternative.</p>
+
+<p>Wrap each of your appenders with an async appender and add the async appender to your root logger.</p>
+
+<p>Every call to the logger creates a log event. In synchronous logging, that log event was processed and writes were made to all appender streams before the application continued. Since most stream writes involve I/O, this meant the application would wait for I/O before continuining thereby slowing it down. With async logging, the event gets pushed to a log level specific in memory queue. These events are processed and consumed by the appenders asynchronously. Since the application can continue after a log event has been published to the queue, asynchronous logging works quicker (as long as I/O is the long pole in the tent that is publishing log messages)</p>
+
+<p>Here’s a sample configuration:</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+  &lt;appender name="FILE" class="ch.qos.logback.core.FileAppender"&gt;
+    &lt;file&gt;myapp.log&lt;/file&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%logger{35} - %msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;appender name="ASYNC-FILE" class="ch.qos.logback.classic.AsyncAppender"&gt;
+    &lt;appender-ref ref="FILE" /&gt;
+    &lt;queueSize&gt;1024&lt;/queueSize&gt;
+    &lt;neverBlock&gt;false&lt;/neverBlock&gt;
+  &lt;/appender&gt;
+
+  &lt;root&gt;
+    &lt;appender-ref ref="ASYNC-FILE" /&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<p>Every queue has a configurable depth. The depth of the queue is based on how much memory you have and expected ratio in rates of messages coming in through the application and the messages being published through the I/O bottleneck.</p>
+
+<p>If you hit max queue depth on either the <code>WARN</code> or <code>ERROR</code> queues, further statements for those levels become synchronous.</p>
+
+<p>If you hit more than 80% of the max queue depth on any other level, the system will start dropping log statements (due to <code>discardingThreshold=20</code> by default and <code>neverBlock=true</code>). Therefore, under high load, you can lose <code>INFO</code>, <code>DEBUG</code> and <code>TRACE</code> log messages. This behaviour is acceptable for most cases except specific critical statements (like audit logs). For such cases, you can add asynchronous appenders that are allowed to block.</p>
+
+<p>The percentage of depth after which messages are dropped is configurable. You can make info/debug logs synchronous at 100% too if needed by changing the <code>neverBlock=false</code> (which is the default behaviour).</p>
+
+<p>All of this information is available on <a href="https://logback.qos.ch/manual/appenders.html#AsyncAppender">logback’s documentation</a>.</p>
+
+<h2 id="writing-log-statements">Writing log statements</h2>
+
+<p>Async logs only work more efficiently because the production of events is synchronous (and hopefully a quick task) and the processing of events (which requires IO) is a slow task.</p>
+
+<p>However if production of log messages takes <strong>long time</strong>, async logging will not make things better. When you’re printing a large amount of data or if the creation of the log message is an expensive operation, use the following kind of log statement</p>
+
+<pre><code class="language-java">// style 1: java string interpolation; inefficient and hard to read :P
+logger.info("Large object value was " + largeObject1 + " and long operation printed " + largeObject2.longOperation())
+// style 2: scala string interpolation; inefficient but easy to read
+logger.info(s"Large object value was $largeObject1 and long operation printed ${largeObject2.longOperation()}")
+// style 3: logback based string interpolation; efficient but inconvenient to read
+logger.info("Large object value was {} and long operation printed {}", largeObject1, largeObject2.longOperation())
+</code></pre>
+
+<p>While the scala interpolation (style 2) is the easiest to read, we should only do it when the objects being printed are small (small-ish strings or primitives).</p>
+
+<p>Rule of thumb:</p>
+
+<ul>
+  <li>For quick statements, use style 2.</li>
+  <li>For large statements, use style 3 (sacrifices readability for efficiency)</li>
+  <li>Never use style 1 :P</li>
+</ul>
+
+<h2 id="using-lazylogging-as-opposed-to-creating-loggers-yourself">Using LazyLogging as opposed to creating loggers yourself</h2>
+
+<p>Use <a href="https://github.com/lightbend/scala-logging">lazy logging</a>. It internally uses loggers that wraps yours code (during compile time) with if checks to not process log statements if the specific log level doesn’t need to be printed (<a href="https://github.com/lightbend/scala-logging/blob/master/src/main/scala/com/typesafe/scalalogging/LoggerMacro.scala#L44">using macros</a>). Worried about performance due to extra if conditions? You shouldn’t. Modern processors contain black magic called <a href="https://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">branch prediction</a> that reduce the effect of statements such as this to be effectively nothing.</p>
+
+<p>IMO, every scala project should use lazy logging. It’s <a href="https://github.com/lightbend/scala-logging/blob/master/project/Dependencies.scala">light on dependencies</a> and has a nice implementation that makes your logging more efficient <a href="https://github.com/lightbend/scala-logging/blob/master/src/main/scala/com/typesafe/scalalogging/LoggerMacro.scala">run faster for fractionally slower compilation</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Science in the Art of the Showcase (for distributed teams)]]></title>
+    <link href="https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams/"/>
+    <updated>2018-07-03T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams</id>
+    <content type="html"><![CDATA[<p><a href="https://shreedamani.wordpress.com/tag/agile-showcase/">Showcases</a> are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).</p>
+
+<p>On one of our recent teams, our showcases had challenges. Each of these challenges is a <a href="http://www.extremeprogramming.org/values.html">piece of feedback</a>. We added structure to our showcases by running it like <a href="https://en.wikipedia.org/wiki/List_of_theatre_personnel">a theatre recording TV shows</a>.</p>
+
+<p><em>This isn’t revolutionary stuff. This is an attempt at defining a structure that should make it easier to organize showcases based off a check-list.</em></p>
+
+<!-- more -->
+
+<h2 id="role">Role</h2>
+
+<h3 id="the-master-of-ceremonies">The Master of Ceremonies</h3>
+
+<p>The MC is the face of the operations. They are responsible to dessiminate information and keep the crowd engaged. This means that the person should have context about what goes on and how to handle the different failures around client infra (skype issues, VDI issues etc).</p>
+
+<h4 id="best-practices-for-mcs">Best practices for MCs</h4>
+
+<p>Running commentary: Always keep speaking. Is there an issue? Keep the show rolling. Be transparent. Your support (folks below) will keep feeding you information when necessary.</p>
+
+<h3 id="the-stagehand">The Stagehand</h3>
+
+<p>This is the magician that controls the lighting on stage. This person actually runs the slides and the demos ensuring everything is smooth</p>
+
+<h4 id="best-practices-for-stagehands">Best practices for Stagehands</h4>
+
+<ul>
+  <li>Practice your demos repeatedly till it’s muscle memory</li>
+  <li>Ensure the demo windows are already prepared with data entry. Avoid copy pasting unless it cannot be avoided.</li>
+  <li>Ensure the content on the screen is visible on the media the stakeholders consume it on. If the stakeholders get together in a room and look at a screen projected on the screen or a big TV, please ensure that the font size is readable.</li>
+</ul>
+
+<h3 id="the-conductor">The Conductor</h3>
+
+<p>This is the person who runs the show. This person is responsible to stay on the demo co-ordination chat and spot issues and handle them before they become a thing. This person is also responsible to give instant feedback to people running the showcase when needed.</p>
+
+<h4 id="best-practices-for-the-conductor">Best practices for The Conductor</h4>
+
+<ul>
+  <li>Ensure you have an eye on the demo co-ordination chat. Delegate replying to another window if required</li>
+  <li>Ensure the MC is providing running commentary</li>
+  <li>Step in only if it is absolutely required</li>
+  <li>Keep an eye out for schedule</li>
+</ul>
+
+<h3 id="the-theatre-tech">The Theatre Tech</h3>
+
+<p>The person who watches the logs and statuses for the services involved in the demo. If there is anything going wrong, talk to the conductor immediately.</p>
+
+<h4 id="best-practices-for-the-theatre-techs">Best practices for the Theatre Techs</h4>
+
+<ul>
+  <li>Have appropriate windows ready to perform the tasks you might need to in a hurry (bouncing services)</li>
+  <li>Have windows showing instance health</li>
+  <li>Have log window opens</li>
+</ul>
+
+<h3 id="the-timekeeper">The Timekeeper</h3>
+
+<p>This person is in the room (with clients) and is responsible to keep time. If the discussion goes off, it is your responsibility to cut the discussion off and setup a followup discussion.</p>
+
+<p>If the clients are in multiple locations, have a timekeeper per location. Might be the conductor when available in a location.</p>
+
+<h3 id="the-scribes">The Scribes</h3>
+
+<p>Multiple people taking notes and sharing them after the demo. They are responsible to pick up body queues from the people around them and take notes on follow up discussions that we need to have.</p>
+
+<h4 id="best-practices-for-thescribe">Best practices for The Scribe</h4>
+
+<p>Be active on a demo co-ordination chat channel and provide instantaneous feedback from different locations. This helps the conductor get more information and is key to their effectiveness.</p>
+
+<h3 id="the-playwright">The Playwright</h3>
+
+<p>This person is primarily responsible for the content of the showcase.</p>
+
+<p>The content of a showcase should be like a TV show. A major milestone/deliverable is like a season and should have an overarching story (aka <a href="https://en.wikipedia.org/wiki/Story_arc">narrative arc</a>). Each showcase is like an episode and should have a subsection of the <a href="https://en.wikipedia.org/wiki/Story_arc">narrative arc</a>.</p>
+
+<p>The way <a href="https://presentationpatterns.com/glossary/#narrativearc">Presentation Patterns</a> book describes narrative arcs in presentations is true about showcases</p>
+
+<blockquote>
+  <p><del>Presentations</del> Showcases are a form of storytelling; don’t ignore a few thousand years of oratory history. A Narrative Arc is a common trope; organizing your <del>presentation</del> showcase in a similar way leverages your audience’s lifetime of story listening experience.</p>
+</blockquote>
+
+<h2 id="execution">Execution</h2>
+
+<p>Know the people on your team. Identify which team members can do what roles. Invest in and groom people for roles based on their interest, it’s a growth opportunity.</p>
+
+<h3 id="prep-work-for-the-venue">Prep work for the venue</h3>
+
+<ol>
+  <li>If your client site requires you to book rooms, do so as far out in advance as possible.</li>
+  <li>If your team is distributed, make sure the room has a good VC with a computer you can use to run the demo. Ensure your laptop can easily connect to the VC equipment in the room.</li>
+  <li>Know your venue and plan your seating. Presenters closer to the screen. Stakeholders in clean view of the screen and the presenters.</li>
+</ol>
+
+<h3 id="prep-on-the-day">Prep on the day</h3>
+
+<ol>
+  <li>Sign up for roles based on your skills</li>
+  <li>Do multiple dry runs</li>
+  <li>Show up to the room 20 minutes before the start of the meeting. Set it up.</li>
+</ol>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Upgrade everything in brew]]></title>
+    <link href="https://blog.karun.me/blog/2017/10/19/upgrade-everything-in-brew/"/>
+    <updated>2017-10-19T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2017/10/19/upgrade-everything-in-brew</id>
+    <content type="html"><![CDATA[<p><a href="https://brew.sh/">Homebrew</a> is a the missing package manager for Mac OS. <a href="https://caskroom.github.io/">Brew cask</a> extends <a href="https://brew.sh/">Homebrew</a> and brings its elegance, simplicity, and speed to Mac OS applications and large binaries alike.</p>
+
+<p>If you’re using these tools and would like to upgrade all of the applications you have, run the following command.</p>
+
+<pre><code class="language-bash">brew update &amp;&amp; brew upgrade &amp;&amp; (brew cask outdated | cut -f 1 -d " " | xargs brew cask reinstall) &amp;&amp; brew cleanup
+</code></pre>
+
+<!-- more -->
+
+<h2 id="breaking-it-down">Breaking it down</h2>
+<ol>
+  <li>Update brew with information from the latest taps: <code>brew update</code></li>
+  <li>Upgrade apps in brew: <code>brew upgrade</code></li>
+  <li>Update brew cask apps: <code>brew cask outdated | cut -f 1 -d " " | xargs brew cask reinstall</code></li>
+  <li>Find outdated cask apps: <code>brew cask outdated</code></li>
+  <li>Cut out the app names: <code>cut -f 1 -d " "</code></li>
+  <li>Upgrade brew cask apps: <code>xargs brew cask reinstall</code></li>
+  <li>Remove installers for brew apps (to release disk space): <code>brew cleanup</code></li>
+</ol>
+
+<p>Note: <code>brew cask cleanup</code> is now deprecated.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lombok usage in large enterprises]]></title>
+    <link href="https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises/"/>
+    <updated>2017-08-13T00:00:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises</id>
+    <content type="html"><![CDATA[<h2 id="verbosity-of-java">Verbosity of Java</h2>
+
+<p>Java is a verbose language. No one disputes it.</p>
+
+<p>Despite the clunky nature of the language syntax, it still is the language of choice in most enterprises. If you work in the services industry or are a technology consultant, chances are that you have to work with Java on a regular basis.</p>
+
+<p>If you’re also a fan of functional programming language and have worked any <em>modern</em> programming language, you’ll recognize that Java’s syntax hinders your productivity because of the large amounts of boilerplate the language will generate. While newer JVM based lanaguages like <a href="https://kotlinlang.org/docs/reference/data-classes.html">Kotlin</a> solve these problems in different ways, the open source community created <a href="https://projectlombok.org/features/all">Project Lombok</a> to provide similar syntactic sugar in the world’s most popular enterprise programming language.</p>
+
+<!-- more -->
+
+<h2 id="what-is-lombok">What is Lombok?</h2>
+
+<p>Lombok is a Java dependency that uses Java annotations to generate byte code straight into the class files during the compilation phase there by allowing the <a href="https://en.wikipedia.org/wiki/Boilerplate_code">boilerplate code</a> from your codebase to be significantly reduced.</p>
+
+<p>An example from the <a href="http://jnb.ociweb.com/jnb/jnbJan2010.html#data">Software Engineering Trends post from Jan 2010</a> shows</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data(staticConstructor=&quot;of&quot;)
+public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+}</code></pre></figure>
+
+<p>would generate the same code as</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+
+  private Company(final Person founder) {
+    this.founder = founder;
+  }
+
+  public static Company of(final Person founder) {
+    return new Company(founder);
+  }
+
+  public Person getFounder() {
+    return founder;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  public List&lt;Person&gt; getEmployees() {
+    return employees;
+  }
+
+  public void setEmployees(final List&lt;Person&gt; employees) {
+    this.employees = employees;
+  }
+
+  @java.lang.Override
+  public boolean equals(final java.lang.Object o) {
+    if (o == this) return true;
+    if (o == null) return false;
+    if (o.getClass() != this.getClass()) return false;
+    final Company other = (Company)o;
+    if (this.founder == null ? other.founder != null : !this.founder.equals(other.founder)) return false;
+    if (this.name == null ? other.name != null : !this.name.equals(other.name)) return false;
+    if (this.employees == null ? other.employees != null : !this.employees.equals(other.employees)) return false;
+    return true;
+  }
+
+  @java.lang.Override
+  public int hashCode() {
+    final int PRIME = 31;
+    int result = 1;
+    result = result * PRIME + (this.founder == null ? 0 : this.founder.hashCode());
+    result = result * PRIME + (this.name == null ? 0 : this.name.hashCode());
+    result = result * PRIME + (this.employees == null ? 0 : this.employees.hashCode());
+    return result;
+  }
+
+  @java.lang.Override
+  public java.lang.String toString() {
+      return &quot;Company(founder=&quot; + founder + &quot;, name=&quot; + name + &quot;, employees=&quot; + employees + &quot;)&quot;;
+  }
+}</code></pre></figure>
+
+<h3 id="the-good">The good</h3>
+
+<p>You shouldn’t have to write code that can be generated automatically. Of course, <a href="https://www.jetbrains.com/help/idea/generating-getters-and-setters.html">modern IDEs will do this for you with a few clicks of the keyboard</a></p>
+
+<p>We’re trying to optimize more than a few clicks though. Have a look at the equals method below:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@java.lang.Override
+  public boolean equals(final java.lang.Object o) {
+    if (o == this) return true;
+    if (o == null) return false;
+    if (o.getClass() != this.getClass()) return false;
+    final Company other = (Company)o;
+    if (this.founder == null ? other.founder != null : !this.founder.equals(other.founder)) return false;
+    if (this.name == null ? other.name != null : !this.name.equals(other.name)) return false;
+    if (this.employees == null ? other.employees != null : !this.employees.equals(other.employees)) return false;
+    return true;
+  }</code></pre></figure>
+
+<p>Is this a standard equals method (one where every field in the class is checked for equality)? Did we skip a field? Did we do a non standard check on one of the fields? Unless you go through the method line by line, there is no way to know.</p>
+
+<p>Generating code saves you the hassle of checking. If there is an annotation, you know the what the implementation will be (assuming you know how the framework works). If there’s code, chances are that it’s a non-standard implementation (or someone made a mistake).</p>
+
+<h3 id="the-bad">The bad</h3>
+
+<p>If you wish to check the generated code, you need an <a href="https://plugins.jetbrains.com/plugin/7100-java-decompiler-intellij-plugin">IDE that decompiles byte code</a> or a <a href="http://jd.benow.ca/">tool that does the same</a>.</p>
+
+<p>If something’s wonky, debugging the issue might not be straight forward.</p>
+
+<h3 id="the-downright-ugly">The downright ugly</h3>
+
+<p>Modern IDEs like IntelliJ are <a href="https://www.jetbrains.com/help/idea/refactoring-source-code.html">built for refactoring</a>. One of the most common refactoring options is the option to <a href="https://www.jetbrains.com/help/idea/change-signature.html">Change Signature</a>. It’s an extremely useful option that allows you to reorder method (or constructor) parameters and the IDE takes care of the appropriate changes throughout the codebase.</p>
+
+<p>The order of the constructor parameters in a lombok-fied class is the order in which the parameters are declared. Changing this order changes the constructor signature.</p>
+
+<p>For a class with different parameter types, this is not a problem. Refactoring the following class</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+}</code></pre></figure>
+
+<p>to the following signature</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Company {
+  private final Person founder;
+  private List&lt;Person&gt; employees;
+  private String name;
+}</code></pre></figure>
+
+<p>is not a problem. The usage of the constructor will fail to compile and provide feedback.</p>
+
+<p>If you have primitive types in your lombok-fied class, you have a problem. Refactoring the following class</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Person {
+  private final String employeeId;
+  private final String firstName;
+  private final String lastName;
+}</code></pre></figure>
+
+<p>to the following signature</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Person {
+  private final String firstName;
+  private final String lastName;
+  private final String employeeId;
+}</code></pre></figure>
+
+<p>will provide no feedback. The code will compile and set <code>employeeId</code>s to <code>firstName</code>s, <code>firstName</code>s to <code>lastName</code>s and <code>lastName</code>s to <code>employeeId</code>s. If you don’t have tests on the behavior of the <code>Person</code> class, you won’t notice this issue until it’s too late. Hopefully, you don’t have <a href="https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/">tests for a data container with no behavior</a>.</p>
+
+<h2 id="where-is-lombok-appropriate">Where is Lombok appropriate?</h2>
+
+<ol>
+  <li><strong>Do you have a project where you have a strict set of contributors?</strong>
+    <ul>
+      <li><em>because you’ll have to walk them through the rules of appropriate usage of lombok</em></li>
+    </ul>
+  </li>
+  <li><strong>Do your contributors understand Lombok well and how it works?</strong>
+    <ul>
+      <li><em>because you will have unexpected defects due to refactoring if they don’t</em></li>
+    </ul>
+  </li>
+  <li><strong>Do your contributors understand how to properly unit test and do they understand the automation test pyramid?</strong>
+    <ul>
+      <li><em>appropriate high level testing could catch functional defects. you don’t want unit tests checking constructors and getters</em></li>
+    </ul>
+  </li>
+  <li><strong>Do you have strict code quality control?</strong>
+    <ul>
+      <li><em>without a way to check for inappropriate usage of lombok, defects can very easily creep in</em></li>
+    </ul>
+  </li>
+  <li><strong>Is the team willing to invest time and effort into training new team members about Lombok and potential downsides?</strong>
+    <ul>
+      <li><em>your learnings have to be passed to every future member of the codebase</em></li>
+    </ul>
+  </li>
+  <li><strong>Do most of your models use <a href="https://www.martinfowler.com/bliki/ValueObject.html">value objects</a> and avoid primitives?</strong>
+    <ul>
+      <li><em>because reordering non-primitive fields will lead to compile exceptions providing feedback</em></li>
+    </ul>
+  </li>
+</ol>
+
+<p>If your team can answer <em>yes</em> to all of the above, you should use Lombok.</p>
+
+<p>I must admit, most large teams can’t answer <em>yes</em> to all of the questions. Have you <a href="https://try.kotlinlang.org/">considered using Kotlin instead</a>? :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hosting blogs for 1&cent; a month]]></title>
+    <link href="https://blog.karun.me/blog/2016/12/05/hosting-blogs-for-1-cent-a-month/"/>
+    <updated>2016-12-05T02:04:56+05:30</updated>
+    <id>https://blog.karun.me/blog/2016/12/05/hosting-blogs-for-1-cent-a-month</id>
+    <content type="html"><![CDATA[<p>If you’re a dev and you self host your blog, I’d love to hear why. Why do you self host blogs? For most simple blogs in this day and age, migration to a static site like <a href="https://wordpress.org/plugins/jekyll-exporter/">Jekyll</a> or <a href="https://jason.pureconcepts.net/2013/01/migrating-wordpress-octopress/">Octopress</a> is pretty easy. I did this <a href="https://blog.karun.me/blog/2015/11/28/movement-to-cybershark/">a while back</a>. This can be followed up by asking <a href="https://davidwalsh.name/hosting-website-amazon-s3">Amazon S3</a> to host your website. You can even <a href="https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/">get cloudflare to front the SSL for free</a>.</p>
+
+<p>Why? S3 is free for the first year. Even post that period, my bills have been &lt;$0.02/month which is a <strong>99.951% reduction in cost</strong>.</p>
+
+<!-- more -->
+<h2 id="continuous-delivery">Continuous delivery</h2>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/https-blog-on-s3.jpg" alt="HTTPs blog on S3" /></p>
+
+<p><a href="https://snap-ci.com/">Snap CI</a> is will integrate with your publically accessible GitHub repositories for free and trigger builds on commit! Connect to your github repository and get it to compile your markdown into html. <a href="https://docs.snap-ci.com/deployments/aws-deployments/aws-s3-deployments/">Deploying to S3</a> is a piece of cake. Congratulations on having continuous delivery for your blog!</p>
+
+<p><a href="https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/">Cloudflare provides the free SSL</a> and Amazon S3 provides the <a href="https://aws.amazon.com/s3/pricing/">near free hosting</a>. A few cents a month to host your entire website is a good deal!</p>
+
+<p>I’ve been on S3 for a year now and I couldn’t be happier!</p>
+
+<p>** Goodbye Servers, Welcome S3 **</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Commonly made mistakes in Unit Testing]]></title>
+    <link href="https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/"/>
+    <updated>2016-02-28T09:24:50+05:30</updated>
+    <id>https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing</id>
+    <content type="html"><![CDATA[<h2 id="what-is-unit-testing">What is Unit Testing?</h2>
+
+<p>Unit testing is all about focusing on one element of the software at a time. This unit is called the often called the ‘System Under Test’ (refer <a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren’t Stubbs</a>).
+In order to test only one unit at a time, all other units need to <strong>not</strong> be test at the same time. As obvious as that sounds, it’s easy to miss.</p>
+
+<p>Classes do not exist independent of one another. They usually have dependencies. Such dependencies are called the ‘Collaborators’. There are multiple ways to manage collaborators that have been talked about by Martin in his article.</p>
+
+<h3 id="pre-requisites-to-the-post-before-going-forward">Pre-requisites to the post before going forward</h3>
+<p>Before we go on, please ensure you’ve read through <a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren’t Stubbs</a> by <a href="http://martinfowler.com/">Martin Fowler</a>. This post assumes that you’ve gone through the article before continuing on to commonly made mistakes in Unit Testing</p>
+
+<!-- more -->
+
+<h2 id="mocks-vs-actual-implementations">Mocks vs Actual Implementations</h2>
+<p>Consider a board game where the Board class runs the game with the help of it’s collaborators <code>Player</code> and <code>Dice</code>.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class Board {
+  private final List&lt;Player&gt; players;
+  private final Dice dice;
+  private int currentPlayerId;
+
+  public Board(final Dice dice, final Player... players) {
+    this.currentPlayerId = 0;
+    this.dice = dice;
+    this.players = Arrays.asList(players);
+  }
+
+  public void playMove() {
+    players.get(currentPlayerId).move(dice.roll());
+    currentPlayerId = evaluateNextPlayerId();
+  }
+
+  public Player getCurrentPlayer() {
+    return players.get(currentPlayerId);
+  }
+
+  private int evaluateNextPlayerId() {
+    return currentPlayerId + 1 &lt; players.size() ? currentPlayerId + 1 : 0;
+  }
+}
+
+class Dice {
+  public int roll() {
+    return (int) Math.round(Math.random() * 6);
+  }
+}
+
+class Player {
+  @lombok.Getter
+  private int position;
+
+  public int move(final int moveCount) {
+    position += moveCount;
+  }
+}</code></pre></figure>
+
+<p>If we consider the <code>Board</code> to be the System Under Test, the most tempting trap to fall into is start testing the Board directly.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class BoardTest {
+  @Test
+  public void shouldMovePlayerForCorrectPlayer() {
+    final Dice dice = new Dice();
+    final Player player1 = new Player();
+    final Player player2 = new Player();
+    final Board board = new Board(dice, player1, player2);
+
+    board.playMove();
+
+    assertThat(player1.getPosition(), greaterThan(0));
+    assertThat(player2.getPosition(), is(0));
+    assertThat(board.getCurrentPlayer(), is(player2));
+  }
+}</code></pre></figure>
+
+<p>This is not the greatest example but it does attempt to show you the coupling between the different components. Player1’s current position isn’t predictable since it’s coupling with dice. The dependency also means that if the dice has defects, the board can’t be tested appropriately.</p>
+
+<p>By swapping out player and dice instances with mocks, we have the ability to only test the board independent of potential issues with the dependencies.</p>
+
+<p>The above test can be refactored to look like</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class BoardTest {
+  @Test
+  public void shouldMovePlayerForCorrectPlayer() {
+    final Dice dice = mock(Dice.class);
+    final Player player1 = mock(Player.class);
+    final Player player2 = mock(Player.class);
+    final Board board = new Board(dice, player1, player2);
+
+    when(dice.roll()).thenReturn(3);
+    when(player1.move(3)).thenReturn(3);
+
+    board.playMove();
+
+    verify(player1).move(3);
+    verify(player2, never()).move(anyInt());
+    assertThat(board.getCurrentPlayer(), is(player2));
+  }
+}</code></pre></figure>
+
+<p>The test now allows you to check if <code>player1</code> was moved 3 places since the response provided by the dice is in your control. Mocks also allow you to test that <code>player2</code> was not called.</p>
+
+<p>This becomes even more important in an example where the response from the mock affects the system under test. Controlling the mock allows you to control predict the end state of the system under test with the assumption that your mock setup is correct. These assumptions can be validated with the spec for the individual mocks. The unit test for dice mock can confirm that the dice only returns values between 1 and 6 (inclusive).</p>
+
+<h2 id="testing-inside-the-boundaries">Testing inside the boundaries</h2>
+
+<p>Every functionality should be tested within it’s boundaries. Let’s take the <code>Dice</code> class as an example and talk about what this means.</p>
+
+<p>Typically a dice produces values between 1 and 6.</p>
+
+<p>It’s corresponding test has to prove that rolling a dice always results in a value between 1-6.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  assertThat(new Dice().roll(), isOneOf(1, 2, 3, 4, 5, 6));
+}</code></pre></figure>
+
+<p>This test proves that the value is inside the range but does not prove that it will <strong>always</strong> be in that range. Since the implementation contains a <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">PRNG</a>, the end result cannot be predicted.</p>
+
+<p>Most readers wouldn’t have noticed the defect in the implementation.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">class Dice {
+  public int roll() {
+    return (int) Math.round(Math.random() * 6);
+  }
+}</code></pre></figure>
+
+<p>The implementation can produce values 0-6. The fact that your test passed proves that it is a <strong>flaky unit test</strong>. The test has a 1/7 chance of failing. The fact that it didn’t fail when you ran it is not surprising :)</p>
+
+<h2 id="di-your-new-best-friend">DI, your new best friend</h2>
+
+<p>The anti-pattern to take away from the previous example is that the Dice class relies on a library and that the library is contained in the class. The fact that it can’t be injected means that you can’t control it.</p>
+
+<p><a href="http://martinfowler.com/articles/injection.html#FormsOfDependencyInjection">Dependency Injection</a> is your friend!</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">class Dice {
+  private final Random random;
+  private final int numberOfFaces;
+
+  Dice(final Random random, final int numberOfFaces) {
+    this.random = random;
+    this.numberOfFaces = numberOfFaces;
+  }
+
+  public int roll() {
+    return random.nextInt(numberOfFaces - 1) + 1;
+  }
+}</code></pre></figure>
+
+<p>Now, your test can work with a mocked <code>Random</code> instance for more accurate results.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  final Random random = mock(Random.class);
+  when(random.nextInt(5)).thenReturn(0, 1, 2, 3, 4, 5);
+
+  final Dice dice = new Dice(random, 6);
+
+  assertThat(dice.roll(), is(1));
+  assertThat(dice.roll(), is(2));
+  assertThat(dice.roll(), is(3));
+  assertThat(dice.roll(), is(4));
+  assertThat(dice.roll(), is(5));
+  assertThat(dice.roll(), is(6));
+}</code></pre></figure>
+
+<p>We’re currently making 2 assumptions on the collaborator.</p>
+
+<ol>
+  <li><code>random.nextInt</code> is always called with parameter <code>5</code></li>
+  <li><code>random.nextInt(5)</code> always returns values between 0 and 5</li>
+</ol>
+
+<p>The first assumption is in part validated by the mocking library. If <code>Dice</code> called by any other parameter, the results wouldn’t be what we want. But if you want to be extra sure, you could always make the test fail using an argument captor</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  final Random random = mock(Random.class);
+  final ArgumentCaptor&lt;Integer&gt; argumentCaptor = ArgumentCaptor.forClass(Integer.class);
+  when(random.nextInt(argumentCaptor.capture())).thenReturn(0, 1, 2, 3, 4, 5);
+
+  final Dice dice = new Dice(random, 6);
+
+  assertThat(dice.roll(), is(1));
+  assertThat(dice.roll(), is(2));
+  assertThat(dice.roll(), is(3));
+  assertThat(dice.roll(), is(4));
+  assertThat(dice.roll(), is(5));
+  assertThat(dice.roll(), is(6));
+  assertThat(argumentCaptor.getAllValues(), is(asList(5, 5, 5, 5, 5, 5)));
+}</code></pre></figure>
+
+<p>The second assumption <strong>should not</strong> be validated by you.  If you look at the documentation for <code>random.nextInt()</code> you will notice</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">/**
+ * Returns a pseudorandom, uniformly distributed {@code int} value
+ * between 0 (inclusive) and the specified value (exclusive), drawn from
+ * this random number generator&#39;s sequence.
+ ...
+ */
+public int nextInt(int bound) {...}</code></pre></figure>
+
+<p>It is the responsibility of the library (<code>java.util.Random</code> in this case) to test itself.</p>
+
+<p>How do I know <code>Random</code> will not misbehave? I don’t. The <code>Dice</code> component could be integration tested. It is an absolute necessity if you deem the component to be an untrusted collaborator. If this was a database connection or a REST call, you’d want that. For a Java util or a well tested open source library, you could be forgiven for not writing an integration test.</p>
+
+<p>In this case, I won’t be writing one for sure! ☺</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Movement to Cybershark]]></title>
+    <link href="https://blog.karun.me/blog/2015/11/28/movement-to-cybershark/"/>
+    <updated>2015-11-28T11:09:58+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/11/28/movement-to-cybershark</id>
+    <content type="html"><![CDATA[<p>I had been procrastinating movement to a dev-ops style Chef deployment for my servers to ease it’s management because of the age old “If it ain’t broke..”. Well, upgrades on Bumblebee were getting more expensive so I finally decided to take the leap. I introduce the <a href="https://github.com/javatarz/trion-cookbooks">trion cookbook</a> that I’m using to setup my servers.</p>
+
+<p>I also realized that <a href="http://kimsufi.ie/">Kimsufi</a> came up with cheaper servers (now as low as €4.99). Without automation to setup my servers, the thought of migration and building another <a href="http://martinfowler.com/bliki/SnowflakeServer.html">snowflake server</a> scares me purely because of it’s frailty. No more.</p>
+
+<p>I’ve now officially moved to my new server, Cybershark!</p>
+
+<p>I have made it a point not to have PHP on this server. It’s time to stop my dependency on it. Good bye <a href="https://wordpress.org/">Wordpress</a>. Welcome <a href="https://github.com/octopress/octopress">Octopress</a>. Good bye <a href="http://blog.karun.me/dev/soccer-scraper/">Soccer Scraper</a>. Google Now will do fine :)</p>
+
+<p>This means some of the internal dependencies I had (such as PHP mailers) needs to now be moved to another technology. Hello <a href="https://nodejs.org/">Node.JS</a>. I think we might be good friends :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Operating Systems Phoning Home]]></title>
+    <link href="https://blog.karun.me/blog/2015/10/03/modern-operating-systems-phoning-home/"/>
+    <updated>2015-10-03T19:52:00+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/10/03/modern-operating-systems-phoning-home</id>
+    <content type="html"><![CDATA[<p>It seriously irks me when general public operating systems build in default features that send data to their servers without clearly indicating so. Both Microsoft (with Windows 10) and Apple (with Yosemite) have done so. Disabling these features doesn’t take long so here’s what you need to do.</p>
+
+<!-- more -->
+
+<h1 id="windows-10">Windows 10</h1>
+
+<p>There’s a <a href="https://www.reddit.com/r/conspiracy/comments/3fhy27/how_do_disable_all_privacy_leaks_in_windows_10/">well written reddit page</a> by user <a href="https://www.reddit.com/user/hazehk">hazehk</a> which lists all the setting changes required. Takes around 10-15 minutes to run through them.</p>
+
+<p>If you’re a bit lazier, you could <a href="https://www.reddit.com/r/Windows10/comments/3fn46j/i_made_my_own_userfriendly_windows_10_privacy/">use tools to do it for you</a> if you aren’t paranoid about the tools themselves :)</p>
+
+<h1 id="os-x-yosemite">OS X Yosemite</h1>
+
+<p><a href="https://fix-macosx.com/">Fix my Mac OS X</a> talks about the simple changes required to alleviate your pain. You could either follow their steps or use their python script. Your choice!</p>
+
+<p>It has only 2 steps so it should take you less than a minute to do both. I actually went as far as to disable Spotlight all together (<a href="https://apple.stackexchange.com/questions/177984/how-to-disable-spotlight-for-alfred">remove spotlight shortcut</a>; <a href="http://osxdaily.com/2011/12/10/disable-or-enable-spotlight-in-mac-os-x-lion/">disable spotlight indexing</a> causes problems with Alfred because it needs spotlight’s cache for application data) and move to <a href="http://alfredapp.com">Alfred</a> (not the least of which was motivated by the privacy issues..)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reducing Maven Package times due to resource copying]]></title>
+    <link href="https://blog.karun.me/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying/"/>
+    <updated>2015-07-11T12:36:33+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/07/11/reducing-maven-package-times-due-to-resource-copying</id>
+    <content type="html"><![CDATA[<p>I once worked on a web application with a 250+MB <em>code base</em>. This consisted of 200,000 images. For every development cycle, you had to compile and deploy the code on the server which was painful to say the least. The size wasn’t the problem as much as the number of resources. The code took less than 20 seconds to compile.</p>
+
+<p>We figured that compilations overwriting class files were OK but having to edit any resource just took too long. In such cases, you can use maven’s process-resources plugin to ask maven to only copy the new resources to your target directory.</p>
+
+<p>This is <strong>significantly</strong> faster. Package times went down from <strong>6 minutes</strong> to <strong>18 seconds</strong>. Of course, a SSD would have helped but looking at the difference, it’s well worth the effort :)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn process-resources</code></pre></figure>
+
+<p>Go try it out!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Maven Compilation in Ram Drive]]></title>
+    <link href="https://blog.karun.me/blog/2015/07/11/maven-compilation-in-ram-drive/"/>
+    <updated>2015-07-11T12:16:42+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/07/11/maven-compilation-in-ram-drive</id>
+    <content type="html"><![CDATA[<p>If you’re working on huge maven projects and have a slow disk, compilation, packaging and install times can sore quite high. If getting faster hard disks isn’t possible, why not try moving the compilation to a ram drive?</p>
+
+<p>A code base which used to take <strong>22 minutes</strong> to compile went down to <strong>3 minutes</strong>. This just goes to show the effect that disk IO bottlenecks can have on your system.</p>
+
+<!-- more -->
+
+<h1 id="what-is-a-ram-drive">What is a RAM Drive?</h1>
+
+<p>RAM is significantly faster than spinning platter HDDs. Until the commercialisation of static state devices, it wasn’t even a competition. <a href="https://en.wikipedia.org/wiki/Memory_hierarchy">It’s meant to be like that</a>.</p>
+
+<p>If you need higher writes speeds to <em>disk</em> which don’t need to be persisted over a long period of time, why not use some of your spare RAM as a hard disk? This can be achieved using software.</p>
+
+<h2 id="how-do-i-get-a-ram-drive-on-my-machine">How do I get a RAM drive on my machine?</h2>
+
+<p>RAM drive softwares are available for all major operating systems.</p>
+
+<p><a href="https://www.softperfect.com/products/ramdisk/">SoftPerfect’s RAM Disk</a> is a good free tool for non-commercial processes for Windows. Linux has <a href="https://en.wikipedia.org/wiki/Tmpfs">tempfs</a> and <a href="https://wiki.debian.org/ramfs">ramfs</a>.</p>
+
+<h1 id="compiling-your-maven-project-on-to-a-ram-drive">Compiling your Maven project on to a RAM drive</h1>
+
+<p>Most big projects follow a multi-module POM structure. You can move your target directory in 2 ways.</p>
+
+<h2 id="change-build-directory">Change build directory</h2>
+
+<p>You can change the output directory to the desired path ensuring all compiled files go to your RAM drive. Just make sure you qualify your path well using the group and artifact IDs to ensure different projects don’t overwrite each other’s compiled code.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;build&gt;
+    &lt;directory&gt;
+      &lt;strong&gt;/mnt/ramdrive/compile/${project.groupId}/${project.artifactId}&lt;/strong&gt;
+    &lt;/directory&gt;
+  &lt;/build&gt;</code></pre></figure>
+
+<p>The issue with this approach is that all users on the team are now bound by</p>
+
+<ol>
+  <li>Your compilation directory path (terrible idea)</li>
+  <li>Using a ram drive (not everyone might need it)</li>
+</ol>
+
+<p>The first issue can be fixed by creating a property for the base path. This parameter can be passed as a compile time parameter with a default set in the POM</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;build&gt;
+    &lt;directory&gt;
+      &lt;strong&gt;${target.baseDir}&lt;/strong&gt;/${project.groupId}/${project.artifactId}
+    &lt;/directory&gt;
+  &lt;/build&gt;</code></pre></figure>
+
+<p>The second issue can’t be fixed using this approach. This can be fixed with the second approach</p>
+
+<h2 id="compilation-profiles">Compilation profiles</h2>
+
+<p>Maven allows you to have profiles for applying configs in specific scenarios.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;&lt;strong&gt;ramDrive&lt;/strong&gt;&lt;/id&gt;
+      &lt;build&gt;
+        &lt;directory&gt;
+          ${target.baseDir}/${project.groupId}/${project.artifactId}
+        &lt;/directory&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;</code></pre></figure>
+
+<p>Now you can compile your code with a profile and it will use the specified directory for compilation</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn clean install -P&lt;strong&gt;ramDrive&lt;/strong&gt; -D&lt;strong&gt;target.baseDir=/mnt/ramdrive/compile&lt;/strong&gt;</code></pre></figure>
+
+<p>Congratulations, your code is compiled on RAM drive. Is it still not fast enough? Is the installation process slow? Well, you could move your M2 directory to the ram drive too</p>
+
+<h1 id="local-maven-repository-to-ram-drive">Local Maven repository to RAM drive</h1>
+
+<p>You can change your maven configuration to ask it to move your local maven repository home (which is the place where all the artifacts you build and/or download are stored).</p>
+
+<p>Update your settings.xml with the location of your local repository</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;localRepository&gt;/mnt/ramdrive/mvn-repo&lt;/localRepository&gt;</code></pre></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Forced HTTPs on your website with CloudFlare]]></title>
+    <link href="https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/"/>
+    <updated>2015-02-01T21:04:49+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare</id>
+    <content type="html"><![CDATA[<p>I’m a supporter of the <a href="https://www.eff.org/https-everywhere">HTTPS everywhere movement</a> by the <a href="https://www.eff.org/">EFF</a>. They advocate users use (all) websites with HTTPS for extra security. This means everyone should probably fork out a few dollars to get their own certificates. Unless you’re buying a domain at NameCheap (in which case they tend to throw in a SSL certificate for the first year), you’d have to shell out $8-$12 to get one.</p>
+
+<p>Side note, I recommend every user have <a href="https://www.eff.org/https-everywhere">HTTPS everywhere</a> installed on every browser.</p>
+
+<p>Though it’s not perfect, you can get a SSL for your website for free.</p>
+
+<!-- more -->
+
+<h2 id="whydo-i-need-ssl">Why do I need SSL?</h2>
+
+<p>The communication between you and a website looks something like this without SSL.</p>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/No-SSL-Setup.png" alt="No SSL Setup" /></p>
+
+<p>It’s prone to a <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man in the middle attack</a>. This could be done by your neighbour tapping into the line, your ISP or someone half way across the world listening in on the server you request data from.</p>
+
+<h2 id="what-would-you-have-me-do">What would you have me do?</h2>
+
+<h3 id="move-your-domain-to-cloudflare">Move your domain to CloudFlare</h3>
+
+<p>CloudFlare is a CDN that provides you with additional security by analysing requests using crowd sourced data over hundreds and thousands of websites. Add your domain to CloudFlare and ask your DNS provider to send all requests to the CloudFlare servers. Once the setup is complete, your data will be sent to your server via CloudFlare. It ensures your IP is not exposed outside there by providing it with some amount of Denial of Service attack prevention since your IP is not directly exposed and it is CloudFlare’s job to handle in coming Denial of Service attacks (once set up).</p>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/With-CloudFlare.png" alt="With CloudFlare" /></p>
+
+<p>Users must note that the move to CloudFlare means you can’t SSH to your machine anymore because they do not forward the port. You can create a subdomain that doesn’t route traffic through CloudFlare. That makes it easier to SSH/FTP into the box but provides a way for attackers to access your machine bypassing CloudFlare’s security. Alternately you can add a vhost entry on your machine ensuring you can connect with ease but this won’t help you if you would like to connect from some other machine. You could just remember the IP if you’re a pro :P The choice is yours!</p>
+
+<h3 id="enable-cloudflares-universal-ssl">Enable CloudFlare’s Universal SSL</h3>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/cloudflare-ssl-config.png" alt="CloudFlare SSL Config" /></p>
+
+<p>CloudFlare provides a universal SSL for all domains routed through their service. As long as you trust CloudFlare’s SSL keys not to be leaked (if they do, bigger businesses would have a problem way before your website does).</p>
+
+<p>This feature is available for free to all users. I recommend using at least the Flexible SSL which requires no further setup. Turn it on and you can hit your website using https. For now, choose <strong>Flexible SSL</strong>.</p>
+
+<h3 id="force-https">Force HTTPS</h3>
+
+<p>Ideally you want HTTPS to be an option your users choose. You’d want to at least make it a default. If people don’t know, they wouldn’t move to using it. I see no reason why browsers these days won’t be showing your content correctly if they are in HTTPS so I recommend having it on as a default.</p>
+
+<p>If you run a blog or website where there are no “users” but readers, it’s hard to let them choose their HTTPS settings. If you haven’t noticed already, you are accessing this website using HTTPS. Welcome to the dark side.</p>
+
+<p>No need to write a htaccess or similar config on your server. Go to CloudFlare and create a HTTP rule for your base domain asking for a redirect to HTTPS.</p>
+
+<h2 id="are-we-there-yet">Are we there yet?</h2>
+
+<p>Not quite.</p>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/With-CloudFlare-Universal-SSL.png" alt="With CloudFlare Universal SSL" /></p>
+
+<p>The communication between you and CloudFlare is secure. The communication between CloudFlare and your server isn’t.</p>
+
+<h3 id="adding-ssl-for-cloudflare-server-communication">Adding SSL for CloudFlare-Server communication</h3>
+
+<p>You can create a self signed certificate on your server. For any Unix based server you can use OpenSSL to generate it. The internet is filled with tutorials galore. Most of them will have information on how to install with your web server of choice (for example apache or nginx).</p>
+
+<p>Once you’re done, go back to the CloudFlare settings for your domain and change the option to <strong>Full SSL</strong>.</p>
+
+<p><img src="https://blog.karun.me/assets/images/uploads/With-End-to-End-Security.png" alt="With End to End Security" /></p>
+
+<h1 id="potential-flaws">Potential Flaws?</h1>
+
+<p>You’re <em>pretty</em> secure if you ask me. The vulnerable points in the system are the CloudFlare server and your server. Ideally, CloudFlare protects the identity of the server ensuring all requests go through their servers which are meant to protect you from attacks. Lets assume CloudFlare’s private key isn’t compromised. This means the only way to decrypt requests to your server is by getting the private key off your machine and listening into requests to your server.</p>
+
+<p>Another potential area of concern is the fact that the CloudFlare to server communication is prone to a <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man in the middle attack</a> since CloudFlare doesn’t verify the signature from from the server for free accounts. For this, you would need to move to a <a href="https://www.cloudflare.com/plans.html">CloudFlare Pro account</a> which at $20/month (as of the writing of this post) is significantly more expensive than purchasing your own SSL certificate end to end. Of course, we don’t use CloudFlare just for the free SSL but the CDN and crowd sourced security it provides. This is hands down <strong>the most serious vulnerability in the system</strong> I can spot.</p>
+
+<p>You’re better off than where you started and all this for free! Want more? Shell out money to a CA to get your very own certificate :)</p>
+
+<p><em>*[CA]: Certificate Authority</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Signs of a troubled startup]]></title>
+    <link href="https://blog.karun.me/blog/2015/01/31/signs-of-a-troubled-startup/"/>
+    <updated>2015-01-31T22:36:08+05:30</updated>
+    <id>https://blog.karun.me/blog/2015/01/31/signs-of-a-troubled-startup</id>
+    <content type="html"><![CDATA[<p>India has been developing the startup culture quite seriously over the past half a decade. In this time I’ve seen dozens of ventures pop up and quite a few of them fizzle out. If you’ve gone through a startup bootcamp or an equivalent program, you’ve probably heard the stats. Failure rate of startups is pretty high. I admit, I am concerned. Not about the high failure rate. It’s about <strong>why</strong> quite a few Indian startups are failing these days.</p>
+
+<p>I am concerned because they seem to not be getting their basics right. Most startup schools and accelerators tell you things that usually go wrong. Repeatedly. Yet there are other things they don’t tell you. Things they’d think are common sense.</p>
+
+<p>Sometimes it is hard to spot these from the outside but if you do see these signs, you better have taken your ERT training seriously because the building is on fire and you better be prepared to evacuate people.</p>
+
+<!-- more -->
+
+<h2 id="acting-as-the-next-big-thing">Acting as the ‘next big thing’</h2>
+
+<p>Everyone wants to be the “next big thing”. Everyone thinks they are the next Microsoft, Google, Facebook or Flipkart. Once in a while they are right. Usually they are wrong. Wanting to be great isn’t a problem. Walking around thinking you are is. If you’re Tony Stark and can pull it off, that’s good for you. Most can’t.</p>
+
+<h2 id="wanting-to-be-too-big-too-quickly">Wanting to be too big too quickly</h2>
+
+<p>Some people want to do good work every day. It makes them happy. Success, for them, is a by product of doing great work.</p>
+
+<p>Others want to be successful. The journey, to them, is meaningless and the destination is all that counts. Such people do not want to take the time to hone their craft. Usually such folks are impatient and won’t give the time it takes for the business to grow.</p>
+
+<h2 id="not-shipping-your-product-till-its-perfect">Not shipping your product till “it’s perfect”</h2>
+
+<p>Take it from everyone who’s ever built anything. It’s not perfect. It’s never going to be. Unless you’re quite loose with your definition of the word, perfection is near impossible to attain. Delaying your launch is going to be your company’s death sentence.</p>
+
+<h2 id="expecting-to-build-your-producton-your-clientscost">Expecting to build your product on your client’s cost</h2>
+
+<p>This is the exact opposite of the previous point.</p>
+
+<p>If you have a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product">Minimum Viable Product</a> and your client want’s to pay you for it, it’s great! You can use the money to support the cost of additional features. This is the recommended way to go to market.</p>
+
+<p>Some entrepreneurs however would like to build the product <strong>entirely</strong> on the client’s cost. Believe it or not, this happens more often than one would think. How is this possible you ask?</p>
+
+<h2 id="ethics-or-lack-there-of">Ethics or lack there of</h2>
+
+<p>Ethics are important. It is important how organisations treat_ _people.</p>
+
+<p>When it comes to their clients, I believe they deserve to know what they are actually buying. This means being truthful about what features your product has. Claiming your product does things which you’ve not even started developing is a clear no-no.</p>
+
+<p>When it comes to their own people, clear communication is important. Respecting them is key.</p>
+
+<h2 id="early-hires-are-employees-not-stakeholders">Early hires are ‘employees’ not stakeholders</h2>
+
+<p>Hiring is key. You can have the greatest product the world has ever seen but if you hire incorrectly, you’ll have problems. This is a well known fact.</p>
+
+<p>What most people don’t think of is that if you hire people and treat them as employees and not as stakeholders, they are going to treat work as a “job” and not as “their baby”. If I were you, I’d like my team to have that sense of ownership. It’s not easy but it’s not impossible either. Responsibility is to be given (stop trying to control <strong>everything</strong>; stop being a control freak) and responsibility is to be accepted. It’s a two way street. But it starts with your show of faith. It starts with you wanting to let people into the bubble you’ve built around yourself.</p>
+
+<h2 id="not-taking-internal-feedback">Not taking (internal) feedback</h2>
+
+<p>Not taking client feedback is almost always a silly move to play. Most people don’t do that.</p>
+
+<p>What a few <em>small</em> organizations will miss out on is not listening to feedback from people they’ve hired build their product. First off, your team needs to be convinced about the product they are building. If they have feedback about the way things are being done, you should take it seriously. You’ve brought them in because you trust them and what they can do. So when they have things to say you better listen to do even if it doesn’t agree with your view of the world.</p>
+
+<h2 id="surrounding-yourself-with-yes-men">Surrounding yourself with Yes Men</h2>
+
+<p>If the team always agree with one another, I’d consider it a orange flag. If they ostracise anyone who disagrees with them, that’s a definite red flag. Any team who discourages healthy discussions instead of understanding different view points and coming to a consensus is one to stay away from.</p>
+
+<p>If you’re in discussion with such a team (as an insider or an outsider) and your points are something they disagree with but aren’t able to refute, you might see them not conceding and admitting you’re correct. Which brings us to the next point.</p>
+
+<h2 id="drinking-your-ownkool-aid">Drinking your own Kool Aid</h2>
+
+<p>If you’re building something, you keep bottles of Kool Aid handy to give out to your users/clients. You must not dip into your own stash and take a sip or worse, gulp down entire bottles daily. Keeping your horizon indicator in check is key and large quantities of Kool Aid don’t help. They provide a self affirming view of the world which could be your startup’s death sentence. When it comes down to it, you should be ready to pivot for which you shouldn’t have blinders on.</p>
+
+<h2 id="never-learning-from-your-failures-or-admitting-them">Never learning from your failures or admitting them</h2>
+
+<p>Fail Fast. Learn. Move on. If you can’t do that, you’re doing it wrong.</p>
+
+<p>I realise it sounds cliche but people like showing their world their perfectness. If you haven’t already, I recommend watching <a href="https://www.youtube.com/watch?v=0SARbwvhupQ">The Myth of the Genius Programmer from Google I/O 2009</a>. It’s a real eye opener. Especially the part where they mention why failed spike branches shouldn’t be deleted (from <strong><a href="http://youtu.be/0SARbwvhupQ?t=35m51s">35:51</a></strong> to <a href="http://youtu.be/0SARbwvhupQ?t=36m35s">36:35</a>).</p>
+
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+<div class="embed-container">    <iframe title="YouTube video player" width="640" height="390" src="//www.youtube.com/embed/0SARbwvhupQ" frameborder="0" allowfullscreen=""></iframe></div>
+
+<h2 id="never-considering-they-might-notmake-it-big-but-be-good-and-thats-enough">Never considering they might not make it big but be good and that’s enough</h2>
+
+<p>For most people these days making it big is important. This could either be in terms of huge revenues or a 100+M dollar buy out. For most, having a steady NOI is just not good enough. It’s not good enough because it’s not what they had dreamt of. That Ferrari in the drive way and early retirement at 28.</p>
+
+<p>Sounds outlandish but the Hollywood romanticisation of how businesses become worth billions has lead to people wanting to <em>live the dream</em>. Well son, this is reality. It’s hard work.</p>
+
+<h1 id="whats-my-way-out"><em>What’s my way out?</em></h1>
+
+<p>These are just some of the things which I believe everyone should think about. They seem obvious but heck, hindsight is always 20/20. It is quite easy to make some of these mistakes. Chances are you’ve seen someone around you exhibit these traits.</p>
+
+<p>I highly recommend regular retrospectives with your team. More importantly, I recommend regular self retrospectives. Glass houses and all.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Net Neutrality: Why should I care?]]></title>
+    <link href="https://blog.karun.me/blog/2014/12/29/net-neutrality-why-should-i-care/"/>
+    <updated>2014-12-29T22:04:17+05:30</updated>
+    <id>https://blog.karun.me/blog/2014/12/29/net-neutrality-why-should-i-care</id>
+    <content type="html"><![CDATA[<p>Yes, that’s one of the most often asked questions right after “What is that?”. I don’t often provide this explanation to techies because doing that is as simple as giving them a few lines of explanation and pointing them to a good website with information. The real challenge, if you ask me, is explaining this problem to the everyday <em>Joe</em> out there. Especially since, in a place like India you’re likely to hear “we have bigger problems than _<insert issue="" here="">_". This to me sounds like a blanket excuse for not wanting to deal with an issue at hand and here's how I tend to answer such queries.</insert></p>
+
+<!-- more -->
+
+<h1 id="what-is-net-neutrality">What is net neutrality?</h1>
+
+<p>Net Neutrality is principle that all data on the internet needs to be treated equally by service providers and governments. This means for example your YouTube videos should stream at the same speed your Vimeo videos*all other conditions being equal.</p>
+
+<p>Would you want your internet service provider to slow down YouTube so as to make you move to one of its competitors?</p>
+
+<p>This is a very brief description. At the end of the post are some resources to help you understand what Net Neutrality is if you’re new to this discussion.</p>
+
+<h1 id="net-neutrality-isnt-a-1-problem">Net Neutrality isn’t a 1% problem.</h1>
+
+<p>Do you love your access to the internet? In this day and age, I view the Internet as a medium to impart information to those who didn’t have access to resources earlier. Over the past 15 years the introduction and mass penetration of smartphones in India is probably one of the greatest things that to have happened to our country. Have you ever gone driving between states with a map in your bag, gotten lost and spent time on the side of the road getting conflicting information about where you should go? I have. It sucks. With easy access to online maps, that’s rarely a concern these days :) This isn’t the only use case I can quote. I’m sure everyone has one. Yet, we undermine the significant contribution the internet has had in our lives (and I’m not talking about an endless stream of cat photographs on Facebook :))</p>
+
+<h1 id="would-you-let-this-happen-in-any-other-industry">Would you let this happen in any other industry?</h1>
+
+<p>You walk over to your local vegetable market and ask for 1kg of tomatoes. The vendor says it’s <strong>Rs. 10/kg</strong> if you’re making a salad and <strong>Rs. 30/kg</strong> if you’re making a curry. Would you be fine with this? Why does your vendor care what you’re doing with it?</p>
+
+<p>Does your electricity company ask you for different rates for charging cell phones/laptops vs using TVs vs using ACs? It’s electricity. A unit is charged the same way irrespective of what you do with it.</p>
+
+<p>Why should ISPs charge you different rates?</p>
+
+<h1 id="claimbut-i-heard-they-want-to-charge-us-more-to-provide-us-faster-connections-for-special-data">Claim: ”But I heard they want to charge us more to provide us faster connections for ‘special’ data”</h1>
+
+<p><strong>No. They don’t.</strong></p>
+
+<p>With Net Neutrality</p>
+
+<ul>
+  <li>
+    <p>Regular data - normal speed</p>
+  </li>
+  <li>
+    <p>‘Special’ data - normal speed</p>
+  </li>
+</ul>
+
+<p>Without Net Neutrality when you pay them extra</p>
+
+<ul>
+  <li>
+    <p>Regular data - <strong>slower speed</strong></p>
+  </li>
+  <li>
+    <p>‘Special’ data - normal speed</p>
+  </li>
+</ul>
+
+<p>Without Net Neutrality when you don’t pay them extra</p>
+
+<ul>
+  <li>
+    <p>Regular data - <strong>slower speed</strong></p>
+  </li>
+  <li>
+    <p>‘Special’ data - <strong>slower speed</strong></p>
+  </li>
+</ul>
+
+<p>This is, as John Oliver puts it, a <strong>classical mob shake down</strong>. Video is at the end of the post</p>
+
+<p>Note: ‘Special’ Data refers to whatever they want to charge you extra for. Might be something like video streaming or VOIP.</p>
+
+<h1 id="claim-they-want-to-charge-extra-because-using-the-internet-for--causes-them-to-lose-business">Claim: “They want to charge extra because using the internet  for <service name=""> causes them to lose business"</service></h1>
+
+<p>Just so we’re clear, this is something I’ve heard in the Indian context. The services in question are VOIP services (such as Skype and Viber) and messaging services (mainly WhatsApp).</p>
+
+<p>Lets take the example of WhatsApp. Telecos seem to be losing out on revenue for SMS services. At 30p/SMS, SMS is <strong>the</strong> most expensive (if not one of the most) form of communication used by the masses I can think of. The extremely high cost <strong>is precisely the reason</strong> why services like WhatsApp and Hike were able to come into the market.</p>
+
+<p>Not being able to compete in a sector is no reason to stifle it using your <a href="http://dictionary.reference.com/browse/monopoly">monopoly</a> as a mobile internet provider.</p>
+
+<p>Lets say all dairies in your country sold cheese at insane rates. What if you found a way to produce (arguably?) a better quality cheese product for a lower price than the one dairies sell their’s at despite having to buy milk from them because you don’t have a source. <strong>Would I be fine with them increasing milk rates so you couldn’t afford to make the cheese cheaper any more? </strong>I wouldn’t. That’s why I don’t think charging extra for online messaging or VOIP services is acceptable.</p>
+
+<h1 id="lets-just-boycott-that-telecom-provider-thatll-teach-em">Lets just boycott that telecom provider! That’ll teach ‘em.</h1>
+
+<p><strong>No. It won’t.</strong> For two reasons mainly.</p>
+
+<h4 id="1-they-have-far-too-many-users">1) They have far too many users</h4>
+
+<p>Each telecom provider has tens if not hundreds of mobile users around the country. If your aim is to make them feel the loss of revenue, you’d have to have their revenue to go down at least a few percentage points. This means making 100,000 to a million (10,000,000) users switching service. If you had that kind of support, you probably have a better chance getting the government to take notice and do something.</p>
+
+<h4 id="2-yourproviderisnt-the-only-one-violating-net-neutrality">2) Your provider isn’t the only one violating net neutrality</h4>
+
+<p>Sure, if there was an provider which stood by Net Neutrality, chances are that most of us would move to use their service. Not that it would help, but it’s a matter of principle. Still, that doesn’t fix the problem at hand.</p>
+
+<p>Multiple major players in the market have considered violating neutrality in some form over the past few years. Even ones who haven’t would probably do so once they see their competitors increasing their earnings.</p>
+
+<h1 id="airtel-rolled-back-their-decision-were-saved">Airtel rolled back their decision. We’re saved!</h1>
+
+<p><strong>We’re not.</strong> Not to sound gloomy and all but the battle is far from won. There is affirmative action still required to ensure Internet in India remains a level playing field. We need to ensure people with vested interests do not take advantage of the system and this can only happen through awareness. There are multiple issues plaguing internet access in India not the least of which are privacy and (lawful/unlawful; a debate in itself) censorship.</p>
+
+<h1 id="what-can-i-do-i-am-another-person">What can I do? I am another person.</h1>
+
+<p>Sure you are. You should never underestimate the power of one person in a democracy. Learn more about this issue. Become an advocate. Make others around you aware why this is a concern. Awareness and will to stand up against this is the only way to go forward.</p>
+
+<h1 id="recommended-reference-videos">Recommended Reference Videos</h1>
+
+<p>There are tons of great YouTube videos out there but there are 2 in general I recommend that I’ve come across over the past year or so. Each of these works on different sets of people.</p>
+
+<h4 id="cgp-greys-net-neutrality">CGP Grey’s Net Neutrality</h4>
+
+<p>CGP Grey hits it out of the park with amazing visualisations explaining what is Net Neutrality. It is a bit fast paced as all his videos are so you might want to rewind and hear stuff again if it’s too fast for you.</p>
+
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+<div class="embed-container">    <iframe title="YouTube video player" width="640" height="390" src="//www.youtube.com/embed/wtt2aSV8wdw" frameborder="0" allowfullscreen=""></iframe></div>
+
+<h4 id="john-oliver-on-net-neutrality">John Oliver on Net Neutrality</h4>
+
+<p>John Oliver does what he does best. Makes fun off things and explains important issues.</p>
+
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+<div class="embed-container">    <iframe title="YouTube video player" width="640" height="390" src="//www.youtube.com/embed/fpbOEoRrHyU" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p><em>“please don’t eat my baaaby..”</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac: Camera not available]]></title>
+    <link href="https://blog.karun.me/blog/2014/12/10/mac-camera-not-available/"/>
+    <updated>2014-12-10T01:06:22+05:30</updated>
+    <id>https://blog.karun.me/blog/2014/12/10/mac-camera-not-available</id>
+    <content type="html"><![CDATA[<p>My Macbook Pro sometimes doesn’t detect it’s web camera when I’m trying to join a video call and it’s painful to have to reboot the machine to fix it. A simpler way (especially if you have root access to your machine) is to kill VDCAssistant from the command line.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo killall VDCAssistant</code></pre></figure>
+
+<p>Once you’re done, restart the application that was attempting to use your web camera :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Removing uTorrent ads]]></title>
+    <link href="https://blog.karun.me/blog/2014/11/30/removing-utorrent-ads/"/>
+    <updated>2014-11-30T16:39:04+05:30</updated>
+    <id>https://blog.karun.me/blog/2014/11/30/removing-utorrent-ads</id>
+    <content type="html"><![CDATA[<p>When BitTorrent bought over μTorrent, they promised users that all adverts would be optional. They have, however, made it harder and harder to hide the adverts including now a set of hidden options. Thankfully users have found how to access those hidden options.</p>
+
+<h2 id="turn-off-all-adsfeatured-contentbundle-crap-in-μtorrentbittorrent">Turn off ALL Ads/Featured Content/Bundle Crap in μtorrent/Bittorrent:</h2>
+
+<h4 id="options--preferences--advanced">Options &gt; Preferences &gt; Advanced</h4>
+
+<p>Turn ALL settings to <strong>false</strong>:</p>
+
+<ul>
+  <li>bt.enable_pulse</li>
+  <li>distributed_share.enable</li>
+  <li>gui.show_notorrents_node</li>
+  <li>offers.left_rail_offer_enabled</li>
+  <li>gui.show_plus_upsell</li>
+  <li>offers.content_offer_autoexec</li>
+  <li>offers.sponsored_torrent_offer_enabled</li>
+  <li>offers.featured_content_badge_enabled</li>
+  <li>offers.featured_content_notifications_enabled</li>
+  <li>offers.featured_content_rss_enabled</li>
+</ul>
+
+<h4 id="options--preferences--hold-shiftf2-while-clicking-advanced-hidden-fields">Options &gt; Preferences &gt; Hold Shift+F2 while clicking Advanced (Hidden fields)</h4>
+
+<p>Turn ALL settings to <strong>false</strong>:</p>
+
+<ul>
+  <li>gui.show_gate_notify</li>
+  <li>gui.show_plus_av_upsell</li>
+  <li>gui.show_plus_conv_upsell</li>
+  <li>gui.show_plus_upsell_nodes</li>
+</ul>
+
+<p>Source: <a href="http://forum.utorrent.com/topic/81421-321-how-to-turn-off-ads-except-for-the-silly-upgrade-banner/page-3#entry496240">Forum post from Beasley</a></p>
+]]></content>
+  </entry>
+  
 </feed>

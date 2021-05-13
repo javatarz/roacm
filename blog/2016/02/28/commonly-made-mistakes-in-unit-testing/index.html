@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Commonly made mistakes in Unit Testing</h1>
+  <h2 id="what-is-unit-testing">What is Unit Testing?</h2>
+
+<p>Unit testing is all about focusing on one element of the software at a time. This unit is called the often called the ‘System Under Test’ (refer <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank" rel="noopener noreferrer">Mocks Aren’t Stubbs</a>).
+In order to test only one unit at a time, all other units need to <strong>not</strong> be test at the same time. As obvious as that sounds, it’s easy to miss.</p>
+
+<p>Classes do not exist independent of one another. They usually have dependencies. Such dependencies are called the ‘Collaborators’. There are multiple ways to manage collaborators that have been talked about by Martin in his article.</p>
+
+<h3 id="pre-requisites-to-the-post-before-going-forward">Pre-requisites to the post before going forward</h3>
+<p>Before we go on, please ensure you’ve read through <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank" rel="noopener noreferrer">Mocks Aren’t Stubbs</a> by <a href="http://martinfowler.com/" target="_blank" rel="noopener noreferrer">Martin Fowler</a>. This post assumes that you’ve gone through the article before continuing on to commonly made mistakes in Unit Testing</p>
+
+<!-- more -->
+
+<h2 id="mocks-vs-actual-implementations">Mocks vs Actual Implementations</h2>
+<p>Consider a board game where the Board class runs the game with the help of it’s collaborators <code>Player</code> and <code>Dice</code>.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class Board {
+  private final List&lt;Player&gt; players;
+  private final Dice dice;
+  private int currentPlayerId;
+
+  public Board(final Dice dice, final Player... players) {
+    this.currentPlayerId = 0;
+    this.dice = dice;
+    this.players = Arrays.asList(players);
+  }
+
+  public void playMove() {
+    players.get(currentPlayerId).move(dice.roll());
+    currentPlayerId = evaluateNextPlayerId();
+  }
+
+  public Player getCurrentPlayer() {
+    return players.get(currentPlayerId);
+  }
+
+  private int evaluateNextPlayerId() {
+    return currentPlayerId + 1 &lt; players.size() ? currentPlayerId + 1 : 0;
+  }
+}
+
+class Dice {
+  public int roll() {
+    return (int) Math.round(Math.random() * 6);
+  }
+}
+
+class Player {
+  @lombok.Getter
+  private int position;
+
+  public int move(final int moveCount) {
+    position += moveCount;
+  }
+}</code></pre></figure>
+
+<p>If we consider the <code>Board</code> to be the System Under Test, the most tempting trap to fall into is start testing the Board directly.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class BoardTest {
+  @Test
+  public void shouldMovePlayerForCorrectPlayer() {
+    final Dice dice = new Dice();
+    final Player player1 = new Player();
+    final Player player2 = new Player();
+    final Board board = new Board(dice, player1, player2);
+
+    board.playMove();
+
+    assertThat(player1.getPosition(), greaterThan(0));
+    assertThat(player2.getPosition(), is(0));
+    assertThat(board.getCurrentPlayer(), is(player2));
+  }
+}</code></pre></figure>
+
+<p>This is not the greatest example but it does attempt to show you the coupling between the different components. Player1’s current position isn’t predictable since it’s coupling with dice. The dependency also means that if the dice has defects, the board can’t be tested appropriately.</p>
+
+<p>By swapping out player and dice instances with mocks, we have the ability to only test the board independent of potential issues with the dependencies.</p>
+
+<p>The above test can be refactored to look like</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class BoardTest {
+  @Test
+  public void shouldMovePlayerForCorrectPlayer() {
+    final Dice dice = mock(Dice.class);
+    final Player player1 = mock(Player.class);
+    final Player player2 = mock(Player.class);
+    final Board board = new Board(dice, player1, player2);
+
+    when(dice.roll()).thenReturn(3);
+    when(player1.move(3)).thenReturn(3);
+
+    board.playMove();
+
+    verify(player1).move(3);
+    verify(player2, never()).move(anyInt());
+    assertThat(board.getCurrentPlayer(), is(player2));
+  }
+}</code></pre></figure>
+
+<p>The test now allows you to check if <code>player1</code> was moved 3 places since the response provided by the dice is in your control. Mocks also allow you to test that <code>player2</code> was not called.</p>
+
+<p>This becomes even more important in an example where the response from the mock affects the system under test. Controlling the mock allows you to control predict the end state of the system under test with the assumption that your mock setup is correct. These assumptions can be validated with the spec for the individual mocks. The unit test for dice mock can confirm that the dice only returns values between 1 and 6 (inclusive).</p>
+
+<h2 id="testing-inside-the-boundaries">Testing inside the boundaries</h2>
+
+<p>Every functionality should be tested within it’s boundaries. Let’s take the <code>Dice</code> class as an example and talk about what this means.</p>
+
+<p>Typically a dice produces values between 1 and 6.</p>
+
+<p>It’s corresponding test has to prove that rolling a dice always results in a value between 1-6.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  assertThat(new Dice().roll(), isOneOf(1, 2, 3, 4, 5, 6));
+}</code></pre></figure>
+
+<p>This test proves that the value is inside the range but does not prove that it will <strong>always</strong> be in that range. Since the implementation contains a <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator" target="_blank" rel="noopener noreferrer">PRNG</a>, the end result cannot be predicted.</p>
+
+<p>Most readers wouldn’t have noticed the defect in the implementation.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">class Dice {
+  public int roll() {
+    return (int) Math.round(Math.random() * 6);
+  }
+}</code></pre></figure>
+
+<p>The implementation can produce values 0-6. The fact that your test passed proves that it is a <strong>flaky unit test</strong>. The test has a 1/7 chance of failing. The fact that it didn’t fail when you ran it is not surprising :)</p>
+
+<h2 id="di-your-new-best-friend">DI, your new best friend</h2>
+
+<p>The anti-pattern to take away from the previous example is that the Dice class relies on a library and that the library is contained in the class. The fact that it can’t be injected means that you can’t control it.</p>
+
+<p><a href="http://martinfowler.com/articles/injection.html#FormsOfDependencyInjection" target="_blank" rel="noopener noreferrer">Dependency Injection</a> is your friend!</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">class Dice {
+  private final Random random;
+  private final int numberOfFaces;
+
+  Dice(final Random random, final int numberOfFaces) {
+    this.random = random;
+    this.numberOfFaces = numberOfFaces;
+  }
+
+  public int roll() {
+    return random.nextInt(numberOfFaces - 1) + 1;
+  }
+}</code></pre></figure>
+
+<p>Now, your test can work with a mocked <code>Random</code> instance for more accurate results.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  final Random random = mock(Random.class);
+  when(random.nextInt(5)).thenReturn(0, 1, 2, 3, 4, 5);
+
+  final Dice dice = new Dice(random, 6);
+
+  assertThat(dice.roll(), is(1));
+  assertThat(dice.roll(), is(2));
+  assertThat(dice.roll(), is(3));
+  assertThat(dice.roll(), is(4));
+  assertThat(dice.roll(), is(5));
+  assertThat(dice.roll(), is(6));
+}</code></pre></figure>
+
+<p>We’re currently making 2 assumptions on the collaborator.</p>
+
+<ol>
+  <li>
+<code>random.nextInt</code> is always called with parameter <code>5</code>
+</li>
+  <li>
+<code>random.nextInt(5)</code> always returns values between 0 and 5</li>
+</ol>
+
+<p>The first assumption is in part validated by the mocking library. If <code>Dice</code> called by any other parameter, the results wouldn’t be what we want. But if you want to be extra sure, you could always make the test fail using an argument captor</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Test
+public void shouldRollValidNumberOnDice() {
+  final Random random = mock(Random.class);
+  final ArgumentCaptor&lt;Integer&gt; argumentCaptor = ArgumentCaptor.forClass(Integer.class);
+  when(random.nextInt(argumentCaptor.capture())).thenReturn(0, 1, 2, 3, 4, 5);
+
+  final Dice dice = new Dice(random, 6);
+
+  assertThat(dice.roll(), is(1));
+  assertThat(dice.roll(), is(2));
+  assertThat(dice.roll(), is(3));
+  assertThat(dice.roll(), is(4));
+  assertThat(dice.roll(), is(5));
+  assertThat(dice.roll(), is(6));
+  assertThat(argumentCaptor.getAllValues(), is(asList(5, 5, 5, 5, 5, 5)));
+}</code></pre></figure>
+
+<p>The second assumption <strong>should not</strong> be validated by you.  If you look at the documentation for <code>random.nextInt()</code> you will notice</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">/**
+ * Returns a pseudorandom, uniformly distributed {@code int} value
+ * between 0 (inclusive) and the specified value (exclusive), drawn from
+ * this random number generator's sequence.
+ ...
+ */
+public int nextInt(int bound) {...}</code></pre></figure>
+
+<p>It is the responsibility of the library (<code>java.util.Random</code> in this case) to test itself.</p>
+
+<p>How do I know <code>Random</code> will not misbehave? I don’t. The <code>Dice</code> component could be integration tested. It is an absolute necessity if you deem the component to be an untrusted collaborator. If this was a database connection or a REST call, you’d want that. For a Java util or a well tested open source library, you could be forgiven for not writing an integration test.</p>
+
+<p>In this case, I won’t be writing one for sure! ☺</p>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 28th February 2016
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Development
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  TDD, Testing
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/';
+        this.page.identifier = 'https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Atlassian Bamboo: Downloading Code from Atlassian Stash</h1>
+  <p>The Atlassian suite of tools are a good way to have your organization’s workflow administered. If you’re using Atlassian Stash to manage your source code and are attempting to get Atlassian Bamboo to download code off Stash’s copy of git, the answer isn’t quite straight forward.</p>
+
+<p>Having experience with Atlassian’s tools for over a year, one gets used to excellent integration wrapped up with beautiful UI but when it comes to setting up flawless CI with Bamboo, you’re let down (either that or my integration is non-standard; don’t see how).<!-- more --></p>
+
+<p>Here forth, I’m assuming users have necessary rights to perform these actions. If not, contact your Bamboo/Stash admin</p>
+
+<h1 id="setting-up-stash">Setting up Stash</h1>
+
+<h2 id="creating-keys">Creating keys</h2>
+
+<p>Atlassian’s documentation on <a href="https://confluence.atlassian.com/display/STASH/Creating+SSH+keys" target="_blank" rel="noopener noreferrer">creating SSH keys</a> does a fine job at explaining things. A few deviations I recommend are listed below:</p>
+
+<ul>
+  <li>
+    <p>I’d name this file something like “stash_access_stashServerName” instead of “id_rsa”.</p>
+  </li>
+  <li>
+    <p>I recommend you using “bamboo_access_bambooServerName” instead of your e-mail when generating the key (replacing “your_email@example.com” with said value)</p>
+  </li>
+  <li>
+    <p>I <strong>highly</strong> recommend you using a passphrase. I hope I don’t need to explain why. :)</p>
+  </li>
+</ul>
+
+<h2 id="enable-ssh">Enable SSH</h2>
+
+<p>An admin needs to enable SSH access and SSH access keys from Stash &gt; Administration &gt; Settings &gt; Server settings &gt; SSH access</p>
+
+<p>Ensure “SSH enabled” and “SSH access keys enabled” are checked (yes, it’s important enough to be said twice). If your enterprise wants to restrict access to the source code, they probably have the network set up to ensure that the http based checkout currently being used by users is behind a firewall. In such a case, similar restrictions need to be made to secure the port mentioned there on the machine which runs stash. Please make a note of the SSH port for stash. Default port for this option is 7999.</p>
+
+<p>[caption id=”” align=”alignnone” width=”300”]<a href="https://blog.karun.me/assets/images/uploads/stash-ssh-enable-config.png"><img src="https://blog.karun.me/assets/images/uploads/stash-ssh-enable-config-300x258.png" alt="Stash: SSH Enable Config"></a> Stash: SSH Enable Config[/caption]</p>
+
+<h2 id="add-access-keys">Add Access Keys</h2>
+
+<p>Go to Stash &gt; Your Repository &gt; Settings &gt; Access Keys and click the Add key button. The same can be done at project level instead of repository level based on what kind of setup you have.</p>
+
+<p>Paste the <strong>public key</strong> into the text box and add it.</p>
+
+<p>If you have the key on your machine use</p>
+
+<pre><code>pbcopy &lt; your_key.pub
+</code></pre>
+
+<p>If you have the key on a remote machine, on terminal you can use the following command to output the public key and copy it from terminal yourself (cmd+c for macs, ctrl+shift+c for most linux based terminals)</p>
+
+<pre><code>cat your_key.pub
+</code></pre>
+
+<h1 id="setting-up-bamboo">Setting up Bamboo</h1>
+
+<h2 id="create-a-plan"><strong>Create a Plan</strong></h2>
+
+<p>[caption id=”” align=”alignright” width=”300”]<a href="https://blog.karun.me/assets/images/uploads/create-plan-menu-option.png"><img src="https://blog.karun.me/assets/images/uploads/create-plan-menu-option-300x29.png" alt="Bamboo: Create Plan Menu Option"></a> Bamboo: Create Plan Menu Option[/caption]</p>
+
+<p>This can be done by using the create button on the top of the screen.  If you already have a plan, skip this step. If required, create a new project on the next screen.</p>
+
+<h2 id="configure-plan"><strong>Configure Plan</strong></h2>
+
+<p>[caption id=”” align=”alignright” width=”195”]<a href="https://blog.karun.me/assets/images/uploads/bamboo-configure-plan-option.png"><img src="https://blog.karun.me/assets/images/uploads/bamboo-configure-plan-option.png" alt="Bamboo: Configure Plan Option"></a> Bamboo: Configure Plan Option[/caption]</p>
+
+<p>Click the “Actions” button on the top right corner and the “Configure plan” option.<a href="https://blog.karun.me/assets/images/uploads/bamboo-configure-plan-option.png">
+</a></p>
+
+<h2 id="repositories"><strong>Repositories</strong></h2>
+
+<p>Under “Plan Configuration”  on the left, go to the “Repositories” tab. Either add a repository or edit an existing one that you have.</p>
+
+<h2 id="repository-configuration"><strong>Repository Configuration</strong></h2>
+
+<p>The following settings have to be used. Any fields not mentioned are to be filled based on the user’s discretion.</p>
+
+<ul>
+  <li>
+    <p>Source repository: Git</p>
+  </li>
+  <li>
+    <p>Repository URL: SSH URL for the repository; probably <em>ssh://git@stash_host:stash_ssh_port/project_key/repo_key.git</em>; Open repository in Stash and click the clone button. If the repository has a SSH key added (or the user has a SSH key added for himself; this is NOT REQUIRED) you should be able to see the SSH URL</p>
+  </li>
+</ul>
+
+<p>[caption id=”attachment_499” align=”alignright” width=”300”]<a href="https://blog.karun.me/assets/images/uploads/stash-ssh-url.png"><img src="https://blog.karun.me/assets/images/uploads/stash-ssh-url-300x248.png" alt="Stash: SSH Clone URL"></a> Stash: SSH Clone URL[/caption]</p>
+
+<ul>
+  <li>
+    <p>Authentication Type: SSH private key</p>
+  </li>
+  <li>
+    <p>SSH Key: <upload file="" created="" earlier=""></upload></p>
+  </li>
+  <li>
+    <p>SSH Passphrase: <enter passphrase="" entered="" earlier=""></enter></p>
+  </li>
+  <li>
+    <p>Advanced Options (optional; recommended; for Stash-Bamboo integration for build and defect stats)</p>
+
+    <ul>
+      <li>
+        <p>Web repository: Stash</p>
+      </li>
+      <li>
+        <p>Stash URL: &lt;Your Stash URL; if you’re using an internal hostname setup in the host file for your machine, ensure the server has the same setting&gt;</p>
+      </li>
+      <li>
+        <p>Stash Project Key: Reference “project_key” from repository url mentioned earlier for the Bamboo repository configuration</p>
+      </li>
+      <li>
+        <p>Repository Name: Reference “repo_key” from repository url mentioned earlier for the Bamboo repository configuration</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="misc">Misc</h1>
+
+<p>If any of these steps aren’t clear, leave a comment for clarification.</p>
+
+<p>This tutorial has been written for Atlassian Bamboo 5.4.2 build 4208. If any instructions above do not map the version you have, feel free to ask below.</p>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 11th March 2014
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Tutorials
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  Server, Tutorial, atlassian, bamboo, integration, setup, stash
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2014/03/11/atlassian-bamboo-downloading-code-from-atlassian-stash/';
+        this.page.identifier = 'https://blog.karun.me/blog/2014/03/11/atlassian-bamboo-downloading-code-from-atlassian-stash/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

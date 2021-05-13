@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <div class="blog-index">
+  
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/07/08/project-euler-79-passcode-derrivation-using-lambdas/">Project Euler #79: Passcode Derrivation (using Lambdas)</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>I’ve been solving Project Euler for years and I avoid posting solutions online as far as possible but this problem is old enough that it shouldn’t be a problem. Plus, the problem statement interests me enough to write a functional solution using the new Java 8 Lambdas that I’ve been experimenting over the past few months.</p>
+
+<p>Before I begin, I’d like to acknowledge <a href="http://alexmic.net/" target="_blank" rel="noopener noreferrer">Alex Michael</a> for providing the base solution with a pretty nice explanation of how to crack the problem. You should read through <a href="http://alexmic.net/password-derivation-project-euler/" target="_blank" rel="noopener noreferrer">his post</a> before you continue.</p>
+
+<p>My solution provides a Java port of this solution using Lambdas. Here are the steps to the solution</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2014/07/08/project-euler-79-passcode-derrivation-using-lambdas/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/06/16/set-java-home-to-a-specific-version-on-mac/">Set Java Home to a specific version on Mac</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>Installing Oracle’s version of Java on your machine does (for most machines I’ve encountered) add a Java Home system variable. Rarely however it doesn’t work on some machines. Such folks are recommended to add the path themselves.</p> <p>On a Mac, you can do this by using the following</p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">export JAVA_HOME=$(/usr/libexec/java_home)</code></pre></figure> <p>This information is littered across the internet and isn’t hard to find at all. However, this specific machine, when upgraded from Java 1.7 to Java 1.8 kept insisting it’s home is Java 1.7. The Java Home script at <code>/usr/libexec</code> on the mac should take care of this
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2014/06/16/set-java-home-to-a-specific-version-on-mac/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/06/13/java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/">Java 8: Generic Method Returns with Lambdas and Strategy Design Pattern implementation</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>With the introduction of Functional Programming in Java 8 new possibilities have opened up. One use case I recently encountered was that of processing JSONs to return data inside them. Let us, for the sake of argument, say the data in an element could be one of the following:</p>
+
+<ul>
+  <li>An <code>Integer</code> e.g. <code>1</code>
+</li>
+  <li>A <code>String</code> e.g. <code>The quick brown fox jumps over the lazy dog</code>
+</li>
+  <li>A <code>JsonObject</code> representing a Java Object e.g. <code>{"payload":[{"lastName\":\"AB","firstName":"Karun","email":"test[at]email.com"}</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>Integer</code>s e.g. <code>[1, 2, 3]</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>String</code>s e.g. <code>["String 1", "String 2"]</code>
+</li>
+  <li>A <code>JsonArray</code> containing <code>JsonObject</code>s representing Java Objects e.g. <code>[{"lastName":"AB","firstName":"Karun","email":"test[at]email.com"},{"lastName":"FooBar","firstName":"Kung","email":"kung[at]foobar.com"}]</code>
+</li>
+</ul>
+
+<p>If you want such a wide variety of data parsed and handled (<em>relatively</em>) safely (i.e. with compile time type safety where possible), here is what you do.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2014/06/13/java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/04/24/karun-ab-thats-me/">Karun AB, that's me!</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>It’s been almost a year now since I bought the domain <a href="http://karun.me" target="_blank" rel="noopener noreferrer">http://karun.me</a> and a few months back I decided to put in some of my free time to put something up there. The domain, being named what it is, makes sense to house things about who this mythical Karun is and what he does. Seems he mostly does code for random organizations and at times is allowed to talk a bit about it :P So that’s what the website tells you! He also seems to take some photographs so the website helps show that off as well.</p> <p>So, anyone who’s
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2014/04/24/karun-ab-thats-me/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/04/24/cloud-to-butt-on-safari-update/">Cloud To Butt on Safari Update</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>As Reddit puts it, <a href="http://www.reddit.com/r/chrome/comments/1pkahp/cloud_to_butt_the_funniest_chrome_extension_you/" target="_blank" rel="noopener noreferrer">Cloud to Butt is the funniest plugin ever</a> and they aren’t wrong. Childish, but funny. Safari has an equivalent but alas it’s not as effective. I really should say <strong>wasn’t that effective</strong> because I just made it :P</p>
+
+<p>There is a <a href="https://github.com/logancollins/cloud-to-butt-safari/pull/2" target="_blank" rel="noopener noreferrer">pending pull request</a> but if it isn’t approved in time, you can always get the <a href="https://github.com/javatarz/cloud-to-butt-safari/blob/master/CloudToButt.safariextz.zip" target="_blank" rel="noopener noreferrer">downloadable</a> (and <a href="https://github.com/javatarz/cloud-to-butt-safari" target="_blank" rel="noopener noreferrer">source</a>) off <a href="https://github.com/javatarz" target="_blank" rel="noopener noreferrer">my fork</a>.</p>
+
+    
+  
+
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/03/13/wildfly-server-side-variablesjndi-custom-resources/">WildFly: Server Side Variables/JNDI Custom Resources</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>As you probably know, <a href="https://blogs.oracle.com/theaquarium/entry/java_ee_and_glassfish_server" target="_blank" rel="noopener noreferrer">Oracle stopped development of Glassfish’s commercial version</a> and in doing so, prompted others to move. <a href="https://blogs.oracle.com/brunoborges/entry/6_facts_about_glassfish_announcement" target="_blank" rel="noopener noreferrer">News of Glassfish being dead is greatly exaggerated according to some</a> but myself being one who was already not happy with Glassfish’s Open Source version, steps were taken to move to <a href="http://wildfly.org/" target="_blank" rel="noopener noreferrer">WildFly</a>. So far, the move has been well received in the team except for web based GUI administration panel which isn’t complete. Reliability of the admin panel is higher than Glassfish’s counterpart though and what WildFly’s web admin panel lacks, it’s CLI and Swing based GUI admin panel make up for allowing script writers (such as myself) to come up with automated ways to get things done.</p>
+
+<p>A while back we discussed how you could use <a href="http://blog.karun.me/blog/2013/05/14/glassfish-jndi-custom-resource-reading-primitives/">JNDI custom resources on Glassfish to set environment variables</a>. Migration for our team meant information setup as environment variables need to be setup again.</p>
+
+
+  
+
+  
+    <p>
+      <a rel="full-article" href="/blog/2014/03/13/wildfly-server-side-variablesjndi-custom-resources/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2014/03/11/atlassian-bamboo-downloading-code-from-atlassian-stash/">Atlassian Bamboo: Downloading Code from Atlassian Stash</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>The Atlassian suite of tools are a good way to have your organization’s workflow administered. If you’re using Atlassian Stash to manage your source code and are attempting to get Atlassian Bamboo to download code off Stash’s copy of git, the answer isn’t quite straight forward.</p>
+
+<p>Having experience with Atlassian’s tools for over a year, one gets used to excellent integration wrapped up with beautiful UI but when it comes to setting up flawless CI with Bamboo, you’re let down (either that or my integration is non-standard; don’t see how).
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2014/03/11/atlassian-bamboo-downloading-code-from-atlassian-stash/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2013/12/03/eclipse-plugin-development-project-icon-overlay/">Eclipse Plugin Development: Project Icon Overlay</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>If you’re trying to create a Custom Project in Eclipse, you’ll eventually come to read a beautiful blog post over at <a href="http://cvalcarcel.wordpress.com/2009/10/14/writing-an-eclipse-plug-in-part-6-adding-an-icon-to-new-project-types/" target="_blank" rel="noopener noreferrer">Hidden Clause</a> that documents quite well how to overlay your icon over Eclipse’s default folder icon to get the icon of your choice.</p> <p>If you’re default project is an extension of an already existing project (I, for example, wanted a custom Java Project type so I extended Eclipse’s New Java project wizard to get desired effect), the default nature added is that of Java meaning Eclipse adds it’s icon and not the icon you’ve set up. The issue
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2013/12/03/eclipse-plugin-development-project-icon-overlay/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2013/10/08/eclipse-plugin-development-attaching-sources/">Eclipse Plugin Development: Attaching Sources</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>As a developer, I like to look at the source code for the libraries I use in order to understand if what I am doing is the best way to implement it or not. Though Eclipse, by default, comes with features to develop plugins, it doesn’t come with the source code for this. Getting the source is a simple, 3 step process!</p> <ul> <li> <p>Help &gt; Install new Software</p> </li> <li> <p>Work with ‘The Eclipse Project Updates’ (not the main site!)</p> </li> <li> <p>Install the following items</p> <ul> <li> <p>Eclipse RCP Plug-in Developer Resources</p> </li> <li> <p>Eclipse PDE Plug-in Developer
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2013/10/08/eclipse-plugin-development-attaching-sources/">Read on →</a>
+    </p>
+  
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+    </article>
+  
+  
+    <article>
+      <h1 class="entry-title"><a href="/blog/2013/10/08/windows-7-unable-to-delete-files-access-is-denied-error-messages/">Windows 7: Unable to delete files - "Access is denied" error messages</a></h1>
+
+<div class="entry-content">
+  
+  
+
+  
+    <p>Windows, at times, denies you the right to delete a file or a folder. I’ve noticed this happening especially when you copy the contents of the folder to empty it and later try to delete it. At this moment, you’ve got to ask yourself if you’ve got the necessary permissions to do so.</p> <p>If you’re like many, you have admin privileges to your machine but you still can’t delete it. This is because Windows’ permissions table for this directory is broken and as a result, is denying you access. You can right click the folder, go to properties and look
+  
+
+  
+    </p>
+<p>
+      <a rel="full-article" href="/blog/2013/10/08/windows-7-unable-to-delete-files-access-is-denied-error-messages/">Read on →</a>
+    </p>
+  
+</div>
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/5">← Older</a>
+    
+    
+    <a class="next" href="/posts/3">Newer →</a>
+    
+  </div>
+</div>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

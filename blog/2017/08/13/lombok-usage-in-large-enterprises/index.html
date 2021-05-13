@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Lombok usage in large enterprises</h1>
+  <h2 id="verbosity-of-java">Verbosity of Java</h2>
+
+<p>Java is a verbose language. No one disputes it.</p>
+
+<p>Despite the clunky nature of the language syntax, it still is the language of choice in most enterprises. If you work in the services industry or are a technology consultant, chances are that you have to work with Java on a regular basis.</p>
+
+<p>If you’re also a fan of functional programming language and have worked any <em>modern</em> programming language, you’ll recognize that Java’s syntax hinders your productivity because of the large amounts of boilerplate the language will generate. While newer JVM based lanaguages like <a href="https://kotlinlang.org/docs/reference/data-classes.html" target="_blank" rel="noopener noreferrer">Kotlin</a> solve these problems in different ways, the open source community created <a href="https://projectlombok.org/features/all" target="_blank" rel="noopener noreferrer">Project Lombok</a> to provide similar syntactic sugar in the world’s most popular enterprise programming language.</p>
+
+<!-- more -->
+
+<h2 id="what-is-lombok">What is Lombok?</h2>
+
+<p>Lombok is a Java dependency that uses Java annotations to generate byte code straight into the class files during the compilation phase there by allowing the <a href="https://en.wikipedia.org/wiki/Boilerplate_code" target="_blank" rel="noopener noreferrer">boilerplate code</a> from your codebase to be significantly reduced.</p>
+
+<p>An example from the <a href="http://jnb.ociweb.com/jnb/jnbJan2010.html#data" target="_blank" rel="noopener noreferrer">Software Engineering Trends post from Jan 2010</a> shows</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data(staticConstructor="of")
+public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+}</code></pre></figure>
+
+<p>would generate the same code as</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+
+  private Company(final Person founder) {
+    this.founder = founder;
+  }
+
+  public static Company of(final Person founder) {
+    return new Company(founder);
+  }
+
+  public Person getFounder() {
+    return founder;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  public List&lt;Person&gt; getEmployees() {
+    return employees;
+  }
+
+  public void setEmployees(final List&lt;Person&gt; employees) {
+    this.employees = employees;
+  }
+
+  @java.lang.Override
+  public boolean equals(final java.lang.Object o) {
+    if (o == this) return true;
+    if (o == null) return false;
+    if (o.getClass() != this.getClass()) return false;
+    final Company other = (Company)o;
+    if (this.founder == null ? other.founder != null : !this.founder.equals(other.founder)) return false;
+    if (this.name == null ? other.name != null : !this.name.equals(other.name)) return false;
+    if (this.employees == null ? other.employees != null : !this.employees.equals(other.employees)) return false;
+    return true;
+  }
+
+  @java.lang.Override
+  public int hashCode() {
+    final int PRIME = 31;
+    int result = 1;
+    result = result * PRIME + (this.founder == null ? 0 : this.founder.hashCode());
+    result = result * PRIME + (this.name == null ? 0 : this.name.hashCode());
+    result = result * PRIME + (this.employees == null ? 0 : this.employees.hashCode());
+    return result;
+  }
+
+  @java.lang.Override
+  public java.lang.String toString() {
+      return "Company(founder=" + founder + ", name=" + name + ", employees=" + employees + ")";
+  }
+}</code></pre></figure>
+
+<h3 id="the-good">The good</h3>
+
+<p>You shouldn’t have to write code that can be generated automatically. Of course, <a href="https://www.jetbrains.com/help/idea/generating-getters-and-setters.html" target="_blank" rel="noopener noreferrer">modern IDEs will do this for you with a few clicks of the keyboard</a></p>
+
+<p>We’re trying to optimize more than a few clicks though. Have a look at the equals method below:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@java.lang.Override
+  public boolean equals(final java.lang.Object o) {
+    if (o == this) return true;
+    if (o == null) return false;
+    if (o.getClass() != this.getClass()) return false;
+    final Company other = (Company)o;
+    if (this.founder == null ? other.founder != null : !this.founder.equals(other.founder)) return false;
+    if (this.name == null ? other.name != null : !this.name.equals(other.name)) return false;
+    if (this.employees == null ? other.employees != null : !this.employees.equals(other.employees)) return false;
+    return true;
+  }</code></pre></figure>
+
+<p>Is this a standard equals method (one where every field in the class is checked for equality)? Did we skip a field? Did we do a non standard check on one of the fields? Unless you go through the method line by line, there is no way to know.</p>
+
+<p>Generating code saves you the hassle of checking. If there is an annotation, you know the what the implementation will be (assuming you know how the framework works). If there’s code, chances are that it’s a non-standard implementation (or someone made a mistake).</p>
+
+<h3 id="the-bad">The bad</h3>
+
+<p>If you wish to check the generated code, you need an <a href="https://plugins.jetbrains.com/plugin/7100-java-decompiler-intellij-plugin" target="_blank" rel="noopener noreferrer">IDE that decompiles byte code</a> or a <a href="http://jd.benow.ca/" target="_blank" rel="noopener noreferrer">tool that does the same</a>.</p>
+
+<p>If something’s wonky, debugging the issue might not be straight forward.</p>
+
+<h3 id="the-downright-ugly">The downright ugly</h3>
+
+<p>Modern IDEs like IntelliJ are <a href="https://www.jetbrains.com/help/idea/refactoring-source-code.html" target="_blank" rel="noopener noreferrer">built for refactoring</a>. One of the most common refactoring options is the option to <a href="https://www.jetbrains.com/help/idea/change-signature.html" target="_blank" rel="noopener noreferrer">Change Signature</a>. It’s an extremely useful option that allows you to reorder method (or constructor) parameters and the IDE takes care of the appropriate changes throughout the codebase.</p>
+
+<p>The order of the constructor parameters in a lombok-fied class is the order in which the parameters are declared. Changing this order changes the constructor signature.</p>
+
+<p>For a class with different parameter types, this is not a problem. Refactoring the following class</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Company {
+  private final Person founder;
+  private String name;
+  private List&lt;Person&gt; employees;
+}</code></pre></figure>
+
+<p>to the following signature</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Company {
+  private final Person founder;
+  private List&lt;Person&gt; employees;
+  private String name;
+}</code></pre></figure>
+
+<p>is not a problem. The usage of the constructor will fail to compile and provide feedback.</p>
+
+<p>If you have primitive types in your lombok-fied class, you have a problem. Refactoring the following class</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Person {
+  private final String employeeId;
+  private final String firstName;
+  private final String lastName;
+}</code></pre></figure>
+
+<p>to the following signature</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">@Data
+public class Person {
+  private final String firstName;
+  private final String lastName;
+  private final String employeeId;
+}</code></pre></figure>
+
+<p>will provide no feedback. The code will compile and set <code>employeeId</code>s to <code>firstName</code>s, <code>firstName</code>s to <code>lastName</code>s and <code>lastName</code>s to <code>employeeId</code>s. If you don’t have tests on the behavior of the <code>Person</code> class, you won’t notice this issue until it’s too late. Hopefully, you don’t have <a href="https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/">tests for a data container with no behavior</a>.</p>
+
+<h2 id="where-is-lombok-appropriate">Where is Lombok appropriate?</h2>
+
+<ol>
+  <li>
+<strong>Do you have a project where you have a strict set of contributors?</strong>
+    <ul>
+      <li><em>because you’ll have to walk them through the rules of appropriate usage of lombok</em></li>
+    </ul>
+  </li>
+  <li>
+<strong>Do your contributors understand Lombok well and how it works?</strong>
+    <ul>
+      <li><em>because you will have unexpected defects due to refactoring if they don’t</em></li>
+    </ul>
+  </li>
+  <li>
+<strong>Do your contributors understand how to properly unit test and do they understand the automation test pyramid?</strong>
+    <ul>
+      <li><em>appropriate high level testing could catch functional defects. you don’t want unit tests checking constructors and getters</em></li>
+    </ul>
+  </li>
+  <li>
+<strong>Do you have strict code quality control?</strong>
+    <ul>
+      <li><em>without a way to check for inappropriate usage of lombok, defects can very easily creep in</em></li>
+    </ul>
+  </li>
+  <li>
+<strong>Is the team willing to invest time and effort into training new team members about Lombok and potential downsides?</strong>
+    <ul>
+      <li><em>your learnings have to be passed to every future member of the codebase</em></li>
+    </ul>
+  </li>
+  <li>
+<strong>Do most of your models use <a href="https://www.martinfowler.com/bliki/ValueObject.html" target="_blank" rel="noopener noreferrer">value objects</a> and avoid primitives?</strong>
+    <ul>
+      <li><em>because reordering non-primitive fields will lead to compile exceptions providing feedback</em></li>
+    </ul>
+  </li>
+</ol>
+
+<p>If your team can answer <em>yes</em> to all of the above, you should use Lombok.</p>
+
+<p>I must admit, most large teams can’t answer <em>yes</em> to all of the questions. Have you <a href="https://try.kotlinlang.org/" target="_blank" rel="noopener noreferrer">considered using Kotlin instead</a>? :)</p>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 13th August 2017
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Development
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  Code Cleanliness, Enterprise, Java, Lombok
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises/';
+        this.page.identifier = 'https://blog.karun.me/blog/2017/08/13/lombok-usage-in-large-enterprises/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

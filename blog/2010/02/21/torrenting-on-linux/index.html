@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Torrenting on Linux</h1>
+  <p><a href="https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg" alt="rutorrent webUI"></a></p>
+
+<p>As of today, the primary OS on my laptop is Ubuntu and since torrenting is a good way to get open source applications (such as Eclipse), I thought I should definitely invest the time to get a decent torrent client. I’m not saying that Transmission isn’t a good client. I certainly can’t say that since I haven’t used it for more than 5 minutes. I simply lacks umph. It really doesn’t impress me as much as uTorrent does on Windows. So let’s look for an alternative client.</p>
+
+<p>Using uTorrent with Wine is always a popular option, one most Windows to Linux converts happily embrace. Let’s face it, uTorrent is awesome. But I really wanted to embrace Linux which for me meant to stop using the mouse and GUI as much as possible (not that difficult for me) and getting used to native applications rather than applications via Wine. This meant no more uTorrent for torrenting and no more mIRC :( The alternative I settled for came highly recommended by quite a few users. And oh, look at that, it’s terminal based. Of course, I’m talking about rTorrent ;)</p>
+
+<p>I have tried to install rTorrent before and failed. This time around, I had managed to get rTorrent to install and work fine but I couldn’t get a webUI for it to work. So I had dt walk me through the process. I’ll try to document as much of it as possible to help users going through the same issue.</p>
+
+<p>If you want to see a couple of screen shots of the end result before beginning, visit the <a href="http://code.google.com/p/rutorrent/" target="_blank" rel="noopener noreferrer">rutorrent website</a> and check out the screen shots. The best part about it is the tracker based, per torrent and global settings along with the pretty amazing <a href="http://rutorrent.googlecode.com/svn/wiki/assets/images/scr1_big.jpg" target="_blank" rel="noopener noreferrer">traffic plug-in</a> which gives your multiple (group) views of your traffic statistics. It’s pretty cool ;)</p>
+
+<!-- more -->
+
+<p>The first step is to install XMLRPC-C followed by libTorrent and finally rTorrent. These steps are pretty well documented in this <a href="http://rtwi.jmk.hu/wiki/InstallationGuide#preparing" target="_blank" rel="noopener noreferrer">installation guide for XMLRPC-C</a> and this <a href="http://libtorrent.rakshasa.no/wiki/Install" target="_blank" rel="noopener noreferrer">installation guide for libTorrent and rTorrent</a> with a few changes. I’ll note the changes in commands in bold.</p>
+
+<p>Before beginning, make sure you have the following packages:</p>
+
+<ul>
+  <li>make</li>
+  <li>pkg-config</li>
+  <li>sigc++-2.0-dev</li>
+  <li>libncurses-dev</li>
+  <li>libcurl-openssl-dev</li>
+</ul>
+
+<p>Installing XMLRPC-C: (Note: You should have xmlrpc-c v1.07 and up for a rather bug free rutorrent)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cd /usr/src
+  wget http://dfn.dl.sourceforge.net/sourceforge/xmlrpc-c/xmlrpc-c-1.11.00.tgz
+  tar xvf xmlrpc-c-1.11.00.tgz
+  cd xmlrpc-c-1.11.00
+  ./configure --disable-cplusplus
+  make
+  make install</code></pre></figure>
+
+<p>Installing libTorrent:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cd /home/rtorrent
+svn co svn://rakshasa.no/libtorrent/trunk
+
+cd /home/rtorrent/trunk
+cd libtorrent
+./autogen.sh
+./configure
+make
+make install
+
+cd ../rtorrent
+./autogen.sh
+./configure --with-xmlrpc-c
+make
+make install</code></pre></figure>
+
+<p>Next, make a .rtorrent.rc file in your home folder with appropriate settings. The line in bold is what we need to set up the webUI.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">scgi_port = 127.0.0.1:5000
+encoding_list = UTF-8
+
+min_peers = 10
+max_peers = 50
+
+min_peers_seed = -1
+max_peers_seed = -1
+
+max_uploads = 10
+
+upload_rate = 20
+
+directory = /home/karun/share/torrents/
+
+session = /home/karun/share/torrents/session
+schedule = watch_directory,5,5,load_start=/home/dt/share/torrents/auto/*.torrent
+schedule = trafic,10,00:05:00,"execute={sh,-c,php /var/www/rtorrent/plugins/trafic/update.php&amp; exit 0}"
+
+port_range = 55556-55560
+
+check_hash = no
+
+use_udp_trackers = yes
+
+dht = auto
+dht_port = 55555
+
+peer_exchange = yes</code></pre></figure>
+
+<p>Our next step is to get the WebUI which needs the following packages</p>
+<ul>
+  <li>apache2</li>
+  <li>php5-cli</li>
+  <li>libapache2-mod-php5</li>
+  <li>php5-xmlrpc</li>
+  <li>php5-sqlite</li>
+  <li>libapache2-mod-scgi</li>
+</ul>
+
+<p>After making sure the above packages are installed, run the following 2 commands on terminal to enable apache modules (in case they aren’t already)</p>
+
+<ul>
+  <li>a2enmod php5</li>
+  <li>a2enmod scgi</li>
+</ul>
+
+<p>The next step is to edit /etc/apache2/httpd.conf with your favorite editor and adding the following lines</p>
+
+<figure class="highlight"><pre><code class="language-apacheconf" data-lang="apacheconf">&lt;location "/RPC2"&gt;
+SCGIHandler On
+SCGIServer 127.0.0.1:5000
+&lt;/location&gt;</code></pre></figure>
+
+<p>Once done, save and exit. You’re all ready to do get the webUI. It’s important to note that rTorrent has a plethora of WebUIs for itself. We are going to use <a href="http://code.google.com/p/rutorrent/" target="_blank" rel="noopener noreferrer">rutorrent</a> for this purpose. Why? Because I like the addons :P If you plan to use some other WebUI, please go ahead and ignore the rest of this tutorial. If you are installing rutorrent, follow what I say.</p>
+
+<p>The first step now is to get the rutorrent files off it’s SVN. Here’s what I do.</p>
+
+<figure class="highlight"><pre><code class="language-apacheconf" data-lang="apacheconf">cd /var/www
+svn checkout http://rutorrent.googlecode.com/svn/trunk/rtorrent</code></pre></figure>
+
+<p>Simple enough? Let’s edit the config to make sure it’s what we want. Open up config.php in /var/www/rtorrent and make sure it has</p>
+
+<pre><code>$scgi_port = 5000
+$scgi_host = "127.0.0.1"
+</code></pre>
+
+<p>Well, we’re all done with the basic installation of WebUI. You can start using it right now! You have to make sure your apache is started and so is your rTorrent. If you don’t already know, you can start apache using <em>sudo /etc/init.d/apache2 start</em> and rtorrent by simply typin <em>rtorrent</em> into your terminal though you should consider <a href="http://ubuntu-tutorials.com/2007/05/04/command-line-multitasking-with-screen/" target="_blank" rel="noopener noreferrer">screening</a> rtorrent which you can do by typing out <em>screen rtorrent _in your console followed by the sequence _ctrl+a ctrl+d</em> to detach from the application and keep it in the background :) To check out your hard work, go to <a href="http://localhost/rtorrent" target="_blank" rel="noopener noreferrer">http://localhost/rtorrent</a>. If everything is working fine, you should get the page with no errors. The errors I got were for the scgi port and host when I didn’t have rtorrent started up in the background and when I didn’t have a sessions folder when I said it existed in the config. The former needs you to run rtorrent directly or screening it while the latter needs you to create the sessions folder as mentioned in the config file (.rtorrent.rc).</p>
+
+<p>The last step for the day is getting the add-ons. These are the ones I got. None of them require any setup other than getting the files though the RSS plugin requires the curl install (<em>sudo apt-get install curl</em> in case you don’t already have it).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cd /var/www/rtorrent/plugins
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/choose
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/datadir
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/edit
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/_getdir
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/rss
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/seedingtime
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/throttle
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/tracklabels
+svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins/trafic
+cd trafic
+gedit conf.php</code></pre></figure>
+
+<p>Make sure you set <em>$isAutoStart</em> to <em><strong>false</strong></em> since .rtorrent.rc starts the plug-in up.</p>
+
+<p>And you’re done. Enjoy torrenting on linux with rTorrent and ruTorrent WebUI awesomeness :)</p>
+
+<p>One last thing, make sure you compile XMLRPC-C with –disable-cplusplus. The XMLRPC-C install is the one thing that kept giving me issues. The solution to this was in a <strong>bug patch</strong> that could not be found. I simply have the patched file that you are free to use if you are facing the same issue. Take <a href="karunab.com/wp-content/uploads/2010/02/xmlrpc_curl_transport.c">this file</a> and put it in xmlrpc-c-1.11.00\lib\curl_transport and continue the process. The patched file comes with a disclaimer of course. I am not sure what changes were made. It worked for me. Use it at your own risk.</p>
+
+<p>I hope this tutorial helps you lost souls trying to get rTorrent on Ubuntu with ruTorrent as your WebUI.</p>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 21st February 2010
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Tutorials
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  Linux, Torrent, Ubuntu, WebUI, rTorrent, rutorrent
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2010/02/21/torrenting-on-linux/';
+        this.page.identifier = 'https://blog.karun.me/blog/2010/02/21/torrenting-on-linux/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>

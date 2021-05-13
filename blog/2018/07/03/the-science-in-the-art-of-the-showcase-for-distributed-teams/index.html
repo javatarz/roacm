@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">The Science in the Art of the Showcase (for distributed teams)</h1>
+  <p><a href="https://shreedamani.wordpress.com/tag/agile-showcase/" target="_blank" rel="noopener noreferrer">Showcases</a> are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).</p>
+
+<p>On one of our recent teams, our showcases had challenges. Each of these challenges is a <a href="http://www.extremeprogramming.org/values.html" target="_blank" rel="noopener noreferrer">piece of feedback</a>. We added structure to our showcases by running it like <a href="https://en.wikipedia.org/wiki/List_of_theatre_personnel" target="_blank" rel="noopener noreferrer">a theatre recording TV shows</a>.</p>
+
+<p><em>This isn’t revolutionary stuff. This is an attempt at defining a structure that should make it easier to organize showcases based off a check-list.</em></p>
+
+<!-- more -->
+
+<h2 id="role">Role</h2>
+
+<h3 id="the-master-of-ceremonies">The Master of Ceremonies</h3>
+
+<p>The MC is the face of the operations. They are responsible to dessiminate information and keep the crowd engaged. This means that the person should have context about what goes on and how to handle the different failures around client infra (skype issues, VDI issues etc).</p>
+
+<h4 id="best-practices-for-mcs">Best practices for MCs</h4>
+
+<p>Running commentary: Always keep speaking. Is there an issue? Keep the show rolling. Be transparent. Your support (folks below) will keep feeding you information when necessary.</p>
+
+<h3 id="the-stagehand">The Stagehand</h3>
+
+<p>This is the magician that controls the lighting on stage. This person actually runs the slides and the demos ensuring everything is smooth</p>
+
+<h4 id="best-practices-for-stagehands">Best practices for Stagehands</h4>
+
+<ul>
+  <li>Practice your demos repeatedly till it’s muscle memory</li>
+  <li>Ensure the demo windows are already prepared with data entry. Avoid copy pasting unless it cannot be avoided.</li>
+  <li>Ensure the content on the screen is visible on the media the stakeholders consume it on. If the stakeholders get together in a room and look at a screen projected on the screen or a big TV, please ensure that the font size is readable.</li>
+</ul>
+
+<h3 id="the-conductor">The Conductor</h3>
+
+<p>This is the person who runs the show. This person is responsible to stay on the demo co-ordination chat and spot issues and handle them before they become a thing. This person is also responsible to give instant feedback to people running the showcase when needed.</p>
+
+<h4 id="best-practices-for-the-conductor">Best practices for The Conductor</h4>
+
+<ul>
+  <li>Ensure you have an eye on the demo co-ordination chat. Delegate replying to another window if required</li>
+  <li>Ensure the MC is providing running commentary</li>
+  <li>Step in only if it is absolutely required</li>
+  <li>Keep an eye out for schedule</li>
+</ul>
+
+<h3 id="the-theatre-tech">The Theatre Tech</h3>
+
+<p>The person who watches the logs and statuses for the services involved in the demo. If there is anything going wrong, talk to the conductor immediately.</p>
+
+<h4 id="best-practices-for-the-theatre-techs">Best practices for the Theatre Techs</h4>
+
+<ul>
+  <li>Have appropriate windows ready to perform the tasks you might need to in a hurry (bouncing services)</li>
+  <li>Have windows showing instance health</li>
+  <li>Have log window opens</li>
+</ul>
+
+<h3 id="the-timekeeper">The Timekeeper</h3>
+
+<p>This person is in the room (with clients) and is responsible to keep time. If the discussion goes off, it is your responsibility to cut the discussion off and setup a followup discussion.</p>
+
+<p>If the clients are in multiple locations, have a timekeeper per location. Might be the conductor when available in a location.</p>
+
+<h3 id="the-scribes">The Scribes</h3>
+
+<p>Multiple people taking notes and sharing them after the demo. They are responsible to pick up body queues from the people around them and take notes on follow up discussions that we need to have.</p>
+
+<h4 id="best-practices-for-thescribe">Best practices for The Scribe</h4>
+
+<p>Be active on a demo co-ordination chat channel and provide instantaneous feedback from different locations. This helps the conductor get more information and is key to their effectiveness.</p>
+
+<h3 id="the-playwright">The Playwright</h3>
+
+<p>This person is primarily responsible for the content of the showcase.</p>
+
+<p>The content of a showcase should be like a TV show. A major milestone/deliverable is like a season and should have an overarching story (aka <a href="https://en.wikipedia.org/wiki/Story_arc" target="_blank" rel="noopener noreferrer">narrative arc</a>). Each showcase is like an episode and should have a subsection of the <a href="https://en.wikipedia.org/wiki/Story_arc" target="_blank" rel="noopener noreferrer">narrative arc</a>.</p>
+
+<p>The way <a href="https://presentationpatterns.com/glossary/#narrativearc" target="_blank" rel="noopener noreferrer">Presentation Patterns</a> book describes narrative arcs in presentations is true about showcases</p>
+
+<blockquote>
+  <p><del>Presentations</del> Showcases are a form of storytelling; don’t ignore a few thousand years of oratory history. A Narrative Arc is a common trope; organizing your <del>presentation</del> showcase in a similar way leverages your audience’s lifetime of story listening experience.</p>
+</blockquote>
+
+<h2 id="execution">Execution</h2>
+
+<p>Know the people on your team. Identify which team members can do what roles. Invest in and groom people for roles based on their interest, it’s a growth opportunity.</p>
+
+<h3 id="prep-work-for-the-venue">Prep work for the venue</h3>
+
+<ol>
+  <li>If your client site requires you to book rooms, do so as far out in advance as possible.</li>
+  <li>If your team is distributed, make sure the room has a good VC with a computer you can use to run the demo. Ensure your laptop can easily connect to the VC equipment in the room.</li>
+  <li>Know your venue and plan your seating. Presenters closer to the screen. Stakeholders in clean view of the screen and the presenters.</li>
+</ol>
+
+<h3 id="prep-on-the-day">Prep on the day</h3>
+
+<ol>
+  <li>Sign up for roles based on your skills</li>
+  <li>Do multiple dry runs</li>
+  <li>Show up to the room 20 minutes before the start of the meeting. Set it up.</li>
+</ol>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 3rd July 2018
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Agile Practices
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  distributed teams, showcase
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams/';
+        this.page.identifier = 'https://blog.karun.me/blog/2018/07/03/the-science-in-the-art-of-the-showcase-for-distributed-teams/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+  </body>
+</html>
