@@ -12,7 +12,7 @@ date_format: "ordinal"
 time_format: "%H:%M %Z"
 timezone: Asia/Kolkata
 
-root: /
+root: /roacm
 permalink: /blog/:year/:month/:day/:title/
 
 plugins_dir: _plugins
