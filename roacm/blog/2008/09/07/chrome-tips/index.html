@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Chrome Tips</h1>
+  <h2 id="custom-search-engine">Custom Search Engine</h2>
+
+<p>Right click the address bar and click Edit search engine. Click add, fill in a name and a keyword followed by the search query.
+For adding the Messenger Plus Forum Search engine I used the name as “Messenger Plus! Forum Search” (doesn’t really matter what you use here), the keyword as “mpf” and the url as “http://msghelp.net/basicsearch.php?do=search&amp;keywords=<strong><em>%s</em></strong>” where <em>%s</em> represents the search query entered. As a result of adding this, I can now search the MP!F simply by typing “mpf “. I love search shortcuts :)</p>
+
+<!-- more -->
+
+<h2 id="searching-googlecom-instead-of-your-local-regional-google-site">Searching Google.com instead of your local (regional) google site</h2>
+
+<p>This is really a continuation of the previous tip but I just felt it was worthy of being here :P There is a fault (imo) with the default google search engine in Chrome. The keyword is set to “google.com”. Why type all that when you could simply use “<strong>g</strong>” ;) Also, if you have a look at the google search url in chrome, it uses a base query identifier to redirect to your local google. I just changed mine to “http://google.com/search?q=<strong><em>%s</em></strong>” because while posting google links (especially on irc) to have to remove my browser info every time and sometimes even my country tld in the google domain. This way, it makes it easier for me to paste links though I do realise that google might lose out on accurate statistics of its users because of this but I don’t think it’d mind a handful of users changing their queries when it has billions of searches everyday ;) I’ve also changed my wiki keyword to “<strong>w</strong>” and urbandictionary.com keyword to “<strong>ud</strong>”</p>
+
+<h2 id="memory-stats-for-nerds">Memory stats for nerds</h2>
+
+<p>Well I am a geek/nerd who likes his stats, memory or otherwise ;) Typing about:memory in your url bar ought to take you to some stats while you can do the same by clicking <strong>Shift+Esc</strong> for basic stats and then clicking “<em>Stats for nerds</em>”. The advanced stats also shows details of Chrome vs other browsers (which should be running at the same time). So you can run Chrome, Internet Explorer, Firefox, Opera and Safari at the same time and compare statistics if you wish ;) Having it update live would have been cooler but that might take up a lot of resources in itself :P Maybe it should auto refresh when someone’s watching but if you go switch to another tab/application or are idle you could stop refreshing it automatically. :)</p>
+
+<h2 id="resizing-textboxes">Resizing Textboxes</h2>
+
+<p>You can now resize textboxes by holding down the left mouse button at the bottom right corner and dragging it. And here’s poor <a href="http://thedt.net" target="_blank" rel="noopener noreferrer">dt</a> who wrote a ton of javascript to do the same in <a href="http://blog.thedt.net" target="_blank" rel="noopener noreferrer">dtblog</a>.</p>
+
+<h2 id="check-loadtimes">Check Loadtimes<em>**</em>
+</h2>
+
+<p>Want to know what took the page so long to load? Do you want to know how long it took your javascript code to execute? Chrome is here to help! Right click anywhere on the page and select “Inspect Element”. Just move on over to the resources tab and analyse away :)</p>
+
+<h2 id="detaching-and-reattaching-tabs">Detaching and reattaching tabs</h2>
+
+<p>Tired of having so many tabs in one single window? Want to sort tabs according to what kind of work you’re doing? Sure that’s possible! Drag a tab outside the tab area and drop it. Voila! Brand new chrome window. Each tab in Chrome is a new process anyway so it doesn’t really matter ;)</p>
+
+<h2 id="private-browsing">Private Browsing</h2>
+
+<p>You could need to browse privately either to not tell the world of your searches on medical histories, viewing porn (:P) or planning that secret trip for your <a href="http://www.urbandictionary.com/define.php?term=significant+other" target="_blank" rel="noopener noreferrer">significant other</a>, who cares? <a href="http://www.google.com/support/chrome/bin/answer.py?answer=95464&amp;hl=en-US" target="_blank" rel="noopener noreferrer">Incognito</a> to the rescue! Press “<strong>Ctrl+Shift+N</strong>” or just click the new page icon followed by “New Incognito Window”. Incognito is basically opens a private browsing session for you where no traces of what you were doing show up thus maintaining full privacy.</p>
+
+<h2 id="easter-eggs">Easter Eggs</h2>
+
+<p>Lets end with something fun! Hopefully most of you already know of the <em>about:mozilla</em> easter egg in Mozilla Firefox which pulls out a quote from The Book of Mozilla. Here’s one for Chrome that doesn’t work on Vista. Type in <em>about:internets</em> in the chrome window and you’ll see sspipes.scr run with the title “Don’t clog the tubes”. Doing so on Vista will show a gray tab with the title “The Tubes are Clogged!” since it doesn’t have sspipes.scr. If you don’t get why this screen saver was used, you should know that the <a href="http://en.wikipedia.org/wiki/Series_of_tubes" target="_blank" rel="noopener noreferrer">Internet is a “Series of Tubes”</a> ;) Don’t clog them with your p0rnz! :P</p>
+
+<p>Here’s a list of the about pages under Chrome that we do know of right now.</p>
+
+<ul>
+  <li>
+<code>about:</code> does the same thing as <code>about:version</code>
+</li>
+  <li>
+<code>about:cache</code> Shows all cached pages</li>
+  <li>
+<code>about:crash</code> Shows you the Chrome Crash page (ie what happens when a tab crashes.</li>
+  <li>
+<code>about:dns</code> Shows list of prefetched DNS records. (<strong>Note:</strong> Doesn’t work if an incognito window is open).</li>
+  <li>
+<code>about:hang</code> Simulates tab hanging (<strong>Note:</strong> Don’t try this in a tab with unsaved data)</li>
+  <li>
+<code>about:histograms</code> Shows histograms for statistics</li>
+  <li>
+<code>about:internets</code> Don’t clog the tubes ;)</li>
+  <li>
+<code>about:memory</code> Stats for nerds :P</li>
+  <li>
+<code>about:network</code> More stats for nerds</li>
+  <li>
+<code>about: plugins</code> Lists out all the plugins used by Chrome</li>
+  <li>
+<code>about:shorthang</code> Simulates crash (<strong>Note:</strong> Don’t try this until you want your tab to crash. You’ll lose unsaved data in that tab)</li>
+  <li>
+<code>about:stats</code> Seemingly secret stats page ;o</li>
+  <li>
+<code>about:version</code> Shows version information for your Google Chrome</li>
+</ul>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 7th September 2008
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Hacks
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tag</strong>:
+  Browser
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/roacm/blog/2008/09/07/chrome-tips/';
+        this.page.identifier = 'https://blog.karun.me/roacm/blog/2008/09/07/chrome-tips/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/roacm/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/roacm/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/roacm/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="Description" content="Karun Japhet's blog">
+  <title>Ramblings of a Coder's Mind by Karun Japhet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+  <h1 class="header"><a href="/">Ramblings of a Coder's Mind</a></h1>
+  <p class="header">Got Tech? Will Hack.</p>
+</header>
+
+
+      <section>
+        <section>
+  <h1 class="entry-title">Efficient logback logging on JVM</h1>
+  <p>Efficient logging that doesn’t bring your application down is simple to setup but is often overlooked. Here are some quick tips on how to achieve exactly that
+<!-- more --></p>
+
+<h2 id="async-logging">Async Logging</h2>
+
+<p>Most applications these days should have a single (console) appender. This can be linked up with your log aggregator of choice. If your application cannot aggregate logs off the console stream, file is your next best alternative.</p>
+
+<p>Wrap each of your appenders with an async appender and add the async appender to your root logger.</p>
+
+<p>Every call to the logger creates a log event. In synchronous logging, that log event was processed and writes were made to all appender streams before the application continued. Since most stream writes involve I/O, this meant the application would wait for I/O before continuining thereby slowing it down. With async logging, the event gets pushed to a log level specific in memory queue. These events are processed and consumed by the appenders asynchronously. Since the application can continue after a log event has been published to the queue, asynchronous logging works quicker (as long as I/O is the long pole in the tent that is publishing log messages)</p>
+
+<p>Here’s a sample configuration:</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+  &lt;appender name="FILE" class="ch.qos.logback.core.FileAppender"&gt;
+    &lt;file&gt;myapp.log&lt;/file&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%logger{35} - %msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;appender name="ASYNC-FILE" class="ch.qos.logback.classic.AsyncAppender"&gt;
+    &lt;appender-ref ref="FILE" /&gt;
+    &lt;queueSize&gt;1024&lt;/queueSize&gt;
+    &lt;neverBlock&gt;false&lt;/neverBlock&gt;
+  &lt;/appender&gt;
+
+  &lt;root&gt;
+    &lt;appender-ref ref="ASYNC-FILE" /&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<p>Every queue has a configurable depth. The depth of the queue is based on how much memory you have and expected ratio in rates of messages coming in through the application and the messages being published through the I/O bottleneck.</p>
+
+<p>If you hit max queue depth on either the <code>WARN</code> or <code>ERROR</code> queues, further statements for those levels become synchronous.</p>
+
+<p>If you hit more than 80% of the max queue depth on any other level, the system will start dropping log statements (due to <code>discardingThreshold=20</code> by default and <code>neverBlock=true</code>). Therefore, under high load, you can lose <code>INFO</code>, <code>DEBUG</code> and <code>TRACE</code> log messages. This behaviour is acceptable for most cases except specific critical statements (like audit logs). For such cases, you can add asynchronous appenders that are allowed to block.</p>
+
+<p>The percentage of depth after which messages are dropped is configurable. You can make info/debug logs synchronous at 100% too if needed by changing the <code>neverBlock=false</code> (which is the default behaviour).</p>
+
+<p>All of this information is available on <a href="https://logback.qos.ch/manual/appenders.html#AsyncAppender" target="_blank" rel="noopener noreferrer">logback’s documentation</a>.</p>
+
+<h2 id="writing-log-statements">Writing log statements</h2>
+
+<p>Async logs only work more efficiently because the production of events is synchronous (and hopefully a quick task) and the processing of events (which requires IO) is a slow task.</p>
+
+<p>However if production of log messages takes <strong>long time</strong>, async logging will not make things better. When you’re printing a large amount of data or if the creation of the log message is an expensive operation, use the following kind of log statement</p>
+
+<pre><code class="language-java">// style 1: java string interpolation; inefficient and hard to read :P
+logger.info("Large object value was " + largeObject1 + " and long operation printed " + largeObject2.longOperation())
+// style 2: scala string interpolation; inefficient but easy to read
+logger.info(s"Large object value was $largeObject1 and long operation printed ${largeObject2.longOperation()}")
+// style 3: logback based string interpolation; efficient but inconvenient to read
+logger.info("Large object value was {} and long operation printed {}", largeObject1, largeObject2.longOperation())
+</code></pre>
+
+<p>While the scala interpolation (style 2) is the easiest to read, we should only do it when the objects being printed are small (small-ish strings or primitives).</p>
+
+<p>Rule of thumb:</p>
+
+<ul>
+  <li>For quick statements, use style 2.</li>
+  <li>For large statements, use style 3 (sacrifices readability for efficiency)</li>
+  <li>Never use style 1 :P</li>
+</ul>
+
+<h2 id="using-lazylogging-as-opposed-to-creating-loggers-yourself">Using LazyLogging as opposed to creating loggers yourself</h2>
+
+<p>Use <a href="https://github.com/lightbend/scala-logging" target="_blank" rel="noopener noreferrer">lazy logging</a>. It internally uses loggers that wraps yours code (during compile time) with if checks to not process log statements if the specific log level doesn’t need to be printed (<a href="https://github.com/lightbend/scala-logging/blob/master/src/main/scala/com/typesafe/scalalogging/LoggerMacro.scala#L44" target="_blank" rel="noopener noreferrer">using macros</a>). Worried about performance due to extra if conditions? You shouldn’t. Modern processors contain black magic called <a href="https://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array" target="_blank" rel="noopener noreferrer">branch prediction</a> that reduce the effect of statements such as this to be effectively nothing.</p>
+
+<p>IMO, every scala project should use lazy logging. It’s <a href="https://github.com/lightbend/scala-logging/blob/master/project/Dependencies.scala" target="_blank" rel="noopener noreferrer">light on dependencies</a> and has a nice implementation that makes your logging more efficient <a href="https://github.com/lightbend/scala-logging/blob/master/src/main/scala/com/typesafe/scalalogging/LoggerMacro.scala" target="_blank" rel="noopener noreferrer">run faster for fractionally slower compilation</a>.</p>
+
+
+  <span>
+  
+
+  <strong>Created</strong>: 1st November 2018
+  
+</span>
+<br>
+  
+
+<span>
+  <strong>Category</strong>:
+  Development
+</span>
+
+<br>
+  
+
+<span>
+  <strong>Tags</strong>:
+  JVM, Java, Logback, Logging, Performance, Scala
+</span>
+
+
+
+  
+    <h2>Comments</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = 'https://blog.karun.me/roacm/blog/2018/11/01/efficient-logback-logging-on-jvm/';
+        this.page.identifier = 'https://blog.karun.me/roacm/blog/2018/11/01/efficient-logback-logging-on-jvm/';
+      };
+
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://roacm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="noopener noreferrer" target="_blank">comments powered by Disqus.</a>
+</noscript>
+  
+</section>
+
+      </section>
+
+      <footer>
+  <h3>About</h3>
+  <p><a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> is a human.<br>Writes code at Sahaj Software. Speaks publicly about scaling software, testing, CD &amp; ML. Loves riding motorcycles and playing CS:GO</p>
+  <p><small><a href="/about">Read on →</a></small></p>
+
+  <h3>Contact</h3>
+  <p id="contact">
+      
+      <a href="https://github.com/javatarz" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github fa-lg"></i></a>
+      
+      <a href="https://stackoverflow.com/users/499797" aria-label="Stack Overflow" target="_blank" rel="noopener noreferrer"><i class="fab fa-stack-overflow fa-lg"></i></a>
+      
+      <a href="https://twitter.com/javatarz" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+      
+      <a href="https://www.linkedin.com/in/karunjaphet" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin fa-lg"></i></a>
+      
+      <a href="mailto:karun@japhet.in" rel="tooltip" title="karun@japhet.in" target="_blank"><i class="fa fa-envelope fa-lg"></i></a>
+      <a href="/atom.xml" title="RSS Feed" target="_blank" rel="noopener"><i class="fa fa-rss fa-lg"></i></a>
+  </p>
+
+  <p>
+    <small>
+      Copyright © 2006 - 2021 <br>
+      <a href="https://karun.me" target="_blank" rel="noopener noreferrer">Karun Japhet</a> <br>
+      Powered by <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a>
+    </small>
+  </p>
+</footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+
+    
+
+    <noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/roacm/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/roacm/assets/css/overrides.css?v=">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/brands.css" integrity="sha384-QT2Z8ljl3UupqMtQNmPyhSPO/d5qbrzWmFxJqmY7tqoTuT2YrQLEqzvVOP2cT5XW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+    <script src="/roacm/assets/js/scale.fix.js"></script>
+</noscript>
+<script>
+    var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+</script>
+
+  </body>
+</html>
