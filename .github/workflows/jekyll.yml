@@ -25,12 +25,15 @@ jobs:
           docker run \
           -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
           jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
-      - name: Push changes
-        uses: ptienchuan/deploy-github-pages-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_PAT }}
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          source-directory: "_site"
-          target-branch: "gh-pages"
-          user-name: "deploy[bot]"
-          user-email: "deploy[bot]@noreply.github.com"
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push changes
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
