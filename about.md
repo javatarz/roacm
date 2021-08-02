@@ -16,6 +16,6 @@ I'm also a O'Reilly Software Architecture speaker. You can watch a video on yout
 
 {% youtube "https://www.youtube.com/watch?v=4cJ4GyyOfII" %}
 
-[![Microsoft Imagine Cup 2008 - Interoperability Award winner](/roacm/assets/images/badges/ic08-interop-world-champ.jpg)]({{site.bio_url}})
-[![Oracle certified Java 6 programmer](/roacm/assets/images/badges/javase6programmer.jpg)]({{site.bio_url}})
-[![Accenture & MIT certified Application Developer](/roacm/assets/images/badges/accenture-mit-asda.jpg)]({{site.bio_url}})
+[![Microsoft Imagine Cup 2008 - Interoperability Award winner](/assets/images/badges/ic08-interop-world-champ.jpg)]({{site.bio_url}})
+[![Oracle certified Java 6 programmer](/assets/images/badges/javase6programmer.jpg)]({{site.bio_url}})
+[![Accenture & MIT certified Application Developer](/assets/images/badges/accenture-mit-asda.jpg)]({{site.bio_url}})
