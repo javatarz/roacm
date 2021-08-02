@@ -4,9 +4,8 @@ comments: true
 author: Karun Japhet
 title: "Data storage patterns, versioning and partitions"
 categories:
-  - Techniques
+  - Data Engineering
 tags:
-  - data engineering
   - data pipelines
   - big data
   - data storage
