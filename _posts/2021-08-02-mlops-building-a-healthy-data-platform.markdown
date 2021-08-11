@@ -32,6 +32,7 @@ MLOps is a culture that increases collaboration between folks building ML models
 ## Common things to look out for
 
 Every data platform’s needs a slightly different based on the challenges you are solving and the scale at which you operate. One of the platforms I’ve been working on produces 2TB of data every week. It didn’t take too much time for data storage costs to be the number 1 line item on our bill and we invested some time in optimising our storage and retention strategy. Other teammates have lowered data volumes and focus on reducing the cycle time for model creation. Your mileage may vary.
+
 Based on our experience building data platforms over the past few years, here are a few tools we have used and things we have watched out for.
 
 ### Data Storage
