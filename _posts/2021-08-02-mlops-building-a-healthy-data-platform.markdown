@@ -83,4 +83,4 @@ When it takes us longer to debug a problem or understand why a model did what it
 
 This has allowed us to grow our data platform 10x in terms of features and data volumes while **reducing the time taken to produce insights for our end users by 98.75%, the cost to do so by 35%** and not to mention a significant improvement in developer and customer experience.
 
-_Thanks to [Jayant](https://www.linkedin.com/in/jayant-p/), [Priyank](https://www.linkedin.com/in/priyaaank/) and [Anay](https://www.linkedin.com/in/anaynayak/) for reviewing drafts and providing early feedback. As always, [Niki](https://www.linkedin.com/in/nikita-oliver/)’s artwork wizardry is key!_
+_Thanks to [Jayant](https://www.linkedin.com/in/jayant-p/), [Priyank](https://www.linkedin.com/in/priyaaank/), [Anay](https://www.linkedin.com/in/anaynayak/) and [Trishna](https://www.linkedin.com/in/trishna-mohanty-94868bbb/) for reviewing drafts and providing early feedback. As always, [Niki](https://www.linkedin.com/in/nikita-oliver/)’s artwork wizardry is key!_
