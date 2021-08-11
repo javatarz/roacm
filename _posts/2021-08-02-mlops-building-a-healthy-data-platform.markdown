@@ -13,6 +13,8 @@ tags:
 
 Spoiler: MLOps is to ML Platforms what DevOps is to most tech products. If you think this means MLOps is automating your deployments, this article is for you.
 
+[![MLOps Cover Art: Collaboration between Data Scientists, Data Engineers and Operations users]({{ site.url }}/assets/images/uploads/mlops-cover-art.png)]({{ site.url }}/assets/images/uploads/mlops-cover-art.png)
+
 ## What is DevOps and how is it so much bigger than automating deployments?
 
 > You know that a term you coined has made it mainstream when people use it regularly in conversations and rarely understand what you meant.
