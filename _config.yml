@@ -56,7 +56,10 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - vendor
+  - README.md
+  - jekyll.thor
+  - local_run.sh
+  - Dockerfile
 
 social_links:
   -
