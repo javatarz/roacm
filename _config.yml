@@ -20,12 +20,6 @@ sass_dir: _sass
 code_dir: downloads/code
 category_dir: /roacm/blog/categories
 
-markdown: rdiscount
-rdiscount:
-  extensions:
-    - autolink
-    - footnotes
-
 highlighter: pygments.rb
 paginate_path: "posts/:num"
 excerpt_link: "Read on &rarr;"
@@ -62,7 +56,10 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - vendor
+  - README.md
+  - jekyll.thor
+  - local_run.sh
+  - Dockerfile
 
 social_links:
   -
