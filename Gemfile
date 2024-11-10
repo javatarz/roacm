@@ -1,15 +1,15 @@
 source "https://rubygems.org"
 ruby RUBY_VERSION
 
-# gem "jekyll", "~> 4.0"
+gem "jekyll", "~> 4.3.3"
 
 # Theme
-gem "jekyll-theme-dinky", "~> 0.1.0"
+gem "jekyll-theme-dinky", "~> 0.2.0"
 
 # Plugins
 group :jekyll_plugins do
   gem 'jekyll-feed', '~> 0.6'
-  gem 'jekyll-sitemap', '~> 1.1.1'
+  gem 'jekyll-sitemap', '~> 1.4.0'
   gem 'jekyll-paginate', '~> 1.1.0'
   gem 'jekyll-gist', '~> 1.5.0'
   gem "jekyll-youtube", '~> 1.0.0'
