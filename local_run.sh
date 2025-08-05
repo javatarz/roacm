@@ -14,4 +14,4 @@ else
 fi
 
 docker build --platform linux/amd64 -t local-jekyll .
-docker run --rm --platform linux/amd64 -p 4000:4000 -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll jekyll serve --host 0.0.0.0 --watch --incremental --force-polling
+docker run --rm --platform linux/amd64 -p 4000:4000 -p 35729:35729 -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll jekyll serve --host 0.0.0.0 --watch --force-polling --livereload
