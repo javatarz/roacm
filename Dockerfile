@@ -3,6 +3,7 @@ FROM jvconseil/jekyll-docker:4.3.3
 WORKDIR /srv/jekyll
 
 COPY Gemfile* /srv/jekyll/
+RUN chown -R jekyll:jekyll /srv/jekyll
 
 RUN bundle install
 
