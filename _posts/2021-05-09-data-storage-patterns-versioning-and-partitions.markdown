@@ -20,7 +20,7 @@ In this post, we are going to use the terminology of AWS S3 buckets to store inf
 
 When you have large volumes of data, we have found it useful to separate data that comes in from the upstream providers (if any) from any insights we process and produce. This allows us to segregate access (different parts have different PII classifications) and apply different retention policies.
 
-[![Data processing pipeline between various buckets and the operations performed when data moves from one bucket to the other]({{ site.url }}/assets/images/uploads/data-seggregation-using-buckets-622x422.png)]({{ site.url }}/assets/images/uploads/data-seggregation-using-buckets.png)
+[![Data processing pipeline between various buckets and the operations performed when data moves from one bucket to the other]({{ site.url }}/assets/images/uploads/data-segregation-using-buckets-622x422.png)]({{ site.url }}/assets/images/uploads/data-segregation-using-buckets.png)
 
 We would separate each of these datasets so it’s clear where each came from. When setting up the location to store your data, refer to local laws (like GDPR) for details on data residency requirements.
 
