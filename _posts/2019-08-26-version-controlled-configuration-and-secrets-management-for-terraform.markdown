@@ -4,7 +4,7 @@ comments: true
 author: Karun Japhet
 title: "Version controlled configuration and secrets management for Terraform"
 categories:
-  - Tutorial
+  - Tutorials
 tags:
   - terraform
   - gitlab
