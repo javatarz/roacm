@@ -22,6 +22,6 @@ end
 
 # Others
 gem 'pygments.rb', '~> 1.2.1'
-gem 'thor', '~> 0.20.0'
+gem 'thor', '~> 1.4.0'
 gem 'stringex', '~> 2.8.2'
 gem 'kramdown-parser-gfm', '~> 1.1.0'
