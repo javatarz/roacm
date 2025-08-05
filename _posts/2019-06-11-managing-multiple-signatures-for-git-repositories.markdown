@@ -4,7 +4,7 @@ comments: true
 author: Karun Japhet
 title: "Managing multiple signatures for git repositories"
 categories:
-  - Tutorial
+  - Tutorials
 tags:
   - Git
   - Signing
