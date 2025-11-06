@@ -5,6 +5,7 @@ author: Karun Japhet
 title: "Level Up Code Quality with an AI Assistant"
 categories:
   - AI for Software Engineering
+  - intelligent Engineering
 tags:
   - coding assistants
   - code quality

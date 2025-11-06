@@ -5,6 +5,7 @@ author: Karun Japhet
 title: "Patterns for AI assisted software development"
 categories:
   - AI for Software Engineering
+  - intelligent Engineering
 tags:
   - software delivery
   - tools
