@@ -5,6 +5,7 @@ author: Karun Japhet
 title: "How to choose your coding assistants"
 categories:
   - AI for Software Engineering
+  - intelligent Engineering
 tags:
   - ai tools
   - coding assistants

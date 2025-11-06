@@ -5,6 +5,7 @@ author: Karun Japhet
 title: "AI for Software Engineering, not (only) Code Generation"
 categories:
   - AI for Software Engineering
+  - intelligent Engineering
 tags:
   - software delivery
   - tools
