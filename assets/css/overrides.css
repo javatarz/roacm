@@ -1,3 +1,31 @@
 footer a {
   display: inline-block;
 }
+
+blockquote {
+  margin: 20px 0;
+  padding: 15px 20px 15px 60px;
+  background-color: #f5f5f5;
+  border-left: 4px solid #C30000;
+  font-style: italic;
+  position: relative;
+}
+
+blockquote::before {
+  content: "\201C";
+  font-size: 60px;
+  font-weight: bold;
+  color: #C30000;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  line-height: 1;
+}
+
+blockquote p {
+  margin: 0 0 10px;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
