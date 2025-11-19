@@ -27,6 +27,7 @@ excerpt_separator: "<!-- more -->"
 recent_posts: 5
 paginate: 10
 titlecase: true
+future: true
 
 default_asides:
   - custom/asides/about.html
