@@ -43,13 +43,19 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
-/* Header subtitle fix for readability */
+/* Header/sidebar styling - sidebar is always dark so needs light text */
 p.header {
-  color: var(--text-secondary);
+  color: #ccc;
 }
 
-h1.header, a.header, header a {
-  color: var(--text-primary);
+h1.header, h1.header a, a.header, header a {
+  color: #fff;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+h1.header a:hover, a.header:hover, header a:hover {
+  color: var(--accent-color);
 }
 
 /* Links color support */
@@ -187,7 +193,8 @@ footer {
 }
 
 footer h3 {
-  color: var(--text-primary);
+  color: var(--accent-color);
+  font-weight: 400;
 }
 
 footer p {
