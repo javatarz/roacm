@@ -355,3 +355,72 @@ blockquote p:last-child {
   padding-top: 30px;
   border-top: 1px solid var(--border-color);
 }
+
+/* Post metadata styling */
+.post-metadata {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.metadata-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.metadata-section h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.metadata-content {
+  font-size: 15px;
+}
+
+/* Tag pills */
+.tags-list a {
+  display: inline-block;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: 16px;
+  margin: 4px 4px 4px 0;
+  font-size: 13px;
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+}
+
+.tags-list a:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+/* Category pills */
+.metadata-content a {
+  display: inline-block;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: 16px;
+  margin: 4px 4px 4px 0;
+  font-size: 13px;
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.metadata-content a:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
