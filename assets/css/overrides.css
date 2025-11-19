@@ -156,6 +156,26 @@ article .entry-content {
   overflow: hidden;
 }
 
+/* Post metadata styling */
+.post-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  align-items: center;
+}
+
+.post-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-meta .icon {
+  opacity: 0.7;
+}
+
 /* Dark mode toggle button */
 .theme-toggle {
   position: fixed;
