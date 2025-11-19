@@ -98,10 +98,55 @@ h1.header a:hover, a.header:hover, header a:hover {
   color: var(--accent-color);
 }
 
-/* Links color support */
+/* Enhanced link styling */
 a {
-  color: var(--text-primary);
+  color: #c30000;
+  text-decoration: none;
+  position: relative;
   transition: color 0.2s ease;
+}
+
+/* Underline effect on hover for post content links */
+.post-content a:not(.no-underline) {
+  background-image: linear-gradient(to right, #c30000 0%, #c30000 100%);
+  background-size: 0 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease, color 0.2s ease;
+}
+
+.post-content a:not(.no-underline):hover {
+  background-size: 100% 1px;
+  color: #a30000;
+}
+
+/* Visited links - slightly muted */
+.post-content a:visited {
+  color: #8a0000;
+}
+
+/* External links indicator */
+.post-content a[href^="http"]:not([href*="blog.karun.me"])::after {
+  content: ' ↗';
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+/* Link focus for accessibility */
+a:focus {
+  outline: 2px solid #c30000;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Heading links should be more subtle */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover {
+  color: #c30000;
 }
 
 a:hover {
