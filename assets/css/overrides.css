@@ -28,9 +28,12 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
-  /* Enhanced typography */
+  /* Enhanced typography with Open Sans */
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 300;
   font-size: 17px;
-  line-height: 1.75;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 .wrapper {
@@ -163,11 +166,24 @@ p {
 }
 
 /* Strong and emphasis */
-strong, em {
+strong,
+b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+em {
   color: var(--text-primary);
 }
 
-/* Enhanced code blocks */
+/* Buttons */
+button,
+.btn {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* Enhanced code blocks - preserve monospace font */
 pre {
   background: #1e1e1e;
   color: #d4d4d4;
@@ -178,12 +194,19 @@ pre {
   position: relative;
   margin: 24px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
 }
 
-code {
-  font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+code,
+kbd,
+samp {
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
   font-size: 14px;
   line-height: 1.6;
+}
+
+.highlight {
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
 }
 
 pre code {
@@ -298,6 +321,8 @@ article .entry-content {
   font-size: 13px;
   color: var(--text-secondary);
   align-items: center;
+  font-weight: 300;
+  letter-spacing: 0.02em;
 }
 
 .post-meta span {
@@ -441,6 +466,7 @@ blockquote p:last-child {
   text-decoration: none;
   border: 1px solid var(--border-color);
   transition: all 0.2s;
+  font-weight: 600;
 }
 
 .tags-list a:hover {
@@ -461,7 +487,7 @@ blockquote p:last-child {
   text-decoration: none;
   border: 1px solid var(--border-color);
   transition: all 0.2s;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .metadata-content a:hover {
@@ -519,6 +545,20 @@ blockquote p:last-child {
 
 .back-to-top:active {
   transform: translateY(0);
+}
+
+/* Navigation and UI elements - ensure Open Sans */
+nav,
+.site-header,
+.site-footer {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Small text and metadata */
+small {
+  font-weight: 400;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
 }
 
 /* Mobile adjustments */
