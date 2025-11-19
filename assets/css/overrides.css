@@ -122,27 +122,72 @@ strong, em {
   color: var(--text-primary);
 }
 
-/* Inline code styling */
-code {
-  color: var(--text-primary);
-  background-color: var(--bg-secondary);
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-family: monospace;
+/* Enhanced code blocks */
+pre {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border: none;
+  border-radius: 6px;
+  padding: 20px;
+  overflow-x: auto;
+  position: relative;
+  margin: 24px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Code blocks */
-pre {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  padding: 12px;
-  border-radius: 4px;
-  overflow-x: auto;
+code {
+  font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 pre code {
   background-color: transparent;
   padding: 0;
+  color: inherit;
+}
+
+/* Inline code */
+p code,
+li code {
+  background: var(--bg-secondary);
+  color: var(--accent-color);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid var(--border-color);
+}
+
+/* Copy button */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #3a3a3a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.code-block-wrapper:hover .copy-code-btn {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  background: #4a4a4a;
+}
+
+.copy-code-btn.copied {
+  background: #28a745;
 }
 
 /* Improved spacing for homepage */
