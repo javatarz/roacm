@@ -15,14 +15,14 @@ tags:
 ---
 
 Software engineering is changing — again.
-Not in a loud, overnight way like some people claim, but in a quiet structural way that’s already reshaping how good teams build software.
+Not in a loud, overnight way, but in a quiet structural way that’s already reshaping how good teams build software.
 
 We aren’t replacing engineers.
 We are upgrading the way engineers think, work, and build.
 
 AI isn't a shortcut to avoid the hard parts — it simply shifts where the hard parts are.
 
-Over the last couple of years applying AI in real product delivery — across prototyping, experimentation, internal tools, production systems, and team workflows — one thing has become very clear:
+Over 2 years applying AI in prototyping, experimentation, internal tools, production systems, and team workflows — one thing has become very clear:
 
 > AI doesn't make engineering easier. It makes disciplined engineering more valuable.
 
@@ -37,7 +37,7 @@ But they help keep us grounded in the parts of engineering that matter.
 
 Over the past year of building AI-augmented engineering systems and working closely with teams, a set of values has consistently emerged. They aren't commandments — they’re reflections from practice. Much like the [Agile Manifesto](https://agilemanifesto.org/) shaped a generation of builders, this is my early articulation of what effective, responsible, AI-native engineering feels like in practice.
 
-Artificial Intelligence (AI) is changing the way we work in general, and knowledge work in particular. We have learnt through our experience that it is critical to use this powerful capability responsibly to achieve successful outcomes.
+AI is changing knowledge work fundamentally. We have learnt through our experience that it is critical to use this powerful capability responsibly to achieve successful outcomes.
 
 Through our work, we have come to value:
 
@@ -56,33 +56,36 @@ These principles fall into two buckets — what is new, and what remains timeles
 
 ### AI-Native Principles
 
-Principles born of or transformed by AI use - They wouldn’t exist without it.
+Principles AI use creates or transforms — they wouldn't exist without it.
 
 #### AI augments, humans stay accountable.
-AI can extend your reach, accelerate your ideas, and surface possibilities you may not see — but it cannot own the outcome. Engineering judgment, ethical responsibility, and decision-making stay with us. Tools assist; humans remain answerable.
+AI can extend your reach, accelerate your ideas, and surface possibilities you may not see, but it cannot own the outcome. Engineering judgment, ethical responsibility, and decision-making stay with us. Tools assist; humans remain answerable.
 
-You can use AI to help build systems but we are still accountable for the correctness of the outcome. The code gets checked in under your name and you are still responsible.
+You can use AI to help build systems but we are still accountable for the correctness of the outcome. You check in the code under your name and you are still responsible.
 
 #### Context is everything.
-AI outputs only reflect the clarity, completeness, and structure of the input it receives. If we want meaningful results, we must bring meaningful context — not vague requests. Better thinking in produces better thinking out.
+AI outputs only reflect the clarity, completeness, and structure of the input. If we want meaningful results, we must bring meaningful context — not vague requests. Better thinking in produces better thinking out.
+
+Learn how to manage context well. The larger the system, the more important it becomes to build discipline and practices around how context should be managed. Good engineering practices can help ensure new teammates get AI systems primed with up to date and correct context for every project. These practices also help ensure the system stays up to date. If the context is too large for your model to hold, teams should engineer solutions around it like optionally loaded markdowns or, at larger scales, [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation).
 
 #### Smarter AI needs smarter guardrails.
-As generation gets faster, review must become sharper. Code, ideas, and architectures produced by AI still demand rigorous validation to ensure quality, safety, and alignment with intent. The faster we move, the stronger our checks must be.
+As generation gets faster, review must become sharper. Code, ideas, and architectures produced by AI still demand rigorous validation for quality, safety, and alignment with intent. The faster we move, the stronger our checks must be.
 
 #### Shape AI deliberately.
-Don’t let generic tooling decide how your team works. Choose where AI fits, what it should influence, and how it should be used to support — not reshape — your engineering culture. Intentional adoption prevents accidental dependency.
+Don’t let generic tooling decide how your team works. Choose where AI fits, what it should influence, and how it should be used to support — not reshape — your engineering culture. Intentional adoption prevents accidental dependencies being created.
 
 #### Learning never stops.
-AI practices evolve monthly, not yearly. Teams that keep experimenting, reflecting, and adapting stay ahead. Treat AI as a moving system — one that rewards curiosity, continuous improvement, and lightweight experimentation.
+AI practices evolved weekly; now they evolve monthly. This is still faster pace than many, if not most are used to. Teams that keep experimenting, reflecting, and adapting stay ahead. Treat AI as a moving system — one that rewards curiosity, continuous improvement, and lightweight experimentation. What didn't work a few months ago might be possible now and the only way you will know is if you experiment.
 
 ### Timeless Foundations — Reaffirmed for the AI Era
 
 Good development sense that now matters even more with AI in the loop.
 
 #### Learn fast, adapt continuously
-_Start small, validate often, and tighten feedback loops to ensure AI continues to deliver real value._
+Start small, validate often, and tighten feedback loops to ensure AI continues to deliver real value.
+
 #### Sustainable Value over fleeting output.
-_No matter how fast they are built, solutions that are not maintainable, secure and adaptable over time are wasteful and expensive._
+Unmaintainable, insecure, and rigid solutions waste time and money. Always prioritise building the right value over building the wrong one fast.
 
 ## What This Looks Like in Practice
 
@@ -132,7 +135,7 @@ Engineers should learn to design with prompt libraries, multi-agent orchestratio
 
 ## Why This Matters
 
-Teams that adopt AI without principles drift into:
+Teams that adopt AI without principles create:
 
 * Frail systems masked by fast prototypes
 * Blind trust disguised as speed
