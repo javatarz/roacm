@@ -26,6 +26,8 @@ Over 2 years applying AI in prototyping, experimentation, internal tools, produc
 
 > AI doesn't make engineering easier. It makes disciplined engineering more valuable.
 
+<!-- more -->
+
 Great teams are not the ones who “use AI everywhere.”
 They’re the ones who use AI well — with clarity, responsibility, and intent.
 
