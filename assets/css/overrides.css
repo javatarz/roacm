@@ -424,3 +424,15 @@ blockquote p:last-child {
   color: white;
   border-color: var(--accent-color);
 }
+
+/* Reading progress bar */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c30000, #e30000);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
