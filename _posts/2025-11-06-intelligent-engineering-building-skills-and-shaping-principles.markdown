@@ -10,7 +10,6 @@ tags:
   - ai principles
   - software engineering
   - engineering practices
-  - engineering manifesto
   - ai best practices
 ---
 
@@ -34,23 +33,6 @@ They’re the ones who use AI well — with clarity, responsibility, and intent.
 Below is a working set of principles we've found useful for building in this new environment. They aren't commandments, they aren't finished, and they will evolve — just like our tools will.
 
 But they help keep us grounded in the parts of engineering that matter.
-
-## A Working Manifesto for intelligent Engineering
-
-Over the past year of building AI-augmented engineering systems and working closely with teams, a set of values has consistently emerged. They aren't commandments — they’re reflections from practice. Much like the [Agile Manifesto](https://agilemanifesto.org/) shaped a generation of builders, this is my early articulation of what effective, responsible, AI-native engineering feels like in practice.
-
-AI is changing knowledge work fundamentally. We have learnt through our experience that it is critical to use this powerful capability responsibly to achieve successful outcomes.
-
-Through our work, we have come to value:
-
-* **Collaboration with AI** over Delegation to AI
-* **Meaningful impact** over Mechanical output
-* **Understanding AI** over Trusting AI
-* **Shaping AI** over Being Shaped by AI
-* **Prioritising maintainable systems built with AI** over Disposable solutions
-
-That is, while there may be value in the items on the right,
-we value the items on the left more.
 
 ## intelligent Engineering Principles
 
