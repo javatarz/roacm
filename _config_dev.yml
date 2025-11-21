@@ -12,6 +12,10 @@ plugins:
   - jekyll-watch
   # jekyll-feed is intentionally excluded for 30s speedup
 
+# Limit posts for faster initial build (3-5s vs 29s for all 112 posts)
+# Override with --all-posts flag in local_run.sh when you need to preview old posts
+limit_posts: 10
+
 incremental: true
 
 # Optimize for development
