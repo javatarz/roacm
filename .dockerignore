@@ -1,0 +1,26 @@
+# Jekyll build artifacts
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Git
+.git/
+.github/
+.gitignore
+
+# Development files
+theme-improvements/
+.DS_Store
+*.log
+
+# Docker
+.dockerignore
+Dockerfile
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# Node
+node_modules/
