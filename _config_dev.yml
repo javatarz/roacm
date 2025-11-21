@@ -1,0 +1,47 @@
+# Development configuration for faster builds
+# This extends _config.yml with dev-specific overrides
+
+# Override plugins array to exclude jekyll-feed (not installed in Gemfile.dev)
+# This replaces the plugins list from _config.yml
+plugins:
+  - jekyll-gist
+  - jekyll-target-blank
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-youtube
+  - jekyll-watch
+  # jekyll-feed is intentionally excluded for 30s speedup
+
+incremental: true
+
+# Optimize for development
+show_drafts: true
+unpublished: false
+future: true
+profile: false  # Set to true if you want to see which parts are slow
+
+# Livereload
+livereload: true
+livereload_port: 35729
+
+# Faster regeneration
+strict_front_matter: false
+
+# Exclude more files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - jekyll.thor
+  - local_run.sh
+  - Dockerfile
+  - .git
+  - .gitignore
+  - .dockerignore
+  - .DS_Store
+  - node_modules
+  - vendor
+  - theme-improvements/**
+  - "*.log"
+  - .jekyll-cache
+  - .jekyll-metadata
