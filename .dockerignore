@@ -2,6 +2,7 @@
 _site/
 .jekyll-cache/
 .jekyll-metadata
+.sass-cache/
 
 # Git
 .git/
@@ -12,10 +13,24 @@ _site/
 theme-improvements/
 .DS_Store
 *.log
+*.swp
+*.swo
+tmp/
 
 # Docker
 .dockerignore
 Dockerfile
+docker-compose.yml
+.docker-build-time
+
+# Bundle
+.bundle/
+vendor/bundle/
+Gemfile.lock
+
+# Scripts
+local_run.sh
+local_run_test.sh
 
 # IDE
 .vscode/

@@ -5,10 +5,15 @@ set -x
 
 # Parse arguments
 ALL_POSTS=false
+FORCE_REBUILD=false
 for arg in "$@"; do
   case $arg in
     --all-posts)
       ALL_POSTS=true
+      shift
+      ;;
+    --force-rebuild)
+      FORCE_REBUILD=true
       shift
       ;;
     *)
@@ -30,10 +35,51 @@ fi
 rm -f .jekyll-metadata
 rm -rf .jekyll-cache
 
-# Build with development Gemfile (excludes jekyll-feed for 30s speedup)
-docker build --platform linux/amd64 \
-  --build-arg BUNDLE_GEMFILE=Gemfile.dev \
-  -t local-jekyll-dev .
+# Check if Docker image exists and if Gemfile.dev has changed
+IMAGE_EXISTS=$(docker images -q local-jekyll-dev 2>/dev/null)
+REBUILD_NEEDED=false
+
+if [ "$FORCE_REBUILD" = true ]; then
+    echo "Force rebuild requested..."
+    REBUILD_NEEDED=true
+elif [ -z "$IMAGE_EXISTS" ]; then
+    echo "Docker image doesn't exist, building..."
+    REBUILD_NEEDED=true
+else
+    # Check if Gemfile.dev is newer than the Docker image
+    # Get image creation time
+    IMAGE_TIME=$(docker inspect -f '{{.Created}}' local-jekyll-dev 2>/dev/null | cut -d'T' -f1,2 | tr -d 'T:-')
+    # Get Gemfile.dev modification time (macOS compatible)
+    GEMFILE_TIME=$(stat -f "%Sm" -t "%Y%m%d%H%M%S" Gemfile.dev 2>/dev/null || stat -f "%m" Gemfile.dev 2>/dev/null || echo "0")
+
+    # Simple comparison - if we can't determine, rebuild to be safe
+    if [ -f ".docker-build-time" ]; then
+        LAST_BUILD=$(cat .docker-build-time)
+        GEMFILE_MOD=$(stat -f "%m" Gemfile.dev 2>/dev/null || echo "0")
+        if [ "$GEMFILE_MOD" -gt "$LAST_BUILD" ]; then
+            echo "Gemfile.dev has changed, rebuilding Docker image..."
+            REBUILD_NEEDED=true
+        fi
+    else
+        echo "No build timestamp found, rebuilding Docker image..."
+        REBUILD_NEEDED=true
+    fi
+fi
+
+if [ "$REBUILD_NEEDED" = true ]; then
+    # Enable Docker BuildKit for better caching
+    export DOCKER_BUILDKIT=1
+
+    # Build with development Gemfile (excludes jekyll-feed for 30s speedup)
+    docker build --platform linux/amd64 \
+      --build-arg BUNDLE_GEMFILE=Gemfile.dev \
+      -t local-jekyll-dev .
+
+    # Store build timestamp
+    date +%s > .docker-build-time
+else
+    echo "Using existing Docker image (use --force-rebuild to rebuild)"
+fi
 
 # Use delegated mount for better macOS performance
 # Use dev config and Gemfile for faster builds (no jekyll-feed)

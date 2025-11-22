@@ -9,3 +9,4 @@ _site/
 _deploy.yml
 vendor/
 .jekyll-metadata
+.docker-build-time
