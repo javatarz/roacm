@@ -1,7 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const progressBar = document.querySelector('.reading-progress-bar');
 
-  if (!progressBar) return;
+  if (!progressBar) {
+    return;
+  }
 
   function updateProgress() {
     const windowHeight = window.innerHeight;
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     progressBar.style.width = progress + '%';
   }
 
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     requestAnimationFrame(updateProgress);
   });
 
