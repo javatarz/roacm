@@ -10,3 +10,22 @@ _deploy.yml
 vendor/
 .jekyll-metadata
 .docker-build-time
+
+# Test Suite
+test-suite/reports/
+test-suite/.cache/
+node_modules/
+package-lock.json
+.husky/_/
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Lighthouse CI
+.lighthouseci/
