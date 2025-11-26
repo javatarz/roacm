@@ -45,8 +45,6 @@ Principles AI use creates or transforms — they wouldn't exist without it.
 #### AI augments, humans stay accountable.
 AI can extend your reach, accelerate your ideas, and surface possibilities you may not see, but it cannot own the outcome. Engineering judgment, ethical responsibility, and decision-making stay with us. Tools assist; humans remain answerable.
 
-You can use AI to help build systems but we are still accountable for the correctness of the outcome. You check in the code under your name and you are still responsible.
-
 #### Context is everything.
 AI outputs only reflect the clarity, completeness, and structure of the input. If we want meaningful results, we must bring meaningful context — not vague requests. Better thinking in produces better thinking out.
 
