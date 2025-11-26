@@ -37,12 +37,34 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ==========================================================================
+   Fluid Layout - Override theme's fixed 960px width
+   Only applies above mobile breakpoint (960px) to preserve mobile behavior
+   ========================================================================== */
+
 .wrapper {
   background-color: var(--bg-primary);
 }
 
 section {
   background-color: var(--bg-primary);
+}
+
+/* Desktop fluid layout - only above mobile breakpoint */
+@media (width > 960px) {
+  .wrapper {
+    margin: 0;
+    max-width: none;
+    width: auto;
+  }
+
+  section {
+    float: none; /* Remove float, use margin instead */
+    margin-left: 250px; /* Sidebar (170px) + gap (80px) */
+    margin-right: 40px; /* Right margin for breathing room */
+    max-width: 1100px; /* Readable line length cap */
+    width: auto;
+  }
 }
 
 /* Heading colors for theme support */
