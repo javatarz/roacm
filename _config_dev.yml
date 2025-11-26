@@ -49,3 +49,11 @@ exclude:
   - "*.log"
   - .jekyll-cache
   - .jekyll-metadata
+  - test-suite/
+  - package.json
+  - package-lock.json
+  - .husky/
+  - playwright-report/
+  - test-results/
+  - TESTING.md
+  - scripts/
