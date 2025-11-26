@@ -1,0 +1,47 @@
+{
+  "name": "roacm-blog",
+  "version": "1.0.0",
+  "description": "Automated testing for ROACM Jekyll blog theme",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "npm run lint:css && npm run lint:js && npm run lint:html",
+    "test:e2e": "playwright test -c test-suite/configs/playwright.config.ts",
+    "test:visual": "playwright test -c test-suite/configs/playwright.config.ts --grep @visual",
+    "test:a11y": "playwright test -c test-suite/configs/playwright.config.ts --grep @a11y",
+    "test:lighthouse": "lhci autorun --config=test-suite/configs/lighthouse.config.js",
+    "lint:css": "stylelint \"assets/css/**/*.css\" --config test-suite/configs/stylelint.config.json",
+    "lint:js": "eslint \"assets/js/**/*.js\" --config test-suite/configs/eslint.config.json",
+    "lint:html": "node test-suite/scripts/validate-html.js",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@axe-core/playwright": "^4.10.0",
+    "@lhci/cli": "^0.14.0",
+    "eslint": "^8.57.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.4",
+    "htmlhint": "^1.1.4",
+    "prettier": "^3.3.0"
+  },
+  "lint-staged": {
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{html,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -61,6 +61,13 @@ exclude:
   - jekyll.thor
   - local_run.sh
   - Dockerfile
+  - test-suite/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - .husky/
+  - playwright-report/
+  - test-results/
 
 social_links:
   -
