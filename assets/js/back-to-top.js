@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Create button
   const button = document.createElement('button');
   button.className = 'back-to-top';
@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleButton();
 
   // Scroll to top on click
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   });
 });
