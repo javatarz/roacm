@@ -259,8 +259,12 @@ test.describe('Performance', () => {
     page.on('console', msg => {
       if (msg.type() === 'error') {
         const text = msg.text();
-        // Ignore 404 errors and failed resource loads (these are expected)
-        if (!text.includes('404') && !text.includes('Failed to load resource')) {
+        // Ignore expected errors:
+        // - 404 errors and failed resource loads
+        // - WebKit blocks 0.0.0.0 as "restricted network host" in CI
+        if (!text.includes('404') &&
+            !text.includes('Failed to load resource') &&
+            !text.includes('restricted network host')) {
           errors.push(text);
         }
       }
