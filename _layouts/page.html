@@ -3,4 +3,22 @@ layout: default
 ---
 
 <h1 class="entry-title">{{ page.title }}</h1>
-{{ content }} {% include post/date.html %}
+{{ content }} {% if page.date %}
+<div class="post-metadata">
+  <div class="metadata-section">
+    <h4>Created</h4>
+    <div class="metadata-content">
+      {{ page.date | date_to_long_string: "ordinal" }}
+    </div>
+  </div>
+
+  {% if page.updated %}
+  <div class="metadata-section">
+    <h4>Updated</h4>
+    <div class="metadata-content">
+      {{ page.updated | date_to_long_string: "ordinal" }}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
