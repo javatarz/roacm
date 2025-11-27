@@ -3,19 +3,27 @@ layout: page
 title: About
 permalink: /about/
 date: 2008-04-09 07:00:17+00:00
-updated: 2017-08-03 08:36:00-04:00
+updated: 2024-11-27 09:26:00+05:30
 ---
 
-Hi there stranger!
+Hey there!
 
-I'm [Karun Japhet]({{site.bio_url}}) and this is my de**vlog** for all the weird things I do on the computer that random internet folks in the distant future might be interested in :) This includes either tech topics I'd like to talk about or scripts/utilities I found useful that I'd like to share and/or find with a lot more ease in the future.
+I'm [Karun Japhet]({{site.bio_url}}), a Solution Consultant at [Sahaj Software](https://sahaj.ai) with over 15 years of experience building enterprise-grade solutions across ad-tech, finance, telecommunications, energy, and gaming.
 
-Feel free to catch up with me on [Twitter](https://twitter.com/{{site.twitter_user}}) or [Facebook](https://facebook.com/{{site.facebook_user}}) ;) Did you check out [my portfolio page yet]({{site.bio_url}})?
+This blog is my **devlog** — a space where I document the weird, wonderful, and occasionally useful experiments I do with code. Whether it's a deep dive into a technical problem, a script that saved me hours, or a thought on how we build software, you'll find it here.
 
-I'm also a O'Reilly Software Architecture speaker. You can watch a video on youtube.
+## What I'm into these days
 
-{% youtube "https://www.youtube.com/watch?v=4cJ4GyyOfII" %}
+I'm focused on **AI-assisted software development** — not just code generation, but how AI can help throughout the development lifecycle. From sharpening requirements to debugging production issues, I explore techniques such as prompt engineering, context engineering, and chain-of-thought prompting to get the most out of tools like Claude Code and Copilot.
 
-[![Microsoft Imagine Cup 2008 - Interoperability Award winner](/assets/images/badges/ic08-interop-world-champ.jpg)]({{site.bio_url}})
-[![Oracle certified Java 6 programmer](/assets/images/badges/javase6programmer.jpg)]({{site.bio_url}})
-[![Accenture & MIT certified Application Developer](/assets/images/badges/accenture-mit-asda.jpg)]({{site.bio_url}})
+## Beyond the keyboard
+
+I speak at conferences and meetups about topics that fascinate me — event-driven architectures, serverless microservices, ML for fraud detection, and more recently, practical AI in the software lifecycle. Here's a recent talk:
+
+{% youtube "https://www.youtube.com/watch?v=HXq-Fr6XnV8" %}
+
+More talks on [my YouTube playlist](https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV).
+
+## Let's connect
+
+Find me on [LinkedIn](https://www.linkedin.com/in/{{site.linkedin_user}}/) or [X](https://x.com/{{site.twitter_user}}). Want to know more about my work? Check out [my portfolio]({{site.bio_url}}).
