@@ -33,11 +33,6 @@ jobs:
           -e JEKYLL_UID=$(id -u) \
           -e JEKYLL_GID=$(id -g) \
           jvconseil/jekyll-docker:4.3.3 jekyll build --future
-      - uses: actions/upload-artifact@v5
-        if: success() && github.ref == 'refs/heads/main'
-        with:
-          name: website-source
-          path: ./_site
       - name: Deploy to S3
         if: success() && github.ref == 'refs/heads/main'
         run: aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
