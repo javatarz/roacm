@@ -15,7 +15,6 @@ vendor/
 test-suite/reports/
 test-suite/.cache/
 node_modules/
-package-lock.json
 .husky/_/
 
 # Playwright
