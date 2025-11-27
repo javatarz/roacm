@@ -3,6 +3,13 @@
 set -e
 set -x
 
+# Check if Jekyll is already running on port 4000
+if lsof -i :4000 >/dev/null 2>&1; then
+    echo "Jekyll is already running on port 4000."
+    echo "Visit http://localhost:4000 or stop the existing process first."
+    exit 0
+fi
+
 # Parse arguments
 ALL_POSTS=false
 FORCE_REBUILD=false
