@@ -1,24 +1,22 @@
 <!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: 'en-US' }}">
   {% include head.html %}
   <body>
     {% include theme_toggle.html %}
     <div class="wrapper">
       {% include body/sidebar.html %}
 
-      <section>
-        {{ content }}
-      </section>
+      <section>{{ content }}</section>
 
       {% include body/footer.html %}
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    {% include google_analytics.html %}
-    {% if disqus_show_comment_count %}
-      <script id="dsq-count-scr" src="//{{ site.disqus_short_name }}.disqus.com/count.js" async></script>
-    {% endif %}
-
-    {% include body/deferred_styles.html %}
+    {% include google_analytics.html %} {% if disqus_show_comment_count %}
+    <script
+      id="dsq-count-scr"
+      src="//{{ site.disqus_short_name }}.disqus.com/count.js"
+      async
+    ></script>
+    {% endif %} {% include body/deferred_styles.html %}
     <script src="/assets/js/code-blocks.js"></script>
     <script src="/assets/js/reading-progress.js"></script>
     <script src="/assets/js/back-to-top.js"></script>
