@@ -64,7 +64,9 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: './local_run.sh',
+    command: process.env.CI
+      ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000'
+      : './local_run.sh',
     url: 'http://localhost:4000',
     reuseExistingServer: !process.env.CI,
     stdout: 'pipe',

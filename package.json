@@ -30,11 +30,11 @@
   },
   "lint-staged": {
     "*.css": [
-      "stylelint --fix",
+      "stylelint --fix --config test-suite/configs/stylelint.config.json",
       "prettier --write"
     ],
     "*.js": [
-      "eslint --fix",
+      "eslint --fix --config test-suite/configs/eslint.config.json",
       "prettier --write"
     ],
     "*.{html,md}": [

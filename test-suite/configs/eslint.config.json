@@ -36,6 +36,7 @@
   "ignorePatterns": [
     "_site/**/*.js",
     "vendor/**/*.js",
-    "node_modules/**/*.js"
+    "node_modules/**/*.js",
+    "test-suite/**/*.js"
   ]
 }

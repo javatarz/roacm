@@ -11,7 +11,7 @@ if git diff --cached --name-only | grep -q "\.css$"; then
   echo "🎨 CSS files changed - running visual tests..."
 
   # Run quick visual regression tests (only on changed viewports)
-  npm run test:visual -- --grep "@visual" --project=chromium || {
+  PLAYWRIGHT_HTML_OPEN=never npm run test:visual -- --grep "@visual" --project=chromium || {
     echo "❌ Visual tests failed. Please check the changes."
     echo "💡 Run 'npm run test:visual' to see detailed results."
     exit 1
@@ -23,7 +23,7 @@ if git diff --cached --name-only | grep -q "\.js$"; then
   echo "📝 JavaScript files changed - checking functionality..."
 
   # Run focused E2E tests
-  npm run test:e2e -- --project=chromium --grep "theme toggle|copy button|progress bar" || {
+  PLAYWRIGHT_HTML_OPEN=never npm run test:e2e -- --project=chromium --grep "theme toggle|copy button|progress bar" || {
     echo "❌ Functionality tests failed. Please check the changes."
     echo "💡 Run 'npm run test:e2e' to see detailed results."
     exit 1
