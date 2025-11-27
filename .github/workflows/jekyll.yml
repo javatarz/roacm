@@ -29,8 +29,9 @@ jobs:
       - name: Build the site in the jekyll/builder container
         run: |
           docker run \
+          --user $(id -u):$(id -g) \
           -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-          jvconseil/jekyll-docker:4.3.3 /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+          jvconseil/jekyll-docker:4.3.3 jekyll build --future
       - uses: actions/upload-artifact@v5
         if: success() && github.ref == 'refs/heads/main'
         with:
