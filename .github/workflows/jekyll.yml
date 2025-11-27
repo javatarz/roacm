@@ -18,6 +18,9 @@ on:
       - "local_run.sh"
       - "jekyll.thor"
 
+permissions:
+  contents: read
+
 env:
   RUBY_VERSION: 2.6.3
 
