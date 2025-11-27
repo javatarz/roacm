@@ -21,9 +21,6 @@ on:
 permissions:
   contents: read
 
-env:
-  RUBY_VERSION: 2.6.3
-
 jobs:
   build:
     runs-on: ubuntu-latest
