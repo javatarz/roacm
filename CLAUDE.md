@@ -102,3 +102,9 @@ Uses Colima for Docker on macOS. The `local_run.sh` script:
 - `Gemfile.dev` - Development dependencies (excludes jekyll-feed for 30s speedup)
 - `package.json` - Node.js test dependencies and npm scripts
 - `local_run.sh` - Development server startup script
+
+## Task Management
+
+- **Finding work**: Always check GitHub issues (`gh issue list`) to find cards to work on. Do not use the `theme-improvements/` folder - it contains legacy cards that have been migrated to GitHub issues.
+- **Closing issues**: Prefer closing issues via commit message (e.g., `Fixes #38`) rather than running `gh issue close`. This links the fix to the commit automatically.
+- **After completing a card**: Push the changes and proactively find the next most important card to pick up based on priority (bugs first, then quick wins, then features).
