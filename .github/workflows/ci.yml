@@ -1,37 +1,60 @@
-name: Theme Testing Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'assets/css/**'
-      - 'assets/js/**'
-      - '_layouts/**'
-      - '_includes/**'
-      - 'test-suite/**'
-      - '.github/workflows/theme-tests.yml'
-      - 'package.json'
-      - 'package-lock.json'
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - "Dockerfile"
+      - "local_run.sh"
+      - "jekyll.thor"
   pull_request:
     branches: [ main ]
-    paths:
-      - 'assets/css/**'
-      - 'assets/js/**'
-      - '_layouts/**'
-      - '_includes/**'
-      - 'test-suite/**'
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - "Dockerfile"
+      - "local_run.sh"
+      - "jekyll.thor"
 
 permissions:
   contents: read
+  pull-requests: write
 
 concurrency:
-  group: tests-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  # Detect which files changed to determine if tests should run
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      theme: ${{ steps.filter.outputs.theme }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            theme:
+              - 'assets/css/**'
+              - 'assets/js/**'
+              - '_layouts/**'
+              - '_includes/**'
+              - 'test-suite/**'
+              - '.github/workflows/ci.yml'
+              - 'package.json'
+              - 'package-lock.json'
+
+  # Linting jobs - only run when theme files change
   lint-and-validate:
     name: Lint and Validate
     runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@v6
 
@@ -53,10 +76,12 @@ jobs:
       - name: Validate HTML
         run: npm run lint:html
 
+  # E2E tests - only run when theme files change
   visual-and-e2e-tests:
     name: Visual & E2E Tests
     runs-on: ubuntu-latest
-    needs: lint-and-validate
+    needs: [changes, lint-and-validate]
+    if: needs.changes.outputs.theme == 'true'
     strategy:
       matrix:
         browser: [chromium, firefox, webkit]
@@ -100,10 +125,12 @@ jobs:
           path: test-suite/reports/playwright-results/**/*.png
           retention-days: 7
 
+  # Accessibility tests - only run when theme files change
   accessibility-tests:
     name: Accessibility Tests
     runs-on: ubuntu-latest
-    needs: lint-and-validate
+    needs: [changes, lint-and-validate]
+    if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@v6
 
@@ -136,13 +163,12 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
+  # Performance tests - only run when theme files change
   performance-tests:
     name: Performance Tests (Lighthouse)
     runs-on: ubuntu-latest
-    needs: lint-and-validate
-    permissions:
-      contents: read
-      pull-requests: write
+    needs: [changes, lint-and-validate]
+    if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@v6
 
@@ -201,20 +227,73 @@ jobs:
               });
             }
 
+  # Build and deploy - runs after tests pass OR if tests were skipped
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: [changes, lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests]
+    # Run if:
+    # - All test jobs succeeded, OR
+    # - All test jobs were skipped (no theme changes)
+    # Do NOT run if any test job failed
+    if: |
+      always() &&
+      (needs.changes.outputs.theme == 'false' ||
+       (needs.lint-and-validate.result == 'success' &&
+        needs.visual-and-e2e-tests.result == 'success' &&
+        needs.accessibility-tests.result == 'success' &&
+        needs.performance-tests.result == 'success'))
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build the site in the jekyll/builder container
+        run: |
+          docker run \
+          -v ${{ github.workspace }}:/srv/jekyll \
+          -e JEKYLL_UID=$(id -u) \
+          -e JEKYLL_GID=$(id -g) \
+          jvconseil/jekyll-docker:4.3.3 jekyll build --future
+
+      - name: Deploy to S3
+        if: success() && github.ref == 'refs/heads/main'
+        run: aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+
+  # Summary job for PR status checks
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
     if: always()
-    needs: [lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests]
+    needs: [changes, lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests, build-and-deploy]
     steps:
-      - name: Check test results
+      - name: Check results
         run: |
+          echo "Theme changes detected: ${{ needs.changes.outputs.theme }}"
+          echo ""
+
+          if [[ "${{ needs.changes.outputs.theme }}" == "false" ]]; then
+            echo "✅ No theme changes - tests skipped, build/deploy proceeded"
+            exit 0
+          fi
+
           if [[ "${{ needs.lint-and-validate.result }}" != "success" || \
                 "${{ needs.visual-and-e2e-tests.result }}" != "success" || \
                 "${{ needs.accessibility-tests.result }}" != "success" || \
                 "${{ needs.performance-tests.result }}" != "success" ]]; then
-            echo "❌ Some tests failed. Please check the individual job results."
+            echo "❌ Some tests failed. Deployment was blocked."
+            echo "  - Lint: ${{ needs.lint-and-validate.result }}"
+            echo "  - E2E: ${{ needs.visual-and-e2e-tests.result }}"
+            echo "  - A11y: ${{ needs.accessibility-tests.result }}"
+            echo "  - Perf: ${{ needs.performance-tests.result }}"
             exit 1
-          else
-            echo "✅ All tests passed successfully!"
           fi
+
+          if [[ "${{ needs.build-and-deploy.result }}" != "success" ]]; then
+            echo "❌ Build/deploy failed."
+            exit 1
+          fi
+
+          echo "✅ All tests passed and deployment succeeded!"
