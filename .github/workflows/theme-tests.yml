@@ -84,16 +84,7 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run E2E Tests - ${{ matrix.browser }}
-        run: npm run test:e2e -- --project=${{ matrix.browser }} --update-snapshots
-        continue-on-error: true
-
-      - name: Upload snapshots
-        if: always()
-        uses: actions/upload-artifact@v5
-        with:
-          name: snapshots-${{ matrix.browser }}
-          path: test-suite/tests/theme.spec.ts-snapshots/
-          retention-days: 7
+        run: npm run test:e2e -- --project=${{ matrix.browser }}
 
       - name: Upload test results
         if: always()
