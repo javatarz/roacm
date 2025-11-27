@@ -8,22 +8,34 @@ updated: 2024-11-27 09:26:00+05:30
 
 Hey there!
 
-I'm [Karun Japhet]({{site.bio_url}}), a Solution Consultant at [Sahaj Software](https://sahaj.ai) with over 15 years of experience building enterprise-grade solutions across ad-tech, finance, telecommunications, energy, and gaming.
+I'm [Karun Japhet]({{site.bio_url}}) — an engineer and consultant at Sahaj Software. I work on large-scale systems, architecture, and the practical use of AI in everyday software development. Most of my time goes into helping teams design systems that are easy to understand and evolve — especially as AI becomes part of the engineering workflow.
 
-This blog is my **devlog** — a space where I document the weird, wonderful, and occasionally useful experiments I do with code. Whether it's a deep dive into a technical problem, a script that saved me hours, or a thought on how we build software, you'll find it here.
+This blog is my devlog: experiments, breakdowns, small tools, and notes from the edges of my work. Some posts are deep dives, others are quick wins, and a few are explorations—ideas I understood better by writing them down.
 
-## What I'm into these days
+## What I’m exploring these days
 
-I'm focused on **AI-assisted software development** — not just code generation, but how AI can help throughout the development lifecycle. From sharpening requirements to debugging production issues, I explore techniques such as prompt engineering, context engineering, and chain-of-thought prompting to get the most out of tools like Claude Code and Copilot.
+My current focus is **AI-assisted engineering** — not just code generation, but the full lifecycle:
+
+- working with AI to clarify requirements
+- using LLMs as architectural thinking partners
+- debugging with structured prompting
+- improving delivery workflows with intelligent tools
+
+I use techniques like prompt engineering, context engineering, system prompting, and chain-of-thought scaffolding, mostly with tools like Claude Code and GitHub Copilot.
+
+If you're interested in practical, real-world AI for software teams, this is what I write about.
 
 ## Beyond the keyboard
 
-I speak at conferences and meetups about topics that fascinate me — event-driven architectures, serverless microservices, ML for fraud detection, and more recently, practical AI in the software lifecycle. Here's a recent talk:
+I speak at conferences and meetups about distributed systems, event-driven design, large-scale data engineering, ML for fraud detection, and — increasingly — AI's role in the software lifecycle.
+
+Here’s one of my recent talks:
 
 {% youtube "https://www.youtube.com/watch?v=HXq-Fr6XnV8" %}
 
-More talks on [my YouTube playlist](https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV).
+More talks live on my [YouTube playlist](https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV).
 
-## Let's connect
+## Let’s connect
 
-Find me on [LinkedIn](https://www.linkedin.com/in/{{site.linkedin_user}}/) or [X](https://x.com/{{site.twitter_user}}). Want to know more about my work? Check out [my portfolio]({{site.bio_url}}).
+You can find me on [LinkedIn](https://www.linkedin.com/in/{{site.linkedin_user}}/) or [X](https://x.com/{{site.twitter_user}}).  
+If you want to see more of what I work on, here’s my [portfolio]({{site.bio_url}}).
