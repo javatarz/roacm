@@ -36,12 +36,10 @@ jobs:
         with:
           name: website-source
           path: ./_site
-      - uses: jakejarvis/s3-sync-action@master
+      - name: Deploy to S3
         if: success() && github.ref == 'refs/heads/main'
-        with:
-          args: --acl public-read --follow-symlinks --delete
+        run: aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: '_site'
+          AWS_DEFAULT_REGION: us-east-1
