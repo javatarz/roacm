@@ -55,6 +55,18 @@ plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-target-blank
+  - jekyll-archives
+
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive-category
+    tag: archive-tag
+  permalinks:
+    category: /blog/categories/:name/
+    tag: /blog/tags/:name/
 exclude:
   - Gemfile
   - Gemfile.lock

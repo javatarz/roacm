@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<h1 class="entry-title">Category: {{ page.title }}</h1>
+
+<div class="archive-description">
+  <p>Posts filed under <strong>{{ page.title }}</strong></p>
+</div>
+
+<div class="blog-index archive-list">
+  {% for post in page.posts %}
+  <article>
+    <h2 class="entry-title">
+      <a href="{{ post.url }}"
+        >{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{
+        post.title }}{% endif %}</a
+      >
+    </h2>
+
+    <div class="post-meta">
+      <span class="post-date">
+        <svg
+          class="icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        {{ post.date | date: "%b %d, %Y" }}
+      </span>
+      <span class="reading-time">
+        <svg
+          class="icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        {% assign words = post.content | number_of_words %} {% assign
+        reading_time = words | divided_by: 200 %} {% if reading_time < 1 %}1{%
+        else %}{{ reading_time }}{% endif %} min read
+      </span>
+    </div>
+
+    <div class="entry-content">
+      {{ post.excerpt | strip_html | truncatewords: 50 }}
+      <p>
+        <a rel="full-article" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+      </p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
