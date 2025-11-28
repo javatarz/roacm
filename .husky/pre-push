@@ -1,0 +1,57 @@
+echo "🚀 Running pre-push checks..."
+
+# Get the range of commits being pushed
+remote="$1"
+z40=0000000000000000000000000000000000000000
+
+while read local_ref local_sha remote_ref remote_sha
+do
+  if [ "$local_sha" = "$z40" ]; then
+    # Deleting a branch, skip checks
+    continue
+  fi
+
+  if [ "$remote_sha" = "$z40" ]; then
+    # New branch - compare against main
+    range="origin/main..$local_sha"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+
+  # Get changed files (fallback to last 5 commits if range fails)
+  changed_files=$(git diff --name-only "$range" 2>/dev/null || git diff --name-only HEAD~5..HEAD)
+
+  css_changed=$(echo "$changed_files" | grep -E '\.css$' || true)
+  js_changed=$(echo "$changed_files" | grep -E '\.js$' || true)
+  layout_changed=$(echo "$changed_files" | grep -E '^(_layouts|_includes)/' || true)
+  theme_changed="$css_changed$js_changed$layout_changed"
+
+  if [ -z "$theme_changed" ]; then
+    echo "📦 No theme files changed - skipping tests"
+    continue
+  fi
+
+  echo "🎨 Theme files changed - running tests..."
+
+  # Run E2E tests on Chromium (fast, catches most issues)
+  echo "📝 Running E2E tests (Chromium)..."
+  PLAYWRIGHT_HTML_OPEN=never npm run test:e2e -- --project=chromium || {
+    echo "❌ E2E tests failed. Push blocked."
+    echo "💡 Run 'npm run test:e2e' to see detailed results."
+    exit 1
+  }
+
+  # Run accessibility tests
+  echo "♿ Running accessibility tests..."
+  PLAYWRIGHT_HTML_OPEN=never npm run test:a11y -- --project=chromium || {
+    echo "❌ Accessibility tests failed. Push blocked."
+    echo "💡 Run 'npm run test:a11y' to see detailed results."
+    exit 1
+  }
+
+done
+
+echo "✅ Pre-push checks passed!"
+echo ""
+echo "💡 Note: CI will also run Firefox/WebKit tests and Lighthouse checks."
+echo "   Run 'npm run preflight' locally for full coverage before important releases."

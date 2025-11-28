@@ -1,33 +1,7 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 echo "🔍 Running pre-commit checks..."
 
-# Run lint-staged for quick checks
+# Run lint-staged for quick linting checks
+# This auto-fixes what it can, then validates - fails on any remaining errors
 npx lint-staged
 
-# Check if any CSS files were changed
-if git diff --cached --name-only | grep -q "\.css$"; then
-  echo "🎨 CSS files changed - running visual tests..."
-
-  # Run quick visual regression tests (only on changed viewports)
-  PLAYWRIGHT_HTML_OPEN=never npm run test:visual -- --grep "@visual" --project=chromium || {
-    echo "❌ Visual tests failed. Please check the changes."
-    echo "💡 Run 'npm run test:visual' to see detailed results."
-    exit 1
-  }
-fi
-
-# Check if any JS files were changed
-if git diff --cached --name-only | grep -q "\.js$"; then
-  echo "📝 JavaScript files changed - checking functionality..."
-
-  # Run focused E2E tests
-  PLAYWRIGHT_HTML_OPEN=never npm run test:e2e -- --project=chromium --grep "theme toggle|copy button|progress bar" || {
-    echo "❌ Functionality tests failed. Please check the changes."
-    echo "💡 Run 'npm run test:e2e' to see detailed results."
-    exit 1
-  }
-fi
-
-echo "✅ All pre-commit checks passed!"
+echo "✅ Pre-commit checks passed!"
