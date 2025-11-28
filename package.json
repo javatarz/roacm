@@ -11,16 +11,18 @@
     "test:lighthouse": "lhci autorun --config=test-suite/configs/lighthouse.config.js",
     "preflight": "npm run test:unit && npm run test:e2e -- --project=chromium --project=firefox --project=webkit && npm run test:a11y && npm run test:lighthouse",
     "lint:css": "stylelint \"assets/css/**/*.css\" --config test-suite/configs/stylelint.config.json",
-    "lint:js": "eslint \"assets/js/**/*.js\" --config test-suite/configs/eslint.config.json",
+    "lint:js": "eslint \"assets/js/**/*.js\" --config test-suite/configs/eslint.config.mjs",
     "lint:html": "node test-suite/scripts/validate-html.js",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "@eslint/js": "^9.39.1",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.48.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
     "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
@@ -36,8 +38,8 @@
       "prettier --write"
     ],
     "*.js": [
-      "eslint --fix --config test-suite/configs/eslint.config.json",
-      "eslint --config test-suite/configs/eslint.config.json",
+      "eslint --fix --config test-suite/configs/eslint.config.mjs",
+      "eslint --config test-suite/configs/eslint.config.mjs",
       "prettier --write"
     ],
     "*.{html,md}": [
@@ -51,3 +53,4 @@
     "tmp": "0.2.4"
   }
 }
+
