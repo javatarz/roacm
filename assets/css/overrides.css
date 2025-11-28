@@ -684,3 +684,24 @@ small {
     width: 44px;
   }
 }
+
+/* 404 Error page */
+.error-page {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.error-page h1 {
+  color: var(--accent-color);
+  font-size: 120px;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+
+.error-page h2 {
+  margin: 0 0 24px;
+}
+
+.error-page p {
+  margin: 12px 0;
+}
