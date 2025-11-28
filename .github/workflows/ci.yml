@@ -49,6 +49,10 @@ jobs:
               - 'package.json'
               - 'package-lock.json'
 
+  # All test jobs run in parallel after changes detection for faster CI
+  # lint-and-validate, visual-and-e2e-tests, accessibility-tests, and performance-tests
+  # all start immediately after 'changes' job completes
+
   # Linting jobs - only run when theme files change
   lint-and-validate:
     name: Lint and Validate
@@ -89,7 +93,7 @@ jobs:
   visual-and-e2e-tests:
     name: Visual & E2E Tests
     runs-on: ubuntu-latest
-    needs: [changes, lint-and-validate]
+    needs: changes
     if: needs.changes.outputs.theme == 'true'
     strategy:
       matrix:
@@ -138,7 +142,7 @@ jobs:
   accessibility-tests:
     name: Accessibility Tests
     runs-on: ubuntu-latest
-    needs: [changes, lint-and-validate]
+    needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@v6
@@ -176,7 +180,7 @@ jobs:
   performance-tests:
     name: Performance Tests (Lighthouse)
     runs-on: ubuntu-latest
-    needs: [changes, lint-and-validate]
+    needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@v6
