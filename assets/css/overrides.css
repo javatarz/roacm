@@ -7,11 +7,11 @@
   --text-secondary: #666666;
   --card-bg: #ffffff;
   --card-border: #e8e8e8;
-  --card-shadow: rgba(0, 0, 0, 0.08);
+  --card-shadow: rgb(0, 0, 0, 0.08);
   --accent-color: #c30000;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --bg-primary: #1a1a1a;
   --bg-secondary: #2a2a2a;
   --border-color: #404040;
@@ -19,7 +19,7 @@
   --text-secondary: #a0a0a0;
   --card-bg: #252525;
   --card-border: #404040;
-  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow: rgb(0, 0, 0, 0.3);
   --accent-color: #ff4444;
 }
 
@@ -29,7 +29,7 @@ body {
   color: var(--text-primary);
 
   /* Enhanced typography with Open Sans */
-  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 17px;
   font-weight: 300;
   letter-spacing: 0.01em;
@@ -166,8 +166,8 @@ a {
 }
 
 /* External links indicator */
-.post-content a[href^="http"]:not([href*="blog.karun.me"])::after {
-  content: " ↗";
+.post-content a[href^='http']:not([href*='blog.karun.me'])::after {
+  content: ' ↗';
   font-size: 0.8em;
   opacity: 0.6;
 }
@@ -225,7 +225,7 @@ em {
 /* Buttons */
 button,
 .btn {
-  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 600;
 }
 
@@ -234,9 +234,9 @@ pre {
   background: #1e1e1e;
   border: none;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(0, 0, 0, 0.1);
   color: #d4d4d4;
-  font-family: "Fira Code", Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
   margin: 24px 0;
   overflow-x: auto;
   padding: 20px;
@@ -246,7 +246,7 @@ pre {
 code,
 kbd,
 samp {
-  font-family: "Fira Code", Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -255,7 +255,7 @@ samp {
 .highlighter-rouge .highlight {
   background: #1e1e1e;
   border-radius: 6px;
-  font-family: "Fira Code", Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
 }
 
 .highlighter-rouge .highlight pre {
@@ -468,8 +468,8 @@ blockquote {
 
 blockquote::before {
   color: var(--accent-color);
-  content: "\201C"; /* Opening curly quote */
-  font-family: Georgia, "Times New Roman", serif; /* Serif for elegant quotes */
+  content: '\201C'; /* Opening curly quote */
+  font-family: Georgia, 'Times New Roman', serif; /* Serif for elegant quotes */
   font-size: 60px;
   font-weight: normal; /* Remove bold for more elegant appearance */
   left: 10px;
@@ -583,7 +583,7 @@ blockquote p:last-child {
   border: none;
   border-radius: 50%;
   bottom: 30px;
-  box-shadow: 0 4px 12px rgba(195, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgb(195, 0, 0, 0.4);
   color: white;
   cursor: pointer;
   display: flex;
@@ -607,7 +607,7 @@ blockquote p:last-child {
 
 .back-to-top:hover {
   background: #a30000;
-  box-shadow: 0 6px 16px rgba(195, 0, 0, 0.5);
+  box-shadow: 0 6px 16px rgb(195, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
@@ -619,7 +619,7 @@ blockquote p:last-child {
 nav,
 .site-header,
 .site-footer {
-  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Small text and metadata */
