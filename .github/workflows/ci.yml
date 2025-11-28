@@ -73,6 +73,15 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint:js
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build site for HTML validation
+        run: bundle exec jekyll build
+
       - name: Validate HTML
         run: npm run lint:html
 

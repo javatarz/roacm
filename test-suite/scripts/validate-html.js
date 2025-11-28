@@ -12,6 +12,9 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 // Build Jekyll site first to get generated HTML
 console.log('🏗️  Building Jekyll site for HTML validation...');
 
+// Detect CI environment
+const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
 // Check if _site directory already exists with recent content
 const siteDir = path.join(__dirname, '../../_site');
 if (fs.existsSync(siteDir)) {
@@ -20,16 +23,31 @@ if (fs.existsSync(siteDir)) {
 
   if (minutesOld < 60) {
     console.log('ℹ️  Using existing _site directory (less than 1 hour old)');
+  } else if (isCI) {
+    console.error(
+      '❌ _site directory is stale in CI. Jekyll build may have failed.'
+    );
+    process.exit(1);
   } else {
-    console.log('⚠️  _site directory is old. Please rebuild Jekyll site manually.');
+    console.log(
+      '⚠️  _site directory is old. Please rebuild Jekyll site manually.'
+    );
     console.log('   Run: ./local_run.sh in another terminal');
-    process.exit(0); // Exit gracefully
+    process.exit(0); // Exit gracefully for local dev
   }
+} else if (isCI) {
+  console.error(
+    '❌ No _site directory found in CI. Jekyll build step is required.'
+  );
+  console.error(
+    '   Add "bundle exec jekyll build" before running HTML validation.'
+  );
+  process.exit(1);
 } else {
   console.log('⚠️  No _site directory found. Jekyll site needs to be built.');
   console.log('   Run: ./local_run.sh to start the Jekyll server');
   console.log('   HTML validation will be skipped for now.');
-  process.exit(0); // Exit gracefully
+  process.exit(0); // Exit gracefully for local dev
 }
 
 // Find all HTML files in _site directory
@@ -77,7 +95,9 @@ if (hasErrors) {
   for (const error of errors) {
     console.error(`📄 ${error.file}:`);
     for (const msg of error.messages) {
-      console.error(`   Line ${msg.line}:${msg.col} - ${msg.message} (${msg.rule.id})`);
+      console.error(
+        `   Line ${msg.line}:${msg.col} - ${msg.message} (${msg.rule.id})`
+      );
     }
     console.error('');
   }
