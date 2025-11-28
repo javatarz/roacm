@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "eslint.options": {
+    "overrideConfigFile": "test-suite/configs/eslint.config.json"
+  },
+  "eslint.validate": ["javascript"],
+  "stylelint.configFile": "test-suite/configs/stylelint.config.json",
+  "stylelint.validate": ["css"],
+  "css.validate": false,
+  "[css]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
