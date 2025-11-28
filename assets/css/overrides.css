@@ -251,8 +251,16 @@ samp {
   line-height: 1.6;
 }
 
-.highlight {
+.highlight,
+.highlighter-rouge .highlight {
+  background: #1e1e1e;
+  border-radius: 6px;
   font-family: "Fira Code", Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+
+.highlighter-rouge .highlight pre {
+  margin: 0;
+  padding: 20px;
 }
 
 pre code {

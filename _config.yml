@@ -20,7 +20,7 @@ sass_dir: _sass
 code_dir: downloads/code
 category_dir: /roacm/blog/categories
 
-highlighter: pygments.rb
+highlighter: rouge
 paginate_path: "posts/:num"
 excerpt_link: "Read on &rarr;"
 excerpt_separator: "<!-- more -->"
