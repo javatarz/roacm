@@ -3,25 +3,29 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta
     name="description"
-    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 }}"
+    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 | xml_escape }}"
   />
   <title>
-    {% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}
+    {% if page.title %}{{ page.title | xml_escape }} | {% endif %}{{ site.title
+    | xml_escape }}
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ page.title | default: site.title }}" />
+  <meta
+    property="og:title"
+    content="{{ page.title | default: site.title | xml_escape }}"
+  />
   <meta
     property="og:description"
-    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 }}"
+    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 | xml_escape }}"
   />
   <meta property="og:url" content="{{ page.url | absolute_url }}" />
   <meta
     property="og:type"
     content="{% if page.layout == 'post' %}article{% else %}website{% endif %}"
   />
-  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:site_name" content="{{ site.title | xml_escape }}" />
   {% if page.image %}
   <meta property="og:image" content="{{ page.image | absolute_url }}" />
   {% endif %}
@@ -29,10 +33,13 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@{{ site.twitter_user }}" />
-  <meta name="twitter:title" content="{{ page.title | default: site.title }}" />
+  <meta
+    name="twitter:title"
+    content="{{ page.title | default: site.title | xml_escape }}"
+  />
   <meta
     name="twitter:description"
-    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 }}"
+    content="{{ page.excerpt | default: site.subtitle | strip_html | truncate: 160 | xml_escape }}"
   />
   {% if page.image %}
   <meta name="twitter:image" content="{{ page.image | absolute_url }}" />
