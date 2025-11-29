@@ -102,12 +102,13 @@ fi
 EXTRA_CONFIG=""
 if [ "$ALL_POSTS" = true ]; then
     echo "Building with ALL posts (this will be slower)..."
-    # Create temporary config to override limit_posts
-    cat > /tmp/_config_all_posts.yml <<EOF
+    # Create temporary config to override limit_posts (in project dir so Docker can access it)
+    # Use large number (0 doesn't work, false doesn't work, need a big number)
+    cat > ./_config_all_posts.yml <<EOF
 # Temporary config to build all posts
-limit_posts: false
+limit_posts: 10000
 EOF
-    EXTRA_CONFIG=",/tmp/_config_all_posts.yml"
+    EXTRA_CONFIG=",_config_all_posts.yml"
 fi
 
 docker run --rm --platform linux/amd64 \

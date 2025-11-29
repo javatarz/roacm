@@ -18,7 +18,7 @@ tags:
 - Windows Home Server
 ---
 
-The first question in your head would be "**Why the world do I need a Home Server?**"
+The first question in your head would be **"Why the world do I need a Home Server?"**
 
 Good question. I'd like to ask you a couple of things. Do you have multiple machines in your house? Do you ever feel like you should have centralized storage in your house? Do you have old hardware simply lying around the house waiting to be tinkered with? Do you like playing with your machines?
 

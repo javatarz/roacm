@@ -6,7 +6,7 @@
     "source.fixAll.stylelint": "explicit"
   },
   "eslint.options": {
-    "overrideConfigFile": "test-suite/configs/eslint.config.json"
+    "overrideConfigFile": "test-suite/configs/eslint.config.mjs"
   },
   "eslint.validate": ["javascript"],
   "stylelint.configFile": "test-suite/configs/stylelint.config.json",
