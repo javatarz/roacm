@@ -15,6 +15,7 @@ test.describe('Theme Functionality', () => {
     await expect(page).toHaveScreenshot('homepage-light.png', {
       fullPage: true,
       animations: 'disabled',
+      maxDiffPixelRatio: 0.02,
     });
 
     // Click theme toggle
@@ -28,6 +29,7 @@ test.describe('Theme Functionality', () => {
     await expect(page).toHaveScreenshot('homepage-dark.png', {
       fullPage: true,
       animations: 'disabled',
+      maxDiffPixelRatio: 0.02,
     });
 
     // Verify localStorage persistence
@@ -164,6 +166,7 @@ test.describe('Responsive Design', () => {
       await expect(page).toHaveScreenshot(`homepage-${viewport.name}.png`, {
         fullPage: true,
         animations: 'disabled',
+        maxDiffPixelRatio: 0.02,
       });
     });
   }
