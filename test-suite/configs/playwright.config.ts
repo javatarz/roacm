@@ -4,11 +4,14 @@ import * as path from 'path';
 export default defineConfig({
   testDir: path.join(__dirname, '../tests'),
   outputDir: path.join(__dirname, '../reports/playwright-results'),
+  snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}-{platform}{ext}',
   timeout: 30000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  // Update missing snapshots in CI to generate platform-specific baselines
+  updateSnapshots: process.env.UPDATE_SNAPSHOTS === 'missing' ? 'missing' : 'none',
   reporter: [
     ['html', { outputFolder: path.join(__dirname, '../reports/playwright-html') }],
     ['json', { outputFile: path.join(__dirname, '../reports/playwright.json') }],

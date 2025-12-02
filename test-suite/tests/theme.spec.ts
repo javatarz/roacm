@@ -6,22 +6,17 @@ test.describe('Theme Functionality', () => {
     await page.goto('/');
   });
 
-  test('theme toggle switches between light and dark modes @visual', async ({ page, browserName }) => {
-    // Skip visual tests on Firefox - it has significant rendering differences on Linux CI
-    // that make visual regression testing unreliable (different page heights)
-    const skipVisual = browserName === 'firefox';
+  test('theme toggle switches between light and dark modes @visual', async ({ page }) => {
     // Check initial light mode
     const html = page.locator('html');
     await expect(html).not.toHaveAttribute('data-theme', 'dark');
 
-    // Take light mode screenshot (skip for Firefox)
-    if (!skipVisual) {
-      await expect(page).toHaveScreenshot('homepage-light.png', {
-        fullPage: true,
-        animations: 'disabled',
-        maxDiffPixelRatio: 0.02,
-      });
-    }
+    // Take light mode screenshot
+    await expect(page).toHaveScreenshot('homepage-light.png', {
+      fullPage: true,
+      animations: 'disabled',
+      maxDiffPixelRatio: 0.02,
+    });
 
     // Click theme toggle
     const themeToggle = page.locator('#theme-toggle');
@@ -30,14 +25,12 @@ test.describe('Theme Functionality', () => {
     // Verify dark mode is active
     await expect(html).toHaveAttribute('data-theme', 'dark');
 
-    // Take dark mode screenshot (skip for Firefox)
-    if (!skipVisual) {
-      await expect(page).toHaveScreenshot('homepage-dark.png', {
-        fullPage: true,
-        animations: 'disabled',
-        maxDiffPixelRatio: 0.02,
-      });
-    }
+    // Take dark mode screenshot
+    await expect(page).toHaveScreenshot('homepage-dark.png', {
+      fullPage: true,
+      animations: 'disabled',
+      maxDiffPixelRatio: 0.02,
+    });
 
     // Verify localStorage persistence
     const theme = await page.evaluate(() => localStorage.getItem('theme'));
@@ -169,14 +162,12 @@ test.describe('Responsive Design', () => {
         expect(hasHorizontalScroll).toBe(false);
       }
 
-      // Take screenshot for visual regression (skip for Firefox - it has rendering differences on Linux CI)
-      if (browserName !== 'firefox') {
-        await expect(page).toHaveScreenshot(`homepage-${viewport.name}.png`, {
-          fullPage: true,
-          animations: 'disabled',
-          maxDiffPixelRatio: 0.02,
-        });
-      }
+      // Take screenshot for visual regression
+      await expect(page).toHaveScreenshot(`homepage-${viewport.name}.png`, {
+        fullPage: true,
+        animations: 'disabled',
+        maxDiffPixelRatio: 0.02,
+      });
     });
   }
 });
