@@ -56,6 +56,20 @@ plugins:
   - jekyll-gist
   - jekyll-target-blank
   - jekyll-archives
+  - jekyll-seo-tag
+
+# SEO Tag configuration
+description: "Got Tech? Will Hack. A blog about software engineering, technology, and the occasional rambling."
+logo: /favicon.svg
+social:
+  name: Karun Japhet
+  links:
+    - https://twitter.com/javatarz
+    - https://github.com/javatarz
+    - https://www.linkedin.com/in/karunjaphet
+twitter:
+  username: javatarz
+  card: summary
 
 jekyll-archives:
   enabled:
