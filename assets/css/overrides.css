@@ -1120,3 +1120,61 @@ small {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Archive Page Styles
+   ========================================================================== */
+
+.archive-page {
+  margin-top: 24px;
+}
+
+.archive-year {
+  border-bottom: 2px solid var(--accent-color);
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+}
+
+.archive-year:first-of-type {
+  margin-top: 0;
+}
+
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-item {
+  align-items: baseline;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  transition: background-color 0.2s ease;
+}
+
+.archive-item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.archive-date {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 14px;
+  width: 60px;
+}
+
+.archive-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.archive-link:hover {
+  color: var(--accent-color);
+}
