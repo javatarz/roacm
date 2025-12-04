@@ -42,7 +42,7 @@
       "eslint --config test-suite/configs/eslint.config.mjs",
       "prettier --write"
     ],
-    "*.{html,md}": [
+    "*.md": [
       "prettier --write"
     ]
   },
