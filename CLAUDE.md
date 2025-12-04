@@ -22,6 +22,7 @@ Server runs at http://localhost:4000 with live reload.
 
 ```bash
 npm test                  # Run all tests (lint + e2e)
+npm run preflight         # Full pre-merge validation (lint + all browsers + a11y + lighthouse)
 npm run test:unit         # Linting only (CSS, JS, HTML)
 npm run test:e2e          # Playwright e2e tests
 npm run test:visual       # Visual regression tests
@@ -37,9 +38,21 @@ npm run test:e2e -- --project=chromium
 npm run test:e2e -- --project=firefox
 npm run test:e2e -- --project=webkit
 
-# Update visual regression baselines
-npm run test:visual -- --update-snapshots
+# Update visual regression baselines (local - Chromium/WebKit only)
+npm run test:visual -- --update-snapshots --project=chromium
+npm run test:visual -- --update-snapshots --project=webkit
 ```
+
+### Visual Regression Baselines
+
+Firefox renders differently on macOS vs Linux, so baselines must come from CI:
+
+1. **Local updates (Chromium/WebKit)**: Run commands above on macOS
+2. **Firefox Linux baselines**:
+   - Push changes and let CI run (it will fail with snapshot mismatches)
+   - Download artifacts: `gh run download <run-id>`
+   - Copy new snapshots from the downloaded artifact to `test-suite/tests/`
+   - Commit the updated baselines
 
 ### Linting Individual Files
 
@@ -63,9 +76,11 @@ docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll-dev thor 
 - `_config_dev.yml` - Development overrides (excludes jekyll-feed, limits posts)
 - `_layouts/` - Page templates: `default.html`, `post.html`, `page.html`
 - `_includes/` - Reusable components (head, sidebar, footer, theme_toggle)
+- `_includes/head/` - SEO meta tags, social sharing, stylesheets
 - `_posts/` - Blog posts in markdown format
+- `archive.html` - All posts grouped by year
 - `assets/css/overrides.css` - All theme customizations
-- `assets/js/` - Interactive features (code-blocks, reading-progress, back-to-top)
+- `assets/js/` - Interactive features (code-blocks, reading-progress, back-to-top, search)
 
 ### Theme Features
 
@@ -75,13 +90,22 @@ The site includes custom JavaScript for:
 - Reading progress bar
 - Back-to-top button
 - Code block copy functionality
+- Site search (lunr.js)
+- Auto-generated table of contents for long posts
 
 ### Testing Infrastructure
 
 - `test-suite/configs/` - Tool configurations (Playwright, Lighthouse, ESLint, Stylelint)
 - `test-suite/tests/theme.spec.ts` - Main test file
 - `test-suite/reports/` - Generated reports (gitignored)
-- `.husky/` - Pre-commit hooks for linting
+
+### Pre-commit Hooks
+
+Husky runs lint-staged on commit, which auto-fixes and validates:
+
+- **CSS**: Stylelint + Prettier
+- **JS**: ESLint + Prettier
+- **MD**: Prettier
 
 ### Docker Setup
 
