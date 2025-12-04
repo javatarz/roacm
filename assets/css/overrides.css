@@ -494,6 +494,75 @@ blockquote p:last-child {
   padding-top: 30px;
 }
 
+/* Post navigation (previous/next) */
+.post-navigation {
+  border-top: 2px solid var(--border-color);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 60px;
+  padding-top: 40px;
+}
+
+.post-nav-link {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.post-nav-link:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.post-nav-prev {
+  text-align: left;
+}
+
+.post-nav-next {
+  grid-column: 2;
+  text-align: right;
+}
+
+.post-nav-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.post-nav-title {
+  color: var(--accent-color);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Single nav link takes full width */
+.post-navigation:has(.post-nav-prev:only-child) .post-nav-prev,
+.post-navigation:has(.post-nav-next:only-child) .post-nav-next {
+  grid-column: 1 / -1;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 600px) {
+  .post-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .post-nav-next {
+    grid-column: 1;
+  }
+}
+
 /* Post metadata styling */
 .post-metadata {
   border-top: 2px solid var(--border-color);
