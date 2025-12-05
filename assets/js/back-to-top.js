@@ -20,7 +20,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  window.addEventListener('scroll', toggleButton);
+  window.addEventListener(
+    'scroll',
+    function () {
+      requestAnimationFrame(toggleButton);
+    },
+    { passive: true },
+  );
   toggleButton();
 
   // Scroll to top on click

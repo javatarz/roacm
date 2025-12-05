@@ -13,14 +13,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     button.addEventListener('click', function () {
       const code = pre.textContent;
-      navigator.clipboard.writeText(code).then(function () {
-        button.textContent = 'Copied!';
-        button.classList.add('copied');
-        setTimeout(function () {
-          button.textContent = 'Copy';
-          button.classList.remove('copied');
-        }, 2000);
-      });
+      navigator.clipboard
+        .writeText(code)
+        .then(function () {
+          button.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(function () {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+          }, 2000);
+        })
+        .catch(function () {
+          button.textContent = 'Failed';
+          button.classList.add('error');
+          setTimeout(function () {
+            button.textContent = 'Copy';
+            button.classList.remove('error');
+          }, 2000);
+        });
     });
   });
 });
