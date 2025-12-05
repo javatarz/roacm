@@ -45,7 +45,6 @@ exclude:
   - .DS_Store
   - node_modules
   - vendor
-  - theme-improvements/**
   - "*.log"
   - .jekyll-cache
   - .jekyll-metadata

@@ -10,7 +10,6 @@ _site/
 .gitignore
 
 # Development files
-theme-improvements/
 .DS_Store
 *.log
 *.swp

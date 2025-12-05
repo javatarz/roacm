@@ -129,6 +129,6 @@ Uses Colima for Docker on macOS. The `local_run.sh` script:
 
 ## Task Management
 
-- **Finding work**: Always check GitHub issues to find cards to work on. Use `gh issue list --state open --limit 100` to fetch all open issues (not just the default 30). Do not use the `theme-improvements/` folder - it contains legacy cards that have been migrated to GitHub issues.
+- **Finding work**: Always check GitHub issues to find cards to work on. Use `gh issue list --state open --limit 100` to fetch all open issues (not just the default 30).
 - **Closing issues**: Prefer closing issues via commit message (e.g., `Fixes #38`) rather than running `gh issue close`. This links the fix to the commit automatically.
 - **After completing a card**: Push the changes and proactively find the next most important card to pick up based on priority (bugs first, then quick wins, then features).
