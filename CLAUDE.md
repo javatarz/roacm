@@ -123,8 +123,28 @@ Uses Colima for Docker on macOS. The `local_run.sh` script:
 
 ### CI/CD
 
-- `.github/workflows/jekyll.yml` - Builds and deploys to S3 on main branch
-- `.github/workflows/theme-tests.yml` - Runs tests on theme file changes
+- `.github/workflows/ci.yml` - Full CI/CD pipeline (builds, tests, deploys to S3 on main)
+
+### Image Optimization
+
+Images are optimized during CI build (not at source). The pipeline:
+
+1. Jekyll builds the site
+2. `scripts/transform-images.mjs` - Transforms `<img>` tags to `<picture>` elements with WebP sources
+3. `scripts/optimize-images.mjs` - Converts images to WebP, compresses originals, generates srcset widths
+
+**Key points:**
+
+- Source images in `assets/images/` stay at original quality
+- New images are automatically optimized on next deploy
+- WebP served with PNG/JPG fallbacks for older browsers
+- Responsive srcset widths: 640w, 960w, 1280w
+
+### Infrastructure
+
+- **Cloudflare**: Provides CDN caching but does NOT optimize images (free plan limitation). Images are cached but served at original size unless pre-optimized.
+- **AWS S3**: Static site hosting
+- **GitHub Actions**: CI/CD pipeline
 
 ## Key Files
 

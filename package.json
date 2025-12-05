@@ -13,11 +13,14 @@
     "lint:css": "stylelint \"assets/css/**/*.css\" --config test-suite/configs/stylelint.config.json",
     "lint:js": "eslint \"assets/js/**/*.js\" --config test-suite/configs/eslint.config.mjs",
     "lint:html": "node test-suite/scripts/validate-html.js",
+    "images:optimize": "node scripts/optimize-images.mjs",
+    "images:transform": "node scripts/transform-images.mjs",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "sharp": "^0.33.5",
     "@eslint/js": "^9.39.1",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.48.0",
