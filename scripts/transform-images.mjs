@@ -79,6 +79,19 @@ function generateSrcset(imagePath, imageWidth, format) {
 }
 
 /**
+ * Extract the path portion from a URL that contains /assets/images/
+ * Handles both relative paths and full URLs
+ */
+function extractAssetPath(src) {
+  // Check for /assets/images/ anywhere in the URL
+  const assetMatch = src.match(/\/assets\/images\/[^"'\s]*/);
+  if (assetMatch) {
+    return assetMatch[0];
+  }
+  return null;
+}
+
+/**
  * Transform a single img tag to picture element
  */
 async function transformImgTag(imgTag) {
@@ -90,22 +103,24 @@ async function transformImgTag(imgTag) {
 
   const src = srcMatch[1];
 
-  // Only transform local images in /assets/images/
-  if (!src.startsWith('/assets/images/') && !src.startsWith('assets/images/')) {
+  // Extract the asset path - handles both relative and full URLs
+  // e.g., "/assets/images/uploads/foo.jpg" or "https://blog.karun.me/assets/images/uploads/foo.jpg"
+  const assetPath = extractAssetPath(src);
+  if (!assetPath) {
     return imgTag;
   }
 
   // Skip already-transformed srcset images
-  if (/-\d+w\.(webp|jpg|jpeg|png)$/i.test(src)) {
+  if (/-\d+w\.(webp|jpg|jpeg|png)$/i.test(assetPath)) {
     return imgTag;
   }
 
   // Normalize path (remove leading slash for filesystem access)
-  const normalizedPath = src.startsWith('/') ? src.slice(1) : src;
+  const normalizedPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
   const fullImagePath = join(SITE_DIR, normalizedPath);
 
   if (!existsSync(fullImagePath)) {
-    console.log(`  Skipping: ${src} (file not found)`);
+    console.log(`  Skipping: ${src} (file not found at ${fullImagePath})`);
     return imgTag;
   }
 
@@ -127,14 +142,14 @@ async function transformImgTag(imgTag) {
   const styleAttr = styleMatch ? ` style="${styleMatch[1]}"` : '';
   const titleAttr = titleMatch ? ` title="${titleMatch[1]}"` : '';
 
-  // Determine the original format extension
-  const ext = extname(src).slice(1).toLowerCase();
-  const webpSrcset = generateSrcset(src, dimensions.width, 'webp');
+  // Use the extracted asset path for srcset generation (always relative)
+  const webpSrcset = generateSrcset(assetPath, dimensions.width, 'webp');
 
   // Build the picture element
   // Sizes: responsive - full width on mobile, capped at 768px on larger screens
   const sizes = '(max-width: 768px) 100vw, 768px';
 
+  // Keep the original src for the fallback img (maintains full URL if that's what was used)
   const picture = `<picture>
   <source type="image/webp"
     srcset="${webpSrcset}"
