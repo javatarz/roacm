@@ -279,6 +279,21 @@ jobs:
           -e JEKYLL_GID=$(id -g) \
           jvconseil/jekyll-docker:4.3.3 jekyll build --future
 
+      - name: Setup Node.js for image optimization
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Transform images in HTML to picture elements
+        run: npm run images:transform
+
+      - name: Optimize and generate responsive images
+        run: npm run images:optimize
+
       - name: Deploy to S3
         if: success() && github.ref == 'refs/heads/main'
         run: aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
