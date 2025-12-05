@@ -116,6 +116,30 @@ h4 {
   margin-top: 0;
 }
 
+/* Post metadata (date + reading time) - used on homepage cards and post pages */
+.post-meta {
+  align-items: center;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.25rem;
+}
+
+.post-meta .post-date,
+.post-meta .reading-time {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.post-meta .icon {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
 /* Header/sidebar styling - sidebar is always dark so needs light text */
 p.header {
   color: #cccccc;
