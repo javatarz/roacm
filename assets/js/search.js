@@ -138,11 +138,11 @@
       }
 
       return results.slice(0, 8); // Limit to 8 results
-    } catch (_e) {
+    } catch {
       // If lunr throws an error (e.g., invalid syntax), try simpler search
       try {
         return searchIndex.search(query).slice(0, 8);
-      } catch (_e2) {
+      } catch {
         return [];
       }
     }
