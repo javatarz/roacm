@@ -45,10 +45,16 @@ npm run test:visual -- --update-snapshots --project=webkit
 
 ### Visual Regression Baselines
 
-Firefox renders differently on macOS vs Linux, so baselines must come from CI:
+**IMPORTANT**: When visual snapshots need updating, ALL browsers must be updated or CI will fail.
 
-1. **Local updates (Chromium/WebKit)**: Run commands above on macOS
-2. **Firefox Linux baselines**:
+1. **Local updates (Chromium + WebKit)**: Always update both together on macOS:
+
+   ```bash
+   npm run test:visual -- --update-snapshots --project=chromium
+   npm run test:visual -- --update-snapshots --project=webkit
+   ```
+
+2. **Firefox Linux baselines** (cannot be updated locally - renders differently on macOS vs Linux):
    - Push changes and let CI run (it will fail with snapshot mismatches)
    - Download artifacts: `gh run download <run-id>`
    - Copy new snapshots from the downloaded artifact to `test-suite/tests/`
