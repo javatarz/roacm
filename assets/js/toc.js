@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Ensure all headings have IDs for linking
-  headings.forEach(function (heading, index) {
+  headings.forEach(function (heading) {
     if (!heading.id) {
       heading.id =
         'heading-' +
