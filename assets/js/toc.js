@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function () {
       requestAnimationFrame(highlightCurrentSection);
     },
-    { passive: true }
+    { passive: true },
   );
 
   // Update offsets on resize
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function () {
       requestAnimationFrame(updateHeadingOffsets);
     },
-    { passive: true }
+    { passive: true },
   );
 
   // Smooth scroll on click

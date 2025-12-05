@@ -230,7 +230,7 @@
   function handleKeydown(e) {
     const items = searchResults.querySelectorAll('.search-result-item');
     const selected = searchResults.querySelector(
-      '.search-result-item.selected'
+      '.search-result-item.selected',
     );
     const currentIndex = selected ? parseInt(selected.dataset.index, 10) : -1;
 
