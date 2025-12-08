@@ -9,6 +9,10 @@
   --card-border: #e8e8e8;
   --card-shadow: rgb(0, 0, 0, 0.08);
   --accent-color: #c30000;
+
+  /* Code block colors - VS Code dark theme inspired */
+  --code-bg: #1e1e1e;
+  --code-text: #d4d4d4;
 }
 
 [data-theme='dark'] {
@@ -273,11 +277,11 @@ button,
 
 /* Enhanced code blocks - preserve monospace font */
 pre {
-  background: #1e1e1e;
+  background: var(--code-bg);
   border: none;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgb(0, 0, 0, 0.1);
-  color: #d4d4d4;
+  color: var(--code-text);
   font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
   margin: 24px 0;
   overflow-x: auto;
@@ -295,7 +299,7 @@ samp {
 
 .highlight,
 .highlighter-rouge .highlight {
-  background: #1e1e1e;
+  background: var(--code-bg);
   border-radius: 6px;
   font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
 }
@@ -1036,7 +1040,8 @@ small {
 #search-input:focus {
   background: rgb(255, 255, 255, 0.15);
   border-color: rgb(255, 255, 255, 0.4);
-  outline: none;
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 .search-shortcut {
@@ -1053,7 +1058,7 @@ small {
 }
 
 .search-results {
-  background-color: #ffffff !important;
+  background-color: var(--card-bg);
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgb(0, 0, 0, 0.3);
@@ -1068,7 +1073,6 @@ small {
 }
 
 [data-theme='dark'] .search-results {
-  background-color: #2a2a2a !important;
   border-color: #404040;
 }
 
@@ -1224,4 +1228,20 @@ small {
 
 .archive-link:hover {
   color: var(--accent-color);
+}
+
+/* ==========================================================================
+   Reduced Motion - Accessibility
+   Users with vestibular disorders or motion sensitivity need reduced animations
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
