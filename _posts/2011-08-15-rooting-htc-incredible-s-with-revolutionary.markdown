@@ -6,16 +6,11 @@ layout: post
 slug: rooting-htc-incredible-s-with-revolutionary
 title: Rooting HTC Incredible S with Revolutionary
 wordpress_id: 391
-categories:
-- Development
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Android
-- HTC
-- HTC Incredible S
-- Root
-- S-Off
+  - android
+  - rooting
+  - htc
 ---
 
 AlphaRevX totally revolutionized the S-Off scene for HTCs everywhere a few months back. I wrote a bunch of posts on XDA-Dev which showed people how to use it. But AlphaRevX doesn't work on all software versions. One such version was 2.30.x which I was stuck on. I can now confirm that Revolutionary (formed by team unr**evo**ked and team AlphaRev) does work on this version too. Really simple to use.

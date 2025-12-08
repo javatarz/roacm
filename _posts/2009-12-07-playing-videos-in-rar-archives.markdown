@@ -6,14 +6,11 @@ layout: post
 slug: playing-videos-in-rar-archives
 title: Playing videos in RAR archives
 wordpress_id: 281
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- DirectShow
-- MPC
-- On-The-Fly
-- RAR
-- Video
+  - media
+  - tools
+  - workaround
 ---
 
 Large video files are sometimes distributed in multi-part RAR archives. This can happen with video downloads, backups, or files shared across services with size limits. In such cases, you're left with RAR files that you have to extract every time you want to play them.

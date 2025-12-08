@@ -6,10 +6,12 @@ layout: post
 slug: checking-out-windows-7-build-7077
 title: Checking out Windows 7 Build 7077
 wordpress_id: 134
-categories:
-- Review
+category: Tech Reviews
 tags:
-- Windows 7
+  - windows
+  - windows-7
+  - os-review
+  - beta
 ---
 
 I got my hands on Windows 7 Build 7077 to take it for a spin. I've had Windows 7 discs and keys around for a couple of months now but I never really got time to install them. Finally, I set up the latest build a couple of nights ago.

@@ -6,12 +6,12 @@ layout: post
 slug: eclipse-plugin-development-project-icon-overlay
 title: 'Eclipse Plugin Development: Project Icon Overlay'
 wordpress_id: 489
-categories:
-- Development
-- Tutorials
+category: Software Design
 tags:
-- eclipse
-- plugin development
+  - ide
+  - eclipse
+  - plugin-development
+  - java
 ---
 
 If you're trying to create a Custom Project in Eclipse, you'll eventually come to read a beautiful blog post over at [Hidden Clause](http://cvalcarcel.wordpress.com/2009/10/14/writing-an-eclipse-plug-in-part-6-adding-an-icon-to-new-project-types/) that documents quite well how to overlay your icon over Eclipse's default folder icon to get the icon of your choice.

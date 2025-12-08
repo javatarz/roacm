@@ -3,14 +3,12 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Version controlled configuration and secrets management for Terraform"
-categories:
-  - Tutorials
+category: Platform Engineering
 tags:
   - terraform
-  - gitlab
-  - version control
-  - continuous delivery
-  - infrastructure as code
+  - infrastructure-as-code
+  - secrets-management
+  - ci-cd
 ---
 
 [Terraform](https://www.terraform.io/) is a tool to build your infrastructure as code. We've been having a few challenges while trying to figure out how to how to manage configuration and secrets when integrating terraform with our CD pipeline.

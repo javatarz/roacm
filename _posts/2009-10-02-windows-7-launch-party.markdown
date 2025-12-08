@@ -6,11 +6,11 @@ layout: post
 slug: windows-7-launch-party
 title: Windows 7 Launch Party
 wordpress_id: 250
-categories:
-- News
+category: Personal
 tags:
-- Launch Party
-- Windows 7
+  - event
+  - microsoft
+  - community
 ---
 
 Windows 7 Launch Party is a party organized by individuals in their homes, offices or other commercial venues celebrating the launch of Windows 7 and showing off its prowess. Its being done through the [House Party website](http://www.houseparty.com/) and the only reason its not called that is because Microsoft didn't want to restrict the venue to homes. Great PR is what I say.

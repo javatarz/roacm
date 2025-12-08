@@ -6,12 +6,11 @@ layout: post
 slug: removing-utorrent-ads
 title: Removing uTorrent ads
 wordpress_id: 615
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- remove ads
-- uTorrent
+  - utorrent
+  - ads
+  - configuration
 ---
 
 When BitTorrent bought over μTorrent, they promised users that all adverts would be optional. They have, however, made it harder and harder to hide the adverts including now a set of hidden options. Thankfully users have found how to access those hidden options.

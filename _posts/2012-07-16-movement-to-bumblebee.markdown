@@ -6,11 +6,11 @@ layout: post
 slug: movement-to-bumblebee
 title: Movement to Bumblebee
 wordpress_id: 409
-categories:
-- Events
+category: Platform Engineering
 tags:
-- news
-- servers
+  - servers
+  - infrastructure
+  - migration
 ---
 
 I finally took the time out to move away from shared hosting into my own server. It's been a long time coming but it's finally here! I hope this will stop issues for Wordpress caused by shared hosting. If it doesn't, it's out with Wordpress :)

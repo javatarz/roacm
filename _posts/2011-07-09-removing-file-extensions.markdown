@@ -6,13 +6,11 @@ layout: post
 slug: removing-file-extensions
 title: Removing file extensions
 wordpress_id: 335
-categories:
-- Hacks
-- Tutorials
+category: Developer Experience
 tags:
-- Automate
-- Batch File
-- Script
+  - scripting
+  - batch
+  - automation
 ---
 
 A problem I've faced quite a few times is having a folder full of files with a padded extension that needs to be removed before I can use the files. This can happen with `.tmp`, `.bak`, or other temporary extensions added by various applications.

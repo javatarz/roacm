@@ -6,15 +6,11 @@ layout: post
 slug: visit-to-microsoft-redmond
 title: Visit to Microsoft, Redmond
 wordpress_id: 222
-categories:
-- Events
+category: Personal
 tags:
-- Interoperability
-- Interview
-- Microsoft
-- Redmond
-- SKAN
-- Trip
+  - trip-report
+  - microsoft
+  - career
 ---
 
 Firstly, I'd like to apologize to all that have been waiting for this. My health and unusually booked schedules are to blame. Lets get into the trip on a day to day basis then!

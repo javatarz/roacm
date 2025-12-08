@@ -6,16 +6,11 @@ layout: post
 slug: mass-downloading-google-drive-files
 title: Mass downloading Google Drive Files
 wordpress_id: 608
-categories:
-- Development
+category: Platform Engineering
 tags:
-- Download
-- Gmail
-- Google Drive
-- Mass Download
-- Message Clipped
-- Scala
-- Script
+  - scala
+  - automation
+  - scripting
 ---
 
 Has anyone ever shared with you hundreds of Google Drive files instead of sharing the directory? It happened to me today and I noticed [Gmail clips the HTML part of the message at 102 KB](https://econsultancy.com/blog/65360-prevent-gmail-clipping-your-message-with-an-email-diet#i.1cn7apepjlfqbz). Usually Gmail provides a way to download all attachments (Google Drive or otherwise) or the ability to save them on your Google Drive from where you can mass download them. If the email is clipped, you can only save a subset of these files into your Google Drive so no mass downloads. Bummer.

@@ -3,12 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "MLOps: Building a healthy data platform"
-categories:
-  - Data Engineering
+category: Platform Engineering
 tags:
   - mlops
-  - data science
-  - machine learning
+  - data-engineering
+  - machine-learning
 ---
 
 Spoiler: MLOps is to ML Platforms what DevOps is to most tech products. If you think this means MLOps is automating your deployments, this article is for you.

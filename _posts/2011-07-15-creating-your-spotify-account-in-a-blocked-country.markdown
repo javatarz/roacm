@@ -6,14 +6,11 @@ layout: post
 slug: creating-your-spotify-account-in-a-blocked-country
 title: Creating your Spotify Account in a blocked country
 wordpress_id: 361
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- bypass
-- invite
-- proxy
-- spotify
+  - spotify
+  - vpn
+  - workaround
 ---
 
 For those of you who don't know what Spotify is, it's a great music streaming site which allows free streaming to your PC and great streaming/offline music play on your mobile device.

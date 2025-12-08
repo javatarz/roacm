@@ -6,11 +6,11 @@ layout: post
 slug: mass-renaming-file-extensions-with-powershell
 title: Mass renaming file extensions with PowerShell
 wordpress_id: 612
-categories:
-- Tutorials
+category: Platform Engineering
 tags:
-- PowerShell
-- Scripts
+  - scripting
+  - powershell
+  - automation
 ---
 
 PowerShell is one of Windows' most underused tools in my opinion. In many cases it rivals if not betters support that bash scripts provide.

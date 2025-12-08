@@ -6,16 +6,12 @@ layout: post
 slug: glassfish-jndi-custom-resource-reading-primitives
 title: 'Glassfish JNDI Custom Resource: Reading Primitives'
 wordpress_id: 457
-categories:
-- Development
+category: Software Design
 tags:
-- admin
-- code sample
-- environment variable
-- glassfish
-- java
-- java ee
-- jndi
+  - java
+  - java-ee
+  - jndi
+  - glassfish
 ---
 
 Custom resources allow you to store server side values that are available to different J2EE applications on your server. This is an extremely useful feature that one should use.

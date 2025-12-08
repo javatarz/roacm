@@ -5,11 +5,12 @@ title: Commonly made mistakes in Unit Testing
 slug: commonly-made-mistakes-in-unit-testing
 date: 2016-02-28T09:24:50+05:30
 layout: post
-categories:
-- Development
+category: Software Design
 tags:
-- Testing
-- TDD
+  - testing
+  - tdd
+  - mocking
+  - best-practices
 ---
 ## What is Unit Testing?
 

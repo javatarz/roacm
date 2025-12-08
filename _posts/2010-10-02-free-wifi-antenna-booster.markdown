@@ -6,15 +6,11 @@ layout: post
 slug: free-wifi-antenna-booster
 title: 'Free WiFi antenna booster '
 wordpress_id: 312
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Booster
-- Ez-10
-- Free
-- Tutorial
-- WiFi
+  - wifi
+  - hardware-hack
+  - diy
 ---
 
 If you suffer from reception issues on your WiFi connection and would like a boost to your router/access point, you should try out this easy tutorial I read online. It's free and really simple on following up. All you need is some aluminium foil, card board, glue for sticking stuff and a scissor/blade for some cutting.

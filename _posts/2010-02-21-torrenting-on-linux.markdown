@@ -6,15 +6,11 @@ layout: post
 slug: torrenting-on-linux
 title: Torrenting on Linux
 wordpress_id: 287
-categories:
-- Tutorials
+category: Platform Engineering
 tags:
-- Linux
-- rTorrent
-- rutorrent
-- Torrent
-- Ubuntu
-- WebUI
+  - linux
+  - ubuntu
+  - self-hosted
 ---
 
 [![rutorrent webUI](https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg)](https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg)

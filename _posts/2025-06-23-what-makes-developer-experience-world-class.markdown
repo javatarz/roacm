@@ -3,11 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "What makes Developer Experience World-Class?"
-categories:
-  - Development
+category: Developer Experience
 tags:
-  - developer experience
-  - DevEx
+  - developer-experience
+  - team-practices
+  - engineering-culture
 ---
 The habits, tools, and practices that set great engineering teams apart.
 

@@ -6,13 +6,12 @@ layout: post
 slug: vs-2010-beta-1-user-interface
 title: 'VS 2010 Beta 1: User Interface'
 wordpress_id: 190
-categories:
-- Review
+category: Tech Reviews
 tags:
-- .NET
-- Release
-- Visual Studio
-- WPF
+  - ide
+  - visual-studio
+  - ui-review
+  - wpf
 ---
 
 [![]({{ site.url }}/assets/images/uploads/2009/05/vs-2010-logo.png)](http://en.wikipedia.org/wiki/Microsoft_Visual_Studio)Well, I've been browsing through Visual Studio 2010 for a while now. I've not gotten into coding but did get a chance to have a look at the User Interface for this product. Here are some of the things I've noticed.

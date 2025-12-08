@@ -6,11 +6,11 @@ layout: post
 slug: new-home
 title: New Home
 wordpress_id: 25
-categories:
-- News
+category: Personal
 tags:
-- Imagine Cup
-- SKAN
+  - blog-meta
+  - milestone
+  - imagine-cup
 ---
 
 So welcome to the new home of j@x, the minimalistic CMS made by.. well me :-)

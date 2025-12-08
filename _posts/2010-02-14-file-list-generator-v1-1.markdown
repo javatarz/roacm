@@ -6,13 +6,11 @@ layout: post
 slug: file-list-generator-v1-1
 title: File list generator v1.1
 wordpress_id: 284
-categories:
-- Development
+category: Platform Engineering
 tags:
-- File List Generator
-- PowerShell
-- Scripts
-- Source
+  - scripting
+  - powershell
+  - automation
 ---
 
 On a lazy Sunday afternoon when you've got nothing better to do, you either write [rather useless scripts](http://blog.karun.me/blog/2009/12/06/clean-file-list-generation-with-powershell-script/) or update them. I chose to do the latter.

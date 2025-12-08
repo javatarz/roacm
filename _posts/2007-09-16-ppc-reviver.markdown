@@ -6,10 +6,11 @@ layout: post
 slug: ppc-reviver
 title: PPC Reviver!
 wordpress_id: 23
-categories:
-- Hacks
+category: Device Hacks
 tags:
-- Windows Mobile
+  - windows-mobile
+  - device-recovery
+  - rom
 ---
 
 I should officially be named the PPC hack king when it comes down to recovering them from positions where it seems they might be bricked :P

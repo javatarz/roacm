@@ -6,12 +6,11 @@ layout: post
 slug: the-power-of-the-windows-key
 title: The power of the Windows key!
 wordpress_id: 218
-categories:
-- Hacks
+category: Developer Experience
 tags:
-- keyboard
-- shortcuts
-- Windows 7
+  - windows
+  - keyboard-shortcuts
+  - productivity
 ---
 
 The Windows key might have started as something a tad bit redundant (considering Ctrl+Esc does the same thing) but the Windows Key is so much more.

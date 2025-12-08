@@ -6,13 +6,11 @@ layout: post
 slug: set-java-home-to-a-specific-version-on-mac
 title: Set Java Home to a specific version on Mac
 wordpress_id: 558
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- java
-- Java Home
-- Mac
-- OS X
+  - java
+  - mac-os
+  - environment-setup
 ---
 
 Installing Oracle's version of Java on your machine does (for most machines I've encountered) add a Java Home system variable. Rarely however it doesn't work on some machines. Such folks are recommended to add the path themselves.

@@ -6,11 +6,11 @@ layout: post
 slug: use-spotify-internationally-again
 title: Use Spotify internationally (again)
 wordpress_id: 600
-categories:
-- Hacks
+category: Device Hacks
 tags:
-- Hacks
-- spotify
+  - spotify
+  - vpn
+  - workaround
 ---
 
 If you don't mind using Spotify in a browser, you can use [Hola Better Internet](https://chrome.google.com/webstore/detail/hola-better-internet/gkojfkhlekighikafcpjkiklfbnlmeio?hl=en).

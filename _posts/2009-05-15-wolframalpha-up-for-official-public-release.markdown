@@ -6,12 +6,11 @@ layout: post
 slug: wolframalpha-up-for-official-public-release
 title: Wolfram|Alpha up for Official Public Release
 wordpress_id: 155
-categories:
-- Preview
+category: Tech Reviews
 tags:
-- New Technology
-- Pre-Release
-- Wolfram|Alpha
+  - wolfram-alpha
+  - product-launch
+  - preview
 ---
 
 Have you heard of [Wolfram Alpha](http://www.wolframalpha.com/) (also called WoflramAlpha or Wolfram\|Alpha)? If you haven't, you best do it quickly. Its going to be brought online in about 30 minutes from now. I can't wait! :D

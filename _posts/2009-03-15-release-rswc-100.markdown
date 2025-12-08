@@ -6,13 +6,11 @@ layout: post
 slug: release-rswc-100
 title: '[Release] RSWC 1.00'
 wordpress_id: 112
-categories:
-- Development
+category: Device Hacks
 tags:
-- .NET
-- C#
-- Project
-- RSWC
+  - dotnet
+  - open-source
+  - utility
 ---
 
 My new laptop is a work box and doesn't inherit the obsessive compulsiveness of File naming and sorting that my desktop hard disks have. I have, for this reason, dumped all wallpapers which are applicable to be used with my desktop (wallpapers with aspect ratio 16:9) into my "My Pictures" folder. Randomly, I have an urge to change the wallpaper and I really don't want to go select one. So I thought I should have something that would change my wallpaper to a random image. I tried finding something but most such applications were installables and would change the wallpapers after periodic time intervals, something i didn't want.

@@ -6,12 +6,11 @@ layout: post
 slug: karun-ab-thats-me
 title: Karun AB, that's me!
 wordpress_id: 516
-categories:
-- News
+category: Personal
 tags:
-- portfolio
-- resume
-- website
+  - portfolio
+  - milestone
+  - personal
 ---
 
 It's been almost a year now since I bought the domain [http://karun.me](http://karun.me) and a few months back I decided to put in some of my free time to put something up there. The domain, being named what it is, makes sense to house things about who this mythical Karun is and what he does. Seems he mostly does code for random organizations and at times is allowed to talk a bit about it :P So that's what the website tells you! He also seems to take some photographs so the website helps show that off as well.

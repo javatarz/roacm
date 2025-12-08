@@ -6,10 +6,11 @@ layout: post
 slug: chrome-tips
 title: Chrome Tips
 wordpress_id: 82
-categories:
-- Hacks
+category: Developer Experience
 tags:
-- Browser
+  - browser
+  - chrome
+  - productivity
 ---
 
 ## Custom Search Engine

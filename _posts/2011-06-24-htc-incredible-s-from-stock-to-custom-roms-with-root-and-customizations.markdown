@@ -6,14 +6,12 @@ layout: post
 slug: htc-incredible-s-from-stock-to-custom-roms-with-root-and-customizations
 title: HTC Incredible S, from Stock to Custom ROMs with Root and customizations
 wordpress_id: 331
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Android
-- Custom ROM
-- Customizations
-- HTC Incredible S
+  - android
+  - rooting
+  - custom-rom
+  - htc
 ---
 
 I've been dabbling around a lot with Android customizations from my HTC Incredible S which I recently took from HTC's India ROM to Android Revolution HD ;) Along the way, I S-Offed my phone and rooted it as well.

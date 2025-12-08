@@ -6,11 +6,11 @@ layout: post
 slug: signs-of-a-troubled-startup
 title: Signs of a troubled startup
 wordpress_id: 638
-categories:
-- Thoughts
+category: Personal
 tags:
-- advice
-- startups
+  - startups
+  - advice
+  - opinion
 ---
 
 India has been developing the startup culture quite seriously over the past half a decade. In this time I've seen dozens of ventures pop up and quite a few of them fizzle out. If you've gone through a startup bootcamp or an equivalent program, you've probably heard the stats. Failure rate of startups is pretty high. I admit, I am concerned. Not about the high failure rate. It's about **why** quite a few Indian startups are failing these days.

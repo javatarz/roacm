@@ -6,16 +6,12 @@ layout: post
 slug: atlassian-bamboo-downloading-code-from-atlassian-stash
 title: 'Atlassian Bamboo: Downloading Code from Atlassian Stash'
 wordpress_id: 492
-categories:
-- Tutorials
+category: Platform Engineering
 tags:
-- atlassian
-- bamboo
-- integration
-- Server
-- setup
-- stash
-- Tutorial
+  - ci-cd
+  - atlassian
+  - git
+  - integration
 ---
 
 The Atlassian suite of tools are a good way to have your organization's workflow administered. If you're using Atlassian Stash to manage your source code and are attempting to get Atlassian Bamboo to download code off Stash's copy of git, the answer isn't quite straight forward.

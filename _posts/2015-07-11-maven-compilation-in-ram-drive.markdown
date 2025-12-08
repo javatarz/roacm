@@ -6,20 +6,11 @@ layout: post
 slug: maven-compilation-in-ram-drive
 title: Maven Compilation in Ram Drive
 wordpress_id: 658
-categories:
-- Development
-- Hacks
+category: Platform Engineering
 tags:
-- hard disk
-- Linux
-- maven
-- optimization
-- performance
-- ram
-- ram drive
-- ramfs
-- tempfs
-- Windows
+  - maven
+  - build-optimization
+  - performance
 ---
 
 If you're working on huge maven projects and have a slow disk, compilation, packaging and install times can sore quite high. If getting faster hard disks isn't possible, why not try moving the compilation to a ram drive?

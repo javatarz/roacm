@@ -3,11 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Managing multiple signatures for git repositories"
-categories:
-  - Tutorials
+category: Developer Experience
 tags:
-  - Git
-  - Signing
+  - git
+  - gpg
+  - security
 ---
 
 Github explains pretty well [how to sign commits](https://help.github.com/en/articles/signing-commits). You can make it automatic by globally setting `commit.gpgsign = true` by using

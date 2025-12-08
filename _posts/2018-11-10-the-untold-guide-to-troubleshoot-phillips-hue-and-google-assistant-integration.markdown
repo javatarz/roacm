@@ -3,14 +3,12 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "The untold guide to troubleshoot Phillips Hue and Google Assistant Integration"
-categories:
-  - Guide
+category: Device Hacks
 tags:
-  - IOT
-  - smart assistant
-  - smart integration
-  - Phillips hue
-  - Google assistant
+  - smart-home
+  - iot
+  - troubleshooting
+  - google-assistant
 ---
 
 Recently, I moved into a new home and was setting up my [Phillips Hue](https://www2.meethue.com/en-us) lights with my [Google Home assistants](https://assistant.google.com/#?modal_active=none) around my house for convenience. I noticed a couple of hick-ups since the last time I did this.

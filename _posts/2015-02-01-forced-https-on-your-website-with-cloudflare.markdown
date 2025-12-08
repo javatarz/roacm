@@ -6,11 +6,12 @@ layout: post
 slug: forced-https-on-your-website-with-cloudflare
 title: Forced HTTPs on your website with CloudFlare
 wordpress_id: 643
-categories:
-- Tutorials
+category: Platform Engineering
 tags:
-- security
-- ssl
+  - cloudflare
+  - ssl
+  - security
+  - https
 ---
 
 I'm a supporter of the [HTTPS everywhere movement](https://www.eff.org/https-everywhere) by the [EFF](https://www.eff.org/). They advocate users use (all) websites with HTTPS for extra security. This means everyone should probably fork out a few dollars to get their own certificates. Unless you're buying a domain at NameCheap (in which case they tend to throw in a SSL certificate for the first year), you'd have to shell out $8-$12 to get one.

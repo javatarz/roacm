@@ -6,10 +6,12 @@ layout: post
 slug: windows-7-a-second-look
 title: 'Windows 7: A second look'
 wordpress_id: 154
-categories:
-- Review
+category: Tech Reviews
 tags:
-- Windows 7
+  - windows
+  - windows-7
+  - os-review
+  - beta
 ---
 
 I've had a bit of reprieve from work here and I finally got some time to install Windows 7 on my laptop. Though my desktop has had the latest builds available to me, they have all been on a test drive. My laptop however had to wait until I was done with my academic work before it could move permanently to Windows 7 and afford any issues that might come its way.

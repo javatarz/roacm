@@ -3,14 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "AI for Software Engineering, not (only) Code Generation"
-categories:
-  - AI for Software Engineering
-  - intelligent Engineering
+category: intelligent Engineering
 tags:
-  - software delivery
-  - tools
-  - ai tools
-  - coding assistants
+  - software-delivery
+  - ai-tools
+  - team-transformation
 ---
 
 Rethinking the role of AI across the entire software lifecycle

@@ -6,13 +6,11 @@ layout: post
 slug: reducing-maven-package-times-due-to-resource-copying
 title: Reducing Maven Package times due to resource copying
 wordpress_id: 663
-categories:
-- Development
-- Hacks
+category: Platform Engineering
 tags:
-- maven
-- optimization
-- performance
+  - maven
+  - build-optimization
+  - performance
 ---
 
 I once worked on a web application with a 250+MB _code base_. This consisted of 200,000 images. For every development cycle, you had to compile and deploy the code on the server which was painful to say the least. The size wasn't the problem as much as the number of resources. The code took less than 20 seconds to compile.

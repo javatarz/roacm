@@ -6,10 +6,12 @@ layout: post
 slug: the-undeletables
 title: The Undeletables
 wordpress_id: 13
-categories:
-- Hacks
+category: Tech Reviews
 tags:
-- Windows Vista
+  - windows
+  - windows-vista
+  - troubleshooting
+  - permissions
 ---
 
 I had to reinstall vista once and so vista copied its already existing files into Windows.old like any other decent OS does. This was of course a move to help me keep the data I already had in C drive at that time.

@@ -6,13 +6,12 @@ layout: post
 slug: sensible-visions-fastaccess-on-windows-7
 title: Sensible Vision's FastAccess on Windows 7
 wordpress_id: 232
-categories:
-- Thoughts
+category: Tech Reviews
 tags:
-- Biometric
-- FastAccess
-- Windows 7
-- Windows Biometric Foundation
+  - windows
+  - windows-7
+  - biometric
+  - product-review
 ---
 
 Sensible Vision came out with this pretty amazing software called FastAccess that does a decent job at facial recognition. But using it on Windows 7 has given me a few issues so I thought I should just talk about it.

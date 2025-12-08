@@ -6,14 +6,12 @@ layout: post
 slug: cloud-to-butt-on-safari-update
 title: Cloud To Butt on Safari Update
 wordpress_id: 513
-categories:
-- Development
+category: Developer Experience
 tags:
-- CloudToButt
-- GitHub
-- plugin development
-- Safari
-- Source
+  - browser
+  - browser-extension
+  - safari
+  - open-source
 ---
 
 As Reddit puts it, [Cloud to Butt is the funniest plugin ever](http://www.reddit.com/r/chrome/comments/1pkahp/cloud_to_butt_the_funniest_chrome_extension_you/) and they aren't wrong. Childish, but funny. Safari has an equivalent but alas it's not as effective. I really should say **wasn't that effective** because I just made it :P

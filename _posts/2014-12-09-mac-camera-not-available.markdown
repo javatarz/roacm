@@ -6,13 +6,11 @@ layout: post
 slug: mac-camera-not-available
 title: 'Mac: Camera not available'
 wordpress_id: 622
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- Mac
-- OS X
-- sudo
-- WebCamera
+  - mac-os
+  - troubleshooting
+  - hardware
 ---
 
 My Macbook Pro sometimes doesn't detect it's web camera when I'm trying to join a video call and it's painful to have to reboot the machine to fix it. A simpler way (especially if you have root access to your machine) is to kill VDCAssistant from the command line.

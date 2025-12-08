@@ -3,12 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Upgrade everything in brew"
-categories:
-  - Tutorials
+category: Developer Experience
 tags:
-  - Brew
-  - Mac OS
-  - Automation
+  - mac-os
+  - brew
+  - automation
 ---
 [Homebrew](https://brew.sh/) is a the missing package manager for Mac OS. [Brew cask](https://caskroom.github.io/) extends [Homebrew](https://brew.sh/) and brings its elegance, simplicity, and speed to Mac OS applications and large binaries alike.
 

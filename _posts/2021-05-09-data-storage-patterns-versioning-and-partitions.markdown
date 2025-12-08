@@ -3,13 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Data storage patterns, versioning and partitions"
-categories:
-  - Data Engineering
+category: Software Design
 tags:
-  - data pipelines
-  - big data
-  - data storage
-  - data partitioning
+  - data-engineering
+  - data-storage
+  - spark
 ---
 
 When you have large volumes of data, storing it logically helps users discover information and makes understanding the information easier. In this post, we talk about some of the techniques we use to do so in our application.

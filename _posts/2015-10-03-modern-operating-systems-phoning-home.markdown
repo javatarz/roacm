@@ -6,14 +6,12 @@ layout: post
 slug: modern-operating-systems-phoning-home
 title: Modern Operating Systems Phoning Home
 wordpress_id: 665
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- OS X
-- Privacy
-- Windows
-- Windows 10
-- Yosemite
+  - privacy
+  - windows
+  - mac-os
+  - security
 ---
 
 It seriously irks me when general public operating systems build in default features that send data to their servers without clearly indicating so. Both Microsoft (with Windows 10) and Apple (with Yosemite) have done so. Disabling these features doesn't take long so here's what you need to do.

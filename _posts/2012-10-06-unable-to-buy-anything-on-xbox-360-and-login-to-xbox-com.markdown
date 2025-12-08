@@ -6,16 +6,11 @@ layout: post
 slug: unable-to-buy-anything-on-xbox-360-and-login-to-xbox-com
 title: Unable to buy anything on XBox 360 and login to xbox.com
 wordpress_id: 412
-categories:
-- Tutorials
+category: Device Hacks
 tags:
-- credit card
-- error
-- login
-- Microsoft
-- payment
-- remove
-- xbox
+  - xbox
+  - troubleshooting
+  - microsoft
 ---
 
 If you're having issues buying anything on XBox 360 and doesn't even let you login to xbox.com and it keeps kicking you out, there is a chance that one of the credit cards you have stored on record is invalid.

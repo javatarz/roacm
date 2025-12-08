@@ -6,12 +6,11 @@ layout: post
 slug: apple-wheel-is-this-meant-to-be-a-joke
 title: 'Apple Wheel: Is this meant to be a joke?'
 wordpress_id: 106
-categories:
-- Review
+category: Tech Reviews
 tags:
-- Apple
-- Fail
-- New Technology
+  - apple
+  - product-review
+  - opinion
 ---
 
 First of all, I should say, the only source I have is [this youtube video](http://www.youtube.com/watch?v=XU9o0nKiOJE).

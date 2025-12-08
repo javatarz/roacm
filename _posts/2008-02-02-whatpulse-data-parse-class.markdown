@@ -6,11 +6,11 @@ layout: post
 slug: whatpulse-data-parse-class
 title: WhatPulse data parse class
 wordpress_id: 33
-categories:
-- Development
+category: Developer Experience
 tags:
-- PHP
-- Whatpulse
+  - php
+  - api
+  - open-source
 ---
 
 On 10th of December, 2008, 2 days before my Computer Networks paper I made a WhatPulse class in php to get data from the WhatPulse WebAPI for you to work with. With the information at your finger tips make a forum signature, why don't you? ;)

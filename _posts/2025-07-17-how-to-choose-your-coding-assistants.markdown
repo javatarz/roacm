@@ -3,13 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "How to choose your coding assistants"
-categories:
-  - AI for Software Engineering
-  - intelligent Engineering
+category: intelligent Engineering
 tags:
-  - ai tools
-  - coding assistants
-  - tools
+  - coding-assistants
+  - tool-selection
+  - licensing
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 

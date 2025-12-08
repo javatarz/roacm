@@ -6,16 +6,11 @@ layout: post
 slug: building-a-home-server-part-1
 title: 'Building a Home Server: Part 1'
 wordpress_id: 240
-categories:
-- Hacks
-- Tutorials
+category: Platform Engineering
 tags:
-- FreeNAS
-- Home Server
-- Linux
-- Server
-- Tutorial
-- Windows Home Server
+  - servers
+  - linux
+  - home-lab
 ---
 
 The first question in your head would be **"Why the world do I need a Home Server?"**

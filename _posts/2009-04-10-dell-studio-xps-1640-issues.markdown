@@ -6,15 +6,12 @@ layout: post
 slug: dell-studio-xps-1640-issues
 title: Dell Studio XPS 1640 Issues
 wordpress_id: 130
-categories:
-- Review
+category: Tech Reviews
 tags:
-- Broadcom
-- Dell
-- Ethernet card
-- Gigabit
-- Rant
-- Tech Support
+  - hardware-review
+  - dell
+  - troubleshooting
+  - rant
 ---
 
 Once upon a time, not too far long ago, I got a Dell Studio XPS 1640. I found that the laptop was great. I knew before I got it that it had a slight heating problem so ever since I got it, I would give it some cooling space. The performance on this machine was simply amazing but I had a few issues. Here are the issues I had:

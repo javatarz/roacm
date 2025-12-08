@@ -6,14 +6,12 @@ layout: post
 slug: desktoppr-downloader
 title: Desktoppr Downloader v1.0
 wordpress_id: 582
-categories:
-- Development
+category: Platform Engineering
 tags:
-- api
-- desktoppr
-- GitHub
-- Open Source
-- python
+  - python
+  - api
+  - open-source
+  - automation
 ---
 
 I recently found [Desktoppr](https://www.desktoppr.co), a service which has an insane number of curated wallpapers. What's even better is that they come with [an easy to consume API](https://www.desktoppr.co/api#wallpapers).

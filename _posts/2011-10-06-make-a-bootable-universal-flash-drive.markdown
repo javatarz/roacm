@@ -6,15 +6,11 @@ layout: post
 slug: make-a-bootable-universal-flash-drive
 title: Make a bootable Universal Flash Drive
 wordpress_id: 403
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Bootable
-- Flash Drive
-- Pen Drive
-- UFD
-- USB
+  - usb
+  - bootable
+  - multi-boot
 ---
 
 This is a really old trick for Universal Flash Drives (UFDs) and I've been using it for years. I just thought I should document the steps so it's available as quick reference for me :)

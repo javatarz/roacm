@@ -3,14 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "intelligent Engineering: Principles for Building With AI"
-categories:
-  - AI for Software Engineering
-  - intelligent Engineering
+category: intelligent Engineering
 tags:
-  - ai principles
-  - software engineering
-  - engineering practices
-  - ai best practices
+  - ai-assisted-development
+  - engineering-principles
+  - ai-literacy
 ---
 
 Software engineering is changing — again.

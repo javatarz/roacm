@@ -6,14 +6,11 @@ layout: post
 slug: expandregion-on-sublime-text
 title: ExpandRegion on Sublime Text
 wordpress_id: 596
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- GitHub
-- IntelliJ
-- Plugin
-- shortcuts
-- Sublime Text
+  - ide
+  - sublime-text
+  - productivity
 ---
 
 Once you get used to the [JetBrains suite of IDEs](https://www.jetbrains.com/) pressing [Cmd/Ctrl+W for expanding selection becomes second nature](http://paulhammant.com/2014/02/07/jetbrains-ides-their-best-feature-is-control-w/). This leads to closing tabs on most applications such as text editors which is of little consequence since you can train yourself to use a different short cut.

@@ -6,11 +6,12 @@ layout: post
 slug: windows-7-public-beta-serial-key-fiasco
 title: Windows 7 Public Beta Serial Key Fiasco
 wordpress_id: 98
-categories:
-- Review
+category: Tech Reviews
 tags:
-- Betas
-- Windows 7
+  - windows
+  - windows-7
+  - beta
+  - microsoft
 ---
 
 Earlier today at CES 2009, Microsoft announced that they would release 2.5 million copies of Windows 7 for public beta (build 7000) which came out around 25th December, 2008 for all those lucky people who have MSDN subscriptions.

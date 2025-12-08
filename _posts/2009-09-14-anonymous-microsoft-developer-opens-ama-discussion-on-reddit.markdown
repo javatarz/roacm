@@ -6,12 +6,11 @@ layout: post
 slug: anonymous-microsoft-developer-opens-ama-discussion-on-reddit
 title: Anonymous Microsoft Developer opens AMA discussion on reddit
 wordpress_id: 246
-categories:
-- News
+category: Personal
 tags:
-- AMA
-- Microsoft
-- reddit
+  - microsoft
+  - community
+  - news
 ---
 
 Ever wanted to ask what really goes on at Microsoft to a softie? Want to know about some random bytes of code inside Windows? Want to know who really killed Microsoft Bob? Well, [here's your chance](http://www.reddit.com/r/IAmA/comments/9jo27/i_work_for_microsoft_as_a_developer_and_worked_on/)!

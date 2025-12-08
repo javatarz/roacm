@@ -6,10 +6,11 @@ layout: post
 slug: command-line-e-mailing
 title: Command Line e-mailing
 wordpress_id: 31
-categories:
-- Review
+category: Developer Experience
 tags:
-- Tools
+  - command-line
+  - tools
+  - automation
 ---
 
 Ever wanted to send a quick email but then though, "nah.. cba to open my inbox right now"?

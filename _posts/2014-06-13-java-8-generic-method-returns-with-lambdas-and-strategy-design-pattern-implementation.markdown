@@ -6,17 +6,12 @@ layout: post
 slug: java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation
 title: 'Java 8: Generic Method Returns with Lambdas and Strategy Design Pattern implementation'
 wordpress_id: 522
-categories:
-- Development
-- Tutorials
+category: Software Design
 tags:
-- code sample
-- Design Pattern
-- Functional Programming
-- Generics
-- Java 8
-- Lambda
-- Strategy Pattern
+  - java
+  - java-8
+  - design-patterns
+  - lambda
 ---
 
 With the introduction of Functional Programming in Java 8 new possibilities have opened up. One use case I recently encountered was that of processing JSONs to return data inside them. Let us, for the sake of argument, say the data in an element could be one of the following:

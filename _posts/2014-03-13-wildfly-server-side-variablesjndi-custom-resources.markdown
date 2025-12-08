@@ -6,19 +6,12 @@ layout: post
 slug: wildfly-server-side-variablesjndi-custom-resources
 title: 'WildFly: Server Side Variables/JNDI Custom Resources'
 wordpress_id: 505
-categories:
-- Tutorials
+category: Software Design
 tags:
-- admin
-- config
-- environment variables
-- glassfish
-- java
-- java ee
-- jndi
-- sample code
-- Server
-- wildfly
+  - java
+  - java-ee
+  - jndi
+  - wildfly
 ---
 
 As you probably know, [Oracle stopped development of Glassfish's commercial version](https://blogs.oracle.com/theaquarium/entry/java_ee_and_glassfish_server) and in doing so, prompted others to move. [News of Glassfish being dead is greatly exaggerated according to some](https://blogs.oracle.com/brunoborges/entry/6_facts_about_glassfish_announcement) but myself being one who was already not happy with Glassfish's Open Source version, steps were taken to move to [WildFly](http://wildfly.org/). So far, the move has been well received in the team except for web based GUI administration panel which isn't complete. Reliability of the admin panel is higher than Glassfish's counterpart though and what WildFly's web admin panel lacks, it's CLI and Swing based GUI admin panel make up for allowing script writers (such as myself) to come up with automated ways to get things done.

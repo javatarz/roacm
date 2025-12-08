@@ -6,13 +6,11 @@ layout: post
 slug: uptime-challenge
 title: Uptime Challenge
 wordpress_id: 6
-categories:
-- Development
+category: Platform Engineering
 tags:
-- Delphi
-- PHP
-- Plus!
-- UpC
+  - scripting
+  - competition
+  - php
 ---
 
 There is a Plus! scripting competition going on that the entire community knows about. With t-shirts for all participants, there have been over 70 entries in 3 weeks. There are only 4 days to go so despite my exams, here is my shot at the competition.

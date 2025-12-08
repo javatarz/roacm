@@ -6,14 +6,11 @@ layout: post
 slug: webdevelopment-gotcha-browsers-with-adblock-plus
 title: 'WebDevelopment Gotcha: Browsers with Adblock Plus!'
 wordpress_id: 463
-categories:
-- Development
+category: Software Design
 tags:
-- ad
-- adblock
-- adblock plus
-- gotcha
-- web development
+  - web-development
+  - debugging
+  - browser
 ---
 
 Earlier this week, I was maintaining a web-application when I noticed something weird. Some images were not shown on my browser at times. The application dynamically displayed images based on certain conditions using java script and every once in a while, an image would disappear. This only happened to me and would occur on Safari and Chrome.

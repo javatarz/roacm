@@ -6,15 +6,11 @@ layout: post
 slug: android-terminologies
 title: Android terminologies
 wordpress_id: 385
-categories:
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Android
-- Custom ROM
-- Help
-- Root
-- S-Off
+  - android
+  - terminology
+  - glossary
 ---
 
 For a first time Android user looking to customize his phone, XDA-Dev can be filled with a lot of jargon. Hope this helps users understand at least a part of it.

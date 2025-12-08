@@ -6,13 +6,11 @@ layout: post
 slug: terracopy-copying-files-the-way-its-meant-to-be-copied
 title: 'TerraCopy: Copying files the way it''s meant to be copied'
 wordpress_id: 452
-categories:
-- Review
+category: Tech Reviews
 tags:
-- copy
-- short review
-- Tools
-- Windows
+  - tools
+  - product-review
+  - windows
 ---
 
 TeraCopy is an amazing tool for Windows which allows users to queue up copy requests, pause them, re-order them and change copy file lists at run time. It's got a lot of power and great integration with Windows. It's a tool which I highly recommend.

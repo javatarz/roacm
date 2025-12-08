@@ -6,12 +6,11 @@ layout: post
 slug: first-hand-at-f
 title: First hand at F#
 wordpress_id: 219
-categories:
-- Development
+category: Software Design
 tags:
-- F#
-- Functional Programming
-- Visual Studio
+  - functional-programming
+  - f-sharp
+  - dotnet
 ---
 
 With the release of the first beta of Visual Studio 2010 which includes support for F#, it was only a matter of time till I tried my hand at it.

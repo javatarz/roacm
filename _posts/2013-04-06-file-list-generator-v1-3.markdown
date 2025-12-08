@@ -6,13 +6,11 @@ layout: post
 slug: file-list-generator-v1-3
 title: File list generator v1.3
 wordpress_id: 436
-categories:
-- Development
+category: Platform Engineering
 tags:
-- File List Generator
-- PowerShell
-- Scripts
-- Source
+  - scripting
+  - powershell
+  - automation
 ---
 
 I noticed that my old file list generator page didn't have a valid link any more. Since I'd go through and upload it again, I guess it would be worth it to add some minor documentation and make the path variable optional as well :)

@@ -6,13 +6,12 @@ layout: post
 slug: windows-7-unable-to-delete-files-access-is-denied-error-messages
 title: 'Windows 7: Unable to delete files - "Access is denied" error messages'
 wordpress_id: 468
-categories:
-- Hacks
+category: Device Hacks
 tags:
-- error
-- File Delete
-- fix
-- Windows 7
+  - windows
+  - windows-7
+  - permissions
+  - troubleshooting
 ---
 
 Windows, at times, denies you the right to delete a file or a folder. I've noticed this happening especially when you copy the contents of the folder to empty it and later try to delete it. At this moment, you've got to ask yourself if you've got the necessary permissions to do so.

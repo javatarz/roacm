@@ -6,12 +6,11 @@ layout: post
 slug: net-neutrality-why-should-i-care
 title: 'Net Neutrality: Why should I care?'
 wordpress_id: 626
-categories:
-- Thoughts
+category: Personal
 tags:
-- net neutrality
-- social activisim
-- social awareness
+  - net-neutrality
+  - opinion
+  - social
 ---
 
 Yes, that's one of the most often asked questions right after "What is that?". I don't often provide this explanation to techies because doing that is as simple as giving them a few lines of explanation and pointing them to a good website with information. The real challenge, if you ask me, is explaining this problem to the everyday _Joe_ out there. Especially since, in a place like India you're likely to hear "we have bigger problems than _<insert issue here>_". This to me sounds like a blanket excuse for not wanting to deal with an issue at hand and here's how I tend to answer such queries.

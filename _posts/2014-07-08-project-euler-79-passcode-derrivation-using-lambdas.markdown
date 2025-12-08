@@ -6,16 +6,12 @@ layout: post
 slug: project-euler-79-passcode-derrivation-using-lambdas
 title: 'Project Euler #79: Passcode Derrivation (using Lambdas)'
 wordpress_id: 566
-categories:
-- Development
-- Tutorials
+category: Software Design
 tags:
-- code sample
-- Functional Programming
-- java
-- Java 8
-- Lambda
-- Project Euler
+  - java
+  - java-8
+  - functional-programming
+  - algorithms
 ---
 
 I've been solving Project Euler for years and I avoid posting solutions online as far as possible but this problem is old enough that it shouldn't be a problem. Plus, the problem statement interests me enough to write a functional solution using the new Java 8 Lambdas that I've been experimenting over the past few months.

@@ -3,12 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Patterns for AI assisted software development"
-categories:
-  - AI for Software Engineering
-  - intelligent Engineering
+category: intelligent Engineering
 tags:
-  - software delivery
-  - tools
+  - ai-patterns
+  - team-practices
+  - engineering-culture
 ---
 
 Moving beyond tools: habits, prompts, and patterns for working well with AI

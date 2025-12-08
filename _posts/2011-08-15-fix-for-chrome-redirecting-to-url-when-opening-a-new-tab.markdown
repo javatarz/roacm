@@ -6,16 +6,12 @@ layout: post
 slug: fix-for-chrome-redirecting-to-url-when-opening-a-new-tab
 title: Fix for Chrome redirecting to URL when opening a new tab
 wordpress_id: 397
-categories:
-- Hacks
-- Tutorials
+category: Developer Experience
 tags:
-- chrome
-- fix
-- hacked
-- solution
-- trojan
-- virus
+  - browser
+  - chrome
+  - security
+  - troubleshooting
 ---
 
 I was helping a friend fix his hacked site when I had to disable ESET to check where his injected code was (because the website ran an img iframe hack to download a trojan on the user's machines). I found the issue and told him what to do but had my own machine infected in the mean while :(

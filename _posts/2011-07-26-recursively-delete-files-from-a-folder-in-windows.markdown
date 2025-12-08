@@ -6,14 +6,11 @@ layout: post
 slug: recursively-delete-files-from-a-folder-in-windows
 title: Recursively delete files from a folder in Windows
 wordpress_id: 380
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- batch
-- delete
-- Script
-- tips
-- Windows
+  - windows
+  - scripting
+  - batch
 ---
 
 This is something one might need to do regularly. I need to because [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) often creates multiple index.html@* files despite being set up not to (my GUI for wget might forget configs.. who knows?)

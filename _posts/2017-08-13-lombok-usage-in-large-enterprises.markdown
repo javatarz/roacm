@@ -3,13 +3,12 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Lombok usage in large enterprises"
-categories:
-  - Development
+category: Software Design
 tags:
-  - Java
-  - Lombok
-  - Enterprise
-  - Code Cleanliness
+  - java
+  - lombok
+  - code-quality
+  - enterprise
 ---
 
 ## Verbosity of Java

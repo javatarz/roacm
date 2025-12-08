@@ -6,13 +6,12 @@ layout: post
 slug: visual-studio-2010-net-40-beta-1-released
 title: Visual Studio 2010 / .NET 4.0 Beta 1 released
 wordpress_id: 175
-categories:
-- Preview
+category: Tech Reviews
 tags:
-- .NET
-- New Technology
-- Pre-Release
-- Visual Studio
+  - ide
+  - visual-studio
+  - dotnet
+  - preview
 ---
 
 Yes, they are out! You might have been hearing about the two for the past week or two around the interneticle blogosphere. I certainly did and as with every VS release, I was excited. VS is the best IDE I have seen so its no surprise that a new release excites me.

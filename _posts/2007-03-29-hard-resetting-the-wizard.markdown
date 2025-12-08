@@ -6,10 +6,11 @@ layout: post
 slug: hard-resetting-the-wizard
 title: Hard resetting the Wizard
 wordpress_id: 17
-categories:
-- Hacks
+category: Device Hacks
 tags:
-- Windows Mobile
+  - windows-mobile
+  - device-reset
+  - tutorial
 ---
 
 The term "Wizard" refers to the [HTC Wizard](http://en.wikipedia.org/wiki/HTC_Wizard) which is a Windows Mobile sold by companies like I-Mate and O2.

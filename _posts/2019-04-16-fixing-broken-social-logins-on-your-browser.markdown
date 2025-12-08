@@ -3,12 +3,11 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Fixing broken Social logins on your browser"
-categories:
-  - Guide
+category: Developer Experience
 tags:
-  - Tips
-  - Browser
-  - Privacy
+  - browser
+  - privacy
+  - troubleshooting
 ---
 
 Privacy vs Convienience is a constant battle. Personally, I prefer dialing up my privacy up to 11 to avoid being tracked. Every once in a while, _social logins_ are important because it's the only way to use a service. If this service is an internal company login that only uses social login via the company's Google ID, you don't have much of a chance.

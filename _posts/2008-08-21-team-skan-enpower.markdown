@@ -6,11 +6,11 @@ layout: post
 slug: team-skan-enpower
 title: 'Team SKAN: Enpower'
 wordpress_id: 59
-categories:
-- Development
+category: Personal
 tags:
-- Imagine Cup
-- Project
+  - imagine-cup
+  - achievement
+  - competition
 ---
 
 Its been a long road going through the SDI National Finals where we came second, going to IIM-A where we got project incubation and then finally to the World Finals where we won the interoperability award. Along the way, we made lots of new friends and learned a whole lot more.

@@ -6,15 +6,12 @@ layout: post
 slug: net-has-been-open-sourced
 title: .NET has been open sourced!
 wordpress_id: 606
-categories:
-- News
-- Thoughts
+category: Personal
 tags:
-- .NET
-- GitHub
-- Microsoft
-- Open Source
-- Visual Studio
+  - dotnet
+  - open-source
+  - microsoft
+  - news
 ---
 
 Have your first look at Microsoft releasing the .NET source on GitHub: [https://github.com/microsoft/dotnet](https://github.com/microsoft/dotnet)

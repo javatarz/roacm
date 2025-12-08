@@ -6,13 +6,12 @@ layout: post
 slug: eclipse-plugin-development-attaching-sources
 title: 'Eclipse Plugin Development: Attaching Sources'
 wordpress_id: 480
-categories:
-- Tutorials
+category: Software Design
 tags:
-- eclipse
-- plugin development
-- rcp
-- source code
+  - ide
+  - eclipse
+  - plugin-development
+  - java
 ---
 
 As a developer, I like to look at the source code for the libraries I use in order to understand if what I am doing is the best way to implement it or not. Though Eclipse, by default, comes with features to develop plugins, it doesn't come with the source code for this. Getting the source is a simple, 3 step process!

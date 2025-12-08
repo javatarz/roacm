@@ -6,14 +6,11 @@ layout: post
 slug: clean-file-list-generation-with-powershell-script
 title: Clean File List Generation with PowerShell Script
 wordpress_id: 275
-categories:
-- Development
-- Tutorials
+category: Platform Engineering
 tags:
-- File List Generator
-- PowerShell
-- Scripts
-- Source
+  - scripting
+  - powershell
+  - automation
 ---
 
 I have a whole load of movies that I'd like to generate a list of. I considered writing a batch script but it didn't really do something I needed. I ended up writing my first regular use (non test) PowerScript and here's how.

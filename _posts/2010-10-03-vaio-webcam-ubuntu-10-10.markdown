@@ -7,14 +7,11 @@ slug: vaio-webcam-ubuntu-10-10
 title: Getting Sony Vaio VGN-CR35G/R's Ricoh MotionEye USB r5u870 Web Camera working
   on Ubuntu 10.10 Maverick Meerkat
 wordpress_id: 315
-categories:
-- Tutorials
+category: Device Hacks
 tags:
-- Linux
-- r5u87x
-- Ricoh
-- Ubuntu
-- WebCamera
+  - linux
+  - ubuntu
+  - hardware-drivers
 ---
 
 It's been a while since my laptop (a Sony Vaio VGN-CR35G/R) has been running Ubuntu and yesterday, I updated my OS to the release candidate for Ubuntu's latest OS (due to release in 7 days time; 10-10-2010 ;)) 10.10 codenamed Maverick Meerkat. It's been irritating me for a while that I didn't have support for the inbuilt web camera for this laptop (which is one of Ricoh's MotionEye USB cameras; model r5u870).

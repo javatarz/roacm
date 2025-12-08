@@ -6,15 +6,11 @@ layout: post
 slug: reloading-unixlinux-profiles
 title: Reloading Unix/Linux Profiles
 wordpress_id: 338
-categories:
-- Tutorials
+category: Developer Experience
 tags:
-- Linux
-- profile
-- reload
-- tips
-- tricks
-- unix
+  - linux
+  - shell
+  - environment-setup
 ---
 
 Here's something small but interesting and useful I learnt today. Often times, I update my linux profile so that I can have aliases to work with on my server. Problem is that the profile is only loaded when you login so, in normal circumstances, you would have to relogin to have your profile loaded. Now that's a pain!

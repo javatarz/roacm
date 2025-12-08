@@ -6,12 +6,11 @@ layout: post
 slug: twitter-images-not-loading
 title: Twitter Images Not Loading
 wordpress_id: 580
-categories:
-- Thoughts
+category: Tech Reviews
 tags:
-- DNS
-- Issues
-- Twitter
+  - dns
+  - troubleshooting
+  - twitter
 ---
 
 I recently moved to Pune and of course to a new ISP (Tata Telecommunications in Pune). For strange reasons, images on Twitter wouldn't load. Also, certain other websites weren't visible. Simple enough fix was to ensure I wasn't using Tata's DNS' but [Google's](https://developers.google.com/speed/public-dns/).

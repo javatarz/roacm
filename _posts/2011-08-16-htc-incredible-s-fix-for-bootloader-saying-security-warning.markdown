@@ -6,17 +6,11 @@ layout: post
 slug: htc-incredible-s-fix-for-bootloader-saying-security-warning
 title: HTC Incredible S - Fix for Bootloader saying "Security Warning"
 wordpress_id: 399
-categories:
-- Development
-- Hacks
-- Tutorials
+category: Device Hacks
 tags:
-- Android
-- Bootloader
-- bricked
-- fix
-- HTC Incredible S
-- mainver
+  - android
+  - bootloader
+  - troubleshooting
 ---
 
 I had this infamous issue where I was stuck with my phone unable to boot for 2 days. I documented everything I learnt so others might find it helpful and as usual, it's on XDA for all nicey goodness :)

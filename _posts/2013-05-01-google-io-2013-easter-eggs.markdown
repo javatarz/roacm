@@ -6,11 +6,11 @@ layout: post
 slug: google-io-2013-easter-eggs
 title: Google I/O 2013 Easter Eggs
 wordpress_id: 454
-categories:
-- Hacks
+category: Personal
 tags:
-- easter eggs
-- google i/o
+  - google
+  - easter-eggs
+  - fun
 ---
 
 Most people don't know about this but if you head on over to the [Google I/O](https://developers.google.com/events/io/), their 2013 event website shows big I/O images that you can click and it reads out the letters 'I' and 'O'. Enter the right code and you get nice effects. Here's a list of codes you can try out.
