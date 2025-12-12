@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-report-${{ matrix.browser }}
           path: test-suite/reports/playwright-html
@@ -135,7 +135,7 @@ jobs:
 
       - name: Upload screenshots on failure
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-screenshots-${{ matrix.browser }}
           path: test-suite/reports/playwright-results/**/*.png
@@ -143,7 +143,7 @@ jobs:
 
       - name: Upload generated snapshots
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: generated-snapshots-${{ matrix.browser }}
           path: test-suite/tests/theme.spec.ts-snapshots/*-linux.png
@@ -182,7 +182,7 @@ jobs:
 
       - name: Upload A11y Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: accessibility-report
           path: test-suite/reports/playwright-html
@@ -217,7 +217,7 @@ jobs:
 
       - name: Upload Lighthouse Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: lighthouse-report
           path: test-suite/reports/lighthouse
