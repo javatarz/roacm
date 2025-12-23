@@ -95,6 +95,8 @@ exclude:
   - .husky/
   - playwright-report/
   - test-results/
+  - CLAUDE.md
+  - .claude/
 
 social_links:
   -

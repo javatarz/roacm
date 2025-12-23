@@ -56,3 +56,5 @@ exclude:
   - test-results/
   - TESTING.md
   - scripts/
+  - CLAUDE.md
+  - .claude/
