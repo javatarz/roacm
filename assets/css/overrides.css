@@ -12,7 +12,33 @@
 
   /* Code block colors - VS Code dark theme inspired */
   --code-bg: #1e1e1e;
-  --code-text: #d4d4d4;
+
+  /* ========================================================================== 
+   Deprecation Notice
+   Visible, unobtrusive top-line banner
+   ========================================================================== */
+  .deprecation-notice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-secondary);
+    padding: 10px 12px;
+    margin: 10px 0 16px;
+    font-size: 0.95rem;
+  }
+
+  .deprecation-notice .icon {
+    flex: 0 0 auto;
+    color: var(--accent-color);
+  }
+
+  .deprecation-notice a {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
 }
 
 [data-theme='dark'] {
@@ -742,7 +768,7 @@ blockquote p:last-child {
 
 .share-btn {
   align-items: center;
-  background: var(--bg-secondary);
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-secondary);
@@ -773,23 +799,36 @@ blockquote p:last-child {
   flex-shrink: 0;
 }
 
+/* Filled icons (Twitter, LinkedIn, HN) */
+.share-btn-twitter svg,
+.share-btn-linkedin svg,
+.share-btn-hn svg {
+  fill: currentcolor;
+}
+
+/* Stroke-based icons (link, check) - must not have fill */
+.share-btn-copy svg {
+  fill: none;
+  stroke: currentcolor;
+}
+
 /* Copy button states */
+/* Default: show link icon, hide check icon */
+.share-btn-copy .icon-link {
+  display: inline-block;
+}
+
 .share-btn-copy .icon-check {
   display: none;
 }
 
+/* After copy: hide link icon, show check icon */
 .share-btn-copy.copied .icon-link {
   display: none;
 }
 
 .share-btn-copy.copied .icon-check {
-  display: block;
-  color: #28a745;
-}
-
-.share-btn-copy.copied {
-  border-color: #28a745;
-  color: #28a745;
+  display: inline-block;
 }
 
 .share-btn-copy .copy-text {
@@ -813,6 +852,42 @@ blockquote p:last-child {
     flex-basis: 100%;
     margin-bottom: 4px;
   }
+}
+
+/* Ensure dark theme colors apply even if theme styles are more specific */
+[data-theme='dark'] .share-buttons .share-btn,
+.share-buttons .share-btn {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .share-buttons .share-btn:hover,
+.share-buttons .share-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Copy button copied state - must come after general button rules and override hover */
+.share-buttons .share-btn-copy.copied,
+[data-theme='dark'] .share-buttons .share-btn-copy.copied,
+.share-buttons .share-btn-copy.copied:hover,
+[data-theme='dark'] .share-buttons .share-btn-copy.copied:hover {
+  border-color: #22c55e !important;
+  color: #22c55e !important;
+}
+
+/* Visually hidden utility for screen reader-only messages */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ==========================================================================
