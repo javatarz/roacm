@@ -39,6 +39,7 @@
       <polyline points="20 6 9 17 4 12"/>
     </svg>
     <span class="copy-text">Copy link</span>
+    <span class="visually-hidden" role="status" aria-live="polite"></span>
   </button>
 </aside>
 
@@ -49,13 +50,16 @@
 
   copyBtn.addEventListener('click', async function() {
     const url = this.dataset.url;
+    const statusEl = this.querySelector('[role="status"]');
     try {
       await navigator.clipboard.writeText(url);
       this.classList.add('copied');
       this.setAttribute('aria-label', 'Link copied!');
+      if (statusEl) statusEl.textContent = 'Link copied';
       setTimeout(() => {
         this.classList.remove('copied');
         this.setAttribute('aria-label', 'Copy link to clipboard');
+        if (statusEl) statusEl.textContent = '';
       }, 2000);
     } catch (err) {
       // Fallback for older browsers
@@ -68,6 +72,7 @@
       document.execCommand('copy');
       document.body.removeChild(textArea);
       this.classList.add('copied');
+      if (statusEl) statusEl.textContent = 'Link copied';
       setTimeout(() => this.classList.remove('copied'), 2000);
     }
   });
