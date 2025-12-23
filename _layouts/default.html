@@ -2,11 +2,12 @@
 <html lang="{{ site.lang | default: 'en-US' }}">
   {% include head.html %}
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     {% include theme_toggle.html %}
     <div class="wrapper">
       {% include body/sidebar.html %}
 
-      <section>{{ content }}</section>
+      <main id="main-content" tabindex="-1">{{ content }}</main>
 
       {% include body/footer.html %}
     </div>

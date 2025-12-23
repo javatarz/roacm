@@ -43,6 +43,43 @@ body {
     color 0.3s ease;
 }
 
+/* Skip link for keyboard navigation accessibility */
+.skip-link {
+  background: var(--accent-color);
+  border-radius: 0 0 4px 4px;
+  color: #ffffff;
+  font-weight: 500;
+  left: 50%;
+  padding: 8px 16px;
+  position: absolute;
+  text-decoration: none;
+  top: -100%;
+  transform: translateX(-50%);
+  transition: top 0.2s ease;
+  z-index: 10001;
+}
+
+.skip-link:focus {
+  color: #ffffff;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  top: 0;
+}
+
+[data-theme='dark'] .skip-link {
+  color: #1a1a1a;
+}
+
+[data-theme='dark'] .skip-link:focus {
+  color: #1a1a1a;
+  outline-color: #1a1a1a;
+}
+
+/* Main content focus style - no outline needed for non-interactive target */
+#main-content:focus {
+  outline: none;
+}
+
 /* Link colors for theme support and WCAG AA compliance */
 a {
   color: var(--accent-color);
@@ -67,7 +104,7 @@ a:focus {
   background: var(--bg-primary);
 }
 
-section {
+main {
   background: var(--bg-primary);
 }
 
@@ -84,7 +121,7 @@ article {
     width: auto;
   }
 
-  section {
+  main {
     float: none; /* Remove float, use margin instead */
     margin-left: 250px; /* Sidebar (170px) + gap (80px) */
     margin-right: 40px; /* Right margin for breathing room */
@@ -361,7 +398,7 @@ li code {
 }
 
 /* Improved spacing for homepage */
-section {
+main {
   padding: 40px 40px 20px;
 }
 
@@ -380,7 +417,7 @@ article {
 }
 
 /* Ensure article cards have opaque backgrounds for WCAG contrast */
-section article {
+main article {
   background-color: var(--card-bg);
 }
 
