@@ -722,6 +722,100 @@ blockquote p:last-child {
 }
 
 /* ==========================================================================
+   Share Buttons
+   ========================================================================== */
+
+.share-buttons {
+  align-items: center;
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 32px;
+}
+
+.share-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.share-btn {
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: 14px;
+  gap: 6px;
+  height: 44px;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.share-btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.share-btn svg {
+  flex-shrink: 0;
+}
+
+/* Copy button states */
+.share-btn-copy .icon-check {
+  display: none;
+}
+
+.share-btn-copy.copied .icon-link {
+  display: none;
+}
+
+.share-btn-copy.copied .icon-check {
+  display: block;
+  color: #28a745;
+}
+
+.share-btn-copy.copied {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.share-btn-copy .copy-text {
+  display: none;
+}
+
+/* Mobile: show copy text, hide on very small screens */
+@media (min-width: 400px) {
+  .share-btn-copy .copy-text {
+    display: inline;
+  }
+}
+
+/* Mobile: stack if needed */
+@media (max-width: 480px) {
+  .share-buttons {
+    flex-wrap: wrap;
+  }
+
+  .share-label {
+    flex-basis: 100%;
+    margin-bottom: 4px;
+  }
+}
+
+/* ==========================================================================
    Author Bio Card
    ========================================================================== */
 
