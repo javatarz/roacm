@@ -9,6 +9,7 @@ tags:
   - developer-experience
   - team-practices
   - engineering-culture
+evergreen: true
 ---
 The habits, tools, and practices that set great engineering teams apart.
 
