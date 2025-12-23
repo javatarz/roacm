@@ -156,6 +156,35 @@ Images are optimized during CI build (not at source). The pipeline:
 ## Task Management
 
 - **Finding work**: Always check GitHub issues to find cards to work on. Use `gh issue list --state open --limit 100` to fetch all open issues (not just the default 30).
-- **Closing issues**: Prefer closing issues via commit message (e.g., `Fixes #38`) rather than running `gh issue close`. This links the fix to the commit automatically.
-- **After completing a card**: Push the changes and proactively find the next most important card to pick up based on priority (bugs first, then quick wins, then features).
+- **After completing a card**: Proactively find the next most important card to pick up based on priority (bugs first, then quick wins, then features).
 - **Checking pipeline status**: Use `gh run list --limit 20 --workflow=ci.yml` to check the CI/CD pipeline. Do NOT rely on generic `gh run list` as it shows Dependabot update runs, not the actual test pipeline. Look for runs on the `main` branch with workflow "CI/CD Pipeline". **Important**: Tests don't run on every commit—only when theme-related files change. To verify tests actually ran, look for runs with duration of 3-5+ minutes (test runs) vs ~1-2 minutes (build-only). If recent runs are all short build-only runs, go back in history to find the last full test run and verify it passed.
+
+## Git Workflow
+
+### User Approval Required
+
+- **Never commit without checking with the user first** - explain what will be committed and why
+- **Never push without asking the user** - always confirm before pushing to remote
+- **If a change must temporarily break the system, stop and ask** - don't proceed with breaking changes without explicit approval
+
+### Commit Granularity
+
+- **Each commit should be the smallest independent change** that doesn't break the system
+- **Prefer many small commits over few large ones** - each commit should do one thing
+- **Close issues via commit message** when possible (e.g., `Fixes #38`) to link fixes to commits
+
+### Commit Message Format
+
+Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
+
+1. Separate subject from body with a blank line
+2. Keep subject line concise (~50 chars, avoid exceeding 72)
+3. Capitalize the subject line
+4. Do not end the subject line with a period
+5. Use imperative mood ("Add feature" not "Added feature")
+6. Use body to explain **what and why**, not how
+
+### Pre-commit and CI
+
+- **Ensure pre-commit hooks are installed** before committing - verify hooks run successfully
+- **After pushing, check pipeline status in the background** - monitor CI and alert user if it fails
