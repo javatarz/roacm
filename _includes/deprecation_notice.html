@@ -1,0 +1,50 @@
+{% assign post_ts = page.date | date: "%s" %}
+{% assign now_ts = site.time | date: "%s" %}
+{% assign age_seconds = now_ts | minus: post_ts %}
+{% assign age_years = age_seconds | divided_by: 31557600 %}
+
+{%- comment -%}
+Effective deprecation rules (smart defaults):
+1) Explicit override wins:
+   - deprecated: true  -> show
+   - deprecated: false -> hide
+2) Else auto by age if not exempt:
+   - age_years >= threshold (default 10)
+   - unless evergreen/exempt via front matter or tags/categories
+Front matter optional knobs:
+   - deprecation_threshold: <years>
+   - deprecation_note: <string>
+   - superseded_by: </path or URL>
+   - evergreen: true | deprecation_exempt: true
+{%- endcomment -%}
+
+{% assign threshold_years = page.deprecation_threshold | default: 10 %}
+{% assign has_evergreen_flag = page.evergreen | default: false %}
+{% assign has_exempt_flag = page.deprecation_exempt | default: false %}
+{% assign tags_list = page.tags | default: empty %}
+{% assign cats_list = page.categories | default: empty %}
+{% assign has_evergreen_tag = tags_list contains 'evergreen' %}
+{% assign has_evergreen_cat = cats_list contains 'evergreen' %}
+
+{% assign is_exempt = has_evergreen_flag or has_exempt_flag or has_evergreen_tag or has_evergreen_cat %}
+
+{% assign explicit_deprecated = page.deprecated %}
+{% assign auto_deprecated = age_years | minus: threshold_years | at_least: 0 %}
+{% comment %}Liquid lacks booleans for arithmetic; use comparison for auto flag{% endcomment %}
+{% assign is_auto = age_years >= threshold_years and is_exempt == false %}
+
+{% if explicit_deprecated == true or (explicit_deprecated != false and is_auto) %}
+<div class="deprecation-notice" role="note" aria-label="Deprecation notice">
+  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="16" x2="12" y2="12"></line>
+    <line x1="12" y1="8" x2="12" y2="8"></line>
+  </svg>
+  <span>
+    <strong>Note:</strong>
+    This post was written in {{ page.date | date: "%Y" }} and discusses technology that may be outdated.
+    {% if page.deprecation_note %} {{ page.deprecation_note }}{% else %} The concepts may still be relevant, but specific tools/versions have changed.{% endif %}
+    {% if page.superseded_by %} Consider the newer resource: <a href="{{ page.superseded_by }}">updated version</a>.{% endif %}
+  </span>
+</div>
+{% endif %}
