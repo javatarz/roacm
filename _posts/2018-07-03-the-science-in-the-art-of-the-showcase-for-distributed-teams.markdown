@@ -10,6 +10,7 @@ tags:
   - agile
   - distributed-teams
   - communication
+evergreen: true
 ---
 
 [Showcases](https://shreedamani.wordpress.com/tag/agile-showcase/) are a key part of our agile ceremonies. We showcase our work to our stakeholders for feedback at the end of every iteration. And as with every presentation, I believe there is a Science in the Art of the Showcase (for distributed teams).
