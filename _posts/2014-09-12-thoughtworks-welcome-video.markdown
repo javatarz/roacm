@@ -12,6 +12,7 @@ tags:
   - career
   - thoughtworks
   - milestone
+evergreen: true
 ---
 
 I usually don't post much about work but this is something I've never done before and would like to remember for a long time. I joined [ThoughtWorks](http://thoughtworks.com) early August 2014 and by the end of it 8 of us had joined the Pune office in the month. We got together to create a video to introduce ourselves to the ThoughtWorkers in Pune (not that there weren't mails floated with our pictures, a _jazzy_ 3-4 line intro and tons of talking to people around the office). I'm not sure if anything of the sort has been done in the Pune office but we certainly got a nice response to the video.
