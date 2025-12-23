@@ -5,6 +5,7 @@ date: 2014-12-09 19:36:22+00:00
 layout: post
 slug: mac-camera-not-available
 title: 'Mac: Camera not available'
+description: "Fix Mac webcam detection issues without rebooting. Kill VDCAssistant process to restore camera functionality for video calls instantly."
 wordpress_id: 622
 category: Developer Experience
 tags:

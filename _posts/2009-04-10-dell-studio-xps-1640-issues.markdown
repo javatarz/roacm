@@ -5,6 +5,7 @@ date: 2009-04-10 16:21:41+00:00
 layout: post
 slug: dell-studio-xps-1640-issues
 title: Dell Studio XPS 1640 Issues
+description: "Dell Studio XPS 1640 Broadcom Gigabit Ethernet limited to 100Mbps instead of 1000Mbps. Detailed account of hardware defects and support saga."
 wordpress_id: 130
 category: Tech Reviews
 tags:

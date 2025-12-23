@@ -5,6 +5,7 @@ date: 2011-07-15 19:48:04+00:00
 layout: post
 slug: eclipse-github
 title: Eclipse + GitHub
+description: "Integrate Eclipse with GitHub using EGit plugin. Essential setup guide with links to tutorials for Git configuration on Windows."
 wordpress_id: 355
 category: Developer Experience
 tags:

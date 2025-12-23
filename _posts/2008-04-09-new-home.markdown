@@ -5,6 +5,7 @@ date: 2008-04-09 07:00:17+00:00
 layout: post
 slug: new-home
 title: New Home
+description: "Launching karunab.com as technical blog and online portfolio. New domain separate from Jatonian Life for professional developer presence."
 wordpress_id: 25
 category: Personal
 tags:

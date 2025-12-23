@@ -5,6 +5,7 @@ date: 2015-10-03 14:22:00+00:00
 layout: post
 slug: modern-operating-systems-phoning-home
 title: Modern Operating Systems Phoning Home
+description: "Disable privacy-invasive features in Windows 10 and OS X Yosemite. Step-by-step guide to stop telemetry and data collection on your OS."
 wordpress_id: 665
 category: Developer Experience
 tags:

@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Version controlled configuration and secrets management for Terraform"
+description: "Version control Terraform configuration and secrets safely using encrypted tfsecrets files with OpenSSL. Complete CI/CD pipeline setup included."
 category: Platform Engineering
 tags:
   - terraform

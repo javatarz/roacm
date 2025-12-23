@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Lombok usage in large enterprises"
+description: "Should you use Lombok in enterprise Java projects? Understand the benefits, hidden risks, and when this boilerplate-reducing library is appropriate."
 category: Software Design
 tags:
   - java

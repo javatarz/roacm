@@ -5,6 +5,7 @@ date: 2007-03-29 03:53:12+00:00
 layout: post
 slug: hard-resetting-the-wizard
 title: Hard resetting the Wizard
+description: "Hard reset HTC Wizard (I-Mate K-JAM) when the manual method fails. Correct button sequence for Windows Mobile 5.0 factory reset explained."
 wordpress_id: 17
 category: Device Hacks
 tags:

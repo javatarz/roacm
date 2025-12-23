@@ -5,6 +5,7 @@ date: 2012-07-16 09:48:52+00:00
 layout: post
 slug: movement-to-bumblebee
 title: Movement to Bumblebee
+description: "Migrated from shared hosting to dedicated server Bumblebee. WordPress blog successfully ported with database cleanup and fresh start."
 wordpress_id: 409
 category: Platform Engineering
 tags:

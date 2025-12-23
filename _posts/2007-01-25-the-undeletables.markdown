@@ -5,6 +5,7 @@ date: 2007-01-25 00:39:10+00:00
 layout: post
 slug: the-undeletables
 title: The Undeletables
+description: "Delete undeletable Windows Vista files using takeown and icacls commands. Fix administrator permission errors after OS reinstallation."
 wordpress_id: 13
 category: Tech Reviews
 tags:

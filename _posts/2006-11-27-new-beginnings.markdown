@@ -5,6 +5,7 @@ date: 2006-11-27 01:58:00+00:00
 layout: post
 slug: new-beginnings
 title: New beginnings
+description: "Launching my technical blog j@x, a lightweight 12.8KB creation built from scratch. The beginning of a developer's journey in blogging."
 wordpress_id: 3
 category: Personal
 tags:

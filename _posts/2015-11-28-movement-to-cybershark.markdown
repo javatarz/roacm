@@ -3,6 +3,7 @@ author: Karun Japhet
 comments: true
 layout: post
 title: Movement to Cybershark
+description: "Migrating to automated Chef deployment and cheaper servers. Goodbye PHP and WordPress, welcome Octopress and Node.JS infrastructure automation."
 date: 2015-11-28T11:09:58+05:30
 category: Platform Engineering
 tags:

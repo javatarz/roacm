@@ -5,6 +5,7 @@ date: 2013-05-14 08:23:29+00:00
 layout: post
 slug: glassfish-jndi-custom-resource-reading-primitives
 title: 'Glassfish JNDI Custom Resource: Reading Primitives'
+description: "Read Glassfish JNDI custom resources correctly. Essential code samples for accessing primitive values with InitialContext lookups."
 wordpress_id: 457
 category: Software Design
 tags:

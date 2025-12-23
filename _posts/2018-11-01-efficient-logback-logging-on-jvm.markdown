@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Efficient logback logging on JVM"
+description: "Optimize JVM application performance with async logback logging. Practical tips for efficient log statements and lazy logging in Scala projects."
 category: Software Design
 tags:
   - logging

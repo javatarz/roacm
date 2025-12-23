@@ -5,6 +5,7 @@ date: 2015-02-01 15:34:49+00:00
 layout: post
 slug: forced-https-on-your-website-with-cloudflare
 title: Forced HTTPs on your website with CloudFlare
+description: "Get free SSL for your website with CloudFlare Universal SSL. Step-by-step guide to enable HTTPS everywhere and secure your site at no cost."
 wordpress_id: 643
 category: Platform Engineering
 tags:

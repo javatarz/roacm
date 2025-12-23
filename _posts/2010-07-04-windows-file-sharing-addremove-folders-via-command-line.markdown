@@ -5,6 +5,7 @@ date: 2010-07-04 06:35:51+00:00
 layout: post
 slug: windows-file-sharing-addremove-folders-via-command-line
 title: 'Windows File Sharing: Add/Remove folders via Command Line'
+description: "Manage Windows network shares from command line using net share. Bypass administrator restrictions with this simple workaround."
 wordpress_id: 307
 category: Platform Engineering
 tags:

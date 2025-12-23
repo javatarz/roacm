@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "MLOps: Building a healthy data platform"
+description: "Build a healthy ML platform with MLOps practices: data storage, workflow orchestration, cost monitoring, and data quality checks that actually scale."
 category: Platform Engineering
 tags:
   - mlops

@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: What are event driven architectures?
+description: "Understand event-driven architecture patterns: event notification, event-carried state transfer, event sourcing, and CQRS with practical trade-offs."
 category: Software Design
 tags:
   - data-engineering

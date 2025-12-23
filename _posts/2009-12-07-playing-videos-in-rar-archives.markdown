@@ -5,6 +5,7 @@ date: 2009-12-07 14:43:05+00:00
 layout: post
 slug: playing-videos-in-rar-archives
 title: Playing videos in RAR archives
+description: "Play videos directly from RAR archives without extraction. RARFileSource DirectShow filter enables streaming from multi-part RAR files."
 wordpress_id: 281
 category: Developer Experience
 tags:

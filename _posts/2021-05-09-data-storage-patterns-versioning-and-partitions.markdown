@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Data storage patterns, versioning and partitions"
+description: "Master data storage patterns for large-scale platforms: bucket segregation, partitioning strategies, and schema versioning techniques with Apache Spark."
 category: Software Design
 tags:
   - data-engineering

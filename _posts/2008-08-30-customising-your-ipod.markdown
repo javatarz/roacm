@@ -5,6 +5,7 @@ date: 2008-08-30 06:39:38+00:00
 layout: post
 slug: customising-your-ipod
 title: Customising your iPod
+description: "Complete iPod customization guide covering themes, firmware alternatives like RockBox, album art management, and portable applications setup."
 wordpress_id: 63
 category: Device Hacks
 tags:

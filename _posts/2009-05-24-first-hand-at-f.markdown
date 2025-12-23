@@ -5,6 +5,7 @@ date: 2009-05-24 12:21:36+00:00
 layout: post
 slug: first-hand-at-f
 title: First hand at F#
+description: "First F# code experience with Visual Studio 2010 Beta 1. Functional programming approach to finding perfect square patterns explained."
 wordpress_id: 219
 category: Software Design
 tags:

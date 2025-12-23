@@ -5,6 +5,7 @@ date: 2009-11-03 10:15:48+00:00
 layout: post
 slug: trying-minefield-3-7a1pre
 title: Trying Minefield 3.7a1pre
+description: "Firefox Minefield 3.7a1pre brings full Windows 7 Aero support with tab previews. Review includes addon recommendations and configuration tips."
 wordpress_id: 260
 category: Tech Reviews
 tags:

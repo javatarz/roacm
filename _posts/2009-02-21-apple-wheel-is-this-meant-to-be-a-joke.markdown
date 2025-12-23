@@ -5,6 +5,7 @@ date: 2009-02-21 21:01:37+00:00
 layout: post
 slug: apple-wheel-is-this-meant-to-be-a-joke
 title: 'Apple Wheel: Is this meant to be a joke?'
+description: "Critical review of Apple Wheel laptop concept with giant scroll wheel replacing keyboard. Reality Distortion Field critique and usability concerns."
 wordpress_id: 106
 category: Tech Reviews
 tags:

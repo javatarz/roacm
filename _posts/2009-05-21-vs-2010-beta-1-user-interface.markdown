@@ -5,6 +5,7 @@ date: 2009-05-21 14:32:40+00:00
 layout: post
 slug: vs-2010-beta-1-user-interface
 title: 'VS 2010 Beta 1: User Interface'
+description: "Visual Studio 2010 Beta 1 UI review featuring WPF integration, F# support, improved intellisense, and new context highlighting features."
 wordpress_id: 190
 category: Tech Reviews
 tags:

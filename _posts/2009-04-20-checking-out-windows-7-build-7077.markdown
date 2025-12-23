@@ -5,6 +5,7 @@ date: 2009-04-20 08:08:36+00:00
 layout: post
 slug: checking-out-windows-7-build-7077
 title: Checking out Windows 7 Build 7077
+description: "Windows 7 Build 7077 review covering new taskbar, Aero Snap suggestions, driver support, and Windows Experience Index improvements."
 wordpress_id: 134
 category: Tech Reviews
 tags:

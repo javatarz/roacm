@@ -5,6 +5,7 @@ date: 2015-07-11 07:06:33+00:00
 layout: post
 slug: reducing-maven-package-times-due-to-resource-copying
 title: Reducing Maven Package times due to resource copying
+description: "Cut Maven build times from 6 minutes to 18 seconds by optimizing resource copying. Use process-resources plugin for faster development cycles."
 wordpress_id: 663
 category: Platform Engineering
 tags:

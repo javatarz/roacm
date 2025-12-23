@@ -5,6 +5,7 @@ date: 2009-05-15 23:17:04+00:00
 layout: post
 slug: windows-7-a-second-look
 title: 'Windows 7: A second look'
+description: "In-depth Windows 7 features review: Virtual WiFi, XP Mode, PowerShell integration, UI standardization, and troubleshooting wizards explored."
 wordpress_id: 154
 category: Tech Reviews
 tags:

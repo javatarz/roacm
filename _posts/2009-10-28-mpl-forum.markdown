@@ -5,6 +5,7 @@ date: 2009-10-28 08:19:31+00:00
 layout: post
 slug: mpl-forum
 title: MP!L Forum Elite Member
+description: "Honored to become Elite Member of Messenger Plus! Live forum with 85,000+ users. Five years of community support and beta testing recognized."
 wordpress_id: 252
 category: Personal
 tags:

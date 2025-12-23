@@ -5,6 +5,7 @@ date: 2009-09-14 09:53:16+00:00
 layout: post
 slug: anonymous-microsoft-developer-opens-ama-discussion-on-reddit
 title: Anonymous Microsoft Developer opens AMA discussion on reddit
+description: "Microsoft Windows developer shares insider perspectives on Reddit AMA. Learn about company culture, internships, and life at Redmond campus."
 wordpress_id: 246
 category: Personal
 tags:

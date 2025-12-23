@@ -5,6 +5,7 @@ date: 2011-07-09 06:59:32+00:00
 layout: post
 slug: removing-file-extensions
 title: Removing file extensions
+description: "Batch remove file extensions from 100+ files with one command. Windows batch script solution for stripping .tmp, .bak, and padded extensions."
 wordpress_id: 335
 category: Developer Experience
 tags:

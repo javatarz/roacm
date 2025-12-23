@@ -5,6 +5,7 @@ date: 2009-07-01 08:18:47+00:00
 layout: post
 slug: sensible-visions-fastaccess-on-windows-7
 title: Sensible Vision's FastAccess on Windows 7
+description: "FastAccess facial recognition issues on Windows 7 build 7137. Login failures, camera timing problems, and forced logout frustrations documented."
 wordpress_id: 232
 category: Tech Reviews
 tags:

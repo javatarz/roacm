@@ -5,6 +5,7 @@ date: 2012-10-06 13:59:04+00:00
 layout: post
 slug: unable-to-buy-anything-on-xbox-360-and-login-to-xbox-com
 title: Unable to buy anything on XBox 360 and login to xbox.com
+description: "Fix Xbox 360 purchase errors and xbox.com login issues by removing invalid credit cards through commerce.microsoft.com payment hub."
 wordpress_id: 412
 category: Device Hacks
 tags:

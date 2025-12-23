@@ -5,6 +5,7 @@ date: 2007-03-03 21:25:09+00:00
 layout: post
 slug: uac-false
 title: UAC = false;
+description: "Disable Windows Vista UAC prompts for power users. Step-by-step guide to configure Local Security Policy and remove annoying elevation dialogs."
 wordpress_id: 15
 category: Tech Reviews
 tags:

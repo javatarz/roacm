@@ -5,6 +5,7 @@ date: 2013-04-06 09:16:42+00:00
 layout: post
 slug: file-list-generator-v1-3
 title: File list generator v1.3
+description: "Generate file lists automatically with PowerShell. Updated v1.3 script with optional path variable and comprehensive documentation examples."
 wordpress_id: 436
 category: Platform Engineering
 tags:

@@ -5,6 +5,7 @@ date: 2014-04-24 17:44:08+00:00
 layout: post
 slug: karun-ab-thats-me
 title: Karun AB, that's me!
+description: "Launching my personal portfolio website at karun.me. Showcasing code projects, photography, and professional work without stock photos."
 wordpress_id: 516
 category: Personal
 tags:

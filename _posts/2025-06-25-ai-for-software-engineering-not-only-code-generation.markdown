@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "AI for Software Engineering, not (only) Code Generation"
+description: "Explore how AI transforms every stage of software delivery—from requirements analysis to deployment—not just code generation. Practical examples included."
 category: intelligent Engineering
 tags:
   - software-delivery

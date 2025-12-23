@@ -5,6 +5,7 @@ date: 2008-08-21 11:06:20+00:00
 layout: post
 slug: team-skan-enpower
 title: 'Team SKAN: Enpower'
+description: "Team SKAN wins Imagine Cup 2008 Interoperability Award at World Finals. Journey from national finals to IIM-A incubation to global recognition."
 wordpress_id: 59
 category: Personal
 tags:

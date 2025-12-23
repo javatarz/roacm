@@ -5,6 +5,7 @@ date: 2013-04-06 08:04:41+00:00
 layout: post
 slug: soccer-scraper-v1-source-on-github
 title: Soccer Scraper v1 Source on GitHub!
+description: "Soccer Scraper source code now on GitHub. Python web scraper for viewing Manchester United's schedule in IST with SMS notifications."
 wordpress_id: 434
 category: Developer Experience
 tags:

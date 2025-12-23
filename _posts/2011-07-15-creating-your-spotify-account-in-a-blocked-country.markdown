@@ -5,6 +5,7 @@ date: 2011-07-15 22:57:57+00:00
 layout: post
 slug: creating-your-spotify-account-in-a-blocked-country
 title: Creating your Spotify Account in a blocked country
+description: "Create Spotify account from blocked countries using Klout invites and proxy. Simple 5-step guide to access Spotify music streaming worldwide."
 wordpress_id: 361
 category: Device Hacks
 tags:

@@ -5,6 +5,7 @@ date: 2014-07-08 12:51:00+00:00
 layout: post
 slug: project-euler-79-passcode-derrivation-using-lambdas
 title: 'Project Euler #79: Passcode Derrivation (using Lambdas)'
+description: "Solve Project Euler problem 79 using Java 8 lambdas and functional programming. Learn passcode derivation with stream processing and recursion."
 wordpress_id: 566
 category: Software Design
 tags:

@@ -5,6 +5,7 @@ date: 2013-04-04 19:50:21+00:00
 layout: post
 slug: back-to-blogging
 title: Back to blogging!
+description: "Returning to regular blogging after 3.5 years. Sharing technical learnings and insights while respecting NDAs and professional policies."
 wordpress_id: 419
 category: Personal
 tags:

@@ -5,6 +5,7 @@ date: 2007-10-29 08:40:42+00:00
 layout: post
 slug: command-line-e-mailing
 title: Command Line e-mailing
+description: "Send emails from Windows command line using Blat. Portable tool for quick email automation without opening your inbox or installing software."
 wordpress_id: 31
 category: Developer Experience
 tags:

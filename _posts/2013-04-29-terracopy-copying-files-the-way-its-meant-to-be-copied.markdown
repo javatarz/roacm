@@ -5,6 +5,7 @@ date: 2013-04-29 11:53:54+00:00
 layout: post
 slug: terracopy-copying-files-the-way-its-meant-to-be-copied
 title: 'TerraCopy: Copying files the way it''s meant to be copied'
+description: "TeraCopy transforms Windows file copying with queue management, pause/resume, and runtime list editing. A must-have tool worth $20."
 wordpress_id: 452
 category: Tech Reviews
 tags:

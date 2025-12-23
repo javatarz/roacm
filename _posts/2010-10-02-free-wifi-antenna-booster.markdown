@@ -5,6 +5,7 @@ date: 2010-10-02 17:24:46+00:00
 layout: post
 slug: free-wifi-antenna-booster
 title: 'Free WiFi antenna booster '
+description: "Boost your WiFi signal with this free DIY antenna hack. Learn to build an Ez-10 Corner Reflector using simple household materials."
 wordpress_id: 312
 category: Device Hacks
 tags:

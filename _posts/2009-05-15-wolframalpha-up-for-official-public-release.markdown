@@ -5,6 +5,7 @@ date: 2009-05-15 23:30:29+00:00
 layout: post
 slug: wolframalpha-up-for-official-public-release
 title: Wolfram|Alpha up for Official Public Release
+description: "Wolfram Alpha launches as computational answer engine. Built on 5 million lines of Mathematica code running on 10,000 CPUs for factual queries."
 wordpress_id: 155
 category: Tech Reviews
 tags:

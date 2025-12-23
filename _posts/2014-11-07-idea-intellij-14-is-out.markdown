@@ -5,6 +5,7 @@ date: 2014-11-07 16:12:41+00:00
 layout: post
 slug: idea-intellij-14-is-out
 title: IDEA IntelliJ 14 is out
+description: "IntelliJ IDEA 14 released with new features and improvements. Check out what's new in JetBrains' latest IDE update worth upgrading to."
 wordpress_id: 603
 category: Tech Reviews
 tags:

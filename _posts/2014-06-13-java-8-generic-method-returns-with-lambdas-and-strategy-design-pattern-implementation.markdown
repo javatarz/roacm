@@ -5,6 +5,7 @@ date: 2014-06-13 08:01:30+00:00
 layout: post
 slug: java-8-generic-method-returns-with-lambdas-and-strategy-design-pattern-implementation
 title: 'Java 8: Generic Method Returns with Lambdas and Strategy Design Pattern implementation'
+description: "Implement Strategy pattern with Java 8 lambdas and generic returns. Parse JSON with type-safe functional programming using SuperType tokens."
 wordpress_id: 522
 category: Software Design
 tags:

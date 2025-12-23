@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "Patterns for AI assisted software development"
+description: "Essential patterns for AI-assisted development: team strategies for quality guardrails, the new teammate mindset, and measuring AI's impact on delivery."
 category: intelligent Engineering
 tags:
   - ai-patterns

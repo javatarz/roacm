@@ -5,6 +5,7 @@ date: 2009-05-21 08:23:54+00:00
 layout: post
 slug: visual-studio-2010-net-40-beta-1-released
 title: Visual Studio 2010 / .NET 4.0 Beta 1 released
+description: "Visual Studio 2010 and .NET 4.0 Beta 1 now available. Download links, system requirements, and what's new in this exciting release."
 wordpress_id: 175
 category: Tech Reviews
 tags:

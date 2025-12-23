@@ -5,6 +5,7 @@ date: 2009-12-06 01:46:06+00:00
 layout: post
 slug: clean-file-list-generation-with-powershell-script
 title: Clean File List Generation with PowerShell Script
+description: "Generate clean movie file lists with PowerShell. Script filters out subtitles and unwanted files, perfect for organizing media libraries."
 wordpress_id: 275
 category: Platform Engineering
 tags:

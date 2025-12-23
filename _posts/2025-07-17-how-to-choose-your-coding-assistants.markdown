@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "How to choose your coding assistants"
+description: "Navigate the AI coding assistant market: compare models, costs, licensing, and IP indemnity to find the right tool for professional development."
 category: intelligent Engineering
 tags:
   - coding-assistants

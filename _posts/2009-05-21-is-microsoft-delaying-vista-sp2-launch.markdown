@@ -5,6 +5,7 @@ date: 2009-05-21 09:42:13+00:00
 layout: post
 slug: is-microsoft-delaying-vista-sp2-launch
 title: Is Microsoft delaying Vista SP2 launch?
+description: "Microsoft holds Vista SP2 RTM release until Q2 end. Analysis of Windows 7 marketing strategy and Vista's underappreciated legacy."
 wordpress_id: 187
 category: Tech Reviews
 tags:

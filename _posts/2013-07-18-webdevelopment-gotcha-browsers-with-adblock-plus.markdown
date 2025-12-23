@@ -5,6 +5,7 @@ date: 2013-07-18 10:15:13+00:00
 layout: post
 slug: webdevelopment-gotcha-browsers-with-adblock-plus
 title: 'WebDevelopment Gotcha: Browsers with Adblock Plus!'
+description: "Avoid naming images ad.gif in web development. Learn why Adblock Plus blocks legitimate images and how to prevent this common gotcha."
 wordpress_id: 463
 category: Software Design
 tags:

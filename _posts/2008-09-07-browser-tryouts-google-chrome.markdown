@@ -5,6 +5,7 @@ date: 2008-09-07 08:28:17+00:00
 layout: post
 slug: browser-tryouts-google-chrome
 title: 'Browser Tryouts: Google Chrome'
+description: "First impressions of Google Chrome browser. Process isolation, sandboxing, omnibox features reviewed with direct installer download link."
 wordpress_id: 77
 category: Tech Reviews
 tags:

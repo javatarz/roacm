@@ -5,6 +5,7 @@ date: 2013-05-01 09:45:34+00:00
 layout: post
 slug: google-io-2013-easter-eggs
 title: Google I/O 2013 Easter Eggs
+description: "Unlock 12 hidden Google I/O 2013 easter eggs. Complete list of secret codes for cat mode, space mode, pong, bacon, and more fun effects."
 wordpress_id: 454
 category: Personal
 tags:

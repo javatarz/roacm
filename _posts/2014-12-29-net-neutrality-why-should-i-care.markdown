@@ -5,6 +5,7 @@ date: 2014-12-29 16:34:17+00:00
 layout: post
 slug: net-neutrality-why-should-i-care
 title: 'Net Neutrality: Why should I care?'
+description: "Understand net neutrality in simple terms. Why equal internet access matters for everyone, not just the tech-savvy. Fight for open internet in India."
 wordpress_id: 626
 category: Personal
 tags:

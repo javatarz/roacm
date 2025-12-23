@@ -5,6 +5,7 @@ date: 2011-07-16 08:45:07+00:00
 layout: post
 slug: free-spotify-premium-for-a-month
 title: Free Spotify Premium for a month
+description: "Get free Spotify Premium for a month via Klout perks. Share your unique link with 5 friends to unlock premium access code."
 wordpress_id: 367
 category: Device Hacks
 tags:

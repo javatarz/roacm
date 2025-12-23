@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "The untold guide to troubleshoot Phillips Hue and Google Assistant Integration"
+description: "Fix Phillips Hue and Google Assistant integration issues. Learn how to troubleshoot bridge connection problems and secure your smart home setup."
 category: Device Hacks
 tags:
   - smart-home

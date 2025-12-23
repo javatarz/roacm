@@ -5,6 +5,7 @@ date: 2009-05-17 13:03:24+00:00
 layout: post
 slug: small-platform-development
 title: Small Platform Development
+description: "Exploring how students and developers are judged. Should non-commercial platform experience count alongside commercial project work?"
 wordpress_id: 166
 category: Tech Reviews
 tags:

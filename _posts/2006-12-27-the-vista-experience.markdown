@@ -5,6 +5,7 @@ date: 2006-12-27 07:12:07+00:00
 layout: post
 slug: the-vista-experience
 title: The Vista Experience
+description: "First impressions of Windows Vista Ultimate. UAC frustrations, permission dialogs, and early review of Microsoft's controversial new operating system."
 wordpress_id: 9
 category: Tech Reviews
 tags:

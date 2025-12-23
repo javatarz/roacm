@@ -5,6 +5,7 @@ date: 2009-06-29 04:29:14+00:00
 layout: post
 slug: visit-to-microsoft-redmond
 title: Visit to Microsoft, Redmond
+description: "Detailed trip report from Microsoft Redmond campus visit. Interviews, campus tour, meeting Scott Hanselman, and exploring Seattle highlights."
 wordpress_id: 222
 category: Personal
 tags:

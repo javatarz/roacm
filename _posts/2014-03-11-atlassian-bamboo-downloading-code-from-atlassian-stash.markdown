@@ -5,6 +5,7 @@ date: 2014-03-11 11:35:52+00:00
 layout: post
 slug: atlassian-bamboo-downloading-code-from-atlassian-stash
 title: 'Atlassian Bamboo: Downloading Code from Atlassian Stash'
+description: "Setup Bamboo CI to download code from Stash using SSH keys. Complete integration guide for Atlassian's continuous integration workflow."
 wordpress_id: 492
 category: Platform Engineering
 tags:

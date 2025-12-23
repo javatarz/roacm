@@ -5,6 +5,7 @@ date: 2014-09-12 18:02:11+00:00
 layout: post
 slug: thoughtworks-welcome-video
 title: ThoughtWorks Welcome Video
+description: "Joining ThoughtWorks Pune office with a creative team welcome video. A memorable milestone marking the start of my journey with the company."
 wordpress_id: 576
 category: Personal
 tags:

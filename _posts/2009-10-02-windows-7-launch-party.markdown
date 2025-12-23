@@ -5,6 +5,7 @@ date: 2009-10-02 08:50:24+00:00
 layout: post
 slug: windows-7-launch-party
 title: Windows 7 Launch Party
+description: "Selected as Windows 7 Launch Party host through House Party. Celebrating with limited edition Ultimate and exclusive party package."
 wordpress_id: 250
 category: Personal
 tags:

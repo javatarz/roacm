@@ -5,6 +5,7 @@ date: 2008-09-07 09:59:47+00:00
 layout: post
 slug: chrome-tips
 title: Chrome Tips
+description: "Essential Google Chrome tips and tricks: custom search engines, memory stats, private browsing, resizing textboxes, and hidden easter eggs."
 wordpress_id: 82
 category: Developer Experience
 tags:

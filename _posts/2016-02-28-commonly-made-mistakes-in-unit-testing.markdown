@@ -2,6 +2,7 @@
 author: Karun Japhet
 comments: true
 title: Commonly made mistakes in Unit Testing
+description: "Master unit testing best practices with mocking, dependency injection, and proper test boundaries. Avoid common pitfalls in test isolation."
 slug: commonly-made-mistakes-in-unit-testing
 date: 2016-02-28T09:24:50+05:30
 layout: post

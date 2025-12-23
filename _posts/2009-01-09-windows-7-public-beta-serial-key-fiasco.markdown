@@ -5,6 +5,7 @@ date: 2009-01-09 22:19:38+00:00
 layout: post
 slug: windows-7-public-beta-serial-key-fiasco
 title: Windows 7 Public Beta Serial Key Fiasco
+description: "Windows 7 public beta release chaos at CES 2009. Microsoft's TechNet overwhelmed, download links killed, 2.5 million keys delayed."
 wordpress_id: 98
 category: Tech Reviews
 tags:

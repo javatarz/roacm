@@ -5,6 +5,7 @@ date: 2011-07-31 05:23:33+00:00
 layout: post
 slug: android-terminologies
 title: Android terminologies
+description: "Decode Android jargon on XDA-Dev. Complete glossary explaining bootloader, recovery, root, S-Off, custom ROMs, and rooting terminology."
 wordpress_id: 385
 category: Device Hacks
 tags:

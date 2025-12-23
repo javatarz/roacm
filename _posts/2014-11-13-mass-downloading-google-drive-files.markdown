@@ -5,6 +5,7 @@ date: 2014-11-13 21:02:19+00:00
 layout: post
 slug: mass-downloading-google-drive-files
 title: Mass downloading Google Drive Files
+description: "Download hundreds of Google Drive files at once using Scala script. Automate bulk downloads when Gmail clips long email lists with file links."
 wordpress_id: 608
 category: Platform Engineering
 tags:

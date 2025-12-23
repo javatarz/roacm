@@ -5,6 +5,7 @@ date: 2014-03-13 14:59:09+00:00
 layout: post
 slug: wildfly-server-side-variablesjndi-custom-resources
 title: 'WildFly: Server Side Variables/JNDI Custom Resources'
+description: "Configure server-side variables in WildFly using XA Data Sources. Migrate from Glassfish JNDI custom resources to JBoss environment settings."
 wordpress_id: 505
 category: Software Design
 tags:

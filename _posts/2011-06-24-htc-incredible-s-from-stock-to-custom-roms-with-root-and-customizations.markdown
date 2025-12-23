@@ -5,6 +5,7 @@ date: 2011-06-24 16:27:29+00:00
 layout: post
 slug: htc-incredible-s-from-stock-to-custom-roms-with-root-and-customizations
 title: HTC Incredible S, from Stock to Custom ROMs with Root and customizations
+description: "Complete HTC Incredible S guide from stock ROM to custom ROMs. S-Off, root, ClockWorkMod recovery, and Android Revolution HD installation."
 wordpress_id: 331
 category: Device Hacks
 tags:

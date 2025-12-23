@@ -5,6 +5,7 @@ date: 2009-09-12 23:28:00+00:00
 layout: post
 slug: dell-win7-x64-sound-driver-updates-cause-system-freeze
 title: Dell Win7 x64 sound driver updates cause system freeze
+description: "Dell Studio XPS 1640 IDT sound driver issues on Windows 7 x64 causing freezes. Driver reinstallation workaround and upgrade warnings included."
 wordpress_id: 245
 category: Tech Reviews
 tags:

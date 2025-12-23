@@ -5,6 +5,7 @@ date: 2014-11-06 17:54:16+00:00
 layout: post
 slug: use-spotify-internationally-again
 title: Use Spotify internationally (again)
+description: "Access Spotify from anywhere using Hola Better Internet browser extension. Simple workaround for international Spotify streaming without complex setup."
 wordpress_id: 600
 category: Device Hacks
 tags:

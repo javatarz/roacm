@@ -5,6 +5,7 @@ date: 2011-07-26 04:06:25+00:00
 layout: post
 slug: recursively-delete-files-from-a-folder-in-windows
 title: Recursively delete files from a folder in Windows
+description: "Delete files recursively in Windows using del /S command. Simple solution for removing index.html files or any pattern across folders."
 wordpress_id: 380
 category: Developer Experience
 tags:

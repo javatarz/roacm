@@ -5,6 +5,7 @@ date: 2015-01-31 17:06:08+00:00
 layout: post
 slug: signs-of-a-troubled-startup
 title: Signs of a troubled startup
+description: "Red flags every startup should avoid: from ethics issues to yes-men culture. Learn critical mistakes that doom Indian startups before they begin."
 wordpress_id: 638
 category: Personal
 tags:

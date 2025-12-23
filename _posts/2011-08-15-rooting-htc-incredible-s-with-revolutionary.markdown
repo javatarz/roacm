@@ -5,6 +5,7 @@ date: 2011-08-15 18:11:15+00:00
 layout: post
 slug: rooting-htc-incredible-s-with-revolutionary
 title: Rooting HTC Incredible S with Revolutionary
+description: "Root HTC Incredible S on software 2.30.x using Revolutionary tool. Step-by-step guide for S-Off when AlphaRevX doesn't work."
 wordpress_id: 391
 category: Device Hacks
 tags:

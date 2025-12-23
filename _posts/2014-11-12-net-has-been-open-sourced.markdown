@@ -5,6 +5,7 @@ date: 2014-11-12 18:49:25+00:00
 layout: post
 slug: net-has-been-open-sourced
 title: .NET has been open sourced!
+description: "Microsoft releases .NET source code on GitHub with full Linux and OS X support coming. A historic moment for cross-platform development."
 wordpress_id: 606
 category: Personal
 tags:

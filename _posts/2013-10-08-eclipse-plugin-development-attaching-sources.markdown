@@ -5,6 +5,7 @@ date: 2013-10-08 06:41:11+00:00
 layout: post
 slug: eclipse-plugin-development-attaching-sources
 title: 'Eclipse Plugin Development: Attaching Sources'
+description: "Install Eclipse plugin development source code in 3 simple steps. Access RCP, PDE, and platform sources for better plugin development."
 wordpress_id: 480
 category: Software Design
 tags:

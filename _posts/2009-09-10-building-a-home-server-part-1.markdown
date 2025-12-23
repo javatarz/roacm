@@ -5,6 +5,7 @@ date: 2009-09-10 18:49:29+00:00
 layout: post
 slug: building-a-home-server-part-1
 title: 'Building a Home Server: Part 1'
+description: "Build your own NAS home server from old hardware. Compare Windows Home Server, Ubuntu, and FreeNAS for centralized storage solutions."
 wordpress_id: 240
 category: Platform Engineering
 tags:

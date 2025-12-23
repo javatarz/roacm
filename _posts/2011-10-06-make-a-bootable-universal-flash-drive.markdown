@@ -5,6 +5,7 @@ date: 2011-10-06 10:48:07+00:00
 layout: post
 slug: make-a-bootable-universal-flash-drive
 title: Make a bootable Universal Flash Drive
+description: "Create a bootable USB flash drive using diskpart in 13 simple steps. Install Windows, Linux, or boot operating systems from your UFD."
 wordpress_id: 403
 category: Device Hacks
 tags:

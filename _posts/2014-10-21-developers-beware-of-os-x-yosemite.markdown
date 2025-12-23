@@ -5,6 +5,7 @@ date: 2014-10-21 17:54:45+00:00
 layout: post
 slug: developers-beware-of-os-x-yosemite
 title: Developers beware of OS X Yosemite
+description: "OS X Yosemite compatibility warning for developers. JetBrains IDEs including IntelliJ, WebStorm, and PyCharm face startup issues after upgrade."
 wordpress_id: 594
 category: Tech Reviews
 tags:

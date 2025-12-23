@@ -3,6 +3,7 @@ layout: post
 comments: true
 author: Karun Japhet
 title: "intelligent Engineering: Principles for Building With AI"
+description: "Key principles for building software with AI: accountability, context engineering, guardrails, and timeless foundations for disciplined engineering teams."
 category: intelligent Engineering
 tags:
   - ai-assisted-development

@@ -2,6 +2,7 @@
 author: Karun Japhet
 comments: true
 title: Hosting blogs for 1&cent; a month
+description: "Learn how to host your blog on Amazon S3 for pennies a month. Migrate from self-hosted servers to serverless static sites with 99% cost reduction."
 date: 2016-12-05T02:04:56+05:30
 layout: post
 category: Platform Engineering
