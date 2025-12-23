@@ -29,7 +29,11 @@ layout: default
 
 <div id="toc"></div>
 
-{{ content }} {% if page.previous or page.next %}
+{{ content }}
+
+{% include author_bio.html %}
+
+{% if page.previous or page.next %}
 <nav class="post-navigation" aria-label="Post navigation">
   {% if page.previous %}
   <a class="post-nav-link post-nav-prev" href="{{ page.previous.url }}">
