@@ -33,10 +33,10 @@ module.exports = {
       // CI prevents decreasing these values
       assertions: {
         // Category Scores (0.0 - 1.0)
-        'categories:performance': ['error', { minScore: 0.7 }],
-        'categories:accessibility': ['error', { minScore: 0.84 }],
+        'categories:performance': ['error', { minScore: 0.78 }],
+        'categories:accessibility': ['error', { minScore: 0.91 }],
         // Skip best-practices: sometimes returns null due to charset audit
-        'categories:seo': ['error', { minScore: 0.9 }],
+        'categories:seo': ['error', { minScore: 0.93 }],
 
         // Individual metric warnings (informational, don't block)
         'first-contentful-paint': ['warn', { maxNumericValue: 3000 }],
