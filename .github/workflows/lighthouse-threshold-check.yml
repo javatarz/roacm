@@ -98,10 +98,7 @@ jobs:
           delete-branch: true
           title: ${{ steps.analyze.outputs.prTitle }}
           body-path: /tmp/pr-body.md
-          commit-message: |
-            ${{ steps.analyze.outputs.prTitle }}
-
-            Generated with [Claude Code](https://claude.com/claude-code)
+          commit-message: ${{ steps.analyze.outputs.prTitle }}
           labels: |
             enhancement
             automated

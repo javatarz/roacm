@@ -157,8 +157,6 @@ function generatePrBody(updates, medianScores, currentThresholds) {
   body += '- [ ] Review the median scores above\n';
   body += '- [ ] Verify no recent changes could affect performance\n';
   body += '- [ ] Merge when ready\n';
-  body += '\n---\n';
-  body += 'Generated with [Claude Code](https://claude.com/claude-code)\n';
 
   return body;
 }
