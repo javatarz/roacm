@@ -1,0 +1,84 @@
+name: Lighthouse Threshold Check
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch: # Manual trigger for testing
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-thresholds:
+    # Only run if CI/CD was successful
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Run Lighthouse (10 times for confidence)
+        run: npx lhci autorun --config=test-suite/configs/lighthouse-threshold-check.config.js
+
+      - name: Analyze scores and check for updates
+        id: analyze
+        run: |
+          # Run the analysis script
+          result=$(node test-suite/scripts/propose-threshold-updates.js)
+          echo "Analysis result: $result"
+
+          # Extract shouldUpdate value
+          shouldUpdate=$(echo "$result" | jq -r '.shouldUpdate')
+          echo "shouldUpdate=$shouldUpdate" >> $GITHUB_OUTPUT
+
+          if [ "$shouldUpdate" = "true" ]; then
+            # Save full result for PR creation
+            echo "$result" > /tmp/threshold-updates.json
+
+            # Extract PR details
+            prTitle=$(echo "$result" | jq -r '.prTitle')
+            prBody=$(echo "$result" | jq -r '.prBody')
+            commitMessage=$(echo "$result" | jq -r '.commitMessage')
+
+            echo "prTitle=$prTitle" >> $GITHUB_OUTPUT
+
+            # Save body to file (multi-line)
+            echo "$prBody" > /tmp/pr-body.md
+
+            # Apply updates to config file
+            node test-suite/scripts/propose-threshold-updates.js --apply
+          fi
+
+      - name: Create Pull Request
+        if: steps.analyze.outputs.shouldUpdate == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: lighthouse-threshold-update
+          delete-branch: true
+          title: ${{ steps.analyze.outputs.prTitle }}
+          body-path: /tmp/pr-body.md
+          commit-message: |
+            ${{ steps.analyze.outputs.prTitle }}
+
+            Generated with [Claude Code](https://claude.com/claude-code)
+          labels: |
+            enhancement
+            automated
