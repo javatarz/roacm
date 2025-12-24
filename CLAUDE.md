@@ -4,6 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Git Workflow
 
+### Trunk-Based Development
+
+- **Push directly to main** - no pull requests unless there's specific risk to mitigate
+- **If risk exists**, present it to the user with reasoning and let them approve a PR
+- Examples of risk: large refactors, breaking API changes, untested edge cases
+- Default assumption: trunk-based is safe when tests pass
+
 ### User Approval Required
 
 - **Never commit without checking with the user first** - explain what will be committed and why
