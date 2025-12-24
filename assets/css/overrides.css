@@ -1591,6 +1591,156 @@ small {
 }
 
 /* ==========================================================================
+   Mobile Navigation - Hamburger Menu
+   Breakpoint: 1280px (mobile below, desktop above)
+   ========================================================================== */
+
+/* --- Hamburger Button --- */
+.hamburger-menu {
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  height: 44px; /* Touch-friendly minimum */
+  justify-content: center;
+  left: 20px;
+  padding: 10px;
+  position: fixed;
+  top: 20px;
+  width: 44px;
+  z-index: 10002; /* Above all other content */
+}
+
+.hamburger-menu:hover {
+  background: var(--bg-secondary);
+}
+
+.hamburger-menu:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.hamburger-menu:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.hamburger-menu:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* --- Hamburger Icon Lines --- */
+.hamburger-line {
+  background: var(--text-primary);
+  border-radius: 2px;
+  display: block;
+  height: 2px;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 20px;
+}
+
+/* Hamburger to X animation */
+.hamburger-menu[aria-expanded='true'] .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu[aria-expanded='true'] .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu[aria-expanded='true'] .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- Backdrop Overlay --- */
+.sidebar-backdrop {
+  background: rgb(0, 0, 0, 0.5);
+  display: none;
+  inset: 0;
+  opacity: 0;
+  position: fixed;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10000;
+}
+
+.sidebar-backdrop.visible {
+  display: block;
+  opacity: 1;
+}
+
+/* --- Mobile Breakpoint Styles --- */
+@media (max-width: 1279px) {
+  /* Show hamburger on mobile */
+  .hamburger-menu {
+    display: flex;
+  }
+
+  /* Sidebar becomes off-canvas drawer */
+  header {
+    height: 100vh;
+    height: 100dvh; /* iOS Safari fix */
+    left: 0;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 280px;
+    z-index: 10001;
+  }
+
+  header.is-open {
+    transform: translateX(0);
+  }
+
+  /* Main content takes full width */
+  main {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px;
+    width: 100%;
+  }
+
+  /* Adjust footer for mobile */
+  footer {
+    margin-left: 0;
+    padding: 20px;
+    position: static;
+  }
+
+  /* Sidebar links need touch-friendly sizing */
+  header a {
+    display: block;
+    min-height: 44px;
+    padding: 12px 0;
+  }
+
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* --- Desktop Layout Override --- */
+@media (min-width: 1280px) {
+  /* Ensure sidebar is always visible on desktop */
+  header {
+    transform: none !important;
+  }
+
+  /* Hide backdrop on desktop */
+  .sidebar-backdrop {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
    Reduced Motion - Accessibility
    Users with vestibular disorders or motion sensitivity need reduced animations
    ========================================================================== */
