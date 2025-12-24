@@ -2,19 +2,19 @@ module.exports = {
   ci: {
     collect: {
       url: [
-        "http://localhost:4000/",
-        "http://localhost:4000/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/",
+        'http://localhost:4000/',
+        'http://localhost:4000/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/',
       ],
       numberOfRuns: 3,
       startServerCommand: process.env.CI
-        ? "bundle exec jekyll serve --host 0.0.0.0 --port 4000"
-        : "./local_run.sh",
+        ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000'
+        : './local_run.sh',
       startServerReadyPattern: process.env.CI
-        ? "Server address"
-        : "Server running",
+        ? 'Server address'
+        : 'Server running',
       startServerReadyTimeout: 120000,
       settings: {
-        preset: "desktop",
+        preset: 'desktop',
         throttling: {
           rttMs: 40,
           throughputKbps: 10240,
@@ -30,56 +30,64 @@ module.exports = {
       },
     },
     assert: {
-      // Use no preset - define all assertions explicitly for local dev
+      // Category-level thresholds - these BLOCK builds if scores drop below
+      // Update these manually when scores consistently improve
+      // CI prevents decreasing these values
       assertions: {
-        // Performance - relaxed for local development
-        "first-contentful-paint": ["warn", { maxNumericValue: 3000 }],
-        "largest-contentful-paint": ["warn", { maxNumericValue: 4000 }],
-        "cumulative-layout-shift": ["warn", { maxNumericValue: 0.25 }],
-        "total-blocking-time": ["warn", { maxNumericValue: 500 }],
+        // Category Scores (0.0 - 1.0)
+        'categories:performance': ['error', { minScore: 0.7 }],
+        'categories:accessibility': ['error', { minScore: 0.84 }],
+        // Skip best-practices: sometimes returns null due to charset audit
+        'categories:seo': ['error', { minScore: 0.9 }],
 
-        // Accessibility - keep these important
-        "color-contrast": "warn",
-        "heading-order": "warn",
-        "image-alt": "warn",
-        "meta-viewport": "warn",
+        // Individual metric warnings (informational, don't block)
+        'first-contentful-paint': ['warn', { maxNumericValue: 3000 }],
+        'largest-contentful-paint': ['warn', { maxNumericValue: 4000 }],
+        'cumulative-layout-shift': ['warn', { maxNumericValue: 0.25 }],
+        'total-blocking-time': ['warn', { maxNumericValue: 500 }],
 
-        // Best Practices - relaxed for development
-        "errors-in-console": "warn",
-        "no-document-write": "warn",
-        "js-libraries": "off",
+        // Accessibility warnings
+        'color-contrast': 'warn',
+        'heading-order': 'warn',
+        'image-alt': 'warn',
+        'meta-viewport': 'warn',
 
-        // SEO
-        "document-title": "warn",
-        "meta-description": "warn",
-        "link-text": "warn",
+        // Best Practices warnings
+        'errors-in-console': 'warn',
+        'no-document-write': 'warn',
+        'js-libraries': 'off',
+
+        // SEO warnings
+        'document-title': 'warn',
+        'meta-description': 'warn',
+        'link-text': 'warn',
 
         // Disable checks not applicable to local development
-        "uses-http2": "off",
-        "uses-long-cache-ttl": "off",
-        "render-blocking-resources": "off",
-        "is-on-https": "off", // Local dev is HTTP
-        "redirects-http": "off",
-        "unminified-css": "off", // Dev assets aren't minified
-        "unminified-javascript": "off",
-        "legacy-javascript": "off",
-        "inspector-issues": "off",
-        "lcp-lazy-loaded": "off",
-        "non-composited-animations": "off",
-        "prioritize-lcp-image": "off",
-        "target-size": "off",
-        "third-party-cookies": "off",
-        "bf-cache": "off",
+        'uses-http2': 'off',
+        'uses-long-cache-ttl': 'off',
+        'render-blocking-resources': 'off',
+        'is-on-https': 'off', // Local dev is HTTP
+        'redirects-http': 'off',
+        'unminified-css': 'off', // Dev assets aren't minified
+        'unminified-javascript': 'off',
+        'legacy-javascript': 'off',
+        'inspector-issues': 'off',
+        'lcp-lazy-loaded': 'off',
+        'non-composited-animations': 'off',
+        'prioritize-lcp-image': 'off',
+        'target-size': 'off',
+        'third-party-cookies': 'off',
+        'bf-cache': 'off',
 
         // Theme-specific allowances
-        "unsized-images": "off",
-        "unused-css-rules": "off",
-        "unused-javascript": "off",
+        'unsized-images': 'off',
+        'unused-css-rules': 'off',
+        'unused-javascript': 'off',
       },
     },
     upload: {
-      target: "filesystem",
-      outputDir: "./test-suite/reports/lighthouse",
+      target: 'filesystem',
+      outputDir: './test-suite/reports/lighthouse',
     },
   },
 };
