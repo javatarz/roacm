@@ -877,6 +877,84 @@ blockquote p:last-child {
   color: #22c55e !important;
 }
 
+/* ==========================================================================
+   Related Posts
+   ========================================================================== */
+
+.related-posts {
+  border-top: 2px solid var(--border-color);
+  margin-top: 40px;
+  padding-top: 32px;
+}
+
+.related-posts h2 {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.related-posts-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.related-post-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.related-post-card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.related-post-title {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.related-post-meta {
+  color: var(--text-secondary);
+  display: flex;
+  font-size: 13px;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.related-post-reading-time::before {
+  content: '·';
+  margin-right: 8px;
+}
+
+/* Mobile: stack cards vertically */
+@media (max-width: 768px) {
+  .related-posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .related-posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Visually hidden utility for screen reader-only messages */
 .visually-hidden {
   position: absolute;

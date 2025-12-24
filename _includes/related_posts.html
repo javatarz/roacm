@@ -1,0 +1,68 @@
+{% comment %}
+  Related Posts Component
+  Shows up to 3 related posts based on shared categories/tags
+  Algorithm: Same category first, then shared tags, excludes current post
+{% endcomment %}
+
+{% assign max_related = 3 %}
+{% assign related_posts = "" | split: "" %}
+
+{% comment %} Step 1: Find posts in the same primary category {% endcomment %}
+{% if page.categories.size > 0 %}
+  {% assign primary_category = page.categories | first %}
+  {% for post in site.posts %}
+    {% if post.url != page.url and related_posts.size < max_related %}
+      {% if post.categories contains primary_category %}
+        {% assign related_posts = related_posts | push: post %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Step 2: If we need more, find posts with shared tags {% endcomment %}
+{% if related_posts.size < max_related and page.tags.size > 0 %}
+  {% for post in site.posts %}
+    {% if post.url != page.url and related_posts.size < max_related %}
+      {% unless related_posts contains post %}
+        {% for tag in page.tags %}
+          {% if post.tags contains tag and related_posts.size < max_related %}
+            {% assign related_posts = related_posts | push: post %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Step 3: If still need more, add recent posts {% endcomment %}
+{% if related_posts.size < max_related %}
+  {% for post in site.posts limit:10 %}
+    {% if post.url != page.url and related_posts.size < max_related %}
+      {% unless related_posts contains post %}
+        {% assign related_posts = related_posts | push: post %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if related_posts.size > 0 %}
+<aside class="related-posts" aria-labelledby="related-posts-heading">
+  <h2 id="related-posts-heading">Related Posts</h2>
+  <div class="related-posts-grid">
+    {% for post in related_posts %}
+    <a href="{{ post.url }}" class="related-post-card">
+      <span class="related-post-title">{{ post.title }}</span>
+      <span class="related-post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+        <span class="related-post-reading-time">
+          {% assign words = post.content | number_of_words %}
+          {% assign reading_time = words | divided_by: 200 %}
+          {% if reading_time < 1 %}1{% else %}{{ reading_time }}{% endif %} min
+        </span>
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+</aside>
+{% endif %}
