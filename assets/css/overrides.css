@@ -1703,7 +1703,7 @@ small {
   main {
     margin-left: 0;
     margin-right: 0;
-    padding: 20px;
+    padding: 70px 20px 20px 20px; /* Extra top padding for hamburger menu */
     width: 100%;
   }
 
