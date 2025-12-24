@@ -299,7 +299,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
 
       - name: Purge Cloudflare Cache
-        if: success() && github.ref == 'refs/heads/main'
+        if: success() && github.ref == 'refs/heads/main' && needs.changes.outputs.theme == 'true'
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
