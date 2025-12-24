@@ -42,25 +42,44 @@ jobs:
         run: |
           # Run the analysis script
           result=$(node test-suite/scripts/propose-threshold-updates.js)
-          echo "Analysis result: $result"
 
-          # Extract shouldUpdate value
-          shouldUpdate=$(echo "$result" | jq -r '.shouldUpdate')
+          # Save result to file for parsing
+          echo "$result" > /tmp/analysis-result.json
+
+          # Extract values
+          shouldUpdate=$(jq -r '.shouldUpdate' /tmp/analysis-result.json)
+          message=$(jq -r '.message // .summary // "Analysis complete"' /tmp/analysis-result.json)
+
+          # Display formatted analysis
+          echo ""
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "  LIGHTHOUSE THRESHOLD ANALYSIS"
+          echo "═══════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Decision: $([ "$shouldUpdate" = "true" ] && echo "🔄 UPDATE NEEDED" || echo "✅ NO UPDATE NEEDED")"
+          echo "Summary: $message"
+          echo ""
+          echo "───────────────────────────────────────────────────────────────"
+          echo "  CATEGORY ANALYSIS"
+          echo "───────────────────────────────────────────────────────────────"
+          echo ""
+
+          # Display each category's analysis
+          jq -r '.analysis[] | "Category: \(.category)\n  Current Threshold: \(.currentThreshold)\n  Median Score:      \(.medianScore)\n  Improvement:       \(.improvement)\n  Action:            \(.action)\n  Reason:            \(.reason)\n"' /tmp/analysis-result.json
+
+          echo "═══════════════════════════════════════════════════════════════"
+          echo ""
+
+          # Set output
           echo "shouldUpdate=$shouldUpdate" >> $GITHUB_OUTPUT
 
           if [ "$shouldUpdate" = "true" ]; then
-            # Save full result for PR creation
-            echo "$result" > /tmp/threshold-updates.json
-
             # Extract PR details
-            prTitle=$(echo "$result" | jq -r '.prTitle')
-            prBody=$(echo "$result" | jq -r '.prBody')
-            commitMessage=$(echo "$result" | jq -r '.commitMessage')
-
+            prTitle=$(jq -r '.prTitle' /tmp/analysis-result.json)
             echo "prTitle=$prTitle" >> $GITHUB_OUTPUT
 
             # Save body to file (multi-line)
-            echo "$prBody" > /tmp/pr-body.md
+            jq -r '.prBody' /tmp/analysis-result.json > /tmp/pr-body.md
 
             # Apply updates to config file
             node test-suite/scripts/propose-threshold-updates.js --apply

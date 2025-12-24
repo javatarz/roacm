@@ -202,13 +202,42 @@ function main() {
     return;
   }
 
+  // Build detailed analysis for all categories
+  const analysis = TRACKED_CATEGORIES.map((category) => {
+    const current = currentThresholds[category] || 0;
+    const med = medianScores[category] || 0;
+    const improvement = round2(med - current);
+    const requiredImprovement = IMPROVEMENT_THRESHOLD;
+    const update = updates.find((u) => u.category === category);
+
+    let reason;
+    if (update) {
+      reason = `Median ${round2(med)} exceeds threshold ${current} by +${improvement} (≥ ${requiredImprovement} required). New threshold: ${update.proposed}`;
+    } else if (improvement < requiredImprovement) {
+      reason = `Improvement +${improvement} is below required +${requiredImprovement}`;
+    } else {
+      reason = `No update needed`;
+    }
+
+    return {
+      category,
+      currentThreshold: current,
+      medianScore: round2(med),
+      improvement: `+${improvement}`,
+      action: update ? `Update to ${update.proposed}` : 'No change',
+      reason,
+    };
+  });
+
   // Generate output (default mode)
   if (updates.length === 0) {
     const output = {
       shouldUpdate: false,
       message: 'No threshold updates needed',
+      summary: `All categories are within ${IMPROVEMENT_THRESHOLD * 100}% of current thresholds`,
+      analysis,
     };
-    console.log(JSON.stringify(output));
+    console.log(JSON.stringify(output, null, 2));
     return;
   }
 
@@ -227,9 +256,10 @@ function main() {
     prBody: generatePrBody(updates, medianScores, currentThresholds),
     commitMessage,
     updates,
+    analysis,
   };
 
-  console.log(JSON.stringify(output));
+  console.log(JSON.stringify(output, null, 2));
 }
 
 main();
