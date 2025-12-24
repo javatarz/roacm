@@ -28,8 +28,9 @@ const TRACKED_CATEGORIES = ['performance', 'accessibility', 'seo'];
  */
 function extractThresholds(configContent) {
   const thresholds = {};
+  // Match both single and double quoted category assertions
   const regex =
-    /"categories:(\w+)":\s*\["error",\s*{\s*minScore:\s*([\d.]+)\s*}\]/g;
+    /['"]categories:(\w+)['"]\s*:\s*\[['"]error['"]\s*,\s*\{\s*minScore\s*:\s*([\d.]+)\s*\}\]/g;
 
   let match;
   while ((match = regex.exec(configContent)) !== null) {
@@ -114,9 +115,9 @@ function applyUpdates(updates) {
   let content = fs.readFileSync(configPath, 'utf-8');
 
   updates.forEach((update) => {
-    // Match the threshold line and replace with new value
+    // Match the threshold line and replace with new value (supports single or double quotes)
     const regex = new RegExp(
-      `("categories:${update.category}":\\s*\\["error",\\s*\\{\\s*minScore:\\s*)([\\.\\d]+)(\\s*\\}\\])`,
+      `(['"]categories:${update.category}['"]\\s*:\\s*\\[['"]error['"]\\s*,\\s*\\{\\s*minScore\\s*:\\s*)([\\d.]+)(\\s*\\}\\])`,
     );
     content = content.replace(regex, `$1${update.proposed}$3`);
   });
