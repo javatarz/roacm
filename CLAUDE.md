@@ -70,6 +70,17 @@ docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll-dev thor 
 
 Server runs at http://localhost:4000 with live reload.
 
+## Content Guidelines
+
+### Tags and Categories
+
+- **All posts must use canonical tags from `docs/context/TAGS.md`**
+- 45 canonical tags organized by category (AI/ML, Dev Experience, Architecture, DevOps, etc.)
+- Categories are parents (can have spaces), tags are children (lowercase-hyphenated)
+- See `docs/context/CATEGORIES.md` for category guidelines
+- New tags require conscious decision - update `docs/context/TAGS.md` when adding
+- Run validation script in `docs/context/TAGS.md` to check for non-canonical tags
+
 ## Key Files
 
 - `_layouts/` - Page templates (`default.html`, `post.html`, `page.html`)
@@ -78,3 +89,4 @@ Server runs at http://localhost:4000 with live reload.
 - `assets/css/overrides.css` - All theme customizations
 - `assets/js/` - Interactive features (code-blocks, reading-progress, back-to-top, search)
 - `test-suite/` - Playwright tests and configs
+- `docs/context/` - Context files for Claude Code (TAGS.md, CATEGORIES.md)
