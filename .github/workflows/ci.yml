@@ -7,7 +7,6 @@ on:
       - "LICENSE"
       - "README.md"
       - "Dockerfile"
-      - "local_run.sh"
       - "jekyll.thor"
   pull_request:
     branches: [ main ]

@@ -6,7 +6,9 @@ module.exports = {
         'http://localhost:4000/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/',
       ],
       numberOfRuns: 3,
-      startServerCommand: './local_run.sh --no-livereload',
+      startServerCommand: process.env.CI
+        ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000 --config _config.yml,_config_dev.yml'
+        : './local_run.sh --no-livereload',
       startServerReadyPattern: 'Server running',
       startServerReadyTimeout: 120000,
       settings: {
