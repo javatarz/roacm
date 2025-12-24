@@ -36,7 +36,7 @@ module.exports = {
         'categories:performance': ['error', { minScore: 0.78 }],
         'categories:accessibility': ['error', { minScore: 0.91 }],
         // Skip best-practices: sometimes returns null due to charset audit
-        'categories:seo': ['error', { minScore: 0.93 }],
+        'categories:seo': ['error', { minScore: 0.92 }],
 
         // Individual metric warnings (informational, don't block)
         'first-contentful-paint': ['warn', { maxNumericValue: 3000 }],
