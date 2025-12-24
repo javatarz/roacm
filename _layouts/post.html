@@ -53,20 +53,20 @@ layout: default
 
 <div class="post-metadata">
   <div class="metadata-section">
-    <h4>Published</h4>
+    <h3>Published</h3>
     <div class="metadata-content">{% include post/date.html %}</div>
   </div>
 
   {% if page.categories.size > 0 %}
   <div class="metadata-section">
-    <h4>Categories</h4>
+    <h3>Categories</h3>
     <div class="metadata-content">
       {% include post/categories_display.html %}
     </div>
   </div>
   {% endif %} {% if page.tags.size > 0 %}
   <div class="metadata-section">
-    <h4>Tags</h4>
+    <h3>Tags</h3>
     <div class="metadata-content tags-list">
       {% include post/tags_display.html %}
     </div>
