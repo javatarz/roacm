@@ -1,5 +1,5 @@
-{% assign post_ts = page.date | date: "%s" %}
-{% assign now_ts = site.time | date: "%s" %}
+{% assign post_ts = page.date | date: "%s" | plus: 0 %}
+{% assign now_ts = site.time | date: "%s" | plus: 0 %}
 {% assign age_seconds = now_ts | minus: post_ts %}
 {% assign age_years = age_seconds | divided_by: 31557600 %}
 
@@ -18,7 +18,7 @@ Front matter optional knobs:
    - evergreen: true | deprecation_exempt: true
 {%- endcomment -%}
 
-{% assign threshold_years = page.deprecation_threshold | default: 10 %}
+{% assign threshold_years = page.deprecation_threshold | default: 10 | plus: 0 %}
 {% assign has_evergreen_flag = page.evergreen | default: false %}
 {% assign has_exempt_flag = page.deprecation_exempt | default: false %}
 {% assign tags_list = page.tags | default: empty %}
@@ -29,11 +29,33 @@ Front matter optional knobs:
 {% assign is_exempt = has_evergreen_flag or has_exempt_flag or has_evergreen_tag or has_evergreen_cat %}
 
 {% assign explicit_deprecated = page.deprecated %}
-{% assign auto_deprecated = age_years | minus: threshold_years | at_least: 0 %}
-{% comment %}Liquid lacks booleans for arithmetic; use comparison for auto flag{% endcomment %}
-{% assign is_auto = age_years >= threshold_years and is_exempt == false %}
 
-{% if explicit_deprecated == true or (explicit_deprecated != false and is_auto) %}
+{% comment %}
+Calculate is_old_enough separately to avoid Liquid operator precedence issues.
+Use minus instead of >= for reliable numeric comparison.
+If (threshold - age) <= 0, the post is old enough to be deprecated.
+{% endcomment %}
+{% assign years_until_deprecated = threshold_years | minus: age_years %}
+{% assign is_old_enough = false %}
+{% if years_until_deprecated <= 0 %}
+  {% assign is_old_enough = true %}
+{% endif %}
+
+{% assign is_auto = false %}
+{% if is_old_enough and is_exempt == false %}
+  {% assign is_auto = true %}
+{% endif %}
+
+{% assign show_notice = false %}
+{% if explicit_deprecated == true %}
+  {% assign show_notice = true %}
+{% elsif explicit_deprecated == false %}
+  {% assign show_notice = false %}
+{% elsif is_auto %}
+  {% assign show_notice = true %}
+{% endif %}
+
+{% if show_notice %}
 <div class="deprecation-notice" role="note" aria-label="Deprecation notice">
   <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
     <circle cx="12" cy="12" r="10"></circle>
