@@ -83,16 +83,15 @@ jekyll-archives:
     category: /blog/categories/:name/
     tag: /blog/tags/:name/
 exclude:
-  - Gemfile
-  - Gemfile.lock
+  - docs/
+  - Gemfile*
   - README.md
   - jekyll.thor
   - local_run.sh
   - Dockerfile
   - test-suite/
   - node_modules/
-  - package.json
-  - package-lock.json
+  - package*.json
   - .husky/
   - playwright-report/
   - test-results/
