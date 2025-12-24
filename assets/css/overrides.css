@@ -1634,15 +1634,15 @@ small {
 }
 
 /* --- Hamburger Icon Lines --- */
-.hamburger-line {
-  background: var(--text-primary);
-  border-radius: 2px;
-  display: block;
-  height: 2px;
+.hamburger-menu .hamburger-line {
+  background: var(--text-primary) !important;
+  border-radius: 2px !important;
+  display: block !important;
+  height: 2px !important;
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 20px;
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 20px !important;
 }
 
 /* Hamburger to X animation */
