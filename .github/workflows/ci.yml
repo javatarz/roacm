@@ -26,11 +26,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Quality Gate: Check thresholds before running any tests
+  # Prevents lowering quality bar - blocks CI if thresholds decrease
+  check-thresholds:
+    name: Check Lighthouse Thresholds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0  # Need full history to compare with base branch
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Check thresholds haven't decreased
+        run: node test-suite/scripts/check-lighthouse-thresholds.js
+
   # Detect which files changed to determine if tests should run
-  # Note: Lighthouse threshold checks run in pre-push hook locally
   changes:
     name: Detect Changes
     runs-on: ubuntu-latest
+    needs: check-thresholds  # Only run if thresholds pass
     outputs:
       theme: ${{ steps.filter.outputs.theme }}
     steps:
@@ -252,17 +270,19 @@ jobs:
               });
             }
 
-  # Build and deploy - runs after tests pass OR if tests were skipped
+  # Build and deploy - ONLY runs if thresholds pass AND (tests pass OR tests were skipped)
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    needs: [changes, lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests]
+    needs: [check-thresholds, changes, lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests]
     # Run if:
+    # - Quality gate passed (check-thresholds succeeded), AND
     # - All test jobs succeeded, OR
     # - All test jobs were skipped (no theme changes)
-    # Do NOT run if any test job failed
+    # Do NOT run if any test job failed OR if thresholds decreased
     if: |
       always() &&
+      needs.check-thresholds.result == 'success' &&
       (needs.changes.outputs.theme == 'false' ||
        (needs.lint-and-validate.result == 'success' &&
         needs.visual-and-e2e-tests.result == 'success' &&
