@@ -45,6 +45,53 @@ Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
 - **After completing a card**: Proactively find the next card by priority (bugs > quick wins > features)
 - **Checking pipeline**: Use `gh run list --limit 20 --workflow=ci.yml`. Tests only run when theme files change; look for 3-5+ min runs (not 1-2 min build-only runs)
 
+### Worktree Workflow
+
+Use Git worktrees to work on multiple issues in parallel without switching branches or stashing:
+
+**Commands:**
+
+- `/pickup-on-worktree <issue-number>` - Create dedicated worktree for an issue
+- `/pickup-on-worktree` - List all active worktrees with ports
+- `./scripts/worktree-list.sh` - Detailed worktree status with merge info
+- `./scripts/worktree-cleanup.sh` - Interactive cleanup of old worktrees
+
+**Port Assignment:**
+
+- Main repo uses port 4000
+- Worktrees use ports 4001-4010 (10 parallel worktrees max)
+- Port embedded in worktree name: `../roacm-4001-issue-123`
+- When all ports in use, cleanup required before creating new worktree
+
+**Naming Convention:**
+
+- Worktree path: `../roacm-<PORT>-issue-<NUMBER>`
+- Branch name: `issue-<NUMBER>`
+- Location: Parallel to main repo, not inside it
+
+**Context Tracking:**
+
+- After creating worktree, Claude automatically switches working context to it
+- All subsequent commands run from the worktree until context changes
+- Switch contexts with: "Switch to main repo", "Switch to worktree 4002"
+- Claude periodically confirms current working location
+
+**Workflow:**
+
+1. Create worktree: `/pickup-on-worktree 123`
+2. Claude switches context automatically
+3. Work on the issue (tests, commits, etc.)
+4. Push changes: `git push -u origin issue-123`
+5. Create PR from worktree
+6. Switch to another context or clean up: `git worktree remove ../roacm-4001-issue-123`
+
+**Benefits:**
+
+- Work on multiple issues simultaneously
+- No branch switching or stashing
+- Separate Jekyll servers per worktree (different ports)
+- Clean separation of work-in-progress
+
 ## Performance & Quality Gates
 
 ### Lighthouse Score Thresholds
@@ -89,6 +136,7 @@ ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at blog.karun.me usin
 # Local server
 ./local_run.sh                    # Start Jekyll (limits to 10 posts)
 ./local_run.sh --all-posts        # Include all posts
+./local_run.sh --port 4001        # Custom port (for worktrees)
 
 # Testing
 npm test                          # All tests (lint + e2e)
@@ -98,11 +146,15 @@ npm run test:e2e -- --project=chromium  # Single browser
 # Linting
 npm run lint:css && npm run lint:js && npm run lint:html
 
+# Worktree management
+./scripts/worktree-list.sh        # List all worktrees
+./scripts/worktree-cleanup.sh     # Clean up old worktrees
+
 # New post
 docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll-dev thor jekyll:new "Post Title"
 ```
 
-Server runs at http://localhost:4000 with live reload.
+Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
 
 ## Content Guidelines
 

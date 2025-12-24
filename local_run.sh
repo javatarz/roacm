@@ -3,17 +3,11 @@
 set -e
 set -x
 
-# Check if Jekyll is already running on port 4000
-if lsof -i :4000 >/dev/null 2>&1; then
-    echo "Jekyll is already running on port 4000."
-    echo "Visit http://localhost:4000 or stop the existing process first."
-    exit 0
-fi
-
 # Parse arguments
 ALL_POSTS=false
 FORCE_REBUILD=false
 NO_LIVERELOAD=false
+PORT=4000
 for arg in "$@"; do
   case $arg in
     --all-posts)
@@ -28,10 +22,25 @@ for arg in "$@"; do
       NO_LIVERELOAD=true
       shift
       ;;
+    --port)
+      PORT="$2"
+      shift 2
+      ;;
+    --port=*)
+      PORT="${arg#*=}"
+      shift
+      ;;
     *)
       ;;
   esac
 done
+
+# Check if Jekyll is already running on the specified port
+if lsof -i :$PORT >/dev/null 2>&1; then
+    echo "Jekyll is already running on port $PORT."
+    echo "Visit http://localhost:$PORT or stop the existing process first."
+    exit 0
+fi
 
 COLIMA_STATUS=$(colima status --json 2>/dev/null || echo '{}')
 COLIMA_RUNNING=$(echo "$COLIMA_STATUS" | grep -q '"status": *"Running"' && echo 1 || echo 0)
@@ -123,7 +132,7 @@ if [ "$NO_LIVERELOAD" = false ]; then
 fi
 
 docker run --rm --platform linux/amd64 \
-  -p 4000:4000 -p 35729:35729 \
+  -p $PORT:4000 -p 35729:35729 \
   -v $(pwd):/srv/jekyll:delegated \
   -v /tmp:/tmp \
   --user $(id -u):$(id -g) \
