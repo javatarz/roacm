@@ -13,6 +13,7 @@ fi
 # Parse arguments
 ALL_POSTS=false
 FORCE_REBUILD=false
+NO_LIVERELOAD=false
 for arg in "$@"; do
   case $arg in
     --all-posts)
@@ -21,6 +22,10 @@ for arg in "$@"; do
       ;;
     --force-rebuild)
       FORCE_REBUILD=true
+      shift
+      ;;
+    --no-livereload)
+      NO_LIVERELOAD=true
       shift
       ;;
     *)
@@ -111,6 +116,12 @@ EOF
     EXTRA_CONFIG=",_config_all_posts.yml"
 fi
 
+# Build Jekyll serve command with optional livereload
+JEKYLL_ARGS="--host 0.0.0.0 --watch --incremental --force-polling"
+if [ "$NO_LIVERELOAD" = false ]; then
+    JEKYLL_ARGS="$JEKYLL_ARGS --livereload"
+fi
+
 docker run --rm --platform linux/amd64 \
   -p 4000:4000 -p 35729:35729 \
   -v $(pwd):/srv/jekyll:delegated \
@@ -119,9 +130,5 @@ docker run --rm --platform linux/amd64 \
   -e JEKYLL_ENV=development \
   -e BUNDLE_GEMFILE=Gemfile.dev \
   local-jekyll-dev jekyll serve \
-  --host 0.0.0.0 \
-  --watch \
-  --incremental \
-  --force-polling \
-  --livereload \
+  $JEKYLL_ARGS \
   --config _config.yml,_config_dev.yml${EXTRA_CONFIG}
