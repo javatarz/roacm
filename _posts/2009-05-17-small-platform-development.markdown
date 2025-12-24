@@ -9,8 +9,8 @@ description: "Exploring how students and developers are judged. Should non-comme
 wordpress_id: 166
 category: Tech Reviews
 tags:
-  - platforms
-  - evaluation
+  - infrastructure
+  - product-review
   - opinion
 ---
 

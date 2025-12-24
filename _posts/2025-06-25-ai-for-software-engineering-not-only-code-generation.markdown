@@ -6,9 +6,8 @@ title: "AI for Software Engineering, not (only) Code Generation"
 description: "Explore how AI transforms every stage of software delivery—from requirements analysis to deployment—not just code generation. Practical examples included."
 category: intelligent Engineering
 tags:
-  - software-delivery
   - ai-tools
-  - team-transformation
+  - engineering-culture
 ---
 
 Rethinking the role of AI across the entire software lifecycle

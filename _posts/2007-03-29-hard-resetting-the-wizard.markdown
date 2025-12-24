@@ -9,9 +9,9 @@ description: "Hard reset HTC Wizard (I-Mate K-JAM) when the manual method fails.
 wordpress_id: 17
 category: Device Hacks
 tags:
-  - windows-mobile
-  - device-reset
-  - tutorial
+  - mobile
+  - troubleshooting
+  - tutorials
 ---
 
 The term "Wizard" refers to the [HTC Wizard](http://en.wikipedia.org/wiki/HTC_Wizard) which is a Windows Mobile sold by companies like I-Mate and O2.

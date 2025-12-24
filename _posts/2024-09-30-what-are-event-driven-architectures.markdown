@@ -7,7 +7,6 @@ description: "Understand event-driven architecture patterns: event notification,
 category: Software Design
 tags:
   - data-engineering
-  - event-driven
   - architecture
 evergreen: true
 ---

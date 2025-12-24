@@ -9,8 +9,7 @@ description: "Cut Maven build times from 6 minutes to 18 seconds by optimizing r
 wordpress_id: 663
 category: Platform Engineering
 tags:
-  - maven
-  - build-optimization
+  - java
   - performance
 ---
 

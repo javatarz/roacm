@@ -10,9 +10,8 @@ wordpress_id: 492
 category: Platform Engineering
 tags:
   - ci-cd
-  - atlassian
-  - git
-  - integration
+  - devops
+  - api
 ---
 
 The Atlassian suite of tools are a good way to have your organization's workflow administered. If you're using Atlassian Stash to manage your source code and are attempting to get Atlassian Bamboo to download code off Stash's copy of git, the answer isn't quite straight forward.

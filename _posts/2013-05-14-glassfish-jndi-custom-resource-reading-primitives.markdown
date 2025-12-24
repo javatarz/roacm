@@ -10,9 +10,6 @@ wordpress_id: 457
 category: Software Design
 tags:
   - java
-  - java-ee
-  - jndi
-  - glassfish
 ---
 
 Custom resources allow you to store server side values that are available to different J2EE applications on your server. This is an extremely useful feature that one should use.

@@ -11,7 +11,7 @@ category: Developer Experience
 tags:
   - java
   - mac-os
-  - environment-setup
+  - devops
 ---
 
 Installing Oracle's version of Java on your machine does (for most machines I've encountered) add a Java Home system variable. Rarely however it doesn't work on some machines. Such folks are recommended to add the path themselves.

@@ -9,8 +9,7 @@ description: "Soccer Scraper source code now on GitHub. Python web scraper for v
 wordpress_id: 434
 category: Developer Experience
 tags:
-  - open-source
-  - web-scraping
+  - tools
   - python
 ---
 

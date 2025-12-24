@@ -10,9 +10,6 @@ wordpress_id: 187
 category: Tech Reviews
 tags:
   - windows
-  - windows-vista
-  - microsoft
-  - news
 ---
 
 Microsoft is usually [eager to release updates](http://en.wikipedia.org/wiki/Patch_Tuesday) to its products. I have been seeing Vista SP2 news and downloadable links all over the internets. Release Candidates have been around for a while now but I never got any of them because I didn't want to spend an hour or so on the update (that's how long SP1 took to install) and then possibly have to do it again when the final SP2 comes out. I was just waiting for Microsoft to push SP2 through Windows Update.

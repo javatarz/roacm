@@ -10,8 +10,6 @@ wordpress_id: 566
 category: Software Design
 tags:
   - java
-  - java-8
-  - functional-programming
   - algorithms
 ---
 

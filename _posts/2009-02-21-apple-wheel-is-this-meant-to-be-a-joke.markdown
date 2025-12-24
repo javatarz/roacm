@@ -9,7 +9,7 @@ description: "Critical review of Apple Wheel laptop concept with giant scroll wh
 wordpress_id: 106
 category: Tech Reviews
 tags:
-  - apple
+  - mac-os
   - product-review
   - opinion
 ---

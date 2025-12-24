@@ -6,10 +6,9 @@ title: "The untold guide to troubleshoot Phillips Hue and Google Assistant Integ
 description: "Fix Phillips Hue and Google Assistant integration issues. Learn how to troubleshoot bridge connection problems and secure your smart home setup."
 category: Device Hacks
 tags:
-  - smart-home
   - iot
   - troubleshooting
-  - google-assistant
+  - product-review
 ---
 
 Recently, I moved into a new home and was setting up my [Phillips Hue](https://www2.meethue.com/en-us) lights with my [Google Home assistants](https://assistant.google.com/#?modal_active=none) around my house for convenience. I noticed a couple of hick-ups since the last time I did this.

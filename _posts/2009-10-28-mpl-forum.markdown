@@ -9,8 +9,7 @@ description: "Honored to become Elite Member of Messenger Plus! Live forum with 
 wordpress_id: 252
 category: Personal
 tags:
-  - community
-  - achievement
+  - engineering-culture
   - milestone
 evergreen: true
 ---

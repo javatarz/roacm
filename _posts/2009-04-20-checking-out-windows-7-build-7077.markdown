@@ -10,9 +10,7 @@ wordpress_id: 134
 category: Tech Reviews
 tags:
   - windows
-  - windows-7
-  - os-review
-  - beta
+  - product-review
 ---
 
 I got my hands on Windows 7 Build 7077 to take it for a spin. I've had Windows 7 discs and keys around for a couple of months now but I never really got time to install them. Finally, I set up the latest build a couple of nights ago.

@@ -9,9 +9,9 @@ description: "Access Spotify from anywhere using Hola Better Internet browser ex
 wordpress_id: 600
 category: Device Hacks
 tags:
-  - spotify
-  - vpn
-  - workaround
+  - product-review
+  - infrastructure
+  - troubleshooting
 ---
 
 If you don't mind using Spotify in a browser, you can use [Hola Better Internet](https://chrome.google.com/webstore/detail/hola-better-internet/gkojfkhlekighikafcpjkiklfbnlmeio?hl=en).

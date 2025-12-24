@@ -9,8 +9,7 @@ description: "Slash Maven compile times by 85% using RAM drive. Reduce 22-minute
 wordpress_id: 658
 category: Platform Engineering
 tags:
-  - maven
-  - build-optimization
+  - java
   - performance
 ---
 

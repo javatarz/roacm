@@ -9,9 +9,7 @@ description: "Fix Eclipse custom project icons by prioritizing nature IDs. Learn
 wordpress_id: 489
 category: Software Design
 tags:
-  - ide
-  - eclipse
-  - plugin-development
+  - developer-experience
   - java
 ---
 

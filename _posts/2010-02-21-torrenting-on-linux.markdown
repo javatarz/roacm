@@ -10,8 +10,6 @@ wordpress_id: 287
 category: Platform Engineering
 tags:
   - linux
-  - ubuntu
-  - self-hosted
 ---
 
 [![rutorrent webUI](https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg)](https://raw.githubusercontent.com/wiki/Novik/ruTorrent/images/scr1_big.jpg)

@@ -9,10 +9,9 @@ description: "Visual Studio 2010 Beta 1 UI review featuring WPF integration, F# 
 wordpress_id: 190
 category: Tech Reviews
 tags:
-  - ide
-  - visual-studio
-  - ui-review
-  - wpf
+  - developer-experience
+  - product-review
+  - windows
 ---
 
 [![]({{ site.url }}/assets/images/uploads/2009/05/vs-2010-logo.png)](http://en.wikipedia.org/wiki/Microsoft_Visual_Studio)Well, I've been browsing through Visual Studio 2010 for a while now. I've not gotten into coding but did get a chance to have a look at the User Interface for this product. Here are some of the things I've noticed.

@@ -9,7 +9,6 @@ description: "First F# code experience with Visual Studio 2010 Beta 1. Functiona
 wordpress_id: 219
 category: Software Design
 tags:
-  - functional-programming
   - f-sharp
   - dotnet
 ---

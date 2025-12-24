@@ -7,8 +7,8 @@ description: "One command to upgrade all Homebrew packages and cask apps on Mac 
 category: Developer Experience
 tags:
   - mac-os
-  - brew
-  - automation
+  - tools
+  - productivity
 ---
 [Homebrew](https://brew.sh/) is a the missing package manager for Mac OS. [Brew cask](https://caskroom.github.io/) extends [Homebrew](https://brew.sh/) and brings its elegance, simplicity, and speed to Mac OS applications and large binaries alike.
 

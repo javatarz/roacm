@@ -9,9 +9,8 @@ description: "Play videos directly from RAR archives without extraction. RARFile
 wordpress_id: 281
 category: Developer Experience
 tags:
-  - media
   - tools
-  - workaround
+  - troubleshooting
 ---
 
 Large video files are sometimes distributed in multi-part RAR archives. This can happen with video downloads, backups, or files shared across services with size limits. In such cases, you're left with RAR files that you have to extract every time you want to play them.

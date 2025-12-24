@@ -9,8 +9,7 @@ description: "Entry for Plus! scripting competition using JavaScript, Delphi, PH
 wordpress_id: 6
 category: Platform Engineering
 tags:
-  - scripting
-  - competition
+  - productivity
   - php
 ---
 

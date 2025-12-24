@@ -9,10 +9,9 @@ description: "Visual Studio 2010 and .NET 4.0 Beta 1 now available. Download lin
 wordpress_id: 175
 category: Tech Reviews
 tags:
-  - ide
-  - visual-studio
+  - developer-experience
+  - product-review
   - dotnet
-  - preview
 ---
 
 Yes, they are out! You might have been hearing about the two for the past week or two around the interneticle blogosphere. I certainly did and as with every VS release, I was excited. VS is the best IDE I have seen so its no surprise that a new release excites me.

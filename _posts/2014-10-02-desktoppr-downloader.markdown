@@ -11,8 +11,8 @@ category: Platform Engineering
 tags:
   - python
   - api
-  - open-source
-  - automation
+  - tools
+  - productivity
 ---
 
 I recently found [Desktoppr](https://www.desktoppr.co), a service which has an insane number of curated wallpapers. What's even better is that they come with [an easy to consume API](https://www.desktoppr.co/api#wallpapers).

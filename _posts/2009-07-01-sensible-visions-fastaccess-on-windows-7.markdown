@@ -10,8 +10,6 @@ wordpress_id: 232
 category: Tech Reviews
 tags:
   - windows
-  - windows-7
-  - biometric
   - product-review
 ---
 

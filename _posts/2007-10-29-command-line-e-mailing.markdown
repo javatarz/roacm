@@ -9,9 +9,8 @@ description: "Send emails from Windows command line using Blat. Portable tool fo
 wordpress_id: 31
 category: Developer Experience
 tags:
-  - command-line
   - tools
-  - automation
+  - productivity
 ---
 
 Ever wanted to send a quick email but then though, "nah.. cba to open my inbox right now"?

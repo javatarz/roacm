@@ -9,8 +9,7 @@ description: "Bring JetBrains' expand selection feature to Sublime Text. Install
 wordpress_id: 596
 category: Developer Experience
 tags:
-  - ide
-  - sublime-text
+  - developer-experience
   - productivity
 ---
 

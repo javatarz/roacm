@@ -11,8 +11,7 @@ wordpress_id: 315
 category: Device Hacks
 tags:
   - linux
-  - ubuntu
-  - hardware-drivers
+  - troubleshooting
 ---
 
 It's been a while since my laptop (a Sony Vaio VGN-CR35G/R) has been running Ubuntu and yesterday, I updated my OS to the release candidate for Ubuntu's latest OS (due to release in 7 days time; 10-10-2010 ;)) 10.10 codenamed Maverick Meerkat. It's been irritating me for a while that I didn't have support for the inbuilt web camera for this laptop (which is one of Ricoh's MotionEye USB cameras; model r5u870).

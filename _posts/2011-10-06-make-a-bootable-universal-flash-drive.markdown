@@ -9,9 +9,7 @@ description: "Create a bootable USB flash drive using diskpart in 13 simple step
 wordpress_id: 403
 category: Device Hacks
 tags:
-  - usb
-  - bootable
-  - multi-boot
+  - troubleshooting
 ---
 
 This is a really old trick for Universal Flash Drives (UFDs) and I've been using it for years. I just thought I should document the steps so it's available as quick reference for me :)

@@ -6,10 +6,7 @@ title: "The Science in the Art of the Showcase (for distributed teams)"
 description: "Master agile showcases for distributed teams. Structured roles and best practices to run effective demos that engage remote stakeholders."
 category: Developer Experience
 tags:
-  - team-practices
-  - agile
-  - distributed-teams
-  - communication
+  - engineering-culture
 evergreen: true
 ---
 

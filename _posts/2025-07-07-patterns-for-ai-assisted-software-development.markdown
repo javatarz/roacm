@@ -7,7 +7,6 @@ description: "Essential patterns for AI-assisted development: team strategies fo
 category: intelligent Engineering
 tags:
   - ai-patterns
-  - team-practices
   - engineering-culture
 ---
 

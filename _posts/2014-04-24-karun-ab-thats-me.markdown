@@ -9,9 +9,8 @@ description: "Launching my personal portfolio website at karun.me. Showcasing co
 wordpress_id: 516
 category: Personal
 tags:
-  - portfolio
-  - milestone
-  - personal
+  - career
+  - blog-meta
 evergreen: true
 ---
 

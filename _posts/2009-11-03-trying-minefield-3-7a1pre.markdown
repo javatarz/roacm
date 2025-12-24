@@ -9,10 +9,8 @@ description: "Firefox Minefield 3.7a1pre brings full Windows 7 Aero support with
 wordpress_id: 260
 category: Tech Reviews
 tags:
-  - browser
-  - firefox
-  - browser-review
-  - alpha
+  - tools
+  - product-review
 ---
 
 Ever since I started using Win7 ([first public beta](http://blog.karun.me/blog/2009/01/10/windows-7-public-beta-serial-key-fiasco/)) I have liked one thing about Internet Explorer that Firefox couldn't do. This was the ability to use Win7's Aero prowess completely rendering each tab in the Aero preview for Firefox. At the time, Microsoft hadn't come out with the [Win7 UX Interaction Guide](http://msdn.microsoft.com/en-us/library/aa511258.aspx) but it's been out for a few months and I was quite disappointed that Mozilla didn't jump at the opportunity to release an upgrade.

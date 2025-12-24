@@ -10,9 +10,7 @@ wordpress_id: 245
 category: Tech Reviews
 tags:
   - windows
-  - windows-7
-  - dell
-  - drivers
+  - troubleshooting
 ---
 
 I noticed that Dell had finally released updates for some of their drivers on their support site for a Dell Studio XPS 1640 on Windows 7 x64. I immediately started downloading them and after a reboot noticed that the update for IDT sound driver causes a freeze in any application trying to do anything related to sound. No updates on their track pad drivers it is so we continue to use Windows Vista drivers.

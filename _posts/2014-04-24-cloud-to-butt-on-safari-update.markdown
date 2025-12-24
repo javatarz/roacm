@@ -9,10 +9,7 @@ description: "Improved Cloud to Butt Safari extension now more effective. Downlo
 wordpress_id: 513
 category: Developer Experience
 tags:
-  - browser
-  - browser-extension
-  - safari
-  - open-source
+  - tools
 ---
 
 As Reddit puts it, [Cloud to Butt is the funniest plugin ever](http://www.reddit.com/r/chrome/comments/1pkahp/cloud_to_butt_the_funniest_chrome_extension_you/) and they aren't wrong. Childish, but funny. Safari has an equivalent but alas it's not as effective. I really should say **wasn't that effective** because I just made it :P

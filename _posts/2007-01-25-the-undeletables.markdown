@@ -10,9 +10,8 @@ wordpress_id: 13
 category: Tech Reviews
 tags:
   - windows
-  - windows-vista
   - troubleshooting
-  - permissions
+  - security
 ---
 
 I had to reinstall vista once and so vista copied its already existing files into Windows.old like any other decent OS does. This was of course a move to help me keep the data I already had in C drive at that time.

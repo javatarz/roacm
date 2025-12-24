@@ -10,8 +10,6 @@ wordpress_id: 3
 category: Personal
 tags:
   - blog-meta
-  - milestone
-  - launch
 ---
 
 Here it is, the launch of my new site. What is to come, you shall see. I've been working on this despite my exams going on cause i wanted to complete this project. I've wanted to do this forever now.

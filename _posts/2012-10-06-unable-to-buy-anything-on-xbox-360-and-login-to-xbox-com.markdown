@@ -9,9 +9,7 @@ description: "Fix Xbox 360 purchase errors and xbox.com login issues by removing
 wordpress_id: 412
 category: Device Hacks
 tags:
-  - xbox
   - troubleshooting
-  - microsoft
 ---
 
 If you're having issues buying anything on XBox 360 and doesn't even let you login to xbox.com and it keeps kicking you out, there is a chance that one of the credit cards you have stored on record is invalid.

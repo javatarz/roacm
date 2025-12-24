@@ -9,8 +9,7 @@ description: "Essential Google Chrome tips and tricks: custom search engines, me
 wordpress_id: 82
 category: Developer Experience
 tags:
-  - browser
-  - chrome
+  - tools
   - productivity
 ---
 

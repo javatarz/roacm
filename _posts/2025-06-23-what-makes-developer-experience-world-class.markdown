@@ -7,7 +7,6 @@ description: "The five non-negotiables for world-class developer experience: pro
 category: Developer Experience
 tags:
   - developer-experience
-  - team-practices
   - engineering-culture
 evergreen: true
 ---

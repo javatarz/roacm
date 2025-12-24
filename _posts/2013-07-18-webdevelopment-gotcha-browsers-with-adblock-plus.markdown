@@ -9,9 +9,8 @@ description: "Avoid naming images ad.gif in web development. Learn why Adblock P
 wordpress_id: 463
 category: Software Design
 tags:
-  - web-development
-  - debugging
-  - browser
+  - troubleshooting
+  - tools
 ---
 
 Earlier this week, I was maintaining a web-application when I noticed something weird. Some images were not shown on my browser at times. The application dynamically displayed images based on certain conditions using java script and every once in a while, an image would disappear. This only happened to me and would occur on Safari and Chrome.

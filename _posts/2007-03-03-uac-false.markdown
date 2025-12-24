@@ -10,9 +10,7 @@ wordpress_id: 15
 category: Tech Reviews
 tags:
   - windows
-  - windows-vista
   - security
-  - uac
 ---
 
 So finally I got bugged with UAC enough to switch it off a few weeks back. Not all of it though. Just the module for approval from an admin and the elevation without prompting. Here is how you can do it.

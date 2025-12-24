@@ -9,10 +9,9 @@ description: "Dell Studio XPS 1640 Broadcom Gigabit Ethernet limited to 100Mbps 
 wordpress_id: 130
 category: Tech Reviews
 tags:
-  - hardware-review
-  - dell
+  - product-review
   - troubleshooting
-  - rant
+  - opinion
 ---
 
 Once upon a time, not too far long ago, I got a Dell Studio XPS 1640. I found that the laptop was great. I knew before I got it that it had a slight heating problem so ever since I got it, I would give it some cooling space. The performance on this machine was simply amazing but I had a few issues. Here are the issues I had:

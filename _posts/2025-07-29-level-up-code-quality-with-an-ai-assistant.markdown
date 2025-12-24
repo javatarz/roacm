@@ -8,9 +8,9 @@ categories:
   - AI for Software Engineering
   - intelligent Engineering
 tags:
-  - coding assistants
-  - code quality
-  - developer experience
+  - coding-assistants
+  - code-quality
+  - developer-experience
 ---
 
 Using AI coding assistants to introduce, automate, and evolve quality checks in your project.

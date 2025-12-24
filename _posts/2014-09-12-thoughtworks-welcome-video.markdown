@@ -10,8 +10,7 @@ wordpress_id: 576
 category: Personal
 tags:
   - career
-  - thoughtworks
-  - milestone
+  - engineering-culture
 evergreen: true
 ---
 

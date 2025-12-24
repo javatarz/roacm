@@ -9,8 +9,6 @@ description: "Detailed trip report from Microsoft Redmond campus visit. Intervie
 wordpress_id: 222
 category: Personal
 tags:
-  - trip-report
-  - microsoft
   - career
 ---
 

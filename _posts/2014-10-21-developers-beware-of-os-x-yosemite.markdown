@@ -10,9 +10,9 @@ wordpress_id: 594
 category: Tech Reviews
 tags:
   - mac-os
-  - ide
-  - intellij
-  - compatibility
+  - developer-experience
+  - product-review
+  - troubleshooting
 ---
 
 It's been a bit over 24 hours of using OS X Yosemite and I'm liking all the UI sugar it's added. So far, my _regular_ applications work fine after the upgrade but the IDEA based IDE set (IntelliJ, WebStorm, PyCharm, RubyMine etc.) seem to have a problem which [has been also reported by IDEA](https://intellij-support.jetbrains.com/entries/27854363-IDE-doesn-t-start-after-updating-to-Mac-OS-Yosemite-or-Mavericks).

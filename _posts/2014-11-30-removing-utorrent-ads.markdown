@@ -9,9 +9,7 @@ description: "Remove all ads and featured content from uTorrent with these hidde
 wordpress_id: 615
 category: Device Hacks
 tags:
-  - utorrent
-  - ads
-  - configuration
+  - tutorials
 ---
 
 When BitTorrent bought over μTorrent, they promised users that all adverts would be optional. They have, however, made it harder and harder to hide the adverts including now a set of hidden options. Thankfully users have found how to access those hidden options.

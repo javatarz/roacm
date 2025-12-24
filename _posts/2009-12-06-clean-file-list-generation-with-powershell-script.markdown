@@ -9,9 +9,8 @@ description: "Generate clean movie file lists with PowerShell. Script filters ou
 wordpress_id: 275
 category: Platform Engineering
 tags:
-  - scripting
-  - powershell
-  - automation
+  - windows
+  - productivity
 ---
 
 I have a whole load of movies that I'd like to generate a list of. I considered writing a batch script but it didn't really do something I needed. I ended up writing my first regular use (non test) PowerScript and here's how.

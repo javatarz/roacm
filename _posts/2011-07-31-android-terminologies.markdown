@@ -9,9 +9,8 @@ description: "Decode Android jargon on XDA-Dev. Complete glossary explaining boo
 wordpress_id: 385
 category: Device Hacks
 tags:
-  - android
-  - terminology
-  - glossary
+  - mobile
+  - tutorials
 ---
 
 For a first time Android user looking to customize his phone, XDA-Dev can be filled with a lot of jargon. Hope this helps users understand at least a part of it.

@@ -9,8 +9,7 @@ description: "Fix HTC Incredible S bootloader security warning that prevents boo
 wordpress_id: 399
 category: Device Hacks
 tags:
-  - android
-  - bootloader
+  - mobile
   - troubleshooting
 ---
 

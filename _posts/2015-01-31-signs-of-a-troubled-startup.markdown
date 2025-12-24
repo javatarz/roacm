@@ -9,8 +9,7 @@ description: "Red flags every startup should avoid: from ethics issues to yes-me
 wordpress_id: 638
 category: Personal
 tags:
-  - startups
-  - advice
+  - career
   - opinion
 ---
 

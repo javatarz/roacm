@@ -6,8 +6,8 @@ title: "Fixing broken Social logins on your browser"
 description: "Fix broken Google social logins caused by privacy settings: quick solutions for Privacy Badger and Firefox third-party cookie blocking."
 category: Developer Experience
 tags:
-  - browser
-  - privacy
+  - tools
+  - security
   - troubleshooting
 ---
 

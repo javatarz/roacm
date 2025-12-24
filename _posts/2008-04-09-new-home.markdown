@@ -10,7 +10,6 @@ wordpress_id: 25
 category: Personal
 tags:
   - blog-meta
-  - milestone
   - imagine-cup
 ---
 

@@ -9,9 +9,7 @@ description: "Microsoft Windows developer shares insider perspectives on Reddit 
 wordpress_id: 246
 category: Personal
 tags:
-  - microsoft
-  - community
-  - news
+  - engineering-culture
 ---
 
 Ever wanted to ask what really goes on at Microsoft to a softie? Want to know about some random bytes of code inside Windows? Want to know who really killed Microsoft Bob? Well, [here's your chance](http://www.reddit.com/r/IAmA/comments/9jo27/i_work_for_microsoft_as_a_developer_and_worked_on/)!

@@ -10,8 +10,7 @@ wordpress_id: 380
 category: Developer Experience
 tags:
   - windows
-  - scripting
-  - batch
+  - productivity
 ---
 
 This is something one might need to do regularly. I need to because [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) often creates multiple index.html@* files despite being set up not to (my GUI for wget might forget configs.. who knows?)

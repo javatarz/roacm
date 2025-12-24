@@ -10,8 +10,7 @@ wordpress_id: 59
 category: Personal
 tags:
   - imagine-cup
-  - achievement
-  - competition
+  - milestone
 ---
 
 Its been a long road going through the SDI National Finals where we came second, going to IIM-A where we got project incubation and then finally to the World Finals where we won the interoperability award. Along the way, we made lots of new friends and learned a whole lot more.

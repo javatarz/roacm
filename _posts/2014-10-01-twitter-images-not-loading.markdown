@@ -9,9 +9,8 @@ description: "Fix Twitter images not loading by switching to Google DNS. Simple 
 wordpress_id: 580
 category: Tech Reviews
 tags:
-  - dns
+  - infrastructure
   - troubleshooting
-  - twitter
 ---
 
 I recently moved to Pune and of course to a new ISP (Tata Telecommunications in Pune). For strange reasons, images on Twitter wouldn't load. Also, certain other websites weren't visible. Simple enough fix was to ensure I wasn't using Tata's DNS' but [Google's](https://developers.google.com/speed/public-dns/).

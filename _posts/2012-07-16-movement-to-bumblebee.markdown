@@ -9,9 +9,8 @@ description: "Migrated from shared hosting to dedicated server Bumblebee. WordPr
 wordpress_id: 409
 category: Platform Engineering
 tags:
-  - servers
   - infrastructure
-  - migration
+  - devops
 ---
 
 I finally took the time out to move away from shared hosting into my own server. It's been a long time coming but it's finally here! I hope this will stop issues for Wordpress caused by shared hosting. If it doesn't, it's out with Wordpress :)

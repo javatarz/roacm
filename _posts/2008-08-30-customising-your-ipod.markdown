@@ -9,9 +9,7 @@ description: "Complete iPod customization guide covering themes, firmware altern
 wordpress_id: 63
 category: Device Hacks
 tags:
-  - ipod
-  - customization
-  - firmware
+  - tools
 ---
 
 Every gadget I've owned to this day has been personalised. Its just something I have to do (if the hacks make the device better). I've done it so far with my i-Mate KJAM (custom ROMs for WM5 and WM6 and even cooking some up once in a while), my brother's PSP and my computer (that counts too, doesn't it? :P) among others.But when my brother came home last month, he exchanged the 2nd hand 30 GB iPod (5.5 Generation; Black) that he had.

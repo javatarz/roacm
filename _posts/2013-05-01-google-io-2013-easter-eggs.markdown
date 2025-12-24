@@ -8,10 +8,6 @@ title: Google I/O 2013 Easter Eggs
 description: "Unlock 12 hidden Google I/O 2013 easter eggs. Complete list of secret codes for cat mode, space mode, pong, bacon, and more fun effects."
 wordpress_id: 454
 category: Personal
-tags:
-  - google
-  - easter-eggs
-  - fun
 ---
 
 Most people don't know about this but if you head on over to the [Google I/O](https://developers.google.com/events/io/), their 2013 event website shows big I/O images that you can click and it reads out the letters 'I' and 'O'. Enter the right code and you get nice effects. Here's a list of codes you can try out.

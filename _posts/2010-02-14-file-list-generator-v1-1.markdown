@@ -9,9 +9,8 @@ description: "Updated PowerShell script to generate clean file lists. New featur
 wordpress_id: 284
 category: Platform Engineering
 tags:
-  - scripting
-  - powershell
-  - automation
+  - windows
+  - productivity
 ---
 
 On a lazy Sunday afternoon when you've got nothing better to do, you either write [rather useless scripts](http://blog.karun.me/blog/2009/12/06/clean-file-list-generation-with-powershell-script/) or update them. I chose to do the latter.

@@ -8,7 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-assisted-development
   - engineering-principles
-  - ai-literacy
+  - ai-patterns
 ---
 
 Software engineering is changing — again.

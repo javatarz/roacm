@@ -7,9 +7,8 @@ description: "Should you use Lombok in enterprise Java projects? Understand the 
 category: Software Design
 tags:
   - java
-  - lombok
   - code-quality
-  - enterprise
+  - architecture
 ---
 
 ## Verbosity of Java

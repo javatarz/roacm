@@ -9,9 +9,8 @@ description: "Batch remove file extensions from 100+ files with one command. Win
 wordpress_id: 335
 category: Developer Experience
 tags:
-  - scripting
-  - batch
-  - automation
+  - windows
+  - productivity
 ---
 
 A problem I've faced quite a few times is having a folder full of files with a padded extension that needs to be removed before I can use the files. This can happen with `.tmp`, `.bak`, or other temporary extensions added by various applications.

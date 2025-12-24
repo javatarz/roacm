@@ -7,9 +7,8 @@ date: 2016-12-05T02:04:56+05:30
 layout: post
 category: Platform Engineering
 tags:
-  - serverless
-  - aws-s3
-  - cost-optimization
+  - architecture
+  - cloud
 ---
 
 If you're a dev and you self host your blog, I'd love to hear why. Why do you self host blogs? For most simple blogs in this day and age, migration to a static site like [Jekyll](https://wordpress.org/plugins/jekyll-exporter/) or [Octopress](https://jason.pureconcepts.net/2013/01/migrating-wordpress-octopress/) is pretty easy. I did this [a while back](https://blog.karun.me/blog/2015/11/28/movement-to-cybershark/). This can be followed up by asking [Amazon S3](https://davidwalsh.name/hosting-website-amazon-s3) to host your website. You can even [get cloudflare to front the SSL for free](https://blog.karun.me/blog/2015/02/01/forced-https-on-your-website-with-cloudflare/).

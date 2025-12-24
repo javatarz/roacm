@@ -9,9 +9,7 @@ description: "Boost your WiFi signal with this free DIY antenna hack. Learn to b
 wordpress_id: 312
 category: Device Hacks
 tags:
-  - wifi
-  - hardware-hack
-  - diy
+  - tutorials
 ---
 
 If you suffer from reception issues on your WiFi connection and would like a boost to your router/access point, you should try out this easy tutorial I read online. It's free and really simple on following up. All you need is some aluminium foil, card board, glue for sticking stuff and a scissor/blade for some cutting.

@@ -10,9 +10,7 @@ wordpress_id: 606
 category: Personal
 tags:
   - dotnet
-  - open-source
-  - microsoft
-  - news
+  - tools
 ---
 
 Have your first look at Microsoft releasing the .NET source on GitHub: [https://github.com/microsoft/dotnet](https://github.com/microsoft/dotnet)

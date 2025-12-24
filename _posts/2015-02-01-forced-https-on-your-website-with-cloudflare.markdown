@@ -9,10 +9,8 @@ description: "Get free SSL for your website with CloudFlare Universal SSL. Step-
 wordpress_id: 643
 category: Platform Engineering
 tags:
-  - cloudflare
-  - ssl
+  - cloud
   - security
-  - https
 ---
 
 I'm a supporter of the [HTTPS everywhere movement](https://www.eff.org/https-everywhere) by the [EFF](https://www.eff.org/). They advocate users use (all) websites with HTTPS for extra security. This means everyone should probably fork out a few dollars to get their own certificates. Unless you're buying a domain at NameCheap (in which case they tend to throw in a SSL certificate for the first year), you'd have to shell out $8-$12 to get one.

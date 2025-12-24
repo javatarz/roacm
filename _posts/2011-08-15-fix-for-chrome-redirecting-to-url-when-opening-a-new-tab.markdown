@@ -9,8 +9,7 @@ description: "Stop Chrome redirecting to malicious URLs in new tabs. Quick fix b
 wordpress_id: 397
 category: Developer Experience
 tags:
-  - browser
-  - chrome
+  - tools
   - security
   - troubleshooting
 ---

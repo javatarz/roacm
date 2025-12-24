@@ -9,9 +9,7 @@ description: "Install Eclipse plugin development source code in 3 simple steps. 
 wordpress_id: 480
 category: Software Design
 tags:
-  - ide
-  - eclipse
-  - plugin-development
+  - developer-experience
   - java
 ---
 

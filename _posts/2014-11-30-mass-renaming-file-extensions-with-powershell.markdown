@@ -9,9 +9,8 @@ description: "Batch rename file extensions in Windows with one-line PowerShell c
 wordpress_id: 612
 category: Platform Engineering
 tags:
-  - scripting
-  - powershell
-  - automation
+  - windows
+  - productivity
 ---
 
 PowerShell is one of Windows' most underused tools in my opinion. In many cases it rivals if not betters support that bash scripts provide.

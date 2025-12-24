@@ -9,7 +9,6 @@ description: "Disable privacy-invasive features in Windows 10 and OS X Yosemite.
 wordpress_id: 665
 category: Developer Experience
 tags:
-  - privacy
   - windows
   - mac-os
   - security

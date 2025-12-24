@@ -7,8 +7,8 @@ description: "Navigate the AI coding assistant market: compare models, costs, li
 category: intelligent Engineering
 tags:
   - coding-assistants
-  - tool-selection
-  - licensing
+  - developer-experience
+  - software-licensing
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 

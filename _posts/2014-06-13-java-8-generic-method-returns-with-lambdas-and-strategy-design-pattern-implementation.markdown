@@ -10,9 +10,7 @@ wordpress_id: 522
 category: Software Design
 tags:
   - java
-  - java-8
   - design-patterns
-  - lambda
 ---
 
 With the introduction of Functional Programming in Java 8 new possibilities have opened up. One use case I recently encountered was that of processing JSONs to return data inside them. Let us, for the sake of argument, say the data in an element could be one of the following:

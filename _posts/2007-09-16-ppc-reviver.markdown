@@ -9,9 +9,8 @@ description: "Recover bricked HTC Wizard from IPL/SPL screen. Boot loader mode r
 wordpress_id: 23
 category: Device Hacks
 tags:
-  - windows-mobile
-  - device-recovery
-  - rom
+  - mobile
+  - troubleshooting
 ---
 
 I should officially be named the PPC hack king when it comes down to recovering them from positions where it seems they might be bricked :P

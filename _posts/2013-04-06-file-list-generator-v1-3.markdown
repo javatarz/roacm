@@ -9,9 +9,8 @@ description: "Generate file lists automatically with PowerShell. Updated v1.3 sc
 wordpress_id: 436
 category: Platform Engineering
 tags:
-  - scripting
-  - powershell
-  - automation
+  - windows
+  - productivity
 ---
 
 I noticed that my old file list generator page didn't have a valid link any more. Since I'd go through and upload it again, I guess it would be worth it to add some minor documentation and make the path variable optional as well :)

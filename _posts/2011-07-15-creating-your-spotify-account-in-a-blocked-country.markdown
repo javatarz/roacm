@@ -9,9 +9,9 @@ description: "Create Spotify account from blocked countries using Klout invites 
 wordpress_id: 361
 category: Device Hacks
 tags:
-  - spotify
-  - vpn
-  - workaround
+  - product-review
+  - infrastructure
+  - troubleshooting
 ---
 
 For those of you who don't know what Spotify is, it's a great music streaming site which allows free streaming to your PC and great streaming/offline music play on your mobile device.

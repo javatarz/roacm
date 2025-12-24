@@ -10,8 +10,7 @@ wordpress_id: 9
 category: Tech Reviews
 tags:
   - windows
-  - windows-vista
-  - os-review
+  - product-review
   - opinion
 ---
 

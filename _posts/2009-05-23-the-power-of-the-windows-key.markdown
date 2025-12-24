@@ -10,7 +10,6 @@ wordpress_id: 218
 category: Developer Experience
 tags:
   - windows
-  - keyboard-shortcuts
   - productivity
 ---
 

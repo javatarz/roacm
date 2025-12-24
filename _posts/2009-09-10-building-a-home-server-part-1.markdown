@@ -9,9 +9,8 @@ description: "Build your own NAS home server from old hardware. Compare Windows 
 wordpress_id: 240
 category: Platform Engineering
 tags:
-  - servers
+  - infrastructure
   - linux
-  - home-lab
 ---
 
 The first question in your head would be **"Why the world do I need a Home Server?"**

@@ -9,9 +9,7 @@ description: "Wolfram Alpha launches as computational answer engine. Built on 5 
 wordpress_id: 155
 category: Tech Reviews
 tags:
-  - wolfram-alpha
-  - product-launch
-  - preview
+  - product-review
 ---
 
 Have you heard of [Wolfram Alpha](http://www.wolframalpha.com/) (also called WoflramAlpha or Wolfram\|Alpha)? If you haven't, you best do it quickly. Its going to be brought online in about 30 minutes from now. I can't wait! :D

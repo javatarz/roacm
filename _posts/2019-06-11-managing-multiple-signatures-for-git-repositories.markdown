@@ -6,8 +6,7 @@ title: "Managing multiple signatures for git repositories"
 description: "Manage multiple GPG signing keys for git commits across personal and work repositories using simple shell aliases. Quick setup guide included."
 category: Developer Experience
 tags:
-  - git
-  - gpg
+  - devops
   - security
 ---
 

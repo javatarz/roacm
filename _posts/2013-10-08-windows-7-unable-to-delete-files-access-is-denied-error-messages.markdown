@@ -10,8 +10,7 @@ wordpress_id: 468
 category: Device Hacks
 tags:
   - windows
-  - windows-7
-  - permissions
+  - security
   - troubleshooting
 ---
 
