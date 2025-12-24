@@ -1,5 +1,13 @@
 echo "🚀 Running pre-push checks..."
 
+# Check Lighthouse thresholds haven't decreased (fast check, runs always)
+echo "🔍 Checking Lighthouse thresholds..."
+node test-suite/scripts/check-lighthouse-thresholds.js || {
+  echo "❌ Lighthouse threshold check failed. Push blocked."
+  echo "💡 Thresholds must never decrease. See CLAUDE.md for threshold update guidelines."
+  exit 1
+}
+
 # Get the range of commits being pushed
 remote="$1"
 z40=0000000000000000000000000000000000000000
