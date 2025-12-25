@@ -483,10 +483,16 @@ article h1 a:hover {
   font-weight: 200;
 }
 
-article img {
+article img,
+main img {
   display: block;
   height: auto;
   max-width: 100%;
+}
+
+/* Override theme's p img { display: inline } which breaks aspect ratio */
+main p img {
+  display: block;
 }
 
 article .entry-content {
