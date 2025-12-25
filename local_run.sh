@@ -127,12 +127,14 @@ fi
 
 # Build Jekyll serve command with optional livereload
 JEKYLL_ARGS="--host 0.0.0.0 --watch --incremental --force-polling"
+LIVERELOAD_PORT=""
 if [ "$NO_LIVERELOAD" = false ]; then
     JEKYLL_ARGS="$JEKYLL_ARGS --livereload"
+    LIVERELOAD_PORT="-p 35729:35729"
 fi
 
 docker run --rm --platform linux/amd64 \
-  -p $PORT:4000 -p 35729:35729 \
+  -p $PORT:4000 $LIVERELOAD_PORT \
   -v $(pwd):/srv/jekyll:delegated \
   -v /tmp:/tmp \
   --user $(id -u):$(id -g) \
