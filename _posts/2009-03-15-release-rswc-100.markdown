@@ -7,7 +7,7 @@ slug: release-rswc-100
 title: '[Release] RSWC 1.00'
 description: "Random Selection Wallpaper Changer v1.00 released. Lightweight .NET utility randomly sets desktop wallpapers from My Pictures folder."
 wordpress_id: 112
-category: Device Hacks
+category: Projects
 tags:
   - dotnet
   - tools

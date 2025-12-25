@@ -7,7 +7,7 @@ slug: ppc-reviver
 title: PPC Reviver!
 description: "Recover bricked HTC Wizard from IPL/SPL screen. Boot loader mode recovery method for failed Windows Mobile 6 custom ROM installations."
 wordpress_id: 23
-category: Device Hacks
+category: Projects
 tags:
   - mobile
   - troubleshooting

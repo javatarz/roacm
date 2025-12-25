@@ -7,7 +7,7 @@ slug: cloud-to-butt-on-safari-update
 title: Cloud To Butt on Safari Update
 description: "Improved Cloud to Butt Safari extension now more effective. Download the enhanced browser plugin for childish humor while browsing the web."
 wordpress_id: 513
-category: Developer Experience
+category: Projects
 tags:
   - tools
 ---

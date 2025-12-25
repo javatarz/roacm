@@ -7,7 +7,7 @@ slug: windows-7-unable-to-delete-files-access-is-denied-error-messages
 title: 'Windows 7: Unable to delete files - "Access is denied" error messages'
 description: "Fix Windows 7 access denied errors when deleting files. Quick solutions using error checking and takeown methods for broken permissions."
 wordpress_id: 468
-category: Device Hacks
+category: Developer Experience
 tags:
   - windows
   - security

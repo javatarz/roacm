@@ -7,7 +7,7 @@ slug: whatpulse-data-parse-class
 title: WhatPulse data parse class
 description: "PHP class for parsing WhatPulse WebAPI data with caching. Efficiently fetch keystroke and click statistics for forum signatures and widgets."
 wordpress_id: 33
-category: Developer Experience
+category: Projects
 tags:
   - php
   - api
