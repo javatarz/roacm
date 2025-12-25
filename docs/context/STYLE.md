@@ -1,8 +1,28 @@
 # Writing Style Guide
 
-Style patterns derived from recent posts (2019-2025). Use this when writing or reviewing content.
+Personal style definition plus patterns from recent posts. Use when writing or reviewing content.
 
-## Opening
+## Author's Voice (from /review-writing)
+
+**Tone**: Grounded, modest, technical. Clear and direct—no fluff or corporate jargon. Calm and confident, never boastful. Simple but not simplistic.
+
+**Voice**: Understatement over big claims. Clarity over cleverness. No dramatic, salesy, or self-important language. No hero narratives ("I drive clarity," "I transform engineering"). Specific examples over abstract generalities.
+
+**Phrasing preferences**:
+
+- Shorter over longer
+- Concrete over vague
+- Technical but accessible, not academic
+- Avoid overselling adjectives ("revolutionary," "world-class," "groundbreaking")
+- Prefer: "Here's what I'm exploring…", "Here's how I think about…", "A practical approach is…"
+
+**Content focus**: Intelligent engineering, AI-assisted software delivery, architecture, developer experience. Writing should capture thinking + practical value. Honest, thoughtful, useful.
+
+---
+
+## Post Structure
+
+### Opening
 
 Start with a bold, declarative statement that sets context:
 
