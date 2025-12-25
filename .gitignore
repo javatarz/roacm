@@ -29,4 +29,8 @@ coverage/
 # Lighthouse CI
 .lighthouseci/
 
+# Generated JS bundle (built in CI)
+assets/js/bundle.min.js
+assets/js/bundle.min.js.map
+
 _config_all_posts.yml

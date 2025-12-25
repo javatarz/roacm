@@ -19,6 +19,9 @@
       async
     ></script>
     {% endif %} {% include body/deferred_styles.html %}
+    {% if jekyll.environment == 'production' %}
+    <script defer src="/assets/js/bundle.min.js"></script>
+    {% else %}
     <script defer src="/assets/js/code-blocks.js"></script>
     <script defer src="/assets/js/reading-progress.js"></script>
     <script defer src="/assets/js/back-to-top.js"></script>
@@ -27,5 +30,6 @@
     <script defer src="https://unpkg.com/lunr/lunr.js"></script>
     <script defer src="/assets/js/search.js"></script>
     <script defer src="/assets/js/mobile-menu.js"></script>
+    {% endif %}
   </body>
 </html>

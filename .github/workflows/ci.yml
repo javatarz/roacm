@@ -267,15 +267,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Build the site in the jekyll/builder container
-        run: |
-          docker run \
-          -v ${{ github.workspace }}:/srv/jekyll \
-          -e JEKYLL_UID=$(id -u) \
-          -e JEKYLL_GID=$(id -g) \
-          jvconseil/jekyll-docker:4.3.3 jekyll build --future
-
-      - name: Setup Node.js for image optimization
+      - name: Setup Node.js for JS bundling
         uses: actions/setup-node@v6
         with:
           node-version: '20'
@@ -283,6 +275,17 @@ jobs:
 
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Bundle JavaScript for production
+        run: npm run build:js
+
+      - name: Build the site in the jekyll/builder container
+        run: |
+          docker run \
+          -v ${{ github.workspace }}:/srv/jekyll \
+          -e JEKYLL_UID=$(id -u) \
+          -e JEKYLL_GID=$(id -g) \
+          jvconseil/jekyll-docker:4.3.3 jekyll build --future
 
       - name: Transform images in HTML to picture elements
         run: npm run images:transform

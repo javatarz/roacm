@@ -9,6 +9,7 @@ export default [
       'vendor/**/*.js',
       'node_modules/**/*.js',
       'test-suite/**/*.js',
+      'assets/js/lib/**/*.js',
     ],
   },
 
