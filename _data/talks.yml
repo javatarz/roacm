@@ -1,0 +1,150 @@
+# Conference Talks - Karun Japhet
+# Auto-synced from YouTube playlist: PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV
+# Last updated: 2025-12-25
+#
+# This file is the cache/source of truth for the talks page.
+# Do not edit manually - changes will be overwritten by sync script.
+
+- id: HXq-Fr6XnV8
+  title: "What Happens Before and After the Code? AI Has a Role There Too!"
+  event: Sahaj DevDay
+  location: Pune, India
+  date: 2025-11-19
+  duration: "2:04:35"
+  duration_minutes: 125
+  views: 45
+  theme: ai-engineering
+  featured: true
+  description: >
+    AI in software development isn't just about writing code - it's about
+    designing better systems, clarifying requirements, and keeping software
+    healthy once it's live. This session explores how AI can support engineers
+    across the full development lifecycle, with practical prompting techniques
+    and real-world workflows.
+  tags:
+    - prompt-engineering
+    - ai-assisted-development
+    - copilot
+    - claude-code
+
+- id: W42qxQ7MvRs
+  title: "Responsible AI"
+  event: DevFest Pune 2024
+  location: Pune, India
+  date: 2025-04-25
+  duration: "45:36"
+  duration_minutes: 46
+  views: 77
+  theme: ai-engineering
+  type: panel
+  description: >
+    Panel discussion exploring how responsible AI ensures fairness and
+    transparency by aligning systems with ethical principles and social norms.
+    Topics include bias mitigation, legal risks, and balancing innovation
+    with governance through thoughtful design.
+  tags:
+    - responsible-ai
+    - ai-ethics
+    - bias-mitigation
+
+- id: IjizYxxNzvc
+  title: "From Concept to Code: Building a Q&A Bot Live with LLM"
+  event: "Pune's 50th DevDay"
+  location: Pune, India
+  date: 2024-01-01
+  duration: "1:07:14"
+  duration_minutes: 67
+  views: 278
+  theme: ai-engineering
+  type: live-coding
+  co_speakers:
+    - Ajinkya
+  description: >
+    Live coding session building a Q&A bot from scratch using Large Language
+    Models. Demonstrates practical LLM application development from concept
+    to working code.
+  tags:
+    - llm
+    - generative-ai
+    - live-coding
+    - chatbots
+
+- id: x43rjpdWz18
+  title: "(Machine) Learning to Detect Fraudsters"
+  event: Sahaj DevDay
+  location: Pune, India
+  date: 2019-07-01
+  duration: "1:21:00"
+  duration_minutes: 81
+  views: 299
+  theme: machine-learning
+  description: >
+    Credit card fraudsters are always changing their behavior, developing new
+    tactics. For banks, the damage isn't just financial - their reputations
+    are on the line. This talk explores how machine learning helps banks stay
+    ahead of the crooks with adaptive fraud detection systems.
+  tags:
+    - machine-learning
+    - fraud-detection
+    - fintech
+
+- id: tt7Pj_x6fPg
+  title: "Managing Data Pipelines at Scale"
+  event: StackToHeap Podcast
+  location: Remote
+  date: 2020-01-01
+  duration: "57:00"
+  duration_minutes: 57
+  views: 273
+  theme: data-engineering
+  type: podcast
+  co_speakers:
+    - Srimathi
+  description: >
+    Discussion about the fun, challenges, and lessons learned while managing
+    data pipelines at scale for complex business use cases. Covers practical
+    approaches to building reliable, scalable data infrastructure.
+  tags:
+    - data-pipelines
+    - data-engineering
+    - big-data
+
+- id: eER4n4p-KFk
+  title: "Microservices? Serverless is the answer!"
+  event: DevNexus
+  location: Atlanta, USA
+  date: 2018-02-01
+  duration: "59:05"
+  duration_minutes: 59
+  views: 140
+  theme: architecture
+  description: >
+    Comparison of development, deployment, maintenance, and performance
+    characteristics of Microservice applications and Serverless applications
+    in the event-driven ecosystem. Explores when serverless is the right
+    choice over traditional microservices.
+  tags:
+    - serverless
+    - microservices
+    - event-driven
+    - aws-lambda
+
+- id: 4cJ4GyyOfII
+  title: "Bridging the Gap: System Integration in an Event Driven System"
+  event: O'Reilly Software Architecture Conference
+  location: New York, USA
+  date: 2017-04-01
+  duration: "47:46"
+  duration_minutes: 48
+  views: 761
+  theme: architecture
+  description: >
+    A tale of bridging the technological divide between modern event-sourced
+    systems and more traditional architectures from the last few decades.
+    Practical strategies for integrating legacy systems with event-driven
+    architectures.
+  tags:
+    - event-driven
+    - event-sourcing
+    - system-integration
+    - legacy-modernization
