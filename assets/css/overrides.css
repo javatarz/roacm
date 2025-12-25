@@ -1101,7 +1101,8 @@ blockquote p:last-child {
 }
 
 /* Post Card Grid */
-.recent-posts-grid {
+.recent-posts-grid,
+.category-posts-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
@@ -1157,14 +1158,16 @@ blockquote p:last-child {
 
 /* Responsive: Tablet (2 columns) */
 @media (max-width: 900px) {
-  .recent-posts-grid {
+  .recent-posts-grid,
+  .category-posts-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Responsive: Mobile (1 column) */
 @media (max-width: 600px) {
-  .recent-posts-grid {
+  .recent-posts-grid,
+  .category-posts-grid {
     grid-template-columns: 1fr;
   }
 
