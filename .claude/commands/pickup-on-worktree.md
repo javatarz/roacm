@@ -13,12 +13,14 @@ Create a dedicated Git worktree for working on a GitHub issue in parallel.
 
 1. **Fetch issue details**: Run `gh issue view <issue-number>` to verify issue exists and show details
 
-2. **Check existing worktrees and ports**:
+2. **Assign the issue**: Run `gh issue edit <issue-number> --add-assignee @me` to claim the issue before starting work
+
+3. **Check existing worktrees and ports**:
    - Run `git worktree list` to get all active worktrees
    - Parse worktree paths to extract used ports from naming pattern `roacm-PORT-issue-N`
    - Find next available port in range 4001-4010
 
-3. **Validate port availability**:
+4. **Validate port availability**:
    - If all ports (4001-4010) are in use, FAIL with error:
 
      ```
@@ -34,23 +36,23 @@ Create a dedicated Git worktree for working on a GitHub issue in parallel.
      Or use: ./scripts/worktree-list.sh
      ```
 
-4. **Create worktree**:
+5. **Create worktree**:
    - Use naming pattern: `../roacm-<PORT>-issue-<NUMBER>`
    - Create branch: `issue-<NUMBER>` (matches existing convention)
    - Command: `git worktree add ../roacm-<PORT>-issue-<NUMBER> -b issue-<NUMBER>`
 
-5. **Install dependencies in worktree**:
+6. **Install dependencies in worktree**:
    - Run `cd ../roacm-<PORT>-issue-<NUMBER> && bundle install` for Ruby/Jekyll dependencies
    - Run `cd ../roacm-<PORT>-issue-<NUMBER> && npm install` for Node.js dependencies
    - If either fails, report error but continue
 
-6. **Switch working context to worktree**:
+7. **Switch working context to worktree**:
    - **IMPORTANT**: From this point forward, ALL subsequent commands in this conversation should be run from the worktree
    - Prefix every command with: `cd ../roacm-<PORT>-issue-<NUMBER> &&`
    - This context persists until user explicitly switches to a different location
    - Store the worktree path and port in conversation memory for easy reference
 
-7. **Success message and context confirmation**:
+8. **Success message and context confirmation**:
 
    ```
    ✅ Worktree created for issue #<NUMBER>
@@ -71,7 +73,7 @@ Create a dedicated Git worktree for working on a GitHub issue in parallel.
      "Go back to main"
    ```
 
-8. **Maintain context**:
+9. **Maintain context**:
    - For ALL future commands, automatically prepend: `cd ../roacm-<PORT>-issue-<NUMBER> &&`
    - Periodically confirm location in responses: "Working in worktree 4001..."
    - Track this context throughout the conversation

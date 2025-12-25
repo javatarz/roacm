@@ -25,7 +25,9 @@ Help me select the next GitHub issue to work on.
 
 6. **Ask for selection**: Use the question tool to let me pick which issue to work on
 
-7. **After selection**: Display the full issue details using `gh issue view <number>`
+7. **Assign the issue**: Run `gh issue edit <number> --add-assignee @me` to claim the issue
+
+8. **After selection**: Display the full issue details using `gh issue view <number>`
 
 ## Example Output Format
 
