@@ -1,0 +1,30 @@
+{% comment %}
+  Homepage Projects Section
+  Shows curated projects from _data/projects.yml
+{% endcomment %}
+
+<section class="homepage-section" aria-labelledby="projects-heading">
+  <div class="section-header">
+    <h2 id="projects-heading">Projects</h2>
+    <a href="https://github.com/javatarz" class="view-all-link" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+  </div>
+
+  <div class="homepage-cards-grid">
+    {% for project in site.data.projects.featured limit:3 %}
+    <a href="{{ project.url }}" class="homepage-card" target="_blank" rel="noopener">
+      <h3 class="homepage-card-title">{{ project.name }}</h3>
+      <div class="homepage-card-meta">
+        {% if project.language %}
+        <span>{{ project.language }}</span>
+        {% endif %}
+        {% if project.stars %}
+        <span>{{ project.stars }} stars</span>
+        {% endif %}
+      </div>
+      {% if project.description %}
+      <p class="homepage-card-description">{{ project.description }}</p>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+</section>

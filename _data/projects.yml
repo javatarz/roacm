@@ -1,0 +1,21 @@
+# Featured GitHub Projects
+# Curated selection for homepage display
+
+featured:
+  - name: serverless-cqrs
+    url: https://github.com/javatarz/serverless-cqrs
+    description: CQRS example using AWS Lambda
+    language: JavaScript
+    stars: 16
+
+  - name: credit-card-lending
+    url: https://github.com/javatarz/credit-card-lending
+    description: Exploring intelligent Engineering through a credit card lending platform
+    language: Java
+    stars: 1
+
+  - name: github-contribution-leaderboard
+    url: https://github.com/javatarz/github-contribution-leaderboard
+    description: Hacktoberfest leaderboard on command line
+    language: Python
+    stars: 5

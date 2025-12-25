@@ -1984,6 +1984,236 @@ small {
 }
 
 /* ==========================================================================
+   Homepage Layout
+   Professional hub landing page with full-width hero
+   ========================================================================== */
+
+/* Reset body padding for homepage to allow full-width hero */
+body.homepage {
+  padding: 0;
+}
+
+/* Hero Section - Full width, outside wrapper */
+.homepage-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  box-sizing: border-box;
+  color: #ffffff;
+  float: none; /* Override theme's section { float: right } */
+  padding: 80px 40px;
+  text-align: center;
+  width: 100%;
+}
+
+[data-theme='dark'] .homepage-hero {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+}
+
+.homepage-hero-content {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.homepage-hero-name {
+  border-bottom: none;
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.homepage-hero-tagline {
+  color: rgb(255, 255, 255, 0.85);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Homepage Sections */
+.homepage-section {
+  float: none; /* Override theme's section { float: right } */
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  width: auto; /* Override theme's section { width: 650px } */
+}
+
+.homepage-section:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Cards Grid - Reuses pattern from blog index */
+.homepage-cards-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.homepage-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.homepage-card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.homepage-card-title {
+  color: var(--text-primary);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+.homepage-card-meta {
+  color: var(--text-secondary);
+  display: flex;
+  font-size: 13px;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.homepage-card-description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+}
+
+.homepage-card-reading-time::before {
+  content: '·';
+  margin-right: 12px;
+}
+
+/* Work Section */
+.homepage-work-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.homepage-work-tagline {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+
+.homepage-work-highlights {
+  color: var(--text-secondary);
+  list-style: disc;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.homepage-work-highlights li {
+  margin-bottom: 8px;
+}
+
+.homepage-work-highlights li:last-child {
+  margin-bottom: 0;
+}
+
+/* Contact Section */
+.homepage-contact-content {
+  text-align: center;
+}
+
+.homepage-contact-text {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+
+.homepage-contact-cta {
+  align-items: center;
+  background: var(--accent-color);
+  border-radius: 8px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  gap: 8px;
+  padding: 12px 24px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.homepage-contact-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.homepage-contact-cta svg {
+  fill: currentcolor;
+}
+
+.homepage-social-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.homepage-social-links a {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.homepage-social-links a:hover {
+  color: var(--accent-color);
+}
+
+.homepage-social-links svg {
+  fill: currentcolor;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 900px) {
+  .homepage-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 600px) {
+  .homepage-hero {
+    padding: 60px 20px;
+  }
+
+  .homepage-hero-name {
+    font-size: 36px;
+  }
+
+  .homepage-hero-tagline {
+    font-size: 17px;
+  }
+
+  .homepage-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-section {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+/* ==========================================================================
    Reduced Motion - Accessibility
    Users with vestibular disorders or motion sensitivity need reduced animations
    ========================================================================== */

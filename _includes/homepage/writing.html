@@ -1,0 +1,29 @@
+{% comment %}
+  Homepage Writing Section
+  Shows 3 latest blog posts
+{% endcomment %}
+
+<section class="homepage-section" aria-labelledby="writing-heading">
+  <div class="section-header">
+    <h2 id="writing-heading">Writing</h2>
+    <a href="{{ '/blog/' | relative_url }}" class="view-all-link">View all posts &rarr;</a>
+  </div>
+
+  <div class="homepage-cards-grid">
+    {% for post in site.posts limit:3 %}
+    <a href="{{ post.url | relative_url }}" class="homepage-card">
+      <h3 class="homepage-card-title">{{ post.title }}</h3>
+      <div class="homepage-card-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%b %d, %Y" }}
+        </time>
+        <span class="homepage-card-reading-time">
+          {% assign words = post.content | number_of_words %}
+          {% assign reading_time = words | divided_by: 200 %}
+          {% if reading_time < 1 %}1{% else %}{{ reading_time }}{% endif %} min read
+        </span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>

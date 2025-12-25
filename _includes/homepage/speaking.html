@@ -1,0 +1,35 @@
+{% comment %}
+  Homepage Speaking Section
+  Shows curated talks from _data/talks.yml
+  Prioritizes talks with featured: true, then by date
+{% endcomment %}
+
+{% assign featured_talks = site.data.talks | where: "featured", true %}
+{% assign all_talks = site.data.talks | sort: "date" | reverse %}
+{% if featured_talks.size >= 3 %}
+  {% assign display_talks = featured_talks | slice: 0, 3 %}
+{% else %}
+  {% assign display_talks = all_talks | slice: 0, 3 %}
+{% endif %}
+
+<section class="homepage-section" aria-labelledby="speaking-heading">
+  <div class="section-header">
+    <h2 id="speaking-heading">Speaking</h2>
+    <a href="https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV" class="view-all-link" target="_blank" rel="noopener">View all talks &rarr;</a>
+  </div>
+
+  <div class="homepage-cards-grid">
+    {% for talk in display_talks %}
+    <a href="https://www.youtube.com/watch?v={{ talk.id }}" class="homepage-card" target="_blank" rel="noopener">
+      <h3 class="homepage-card-title">{{ talk.title }}</h3>
+      <div class="homepage-card-meta">
+        <span>{{ talk.event }}</span>
+        <span>{{ talk.date | date: "%Y" }}</span>
+      </div>
+      {% if talk.description %}
+      <p class="homepage-card-description">{{ talk.description | truncatewords: 20 }}</p>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+</section>

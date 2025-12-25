@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+  {% include head.html %}
+  <body class="homepage">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    {% include theme_toggle.html %}
+    {% include hamburger_menu.html %}
+
+    {% include homepage/hero.html %}
+
+    <div class="wrapper">
+      {% include body/sidebar.html %}
+
+      <main id="main-content" tabindex="-1">
+        {% include homepage/writing.html %}
+        {% include homepage/speaking.html %}
+        {% include homepage/projects.html %}
+        {% include homepage/work.html %}
+        {% include homepage/contact.html %}
+      </main>
+
+      {% include body/footer.html %}
+    </div>
+    {% include google_analytics.html %}
+    {% include body/deferred_styles.html %}
+    {% if jekyll.environment == 'production' %}
+    <script defer src="/assets/js/bundle.min.js"></script>
+    {% else %}
+    <script defer src="/assets/js/code-blocks.js"></script>
+    <script defer src="/assets/js/reading-progress.js"></script>
+    <script defer src="/assets/js/back-to-top.js"></script>
+    <script defer src="/assets/js/lazy-loading.js"></script>
+    <script defer src="/assets/js/toc.js"></script>
+    <script defer src="https://unpkg.com/lunr/lunr.js"></script>
+    <script defer src="/assets/js/search.js"></script>
+    <script defer src="/assets/js/mobile-menu.js"></script>
+    {% endif %}
+  </body>
+</html>
