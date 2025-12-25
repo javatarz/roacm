@@ -4,9 +4,7 @@ comments: true
 author: Karun Japhet
 title: "Level Up Code Quality with an AI Assistant"
 description: "Use AI coding assistants like Claude Code to introduce linting, pre-commit hooks, and automated quality checks into any codebase step-by-step."
-categories:
-  - AI for Software Engineering
-  - intelligent Engineering
+category: intelligent Engineering
 tags:
   - coding-assistants
   - code-quality

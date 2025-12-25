@@ -18,35 +18,23 @@ This document defines the canonical category list for ROACM blog posts. Categori
 - Used for filtering and discovery
 - Multiple tags per post allowed
 
-## Current Categories (2 active)
-
-### AI for Software Engineering
-
-**Description**: AI's impact on software engineering beyond code generation
-
-**Related tags**:
-
-- ai-tools
-- ai-assisted-development
-- coding-assistants
-- machine-learning
-- mlops
-
-**Posts**: 1
-
----
+## Current Categories (1 active)
 
 ### intelligent Engineering
 
-**Description**: Principles and practices for building with AI
+**Description**: Principles and practices for building with AI (encompasses AI for Software Engineering)
 
 **Related tags**:
 
 - ai-patterns
 - ai-assisted-development
+- ai-tools
+- coding-assistants
 - engineering-principles
+- machine-learning
+- mlops
 
-**Posts**: 1
+**Posts**: 6
 
 ---
 
