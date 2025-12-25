@@ -1,64 +1,40 @@
-# Documentation
+# Context Documentation
 
-This directory contains development documentation and context for working with the ROACM blog.
+Context files for Claude Code when working on this blog. These are **not** user-facing - the entire `docs/` directory is excluded from the Jekyll build.
 
-## Structure
+## Files
 
-```
-docs/
-├── README.md           # This file
-└── context/            # Context for Claude Code and developers
-    ├── TAGS.md         # Canonical tag taxonomy and guidelines
-    └── CATEGORIES.md   # Category taxonomy and guidelines
-```
+| File                                           | Purpose                                                       |
+| ---------------------------------------------- | ------------------------------------------------------------- |
+| [context/CATEGORIES.md](context/CATEGORIES.md) | Category taxonomy with definitions, scopes, and distinctions  |
+| [context/TAGS.md](context/TAGS.md)             | Canonical tag list organized by topic area                    |
+| [context/CONTENT.md](context/CONTENT.md)       | Editorial guidelines - audience, voice, post structure        |
+| [context/STYLE.md](context/STYLE.md)           | Writing style patterns - tone, formatting, sentence structure |
+| [context/HOMEPAGE.md](context/HOMEPAGE.md)     | Homepage curation rules - pills, featured posts, grid         |
 
-## Context Files
+## Usage
 
-### `context/TAGS.md`
+Claude Code should reference these files when:
 
-Defines the 45 canonical tags used across all blog posts. All posts must use tags from this list. Includes:
-
-- Complete tag taxonomy organized by category
-- Guidelines for adding new tags
-- Validation script to check compliance
-- Categories → Tags mapping
-
-### `context/CATEGORIES.md`
-
-Defines the canonical category list for blog posts. Categories are parent topics that group content. Includes:
-
-- Current active categories
-- Legacy categories from older posts
-- Guidelines for creating new categories
-- Category → Tags mapping
-
-## Claude Code Integration
-
-The `/CLAUDE.md` file in the project root is automatically loaded by Claude Code and references these context files. When working with posts, Claude Code will:
-
-1. Automatically load `/CLAUDE.md` (project-specific instructions)
-2. Reference `docs/context/TAGS.md` for tag validation
-3. Reference `docs/context/CATEGORIES.md` for category guidelines
+- **Writing or reviewing posts** → CONTENT.md, STYLE.md, CATEGORIES.md, TAGS.md
+- **Modifying homepage** → HOMEPAGE.md
+- **Categorizing content** → CATEGORIES.md (definitions and distinctions)
 
 ## For Developers
 
 When creating or editing blog posts:
 
-1. **Check** `docs/context/TAGS.md` for valid tags
-2. **Choose** 1-2 categories (broad topics)
-3. **Choose** 2-4 tags (specific topics from canonical list)
-4. **Ensure** categories and tags don't overlap (parents vs children)
-5. **Validate** using the scripts in TAGS.md or CATEGORIES.md
+1. Check `TAGS.md` for valid tags
+2. Choose 1 category from `CATEGORIES.md`
+3. Choose 2-4 tags from canonical list
+4. Follow structure in `CONTENT.md`
+5. Match tone/style in `STYLE.md`
 
-## Adding New Context
+## Maintenance
 
-To add new context files:
+Update these docs when:
 
-1. Create file in `docs/context/`
-2. Update this README
-3. Reference from `/CLAUDE.md` if needed for automatic loading
-4. Keep content focused and actionable
-
-## Excluded from Jekyll Build
-
-The entire `docs/` directory is excluded from the Jekyll build (see `_config.yml`), so these files won't appear on the published blog.
+- Category definitions change
+- New tags are added
+- Editorial direction shifts
+- Homepage curation rules evolve
