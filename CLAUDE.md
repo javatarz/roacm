@@ -167,10 +167,11 @@ Server runs at http://localhost:4000 (main) or custom port for worktrees with li
 
 ### Tags and Categories
 
-- **All posts must use canonical tags from `docs/context/TAGS.md`**
-- 45 canonical tags organized by category (AI/ML, Dev Experience, Architecture, DevOps, etc.)
+When creating or editing blog posts, **always read the context files first** - do not search existing posts:
+
+- **Read `docs/context/TAGS.md`** for the canonical tag list (45 tags organized by topic)
+- **Read `docs/context/CATEGORIES.md`** for valid categories and their descriptions
 - Categories are parents (can have spaces), tags are children (lowercase-hyphenated)
-- See `docs/context/CATEGORIES.md` for category guidelines
 - New tags require conscious decision - update `docs/context/TAGS.md` when adding
 - Run validation script in `docs/context/TAGS.md` to check for non-canonical tags
 
