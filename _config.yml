@@ -19,7 +19,7 @@ permalink: /blog/:year/:month/:day/:title/
 plugins_dir: _plugins
 sass_dir: _sass
 code_dir: downloads/code
-category_dir: /roacm/blog/categories
+category_dir: /blog/categories
 
 highlighter: rouge
 paginate_path: "posts/:num"

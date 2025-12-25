@@ -9,7 +9,7 @@ The homepage consists of:
 1. **Topic Navigation Pills** - Curated category links
 2. **Featured Post** - Hero section with latest/pinned post
 3. **Recent Posts Grid** - 6 posts in responsive 3x2 layout
-4. **View All Link** - Link to /archive/
+4. **View All Link** - Link to /blog/archive/
 
 ## Topic Navigation Pills
 
@@ -78,7 +78,7 @@ The grid is prime real estate. If recent posts don't represent the blog well:
 
 ## Archive Page
 
-The `/archive/` page shows all posts and serves as the complete index. Homepage curation doesn't hide content - it highlights priorities.
+The `/blog/archive/` page shows all posts and serves as the complete index. Homepage curation doesn't hide content - it highlights priorities.
 
 ## Implementation Files
 
@@ -86,5 +86,5 @@ The `/archive/` page shows all posts and serves as the complete index. Homepage 
 - `_includes/featured_post.html` - Hero section
 - `_includes/recent_posts_grid.html` - Post grid
 - `_includes/post_card.html` - Individual card component
-- `index.html` - Composes all components
+- `blog/index.html` - Composes all components
 - `assets/css/overrides.css` - Styling (search for "Blog Index")

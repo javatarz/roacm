@@ -1,0 +1,14 @@
+---
+layout: default
+title: Blog
+description: "Articles on software engineering, AI-assisted development, and technology. From enterprise Java to MLOps to intelligent engineering."
+permalink: /blog/
+---
+
+<div class="blog-index">
+  {% include topic_nav.html %}
+
+  {% include featured_post.html %}
+
+  {% include recent_posts_grid.html count=6 skip=1 %}
+</div>
