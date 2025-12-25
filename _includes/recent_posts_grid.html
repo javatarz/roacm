@@ -1,0 +1,23 @@
+{% comment %}
+  Recent Posts Grid Component
+  Displays a grid of recent posts with section header
+  Parameters:
+    count - number of posts to show (default: 6)
+    skip - number of posts to skip from start (default: 1, to skip featured)
+{% endcomment %}
+
+{% assign recent_count = include.count | default: 6 %}
+{% assign skip_count = include.skip | default: 1 %}
+
+<section class="recent-posts-section" aria-labelledby="recent-heading">
+  <div class="section-header">
+    <h2 id="recent-heading">Recent Posts</h2>
+    <a href="{{ site.baseurl }}/archive/" class="view-all-link">View all posts &rarr;</a>
+  </div>
+
+  <div class="recent-posts-grid">
+    {% for post in site.posts offset:skip_count limit:recent_count %}
+      {% include post_card.html post=post %}
+    {% endfor %}
+  </div>
+</section>

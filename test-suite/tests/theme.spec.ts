@@ -265,9 +265,10 @@ test.describe('Accessibility', () => {
   test('color contrast meets WCAG AA standards', async ({ page }) => {
     await page.goto('/');
 
-    // Test text contrast in light mode
+    // Test text contrast in light mode - use featured post excerpt or post card excerpt
     const textContrast = await page.evaluate(() => {
-      const text = document.querySelector('.entry-content p');
+      const text = document.querySelector('.featured-post-excerpt, .post-card-excerpt, .entry-content p');
+      if (!text) return null;
       const bg = window.getComputedStyle(document.body).backgroundColor;
       const color = window.getComputedStyle(text).color;
       // This is simplified - in real implementation, use a contrast calculation library
@@ -278,7 +279,8 @@ test.describe('Accessibility', () => {
     await page.locator('#theme-toggle').click();
 
     const darkTextContrast = await page.evaluate(() => {
-      const text = document.querySelector('.entry-content p');
+      const text = document.querySelector('.featured-post-excerpt, .post-card-excerpt, .entry-content p');
+      if (!text) return null;
       const bg = window.getComputedStyle(document.body).backgroundColor;
       const color = window.getComputedStyle(text).color;
       return { bg, color };

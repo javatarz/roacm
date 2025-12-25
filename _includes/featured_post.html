@@ -1,0 +1,31 @@
+{% comment %}
+  Featured Post Component
+  Displays the latest post (or one with featured: true) as a hero section
+{% endcomment %}
+
+{% assign featured = site.posts | where: "featured", true | first %}
+{% unless featured %}
+  {% assign featured = site.posts.first %}
+{% endunless %}
+
+<section class="featured-post" aria-labelledby="featured-heading">
+  <h2 id="featured-heading" class="visually-hidden">Featured Post</h2>
+  <article class="featured-post-card">
+    <a href="{{ featured.url }}" class="featured-post-link">
+      <h3 class="featured-post-title">{{ featured.title }}</h3>
+      <div class="featured-post-meta">
+        <time datetime="{{ featured.date | date_to_xmlschema }}">
+          {{ featured.date | date: "%b %d, %Y" }}
+        </time>
+        <span class="featured-post-reading-time">
+          {% assign words = featured.content | number_of_words %}
+          {% assign reading_time = words | divided_by: 200 %}
+          {% if reading_time < 1 %}1{% else %}{{ reading_time }}{% endif %} min read
+        </span>
+      </div>
+      <p class="featured-post-excerpt">
+        {{ featured.excerpt | strip_html | truncatewords: 50 }}
+      </p>
+    </a>
+  </article>
+</section>

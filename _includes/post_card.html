@@ -1,0 +1,22 @@
+{% comment %}
+  Post Card Component
+  Displays a post as a card with title, meta, and excerpt
+  Parameters: post (required)
+{% endcomment %}
+
+<a href="{{ include.post.url }}" class="post-card">
+  <h3 class="post-card-title">{{ include.post.title }}</h3>
+  <div class="post-card-meta">
+    <time datetime="{{ include.post.date | date_to_xmlschema }}">
+      {{ include.post.date | date: "%b %d, %Y" }}
+    </time>
+    <span class="post-card-reading-time">
+      {% assign words = include.post.content | number_of_words %}
+      {% assign reading_time = words | divided_by: 200 %}
+      {% if reading_time < 1 %}1{% else %}{{ reading_time }}{% endif %} min read
+    </span>
+  </div>
+  <p class="post-card-excerpt">
+    {{ include.post.excerpt | strip_html | truncatewords: 25 }}
+  </p>
+</a>
