@@ -1,0 +1,41 @@
+{% comment %}
+  Talk Card Component
+  Displays a talk as a card with thumbnail, title, event, and meta
+  Parameters: talk (required)
+{% endcomment %}
+
+<a href="https://www.youtube.com/watch?v={{ include.talk.id }}"
+   class="talk-card"
+   target="_blank"
+   rel="noopener noreferrer">
+  <div class="talk-card-thumbnail">
+    <img src="https://img.youtube.com/vi/{{ include.talk.id }}/hqdefault.jpg"
+         alt="{{ include.talk.title }}"
+         loading="lazy">
+    <span class="talk-card-duration">{{ include.talk.duration }}</span>
+  </div>
+  <div class="talk-card-content">
+    <h3 class="talk-card-title">{{ include.talk.title }}</h3>
+    <div class="talk-card-meta">
+      <span class="talk-card-event">{{ include.talk.event }}</span>
+      {% if include.talk.location %}
+        <span class="talk-card-location">{{ include.talk.location }}</span>
+      {% endif %}
+    </div>
+    <p class="talk-card-description">{{ include.talk.description | truncatewords: 20 }}</p>
+    {% if include.talk.type or include.talk.co_speakers %}
+      <div class="talk-card-badges">
+        {% if include.talk.type == 'panel' %}
+          <span class="talk-badge talk-badge-panel">Panel</span>
+        {% elsif include.talk.type == 'podcast' %}
+          <span class="talk-badge talk-badge-podcast">Podcast</span>
+        {% elsif include.talk.type == 'live-coding' %}
+          <span class="talk-badge talk-badge-live">Live Coding</span>
+        {% endif %}
+        {% if include.talk.co_speakers %}
+          <span class="talk-badge talk-badge-collab">w/ {{ include.talk.co_speakers | join: ", " }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</a>

@@ -1,0 +1,97 @@
+---
+layout: default
+title: Talks
+description: 'Conference talks and presentations by Karun Japhet on AI-assisted development, machine learning, event-driven architecture, and serverless systems.'
+permalink: /talks/
+---
+
+<h1 class="entry-title">{{ page.title }}</h1>
+
+<p class="talks-intro">
+  I speak at conferences and meetups about distributed systems, event-driven design,
+  machine learning, and AI's role in the software lifecycle. Here are some of my recorded talks.
+</p>
+
+{% assign talks = site.data.talks %}
+{% assign featured_talk = talks | where: "featured", true | first %}
+
+{% if featured_talk %}
+<section class="featured-talk" aria-labelledby="featured-talk-heading">
+  <h2 id="featured-talk-heading" class="visually-hidden">Featured Talk</h2>
+  <article class="featured-talk-card">
+    <div class="featured-talk-video">
+      <div class="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/{{ featured_talk.id }}"
+          title="{{ featured_talk.title }}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+    <div class="featured-talk-content">
+      <h3 class="featured-talk-title">{{ featured_talk.title }}</h3>
+      <div class="featured-talk-meta">
+        <span class="featured-talk-event">{{ featured_talk.event }}</span>
+        <span class="featured-talk-date">{{ featured_talk.date | date: "%b %Y" }}</span>
+        <span class="featured-talk-duration">{{ featured_talk.duration }}</span>
+      </div>
+      <p class="featured-talk-description">{{ featured_talk.description }}</p>
+    </div>
+  </article>
+</section>
+{% endif %}
+
+{% assign ai_talks = talks | where: "theme", "ai-engineering" | where_exp: "talk", "talk.featured != true" %}
+{% if ai_talks.size > 0 %}
+<section class="talks-section" aria-labelledby="ai-talks-heading">
+  <h2 id="ai-talks-heading">AI & Intelligent Engineering</h2>
+  <p class="section-description">Talks on AI-assisted development, responsible AI, and building with LLMs.</p>
+  <div class="talks-grid">
+    {% for talk in ai_talks %}
+      {% include talk_card.html talk=talk %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% assign ml_talks = talks | where: "theme", "machine-learning" %}
+{% assign data_talks = talks | where: "theme", "data-engineering" %}
+{% assign ml_data_talks = ml_talks | concat: data_talks | sort: "date" | reverse %}
+{% if ml_data_talks.size > 0 %}
+<section class="talks-section" aria-labelledby="ml-talks-heading">
+  <h2 id="ml-talks-heading">Machine Learning & Data</h2>
+  <p class="section-description">Talks on practical ML applications and data engineering at scale.</p>
+  <div class="talks-grid">
+    {% for talk in ml_data_talks %}
+      {% include talk_card.html talk=talk %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% assign arch_talks = talks | where: "theme", "architecture" | sort: "date" | reverse %}
+{% if arch_talks.size > 0 %}
+<section class="talks-section" aria-labelledby="arch-talks-heading">
+  <h2 id="arch-talks-heading">Architecture & Integration</h2>
+  <p class="section-description">Talks on event-driven systems, serverless, and enterprise integration.</p>
+  <div class="talks-grid">
+    {% for talk in arch_talks %}
+      {% include talk_card.html talk=talk %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="talks-cta">
+  <p>
+    More talks on my
+    <a href="https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV"
+       target="_blank"
+       rel="noopener noreferrer">YouTube playlist</a>.
+    Interested in having me speak at your event?
+    <a href="mailto:karun@japhet.in">Get in touch</a>.
+  </p>
+</section>
