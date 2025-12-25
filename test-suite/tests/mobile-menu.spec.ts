@@ -7,7 +7,7 @@ test.describe('Mobile Navigation Menu', () => {
   test.describe('Hamburger Button Visibility', () => {
     test('hamburger button is hidden on desktop (>=1280px)', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       await expect(hamburger).toBeHidden();
@@ -15,7 +15,7 @@ test.describe('Mobile Navigation Menu', () => {
 
     test('hamburger button is visible on mobile (<1280px)', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       await expect(hamburger).toBeVisible();
@@ -23,7 +23,7 @@ test.describe('Mobile Navigation Menu', () => {
 
     test('hamburger button appears at exactly 1279px', async ({ page }) => {
       await page.setViewportSize({ width: 1279, height: 800 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       await expect(hamburger).toBeVisible();
@@ -31,7 +31,7 @@ test.describe('Mobile Navigation Menu', () => {
 
     test('hamburger button hidden at exactly 1280px', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 800 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       await expect(hamburger).toBeHidden();
@@ -41,7 +41,7 @@ test.describe('Mobile Navigation Menu', () => {
   test.describe('Menu Open/Close Functionality', () => {
     test.beforeEach(async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto('/');
+      await page.goto('/blog/');
     });
 
     test('clicking hamburger opens sidebar', async ({ page }) => {
@@ -123,7 +123,7 @@ test.describe('Mobile Navigation Menu', () => {
   test.describe('Touch Target Sizing', () => {
     test('hamburger button meets 44x44px minimum touch target', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       const box = await hamburger.boundingBox();
@@ -137,7 +137,7 @@ test.describe('Mobile Navigation Menu', () => {
   test.describe('Focus Management', () => {
     test.beforeEach(async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto('/');
+      await page.goto('/blog/');
     });
 
     test('focus moves to sidebar when opened', async ({ page, browserName }) => {
@@ -204,7 +204,7 @@ test.describe('Mobile Navigation Menu', () => {
     test('menu auto-closes when viewport expands past breakpoint', async ({ page }) => {
       // Start at mobile size
       await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto('/');
+      await page.goto('/blog/');
 
       const hamburger = page.locator('#hamburger-menu');
       const sidebar = page.locator('#mobile-sidebar');
@@ -228,7 +228,7 @@ test.describe('Mobile Navigation Menu', () => {
 test.describe('Mobile Navigation Accessibility', () => {
   test('hamburger button has correct ARIA attributes', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const hamburger = page.locator('#hamburger-menu');
 
@@ -239,7 +239,7 @@ test.describe('Mobile Navigation Accessibility', () => {
 
   test('ARIA attributes update when menu opens', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const hamburger = page.locator('#hamburger-menu');
 
@@ -250,7 +250,7 @@ test.describe('Mobile Navigation Accessibility', () => {
   });
 
   test('sidebar has navigation role and label', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const sidebar = page.locator('#mobile-sidebar');
 
@@ -260,7 +260,7 @@ test.describe('Mobile Navigation Accessibility', () => {
 
   test('meets WCAG standards with menu open @a11y', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Open menu
     await page.locator('#hamburger-menu').click();
@@ -296,7 +296,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
   for (const viewport of mobileViewports) {
     test(`sidebar closed - ${viewport.name} @visual`, async ({ page }) => {
       await page.setViewportSize(viewport);
-      await page.goto('/');
+      await page.goto('/blog/');
 
       await expect(page).toHaveScreenshot(`mobile-menu-closed-${viewport.name}.png`, {
         fullPage: false,
@@ -307,7 +307,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
 
     test(`sidebar open - ${viewport.name} @visual`, async ({ page }) => {
       await page.setViewportSize(viewport);
-      await page.goto('/');
+      await page.goto('/blog/');
 
       await page.locator('#hamburger-menu').click();
       await page.waitForTimeout(350); // Wait for animation
@@ -324,7 +324,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
 test.describe('Mobile Navigation Dark Mode', () => {
   test('hamburger and sidebar style correctly in dark mode @visual', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Switch to dark mode
     await page.locator('#theme-toggle').click();

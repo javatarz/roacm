@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Theme Functionality', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
   });
 
   test('theme toggle switches between light and dark modes @visual', async ({ page }) => {
@@ -150,7 +150,7 @@ test.describe('Responsive Design', () => {
   for (const viewport of viewports) {
     test(`renders correctly at ${viewport.name} (${viewport.width}x${viewport.height}) @visual`, async ({ page, browserName }) => {
       await page.setViewportSize(viewport);
-      await page.goto('/');
+      await page.goto('/blog/');
 
       // Check no horizontal scroll
       // Skip for WebKit mobile - WebKit has rendering quirks that cause false positives
@@ -182,7 +182,7 @@ test.describe('Accessibility', () => {
       localStorage.removeItem('theme');
     });
 
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Verify light mode is active
     const html = page.locator('html');
@@ -238,7 +238,7 @@ test.describe('Accessibility', () => {
       'WebKit requires system settings to enable tab navigation to all elements'
     );
 
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Tab to theme toggle (may need multiple tabs depending on focusable elements before it)
     const themeToggle = page.locator('#theme-toggle');
@@ -263,7 +263,7 @@ test.describe('Accessibility', () => {
   });
 
   test('color contrast meets WCAG AA standards', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Test text contrast in light mode - use featured post excerpt or post card excerpt
     const textContrast = await page.evaluate(() => {
@@ -295,7 +295,7 @@ test.describe('Accessibility', () => {
 test.describe('Performance', () => {
   test('page loads within performance budget', async ({ page }) => {
     const startTime = Date.now();
-    await page.goto('/');
+    await page.goto('/blog/');
     const loadTime = Date.now() - startTime;
 
     // Page should load in under 10 seconds (generous limit for Docker/Colima variance)
@@ -321,7 +321,7 @@ test.describe('Performance', () => {
       }
     });
 
-    await page.goto('/');
+    await page.goto('/blog/');
     await page.locator('#theme-toggle').click();
 
     // Navigate to a post
