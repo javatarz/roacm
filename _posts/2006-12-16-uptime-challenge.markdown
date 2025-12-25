@@ -7,7 +7,7 @@ slug: uptime-challenge
 title: Uptime Challenge
 description: "Entry for Plus! scripting competition using JavaScript, Delphi, PHP and MySQL. A unique multi-language project for the community challenge."
 wordpress_id: 6
-category: Platform Engineering
+category: Personal
 tags:
   - productivity
   - php

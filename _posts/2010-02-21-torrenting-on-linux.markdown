@@ -7,7 +7,7 @@ slug: torrenting-on-linux
 title: Torrenting on Linux
 description: "Complete guide to installing rTorrent with ruTorrent WebUI on Ubuntu. Set up a powerful Linux torrenting system with plugins and automation."
 wordpress_id: 287
-category: Platform Engineering
+category: Device Hacks
 tags:
   - linux
 ---

@@ -7,7 +7,7 @@ slug: desktoppr-downloader
 title: Desktoppr Downloader v1.0
 description: "Automatically download high-resolution wallpapers from Desktoppr API. Python script filters images by resolution and aspect ratio for your desktop."
 wordpress_id: 582
-category: Platform Engineering
+category: Projects
 tags:
   - python
   - api

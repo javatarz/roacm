@@ -7,7 +7,7 @@ slug: file-list-generator-v1-1
 title: File list generator v1.1
 description: "Updated PowerShell script to generate clean file lists. New features exclude sample files and screenshots from your directory listings."
 wordpress_id: 284
-category: Platform Engineering
+category: Projects
 tags:
   - windows
   - productivity

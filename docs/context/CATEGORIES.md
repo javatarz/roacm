@@ -18,36 +18,99 @@ This document defines the canonical category list for ROACM blog posts. Categori
 - Used for filtering and discovery
 - Multiple tags per post allowed
 
-## Current Categories (1 active)
+## Category Definitions
 
 ### intelligent Engineering
 
-**Description**: Principles and practices for building with AI (encompasses AI for Software Engineering)
+**Scope**: Building software with AI assistance - principles, patterns, and tools
 
-**Related tags**:
+**Examples**: Coding assistants, AI-assisted development patterns, prompt engineering
 
-- ai-patterns
-- ai-assisted-development
-- ai-tools
-- coding-assistants
-- engineering-principles
-- machine-learning
-- mlops
-
-**Posts**: 6
+**Related tags**: ai-patterns, ai-assisted-development, ai-tools, coding-assistants, engineering-principles
 
 ---
 
-## Legacy Categories (in older posts)
+### Software Design
 
-These categories appear in older posts but may not be actively used for new content:
+**Scope**: Code architecture, patterns, and programming techniques
 
-- **Device Hacks** - Hardware customizations and mobile device hacking
-- **Developer Experience** - Developer tooling and workflow optimization
-- **Personal** - Personal updates and reflections
-- **Platform Engineering** - Infrastructure and platform work
-- **Software Design** - Software architecture and design patterns
-- **Tech Reviews** - Product reviews and technology evaluations
+**Examples**: Design patterns, event-driven architecture, language features, testing strategies
+
+**Related tags**: architecture, data-engineering, testing
+
+---
+
+### Platform Engineering
+
+**Scope**: Infrastructure, CI/CD, cloud, and operations at scale
+
+**Examples**: Terraform, Kubernetes, CI/CD pipelines, cloud hosting, MLOps platforms
+
+**Related tags**: devops, infrastructure, cloud
+
+**Distinction from Software Design**: System-level (deploy, operate, scale) not code-level
+
+**Distinction from Developer Experience**: Team/org infrastructure not local/individual workflow
+
+---
+
+### Developer Experience
+
+**Scope**: Local dev workflow, tooling, and productivity
+
+**Examples**: IDE setup, shell scripts, git workflows, dev environment optimization
+
+**Related tags**: tools, productivity, developer-experience
+
+**Distinction from Platform Engineering**: Individual developer workflow not team infrastructure
+
+---
+
+### Device Hacks
+
+**Scope**: Hardware tinkering and consumer device modifications
+
+**Examples**: Phone mods, router configs, hardware builds, gaming setups
+
+**Related tags**: hardware, mobile, tutorials
+
+**Distinction from Platform Engineering**: Consumer hardware not server/cloud infrastructure
+
+---
+
+### Tech Reviews
+
+**Scope**: Evaluating products, services, or technologies
+
+**Examples**: OS reviews, product comparisons, technology evaluations
+
+**Related tags**: product-review, opinion
+
+---
+
+### Projects
+
+**Scope**: Tools and utilities built and released publicly
+
+**Examples**: Open source tools, utility scripts, side projects
+
+**Related tags**: tools, open-source
+
+---
+
+### Personal
+
+**Scope**: Life updates and non-technical reflections
+
+**Examples**: Announcements, personal challenges, reflections
+
+**Related tags**: personal
+
+---
+
+## Legacy Note
+
+Most posts use the legacy single-category format (`category: Software Design`). New posts may use multi-category format (`categories:`). Both are supported by Jekyll.
 
 ## Guidelines for Categories
 
