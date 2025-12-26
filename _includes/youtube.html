@@ -1,0 +1,10 @@
+<div class="video-container">
+  <iframe
+    src="https://www.youtube.com/embed/{{ include.id }}"
+    title="{{ include.title | default: 'YouTube video' }}"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+</div>

@@ -137,7 +137,7 @@ There are tons of great YouTube videos out there but there are 2 in general I re
 
 CGP Grey hits it out of the park with amazing visualisations explaining what is Net Neutrality. It is a bit fast paced as all his videos are so you might want to rewind and hear stuff again if it's too fast for you.
 
-{% youtube "https://www.youtube.com/watch?v=wtt2aSV8wdw" %}
+{% include youtube.html id="wtt2aSV8wdw" title="CGP Grey explains Net Neutrality" %}
 
 
 #### John Oliver on Net Neutrality
@@ -145,6 +145,6 @@ CGP Grey hits it out of the park with amazing visualisations explaining what is 
 
 John Oliver does what he does best. Makes fun off things and explains important issues.
 
-{% youtube "https://www.youtube.com/watch?v=fpbOEoRrHyU" %}
+{% include youtube.html id="fpbOEoRrHyU" title="John Oliver on Net Neutrality" %}
 
 _"please don't eat my baaaby.."_

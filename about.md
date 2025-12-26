@@ -32,7 +32,7 @@ I speak at conferences and meetups about distributed systems, event-driven desig
 
 Here’s one of my recent talks:
 
-{% youtube "https://www.youtube.com/watch?v=HXq-Fr6XnV8" %}
+{% include youtube.html id="HXq-Fr6XnV8" title="Recent talk by Karun Japhet" %}
 
 More talks live on my [YouTube playlist](https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV).
 
