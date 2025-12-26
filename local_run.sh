@@ -42,6 +42,7 @@ if lsof -i :$PORT >/dev/null 2>&1; then
     exit 0
 fi
 
+DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 COLIMA_STATUS=$(colima status --json 2>/dev/null || echo '{}')
 COLIMA_RUNNING=$(echo "$COLIMA_STATUS" | grep -q '"status": *"Running"' && echo 1 || echo 0)
 
