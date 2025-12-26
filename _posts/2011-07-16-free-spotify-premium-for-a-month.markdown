@@ -13,6 +13,6 @@ tags:
   - tutorials
 ---
 
-This is more like an extension for my [last post](http://blog.karun.me/blog/2011/07/16/creating-your-spotify-account-in-a-blocked-country/). When you register yourself on Klout and have a look at the spotify perks, you will be given a unique link. Share this with your friends and get 5 of them to register to klout.
+This is more like an extension for my [last post]({% post_url 2011-07-15-creating-your-spotify-account-in-a-blocked-country %}). When you register yourself on Klout and have a look at the spotify perks, you will be given a unique link. Share this with your friends and get 5 of them to register to klout.
 
 Voila! Free Spotify Premium code for you! :-D

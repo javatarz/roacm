@@ -33,7 +33,7 @@ This one is something that us users have known would be part of Windows 7 for mo
 
 ## UI Standardization
 
-Windows 7 products UI consistent with first looks at Office 2010 previews. A couple of days ago Long posted some [blurry screencaps of Office 2010](http://www.istartedsomething.com/20090512/screencaps-office-2010-technical-preview-teched-2009-keynote/) which are consistent with the UI seen in Windows 7. Do you notice the similarity in the new Ribbon on the two products? Not that Vista and Office 2007 weren't in sync, its just that a lot of the applications packaged with Windows Vista weren't all in the same UI style. Some still seemed to style legacy looks. Windows 7 does seem a lot more complete though there are [still some exceptions](http://blog.karun.me/blog/2009/04/20/checking-out-windows-7-build-7077/).
+Windows 7 products UI consistent with first looks at Office 2010 previews. A couple of days ago Long posted some [blurry screencaps of Office 2010](http://www.istartedsomething.com/20090512/screencaps-office-2010-technical-preview-teched-2009-keynote/) which are consistent with the UI seen in Windows 7. Do you notice the similarity in the new Ribbon on the two products? Not that Vista and Office 2007 weren't in sync, its just that a lot of the applications packaged with Windows Vista weren't all in the same UI style. Some still seemed to style legacy looks. Windows 7 does seem a lot more complete though there are [still some exceptions]({% post_url 2009-04-20-checking-out-windows-7-build-7077 %}).
 
 ## Open in new process
 
@@ -67,6 +67,6 @@ Well, I've already made it clear that I find UAC on Vista extremely irritating b
 
 ## High Quality Icons
 
-As [I've already mentioned in my previous post](http://blog.karun.me/blog/2009/04/20/checking-out-windows-7-build-7077/), with the arrival of Superbar, the icons being shown need to be of a much higher resolution to avoid tearing. Yet some icons are still not up to the mark. This is like [Windows Vista's non-standardized UI](http://www.istartedsomething.com/20080531/windows-ui-taskforce-your-help-wanted/) all over again just not as bad. Microsoft has put in a lot of effort into revamping the UI on most applications but I guess it has missed out on a few. Nothing that can't be fixed in a giffy ;)
+As [I've already mentioned in my previous post]({% post_url 2009-04-20-checking-out-windows-7-build-7077 %}), with the arrival of Superbar, the icons being shown need to be of a much higher resolution to avoid tearing. Yet some icons are still not up to the mark. This is like [Windows Vista's non-standardized UI](http://www.istartedsomething.com/20080531/windows-ui-taskforce-your-help-wanted/) all over again just not as bad. Microsoft has put in a lot of effort into revamping the UI on most applications but I guess it has missed out on a few. Nothing that can't be fixed in a giffy ;)
 
 There are more features in Windows 7 just waiting to be discovered. Windows 7 RC does look quite promising. These are just some of the things that make this such a great OS. Quite a few of them are minor, probably don't feel like much when being mentioned while others are fixes to old problems that have plagued users for many a year but all of it contribute to make this a worthy successor to Windows Vista :)

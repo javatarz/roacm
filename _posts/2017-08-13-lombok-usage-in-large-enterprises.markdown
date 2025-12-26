@@ -179,7 +179,7 @@ public class Person {
 }
 {% endhighlight %}
 
-will provide no feedback. The code will compile and set `employeeId`s to `firstName`s, `firstName`s to `lastName`s and `lastName`s to `employeeId`s. If you don't have tests on the behavior of the `Person` class, you won't notice this issue until it's too late. Hopefully, you don't have [tests for a data container with no behavior](https://blog.karun.me/blog/2016/02/28/commonly-made-mistakes-in-unit-testing/).
+will provide no feedback. The code will compile and set `employeeId`s to `firstName`s, `firstName`s to `lastName`s and `lastName`s to `employeeId`s. If you don't have tests on the behavior of the `Person` class, you won't notice this issue until it's too late. Hopefully, you don't have [tests for a data container with no behavior]({% post_url 2016-02-28-commonly-made-mistakes-in-unit-testing %}).
 
 ## Where is Lombok appropriate?
 

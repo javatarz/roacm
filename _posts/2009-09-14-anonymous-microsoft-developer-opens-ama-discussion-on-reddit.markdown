@@ -20,7 +20,7 @@ Ask him about anything from life at Microsoft to questions on their product and 
 <blockquote>I worked on Vista and Windows 7, and will also be working on Windows 8. Ask me anything you want about the company, culture, lifestyle, seattle, products, etc. and I'll answer the best I can without getting fired.</blockquote>
 
 
-He has put up some info for students looking at becoming Interns at Redmond. Most of it is the same stuff you'd read around the internet but here's something I read for the first time and I must say, I agree with especially since this was how [I got my trip to Redmond](http://blog.karun.me/blog/2009/06/29/visit-to-microsoft-redmond/) ;)
+He has put up some info for students looking at becoming Interns at Redmond. Most of it is the same stuff you'd read around the internet but here's something I read for the first time and I must say, I agree with especially since this was how [I got my trip to Redmond]({% post_url 2009-06-29-visit-to-microsoft-redmond %}) ;)
 
 
 <blockquote>Also, there is one other way you can consider to try to get an internship. The [Imagine Cup](http://imaginecup.com/) is a competition that Microsoft hosts for students. In the past, top ranked students from each region have been flown out for interviews at Redmond, skipping the whole screening process. I can't promise that they will continue to do this, but if I ever saw a student who placed well in the imagine cup, I would definitely see it as being very positive.</blockquote>

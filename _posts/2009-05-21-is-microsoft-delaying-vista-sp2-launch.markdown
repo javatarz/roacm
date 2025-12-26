@@ -30,7 +30,7 @@ May be it has something to do with what Bill Veghte had to say..
 
 
 
-So I'm guessing Microsoft wants to push Windows 7 further. They are marketting it towards that set of population which didn't like Vista, either because of the [Mojave factor](http://www.microsoft.com/windows/mojave-experiment/) or its "high" hardware requirements (mostly the former I presume). As for organizations, if XP legacy is an issue, surely [Windows 7's XP Mode](http://blog.karun.me/blog/2009/05/16/windows-7-a-second-look/) is there to help ;)
+So I'm guessing Microsoft wants to push Windows 7 further. They are marketting it towards that set of population which didn't like Vista, either because of the [Mojave factor](http://www.microsoft.com/windows/mojave-experiment/) or its "high" hardware requirements (mostly the former I presume). As for organizations, if XP legacy is an issue, surely [Windows 7's XP Mode]({% post_url 2009-05-15-windows-7-a-second-look %}) is there to help ;)
 
 
 

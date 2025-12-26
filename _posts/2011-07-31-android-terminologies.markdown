@@ -43,7 +43,7 @@ So you can root and/or install custom radio and/or install custom roms
 
 ## Why root?
 
-So you can use apps such as screenshot and/or titanium backup which require special privileges. You can also do things such as install custom boot animations ;) (Point #7 on [my post titled "Complete guide from S-On to S-Off to Root and customizations!" for HTC Incredible Son XDA-Developers Forum](http://forum.xda-developers.com/showpost.php?p=14924283&postcount=83)" which I have also talked about [here](http://blog.karun.me/blog/2011/06/24/htc-incredible-s-from-stock-to-custom-roms-with-root-and-customizations/))
+So you can use apps such as screenshot and/or titanium backup which require special privileges. You can also do things such as install custom boot animations ;) (Point #7 on [my post titled "Complete guide from S-On to S-Off to Root and customizations!" for HTC Incredible Son XDA-Developers Forum](http://forum.xda-developers.com/showpost.php?p=14924283&postcount=83)" which I have also talked about [here]({% post_url 2011-06-24-htc-incredible-s-from-stock-to-custom-roms-with-root-and-customizations %}))
 
 ## Why install a custom ROM?
 

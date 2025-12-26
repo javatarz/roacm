@@ -17,6 +17,6 @@ I also realized that [Kimsufi](http://kimsufi.ie/) came up with cheaper servers 
 
 I've now officially moved to my new server, Cybershark!
 
-I have made it a point not to have PHP on this server. It's time to stop my dependency on it. Good bye [Wordpress](https://wordpress.org/). Welcome [Octopress](https://github.com/octopress/octopress). Good bye [Soccer Scraper](http://blog.karun.me/dev/soccer-scraper/). Google Now will do fine :)
+I have made it a point not to have PHP on this server. It's time to stop my dependency on it. Good bye [Wordpress](https://wordpress.org/). Welcome [Octopress](https://github.com/octopress/octopress). Good bye Soccer Scraper. Google Now will do fine :)
 
 This means some of the internal dependencies I had (such as PHP mailers) needs to now be moved to another technology. Hello [Node.JS](https://nodejs.org/). I think we might be good friends :)
