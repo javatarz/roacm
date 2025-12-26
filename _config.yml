@@ -37,6 +37,11 @@ default_asides:
 disqus_short_name: roacm
 disqus_show_comment_count: true
 
+# Umami Analytics (only loaded in production)
+umami:
+  src: https://umami-javatarz.vercel.app/script.js
+  website_id: 72210660-1862-4bd0-81b1-0bb5766381d8
+
 github_user: javatarz
 github_repo_count: 3
 github_skip_forks: true

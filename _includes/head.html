@@ -33,4 +33,8 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  {% if jekyll.environment == "production" and site.umami %}
+  <!-- Umami Analytics -->
+  <script defer src="{{ site.umami.src }}" data-website-id="{{ site.umami.website_id }}"></script>
+  {% endif %}
 </head>
