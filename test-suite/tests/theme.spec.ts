@@ -12,7 +12,7 @@ test.describe('Theme Functionality', () => {
     await expect(html).not.toHaveAttribute('data-theme', 'dark');
 
     // Take light mode screenshot
-    await expect(page).toHaveScreenshot('homepage-light.png', {
+    await expect(page).toHaveScreenshot('blog-index-light.png', {
       fullPage: true,
       animations: 'disabled',
       maxDiffPixelRatio: 0.02,
@@ -26,7 +26,7 @@ test.describe('Theme Functionality', () => {
     await expect(html).toHaveAttribute('data-theme', 'dark');
 
     // Take dark mode screenshot
-    await expect(page).toHaveScreenshot('homepage-dark.png', {
+    await expect(page).toHaveScreenshot('blog-index-dark.png', {
       fullPage: true,
       animations: 'disabled',
       maxDiffPixelRatio: 0.02,
@@ -163,7 +163,7 @@ test.describe('Responsive Design', () => {
       }
 
       // Take screenshot for visual regression
-      await expect(page).toHaveScreenshot(`homepage-${viewport.name}.png`, {
+      await expect(page).toHaveScreenshot(`blog-index-${viewport.name}.png`, {
         fullPage: true,
         animations: 'disabled',
         maxDiffPixelRatio: 0.02,
