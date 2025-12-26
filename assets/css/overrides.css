@@ -70,6 +70,13 @@ body {
     color 0.3s ease;
 }
 
+/* Superscript styling for date ordinals */
+sup {
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+}
+
 /* Skip link for keyboard navigation accessibility */
 .skip-link {
   background: var(--accent-color);
