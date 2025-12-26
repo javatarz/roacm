@@ -10,6 +10,12 @@ import { test, expect } from '@playwright/test';
  * - Tier 3: Secondary pages (category, tag, 404)
  */
 
+// Block external services that cause flaky tests due to async loading
+test.beforeEach(async ({ page }) => {
+  // Block Disqus comments - loads asynchronously and causes variable page height
+  await page.route('**/*.disqus.com/**', (route) => route.abort());
+});
+
 const viewports = [
   { name: 'desktop', width: 1920, height: 1080 },
   { name: 'laptop', width: 1280, height: 800 },
