@@ -1,6 +1,6 @@
 <span>
-  {% if post.date %}{{ post.date | date_to_long_string: "ordinal" }}{% endif %}
+  {% if post.date %}{% include date_with_ordinal.html date=post.date %}{% endif %}
 
-  {% if page.date %}<strong>Created</strong>: {{ page.date | date_to_long_string: "ordinal" }}{% endif %}
-  {% if page.updated %}<br />Updated</strong>: {{ page.updated | date_to_long_string: "ordinal" }}{% endif %}
+  {% if page.date %}<strong>Created</strong>: {% include date_with_ordinal.html date=page.date %}{% endif %}
+  {% if page.updated %}<br />Updated</strong>: {% include date_with_ordinal.html date=page.updated %}{% endif %}
 </span>

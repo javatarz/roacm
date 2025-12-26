@@ -1,0 +1,25 @@
+{% comment %}
+  Formats a date with superscripted ordinal indicators (st, nd, rd, th)
+  Usage: {% include date_with_ordinal.html date=page.date %}
+  Output: 9<sup>th</sup> April 2008
+{% endcomment %}
+{% assign day = include.date | date: "%-d" %}
+{% assign month = include.date | date: "%B" %}
+{% assign year = include.date | date: "%Y" %}
+
+{% assign last_digit = day | modulo: 10 %}
+{% assign last_two = day | modulo: 100 %}
+
+{% if last_two >= 11 and last_two <= 13 %}
+  {% assign ordinal = "th" %}
+{% elsif last_digit == 1 %}
+  {% assign ordinal = "st" %}
+{% elsif last_digit == 2 %}
+  {% assign ordinal = "nd" %}
+{% elsif last_digit == 3 %}
+  {% assign ordinal = "rd" %}
+{% else %}
+  {% assign ordinal = "th" %}
+{% endif %}
+
+{{ day }}<sup>{{ ordinal }}</sup> {{ month }} {{ year }}
