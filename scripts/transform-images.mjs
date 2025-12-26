@@ -104,7 +104,7 @@ async function transformImgTag(imgTag) {
   const src = srcMatch[1];
 
   // Extract the asset path - handles both relative and full URLs
-  // e.g., "/assets/images/uploads/foo.jpg" or "https://blog.karun.me/assets/images/uploads/foo.jpg"
+  // e.g., "/assets/images/uploads/foo.jpg" or "https://karun.me/assets/images/uploads/foo.jpg"
   const assetPath = extractAssetPath(src);
   if (!assetPath) {
     return imgTag;

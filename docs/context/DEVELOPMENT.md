@@ -4,7 +4,7 @@ Reference for working on the ROACM website codebase. Load this when working on l
 
 ## Project Overview
 
-ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at blog.karun.me using `jekyll-theme-dinky` with customizations for typography, code blocks, reading progress, dark mode, and accessibility.
+ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at karun.me using `jekyll-theme-dinky` with customizations for typography, code blocks, reading progress, dark mode, and accessibility.
 
 ## Development Commands
 
