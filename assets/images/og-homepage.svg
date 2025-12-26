@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      .bg { fill: #1a1a1a; }
+      .name { fill: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 72px; font-weight: 700; }
+      .tagline { fill: #b0b0b0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 32px; font-weight: 400; }
+      .accent { fill: #4a9eff; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="1200" height="630"/>
+
+  <!-- Accent bar -->
+  <rect class="accent" x="0" y="0" width="8" height="630"/>
+
+  <!-- Content -->
+  <text class="name" x="600" y="260" text-anchor="middle">Karun Japhet</text>
+  <text class="tagline" x="600" y="330" text-anchor="middle">Engineering leader writing about</text>
+  <text class="tagline" x="600" y="380" text-anchor="middle">AI-assisted delivery, architecture,</text>
+  <text class="tagline" x="600" y="430" text-anchor="middle">and developer experience.</text>
+</svg>
