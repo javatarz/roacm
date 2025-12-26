@@ -68,7 +68,7 @@ social:
     - https://www.linkedin.com/in/karunjaphet
 twitter:
   username: javatarz
-  card: summary
+  card: summary_large_image
 
 jekyll-archives:
   enabled:
