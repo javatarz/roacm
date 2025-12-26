@@ -252,13 +252,15 @@ test.describe('Mobile Navigation Accessibility', () => {
     await expect(hamburger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test('sidebar has navigation role and label', async ({ page }) => {
+  test('sidebar has accessible label', async ({ page }) => {
     await page.goto('/blog/');
 
     const sidebar = page.locator('#mobile-sidebar');
 
-    await expect(sidebar).toHaveAttribute('role', 'navigation');
-    await expect(sidebar).toHaveAttribute('aria-label', 'Site navigation');
+    // Header element should not have role="navigation" (ARIA violation)
+    // Semantic meaning conveyed by <header> element itself
+    await expect(sidebar).not.toHaveAttribute('role', 'navigation');
+    await expect(sidebar).toHaveAttribute('aria-label', 'Site header');
   });
 
   test('meets WCAG standards with menu open @a11y', async ({ page }) => {
