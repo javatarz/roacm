@@ -2165,6 +2165,7 @@ body.homepage {
 }
 
 .homepage-contact-cta:hover {
+  color: #ffffff;
   opacity: 0.9;
   transform: translateY(-1px);
 }
