@@ -230,6 +230,8 @@ h4 {
 /* Header/sidebar styling - sidebar is always dark so needs light text */
 p.header {
   color: #cccccc;
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 h1.header,
