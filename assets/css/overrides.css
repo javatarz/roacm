@@ -1993,6 +1993,14 @@ body.homepage {
   padding: 0;
 }
 
+/* Center main content on homepage (no sidebar) */
+@media (width > 960px) {
+  body.homepage main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* Hero Section - Full width, outside wrapper */
 .homepage-hero {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
