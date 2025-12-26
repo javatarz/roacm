@@ -105,109 +105,18 @@ Use Git worktrees to work on multiple issues in parallel without switching branc
 
 ### Website/Theme Development
 
-When working on layouts, components, CSS, JavaScript, or any theme files:
+- **Read `docs/context/DEVELOPMENT.md`** - Commands, file structure, architecture
+- **Read `docs/context/TESTING.md`** - Testing requirements and workflows
 
-- **Read `docs/context/TESTING.md`** - Testing requirements, test locations, platform-specific snapshots
-
-### Blog Content Creation/Editing
-
-When creating or editing blog posts:
+### Blog Content
 
 - **Read `docs/context/TAGS.md`** - Canonical tag list
-- **Read `docs/context/CATEGORIES.md`** - Valid categories and descriptions
+- **Read `docs/context/CATEGORIES.md`** - Valid categories
 - **Read `docs/context/CONTENT.md`** - Content guidelines
-- **Read `docs/context/STYLE.md`** - Writing style guidelines
+- **Read `docs/context/STYLE.md`** - Writing style
 
 ### Homepage/Landing Pages
 
-When working on the homepage or other landing pages:
-
-- **Read `docs/context/HOMEPAGE.md`** - Homepage structure and sections
+- **Read `docs/context/HOMEPAGE.md`** - Homepage structure
 
 **Do not load all context files at once - only load what's relevant to the current task.**
-
-## Performance & Quality Gates
-
-### Lighthouse Score Thresholds
-
-Lighthouse CI enforces minimum score thresholds that **block builds** if violated:
-
-**Current Thresholds** (in `test-suite/configs/lighthouse.config.js`):
-
-- Performance: 0.70 (70%)
-- Accessibility: 0.84 (84%)
-- SEO: 0.90 (90%)
-- Best Practices: Skipped (sometimes returns null)
-
-**Rules:**
-
-1. **Thresholds only increase, never decrease** - CI enforces this via `check-lighthouse-thresholds.js`
-2. **Update manually** when scores consistently improve above current threshold
-3. **Update in small increments** (+0.03 to +0.05) to avoid flakiness
-4. **Document reason** in commit message when updating thresholds
-
-**How to Update Thresholds:**
-
-1. Run `npm run test:lighthouse` locally several times to verify consistent improvement
-2. Check recent CI runs to confirm production scores match local
-3. Update threshold in `lighthouse.config.js` (e.g., 0.70 → 0.75)
-4. Commit with message like: "Update Lighthouse performance threshold: 0.70 → 0.75"
-5. CI will verify threshold didn't decrease and Lighthouse will verify scores meet new threshold
-
-**Related:**
-
-- #97 - Lighthouse CI score thresholds (Phase 1)
-- #100 - Automate threshold updates (Phase 2)
-- #101 - Improve Lighthouse scores
-
-## Project Overview
-
-ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at blog.karun.me using `jekyll-theme-dinky` with customizations for typography, code blocks, reading progress, dark mode, and accessibility.
-
-## Development Commands
-
-```bash
-# Local server
-./local_run.sh                    # Start Jekyll (limits to 10 posts)
-./local_run.sh --all-posts        # Include all posts
-./local_run.sh --port 4001        # Custom port (for worktrees)
-
-# Testing
-npm test                          # All tests (lint + e2e)
-npm run preflight                 # Full validation (all browsers + a11y + lighthouse)
-npm run test:e2e -- --project=chromium  # Single browser
-
-# Linting
-npm run lint:css && npm run lint:js && npm run lint:html
-
-# Worktree management
-./scripts/worktree-list.sh        # List all worktrees
-./scripts/worktree-cleanup.sh     # Clean up old worktrees
-
-# New post
-docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll-dev thor jekyll:new "Post Title"
-```
-
-Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
-
-## Content Guidelines
-
-### Tags and Categories
-
-When creating or editing blog posts, **always read the context files first** - do not search existing posts:
-
-- **Read `docs/context/TAGS.md`** for the canonical tag list (45 tags organized by topic)
-- **Read `docs/context/CATEGORIES.md`** for valid categories and their descriptions
-- Categories are parents (can have spaces), tags are children (lowercase-hyphenated)
-- New tags require conscious decision - update `docs/context/TAGS.md` when adding
-- Run validation script in `docs/context/TAGS.md` to check for non-canonical tags
-
-## Key Files
-
-- `_layouts/` - Page templates (`default.html`, `post.html`, `page.html`)
-- `_includes/` - Reusable components (head, sidebar, footer, theme_toggle)
-- `_posts/` - Blog posts in markdown
-- `assets/css/overrides.css` - All theme customizations
-- `assets/js/` - Interactive features (code-blocks, reading-progress, back-to-top, search)
-- `test-suite/` - Playwright tests and configs
-- `docs/context/` - Context files for Claude Code (TAGS.md, CATEGORIES.md)

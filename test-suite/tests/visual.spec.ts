@@ -50,7 +50,7 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
         await pw.waitForLoadState('domcontentloaded');
 
         // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(1000);
+        await pw.waitForTimeout(300);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -68,7 +68,7 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
 
       // Wait for content to load
       await pw.waitForLoadState('domcontentloaded');
-      await pw.waitForTimeout(1000);
+      await pw.waitForTimeout(300);
 
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
@@ -99,7 +99,7 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
         await pw.waitForLoadState('domcontentloaded');
 
         // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(1000);
+        await pw.waitForTimeout(300);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -117,7 +117,7 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
 
       // Wait for content to load
       await pw.waitForLoadState('domcontentloaded');
-      await pw.waitForTimeout(1000);
+      await pw.waitForTimeout(300);
 
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
@@ -148,7 +148,7 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
         await pw.waitForLoadState('domcontentloaded');
 
         // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(1000);
+        await pw.waitForTimeout(300);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -166,7 +166,7 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
 
       // Wait for content to load
       await pw.waitForLoadState('domcontentloaded');
-      await pw.waitForTimeout(1000);
+      await pw.waitForTimeout(300);
 
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
