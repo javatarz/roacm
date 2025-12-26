@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog.karun.me/sitemap.xml
+Sitemap: https://karun.me/sitemap.xml

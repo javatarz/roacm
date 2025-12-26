@@ -285,7 +285,7 @@ header a:hover {
 }
 
 /* External links indicator */
-.post-content a[href^='http']:not([href*='blog.karun.me'])::after {
+.post-content a[href^='http']:not([href*='karun.me'])::after {
   content: ' ↗';
   font-size: 0.8em;
   opacity: 0.6;
