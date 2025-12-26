@@ -20,14 +20,14 @@
 
   <div class="homepage-cards-grid">
     {% for talk in display_talks %}
-    <a href="https://www.youtube.com/watch?v={{ talk.id }}" class="homepage-card" target="_blank" rel="noopener">
+    <a href="https://www.youtube.com/watch?v={{ talk.id }}" class="homepage-card" target="_blank" rel="noopener" {% if talk.description %}title="{{ talk.description | strip_newlines | strip }}"{% endif %}>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">
         <span>{{ talk.event }}</span>
         <span>{{ talk.date | date: "%Y" }}</span>
       </div>
       {% if talk.description %}
-      <p class="homepage-card-description">{{ talk.description | truncatewords: 20 }}</p>
+      <p class="homepage-card-description">{{ talk.description | truncatewords: 25 }}</p>
       {% endif %}
     </a>
     {% endfor %}

@@ -10,12 +10,12 @@ featured:
 
   - name: credit-card-lending
     url: https://github.com/javatarz/credit-card-lending
-    description: Exploring intelligent Engineering through a credit card lending platform
+    description: What happens when you build software with AI as a true collaborator? Exploring intelligent Engineering (iE) through a credit card lending platform — TDD, context docs for LLMs, and automated workflows.
     language: Java
     stars: 1
 
   - name: github-contribution-leaderboard
     url: https://github.com/javatarz/github-contribution-leaderboard
-    description: Hacktoberfest leaderboard on command line
+    description: Helps build a Hacktoberfest leaderboard on command line
     language: Python
     stars: 5

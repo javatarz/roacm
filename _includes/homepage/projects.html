@@ -11,7 +11,7 @@
 
   <div class="homepage-cards-grid">
     {% for project in site.data.projects.featured limit:3 %}
-    <a href="{{ project.url }}" class="homepage-card" target="_blank" rel="noopener">
+    <a href="{{ project.url }}" class="homepage-card" target="_blank" rel="noopener" {% if project.description %}title="{{ project.description }}"{% endif %}>
       <h3 class="homepage-card-title">{{ project.name }}</h3>
       <div class="homepage-card-meta">
         {% if project.language %}
