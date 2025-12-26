@@ -25,6 +25,15 @@
       <div class="homepage-card-meta">
         <span>{{ talk.event }}</span>
         <span>{{ talk.date | date: "%Y" }}</span>
+        {% if talk.duration_minutes %}
+          {% assign hours = talk.duration_minutes | divided_by: 60 %}
+          {% assign mins = talk.duration_minutes | modulo: 60 %}
+          {% if hours > 0 %}
+            <span>{{ hours }}h {% if mins > 0 %}{{ mins }}m{% endif %}</span>
+          {% else %}
+            <span>{{ mins }}m</span>
+          {% endif %}
+        {% endif %}
       </div>
       {% if talk.description %}
       <p class="homepage-card-description">{{ talk.description | truncatewords: 25 }}</p>

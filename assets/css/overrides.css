@@ -2114,6 +2114,11 @@ body.homepage {
   margin-bottom: 8px;
 }
 
+.homepage-card-meta span:not(:first-child)::before {
+  content: '·';
+  margin-right: 12px;
+}
+
 .homepage-card-description {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
