@@ -4,7 +4,7 @@ title: About
 description: 'Karun Japhet — engineer at Sahaj Software working on large-scale systems, architecture, and AI-assisted software development.'
 permalink: /about/
 date: 2008-04-09 07:00:17+00:00
-updated: 2024-11-27 09:26:00+05:30
+updated: 2025-11-28 06:51:00+05:30
 ---
 
 Hey there!
