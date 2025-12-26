@@ -1,5 +1,5 @@
 <header id="mobile-sidebar" role="navigation" aria-label="Site navigation">
   <h1 class="header"><a href="{{ "/" | site.relative_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
-  <p class="header">{{ site.subtitle | default: site.github.project_tagline }}</p>
+  <p class="header">{% assign subtitle = site.subtitle | default: site.github.project_tagline %}{% if subtitle contains 'Scale' %}{{ subtitle | replace: 'Scale', '<span style="color: var(--accent-color)">Scale</span>' }}{% else %}{{ subtitle }}{% endif %}</p>
   {% include search.html %}
 </header>
