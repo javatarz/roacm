@@ -42,11 +42,10 @@ if lsof -i :$PORT >/dev/null 2>&1; then
     exit 0
 fi
 
-DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
-COLIMA_STATUS=$(colima status --json 2>/dev/null || echo '{}')
-COLIMA_RUNNING=$(echo "$COLIMA_STATUS" | grep -q '"status": *"Running"' && echo 1 || echo 0)
+export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 
-if [ "$COLIMA_RUNNING" -eq 1 ]; then
+# Check if Colima is running (exit code 0 means running)
+if colima status >/dev/null 2>&1; then
     echo "Colima is running."
 else
     echo "Starting Colima."
