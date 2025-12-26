@@ -39,4 +39,4 @@ Hopefully you were smart enough to figure out that you do need administrator rig
 
 So the next time you cannot delete a file in Windows Vista even though you have administrator rights, try using takeown and icacls ;)
 
-**Update (8th October, 2013):** Over 6 and a half years later, This solution didn't work for me. Another, rather weird one, did. I've written about it in my post [Windows 7: Unable to delete files – “Access is denied” error messages](http://blog.karun.me/blog/2013/10/08/windows-7-unable-to-delete-files-access-is-denied-error-messages/) so do check it out!
+**Update (8th October, 2013):** Over 6 and a half years later, This solution didn't work for me. Another, rather weird one, did. I've written about it in my post [Windows 7: Unable to delete files – “Access is denied” error messages]({% post_url 2013-10-08-windows-7-unable-to-delete-files-access-is-denied-error-messages %}) so do check it out!
