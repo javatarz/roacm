@@ -484,6 +484,7 @@ article h1 a:hover {
 /* Blog post title - match homepage styling */
 .entry-title {
   font-weight: 200;
+  margin-top: -20px; /* Reduce offset on category pages */
 }
 
 article img,
