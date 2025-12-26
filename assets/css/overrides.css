@@ -1429,23 +1429,153 @@ small {
 
 /* 404 Error page */
 .error-page {
-  padding: 60px 20px;
+  padding: 20px 20px 40px;
+}
+
+/* Header with 404 + title on same line */
+.error-header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.error-code {
+  color: var(--accent-color);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.error-header h1 {
+  color: var(--text-primary);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Big red shrug - centered */
+.error-shrug {
+  color: var(--accent-color);
+  font-size: 60px;
+  line-height: 1;
+  margin: 0 0 16px;
   text-align: center;
 }
 
-.error-page h1 {
+/* Description text - centered */
+.error-description {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 auto 20px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Image - centered */
+.error-image {
+  margin: 0 auto 24px;
+  max-width: 350px;
+  text-align: center;
+}
+
+.error-image img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+/* Navigation - left-aligned with bullets */
+.error-nav {
+  margin: 0 auto 20px;
+  max-width: 600px;
+}
+
+.error-nav h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.error-nav ul {
+  list-style: disc;
+  margin: 0;
+  padding-left: 24px;
+}
+
+.error-nav li {
+  color: var(--text-primary);
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+.error-nav a {
   color: var(--accent-color);
-  font-size: 120px;
-  line-height: 1;
-  margin: 0 0 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
-.error-page h2 {
-  margin: 0 0 24px;
+.error-nav a:hover {
+  opacity: 0.8;
 }
 
-.error-page p {
-  margin: 12px 0;
+/* Pro tip - centered */
+.error-tip {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+.error-tip kbd {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+
+/* Mobile adjustments for 404 page */
+@media (max-width: 600px) {
+  .error-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .error-code {
+    font-size: 80px;
+  }
+
+  .error-header h1 {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .error-shrug {
+    font-size: 60px;
+  }
+
+  .error-description {
+    font-size: 16px;
+  }
+
+  .error-image {
+    max-width: 100%;
+  }
+
+  .error-nav {
+    padding: 0 20px;
+  }
 }
 
 /* ==========================================================================

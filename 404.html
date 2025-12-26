@@ -5,8 +5,60 @@ permalink: /404.html
 ---
 
 <div class="error-page">
-  <h1>404</h1>
-  <h2>Page Not Found</h2>
-  <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
-  <p><a href="/">Back to Homepage</a></p>
+  <div class="error-header">
+    <span class="error-code">404</span>
+    <h1>This page might have wandered off</h1>
+  </div>
+
+  <div class="error-shrug">¯\_(ツ)_/¯</div>
+
+  <p class="error-description">Maybe it's taking a coffee break, or maybe it never existed.<br>
+  Either way, it's definitely not here right now.</p>
+
+  <div class="error-image">
+    <img src="/assets/images/404-travolta.gif" alt="Confused John Travolta from Pulp Fiction looking around" loading="lazy">
+  </div>
+
+  <div class="error-nav">
+    <h3>Let's get you back on track</h3>
+    <ul>
+      <li><a href="/">Home</a> – Where everything starts</li>
+      <li><a href="/blog/">Blog</a> – All my posts and ramblings</li>
+      <li><a href="/blog/archive/">Archive</a> – Time travel through my writing</li>
+    </ul>
+  </div>
+
+  <p class="error-tip" id="search-tip">
+    <strong>Pro tip:</strong> Press <kbd id="shortcut-key">Cmd+K</kbd> to search from anywhere on the site.
+  </p>
 </div>
+
+<script>
+(function() {
+  // Detect OS and show appropriate keyboard shortcut
+  var shortcutEl = document.getElementById('shortcut-key');
+  var tipEl = document.getElementById('search-tip');
+
+  // Hide on mobile/touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    if (tipEl) tipEl.style.display = 'none';
+    return;
+  }
+
+  // Detect OS
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  var isMac = /Mac|iPhone|iPad|iPod/.test(userAgent);
+  var isWindows = /Win/.test(userAgent);
+
+  if (shortcutEl) {
+    if (isMac) {
+      shortcutEl.textContent = 'Cmd+K';
+    } else if (isWindows) {
+      shortcutEl.textContent = 'Ctrl+K';
+    } else {
+      // If unsure, show both
+      shortcutEl.textContent = 'Cmd+K or Ctrl+K';
+    }
+  }
+})();
+</script>
