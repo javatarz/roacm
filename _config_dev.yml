@@ -7,7 +7,6 @@ plugins:
   - jekyll-gist
   - jekyll-target-blank
   - jekyll-sitemap
-  - jekyll-paginate
   - jekyll-youtube
   - jekyll-watch
   # jekyll-feed is intentionally excluded for 30s speedup
