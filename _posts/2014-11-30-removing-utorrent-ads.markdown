@@ -7,7 +7,7 @@ slug: removing-utorrent-ads
 title: Removing uTorrent ads
 description: "Remove all ads and featured content from uTorrent with these hidden settings. Complete guide to disable sponsored torrents and promotional banners."
 wordpress_id: 615
-category: Developer Experience
+category: Engineering Practices
 tags:
   - tutorials
 ---

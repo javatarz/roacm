@@ -7,7 +7,7 @@ slug: converting-fat32-disks-to-ntfs
 title: Converting FAT32 disks to NTFS
 description: "Convert FAT32 to NTFS in under 3 seconds without losing data. Simple one-line Windows command for instant filesystem conversion."
 wordpress_id: 450
-category: Developer Experience
+category: Engineering Practices
 tags:
   - windows
   - infrastructure

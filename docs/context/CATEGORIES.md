@@ -50,19 +50,19 @@ This document defines the canonical category list for ROACM blog posts. Categori
 
 **Distinction from Software Design**: System-level (deploy, operate, scale) not code-level
 
-**Distinction from Developer Experience**: Team/org infrastructure not local/individual workflow
+**Distinction from Engineering Practices**: Team/org infrastructure not workflow/culture
 
 ---
 
-### Developer Experience
+### Engineering Practices
 
-**Scope**: Local dev workflow, tooling, and productivity
+**Scope**: How individuals and teams work effectively - tooling, workflows, and culture
 
-**Examples**: IDE setup, shell scripts, git workflows, dev environment optimization
+**Examples**: IDE setup, shell scripts, git workflows, dev environment optimization, team ceremonies, organizational transparency
 
-**Related tags**: tools, productivity, developer-experience
+**Related tags**: tools, productivity, developer-experience, engineering-culture, leadership
 
-**Distinction from Platform Engineering**: Individual developer workflow not team infrastructure
+**Distinction from Platform Engineering**: How we work (individual + team), not infrastructure
 
 ---
 
@@ -84,7 +84,7 @@ This document defines the canonical category list for ROACM blog posts. Categori
 
 **Examples**: OS reviews, product comparisons, technology evaluations
 
-**Related tags**: product-review, opinion
+**Related tags**: product-review
 
 ---
 

@@ -7,7 +7,7 @@ slug: fix-for-chrome-redirecting-to-url-when-opening-a-new-tab
 title: Fix for Chrome redirecting to URL when opening a new tab
 description: "Stop Chrome redirecting to malicious URLs in new tabs. Quick fix by clearing cache and plugin data after browser infection."
 wordpress_id: 397
-category: Developer Experience
+category: Engineering Practices
 tags:
   - tools
   - security

@@ -2,7 +2,7 @@
 
 This document defines the canonical tag list for ROACM blog posts. All posts must use tags from this list. New tags require conscious decision and should be added here.
 
-## Canonical Tags (45 total)
+## Canonical Tags (44 total)
 
 ### AI & Machine Learning (6 tags)
 
@@ -70,9 +70,8 @@ This document defines the canonical tag list for ROACM blog posts. All posts mus
 - `android` - Android platform (use `mobile` for cross-platform)
 - `mobile` - All mobile platforms (Windows Mobile, Android, iOS)
 
-### Content Types (4 tags)
+### Content Types (3 tags)
 
-- `opinion` - Personal opinions and perspectives
 - `product-review` - Reviews of products/services, releases
 - `blog-meta` - Blog updates and meta-commentary
 - `milestone` - Personal/career milestone moments
@@ -160,7 +159,7 @@ canonical_tags = {
     'engineering-principles', 'testing', 'security', 'performance', 'java',
     'javascript', 'python', 'dotnet', 'php', 'scala', 'f-sharp', 'career',
     'engineering-culture', 'leadership', 'windows', 'linux', 'mac-os', 'android',
-    'mobile', 'opinion', 'product-review', 'blog-meta', 'milestone',
+    'mobile', 'product-review', 'blog-meta', 'milestone',
     'software-licensing', 'imagine-cup'
 }
 
@@ -190,7 +189,7 @@ PYEOF
 
 **Migration completed**: December 2024
 **Original tag count**: 198
-**Final tag count**: 45
+**Final tag count**: 44
 **Reduction**: 78%
 **Posts affected**: 110 posts
 

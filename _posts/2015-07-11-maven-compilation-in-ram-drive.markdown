@@ -7,7 +7,7 @@ slug: maven-compilation-in-ram-drive
 title: Maven Compilation in Ram Drive
 description: "Slash Maven compile times by 85% using RAM drive. Reduce 22-minute builds to 3 minutes by eliminating disk IO bottlenecks with this guide."
 wordpress_id: 658
-category: Developer Experience
+category: Engineering Practices
 tags:
   - java
   - performance

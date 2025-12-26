@@ -4,7 +4,7 @@ comments: true
 author: Karun Japhet
 title: "What makes Developer Experience World-Class?"
 description: "The five non-negotiables for world-class developer experience: project readme, automated setup, fast iteration, pre-commit checks, and local-first tools."
-category: Developer Experience
+category: Engineering Practices
 tags:
   - developer-experience
   - engineering-culture

@@ -7,7 +7,7 @@ slug: chrome-tips
 title: Chrome Tips
 description: "Essential Google Chrome tips and tricks: custom search engines, memory stats, private browsing, resizing textboxes, and hidden easter eggs."
 wordpress_id: 82
-category: Developer Experience
+category: Engineering Practices
 tags:
   - tools
   - productivity

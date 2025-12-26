@@ -7,7 +7,7 @@ slug: expandregion-on-sublime-text
 title: ExpandRegion on Sublime Text
 description: "Bring JetBrains' expand selection feature to Sublime Text. Install ExpandRegion plugin for smarter code selection with keyboard shortcuts."
 wordpress_id: 596
-category: Developer Experience
+category: Engineering Practices
 tags:
   - developer-experience
   - productivity

@@ -7,7 +7,7 @@ slug: the-power-of-the-windows-key
 title: The power of the Windows key!
 description: "Master Windows 7 keyboard shortcuts with the Windows key. Complete guide to Aero Snap, window management, and productivity shortcuts."
 wordpress_id: 218
-category: Developer Experience
+category: Engineering Practices
 tags:
   - windows
   - productivity

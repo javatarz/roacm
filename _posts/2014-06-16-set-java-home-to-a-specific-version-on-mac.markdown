@@ -7,7 +7,7 @@ slug: set-java-home-to-a-specific-version-on-mac
 title: Set Java Home to a specific version on Mac
 description: "Configure JAVA_HOME to specific Java version on Mac OS X. Use java_home utility with version parameter to switch between Java installations."
 wordpress_id: 558
-category: Developer Experience
+category: Engineering Practices
 tags:
   - java
   - mac-os

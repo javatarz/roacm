@@ -7,7 +7,7 @@ slug: mass-renaming-file-extensions-with-powershell
 title: Mass renaming file extensions with PowerShell
 description: "Batch rename file extensions in Windows with one-line PowerShell commands. Add, remove, or change extensions across multiple files instantly."
 wordpress_id: 612
-category: Developer Experience
+category: Engineering Practices
 tags:
   - windows
   - productivity

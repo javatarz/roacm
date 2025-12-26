@@ -4,7 +4,7 @@ comments: true
 author: Karun Japhet
 title: "Upgrade everything in brew"
 description: "One command to upgrade all Homebrew packages and cask apps on Mac OS. Keep your development environment current with this simple script."
-category: Developer Experience
+category: Engineering Practices
 tags:
   - mac-os
   - tools

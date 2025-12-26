@@ -5,7 +5,7 @@
 
 <nav class="topic-nav" aria-label="Browse by topic">
   <ul class="topic-nav-list">
-    {% assign top_categories = "intelligent Engineering,Software Design,Platform Engineering,Developer Experience" | split: "," %}
+    {% assign top_categories = "intelligent Engineering,Software Design,Platform Engineering,Engineering Practices" | split: "," %}
     {% for cat in top_categories %}
     <li>
       <a href="{{ site.baseurl }}/blog/categories/{{ cat | slugify }}/" class="topic-pill">

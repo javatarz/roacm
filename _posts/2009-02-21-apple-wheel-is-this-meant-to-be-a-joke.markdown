@@ -11,7 +11,6 @@ category: Tech Reviews
 tags:
   - mac-os
   - product-review
-  - opinion
 ---
 
 First of all, I should say, the only source I have is [this youtube video](http://www.youtube.com/watch?v=XU9o0nKiOJE).

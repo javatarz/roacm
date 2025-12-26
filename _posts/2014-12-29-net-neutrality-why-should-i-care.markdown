@@ -9,7 +9,6 @@ description: "Understand net neutrality in simple terms. Why equal internet acce
 wordpress_id: 626
 category: Personal
 tags:
-  - opinion
 evergreen: true
 ---
 

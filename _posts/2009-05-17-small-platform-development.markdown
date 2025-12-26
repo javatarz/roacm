@@ -11,7 +11,6 @@ category: Tech Reviews
 tags:
   - infrastructure
   - product-review
-  - opinion
 ---
 
 I guess a lot of programming lovers are into development on smaller platforms. I certainly am one of them. I usually speak of work I've done on actual programs when in actuality, there are a lot more smaller pieces of code that I write that never get shown off publically. Most of them are known to a select group of people; the ones who are meant to find use to it.

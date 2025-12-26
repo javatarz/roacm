@@ -7,7 +7,7 @@ slug: reloading-unixlinux-profiles
 title: Reloading Unix/Linux Profiles
 description: "Reload Linux bash profile without relogin using source command. Simple trick for instantly applying profile changes and aliases."
 wordpress_id: 338
-category: Developer Experience
+category: Engineering Practices
 tags:
   - linux
   - tools
