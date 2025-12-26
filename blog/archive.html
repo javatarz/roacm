@@ -10,7 +10,18 @@ permalink: /blog/archive/
   {% assign year = post.date | date: "%Y" %}
   {% if forloop.first or year != prev_year %}
     {% unless forloop.first %}</ul>{% endunless %}
-    <h2 class="archive-year">{{ year }}</h2>
+    {% comment %}Count posts for this year{% endcomment %}
+    {% assign year_post_count = 0 %}
+    {% for p in site.posts %}
+      {% assign p_year = p.date | date: "%Y" %}
+      {% if p_year == year %}
+        {% assign year_post_count = year_post_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    <h2 class="archive-year">
+      <span class="archive-year-label">{{ year }}</span>
+      <span class="archive-year-count">{{ year_post_count }} posts</span>
+    </h2>
     <ul class="archive-list">
   {% endif %}
   <li class="archive-item">
