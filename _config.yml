@@ -58,6 +58,7 @@ theme: jekyll-theme-dinky
 plugins:
   - jekyll-feed
   - jekyll-gist
+  - jekyll-sitemap
   - jekyll-target-blank
   - jekyll-archives
   - jekyll-seo-tag
