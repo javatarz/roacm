@@ -20,6 +20,4 @@ end
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Others
-gem 'thor', '~> 1.4.0'
-gem 'stringex', '~> 2.8.2'
 gem 'kramdown-parser-gfm', '~> 1.1.0'

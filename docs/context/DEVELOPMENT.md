@@ -49,7 +49,7 @@ npm run lint:html                 # HTML only (requires built site)
 ### Creating New Posts
 
 ```bash
-docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll-dev thor jekyll:new "Post Title"
+./scripts/new-post.sh "Post Title"
 ```
 
 ## Key Files and Directories
