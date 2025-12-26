@@ -66,6 +66,10 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
       await pw.setViewportSize({ width: 1920, height: 1080 });
       await pw.goto(page.path);
 
+      // Wait for content to load
+      await pw.waitForLoadState('domcontentloaded');
+      await pw.waitForTimeout(1000);
+
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
       if (await themeToggle.isVisible()) {
@@ -77,6 +81,7 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
         fullPage: true,
         animations: 'disabled',
         maxDiffPixelRatio: 0.02,
+        timeout: 15000,
       });
     });
   }
@@ -110,6 +115,10 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
       await pw.setViewportSize({ width: 1920, height: 1080 });
       await pw.goto(page.path);
 
+      // Wait for content to load
+      await pw.waitForLoadState('domcontentloaded');
+      await pw.waitForTimeout(1000);
+
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
       if (await themeToggle.isVisible()) {
@@ -121,6 +130,7 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
         fullPage: true,
         animations: 'disabled',
         maxDiffPixelRatio: 0.02,
+        timeout: 15000,
       });
     });
   }
@@ -154,6 +164,10 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
       await pw.setViewportSize({ width: 1920, height: 1080 });
       await pw.goto(page.path);
 
+      // Wait for content to load
+      await pw.waitForLoadState('domcontentloaded');
+      await pw.waitForTimeout(1000);
+
       // Switch to dark mode
       const themeToggle = pw.locator('#theme-toggle');
       if (await themeToggle.isVisible()) {
@@ -165,6 +179,7 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
         fullPage: true,
         animations: 'disabled',
         maxDiffPixelRatio: 0.02,
+        timeout: 15000,
       });
     });
   }

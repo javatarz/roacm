@@ -99,6 +99,33 @@ Use Git worktrees to work on multiple issues in parallel without switching branc
 - Separate Jekyll servers per worktree (different ports)
 - Clean separation of work-in-progress
 
+## Context Files for Different Work Types
+
+**Load context based on the type of work:**
+
+### Website/Theme Development
+
+When working on layouts, components, CSS, JavaScript, or any theme files:
+
+- **Read `docs/context/TESTING.md`** - Testing requirements, test locations, platform-specific snapshots
+
+### Blog Content Creation/Editing
+
+When creating or editing blog posts:
+
+- **Read `docs/context/TAGS.md`** - Canonical tag list
+- **Read `docs/context/CATEGORIES.md`** - Valid categories and descriptions
+- **Read `docs/context/CONTENT.md`** - Content guidelines
+- **Read `docs/context/STYLE.md`** - Writing style guidelines
+
+### Homepage/Landing Pages
+
+When working on the homepage or other landing pages:
+
+- **Read `docs/context/HOMEPAGE.md`** - Homepage structure and sections
+
+**Do not load all context files at once - only load what's relevant to the current task.**
+
 ## Performance & Quality Gates
 
 ### Lighthouse Score Thresholds
