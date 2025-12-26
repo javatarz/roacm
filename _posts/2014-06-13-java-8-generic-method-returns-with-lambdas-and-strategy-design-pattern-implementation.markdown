@@ -48,11 +48,99 @@ If your key eyes have picked it up, I have an undefined class here called `TypeR
 
 Here is my version. The only changes I've made are around the `superType` variable being added. If you apply wish to use `List<String>` as your return type reference, the `type` would be `List` and the `superType` would be `String`. If you use `String` as your return type reference, the `type` will be `String` and the `superType` will be `null`.
 
-{% gist javatarz/fa5598cf32a1c6988ebdebd0e69f38a0 %}
+```java
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+public abstract class TypeReference<T> {
+
+  private final Type type;
+  private final Type superType;
+  private volatile Constructor<?> constructor;
+
+  protected TypeReference() {
+    final Type superclass = getClass().getGenericSuperclass();
+    if (superclass instanceof Class) {
+      throw new RuntimeException("Missing type parameter.");
+    }
+
+    this.type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
+    this.superType = !(this.type instanceof Class) ? ((ParameterizedType) this.type).getActualTypeArguments()[0] : null;
+  }
+
+  public T newInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    if (constructor == null) {
+      final Class<?> rawType = type instanceof Class<?>
+        ? (Class<?>) type
+        : (Class<?>) ((ParameterizedType) type).getRawType();
+      constructor = rawType.getConstructor();
+    }
+    return (T) constructor.newInstance();
+  }
+
+  public Type getType() {
+    return this.type;
+  }
+
+  public Class getTypeClass() {
+    return (Class) (type instanceof Class ? type : ((ParameterizedType) type).getRawType());
+  }
+
+  public Type getSuperType() {
+    return superType;
+  }
+
+  public Class getSuperTypeClass() {
+    return (Class) (superType instanceof Class ? superType : ((ParameterizedType) superType).getRawType());
+  }
+
+  public boolean hasSuperType() {
+    return superType != null;
+  }
+}
+```
 
 Now we need a simple `User` class which maps to the sample data I provided earlier.
 
-{% gist javatarz/755648033a0c324e40473c7564ebe16a %}
+```java
+class User {
+
+  private String firstName;
+  private String lastName;
+  private String email;
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(final String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(final String email) {
+    this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" + "firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+  }
+}
+```
 
 ### Defining your data processor
 

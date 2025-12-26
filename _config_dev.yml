@@ -4,7 +4,6 @@
 # Override plugins array to exclude jekyll-feed (not installed in Gemfile.dev)
 # This replaces the plugins list from _config.yml
 plugins:
-  - jekyll-gist
   - jekyll-target-blank
   - jekyll-sitemap
   - jekyll-youtube
