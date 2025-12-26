@@ -1,5 +1,6 @@
 <header id="mobile-sidebar" aria-label="Site header">
-  <h1 class="header"><a href="{{ "/" | site.relative_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+  <a href="{{ "/" | site.relative_url }}" class="sidebar-logo" aria-label="Home">&lt;/&gt;</a>
+  <h1 class="header"><a href="{{ "/blog/" | site.relative_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
   <p class="header">{% assign subtitle = site.subtitle | default: site.github.project_tagline %}{% if subtitle contains 'Scale' %}{{ subtitle | replace: 'Scale', '<span style="color: var(--sidebar-accent-color)">Scale</span>' }}{% else %}{{ subtitle }}{% endif %}</p>
   {% include search.html %}
 </header>

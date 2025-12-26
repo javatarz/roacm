@@ -257,6 +257,22 @@ header a:hover {
   color: var(--accent-color);
 }
 
+/* Sidebar logo - links to homepage */
+.sidebar-logo {
+  color: var(--sidebar-accent-color);
+  display: block;
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-logo:hover {
+  color: #ffffff;
+}
+
 /* Enhanced link styling - uses CSS variable for theme support */
 
 /* Underline effect on hover for post content links */
@@ -2182,6 +2198,12 @@ body.homepage {
   font-weight: 300;
   letter-spacing: -0.02em;
   margin: 0 0 16px;
+}
+
+.hero-bracket {
+  color: var(--accent-color);
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
+  font-weight: 400;
 }
 
 .homepage-hero-tagline {
