@@ -52,6 +52,36 @@ npm run lint:html                 # HTML only (requires built site)
 ./scripts/new-post.sh "Post Title"
 ```
 
+### Dependency Management
+
+**Ruby Gems (Gemfile)**
+
+When adding or removing gems:
+
+1. Edit `Gemfile` (production) and `Gemfile.dev` (development)
+2. **Regenerate lockfiles** - CI will fail if lockfiles don't match Gemfiles:
+
+   ```bash
+   # Update Gemfile.lock
+   docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
+     -e BUNDLE_GEMFILE=Gemfile local-jekyll-dev bundle lock --update
+
+   # Update Gemfile.dev.lock
+   docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
+     local-jekyll-dev bundle lock --update
+   ```
+
+3. Commit both the Gemfile changes AND the lockfile changes together
+
+**npm Packages (package.json)**
+
+```bash
+npm install <package> --save-dev   # Add dev dependency
+npm uninstall <package>            # Remove dependency
+```
+
+Lockfile (`package-lock.json`) updates automatically.
+
 ## Key Files and Directories
 
 ### Layouts and Templates
