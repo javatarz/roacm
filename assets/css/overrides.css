@@ -8,7 +8,8 @@
   --card-bg: #ffffff;
   --card-border: #e8e8e8;
   --card-shadow: rgb(0, 0, 0, 0.08);
-  --accent-color: #ff5555; /* Lighter red for WCAG AA contrast (4.5:1+ on dark sidebar #171717) */
+  --accent-color: #c30000;
+  --sidebar-accent-color: #ff5555; /* Lighter red for WCAG AA contrast on dark sidebar */
 
   /* Code block colors - VS Code dark theme inspired */
   --code-bg: #1e1e1e;
