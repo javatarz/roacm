@@ -114,6 +114,12 @@ Use Git worktrees to work on multiple issues in parallel without switching branc
 - **Read `docs/context/CATEGORIES.md`** - Valid categories
 - **Read `docs/context/CONTENT.md`** - Content guidelines
 - **Read `docs/context/STYLE.md`** - Writing style
+- **Read `docs/context/CROSS-POSTING.md`** - Cross-posting to dev.to and Medium
+
+**After publishing a post**, remind the user:
+
+1. **dev.to**: Automatic if `devto: true` is set (verify in workflow run)
+2. **Medium**: Manual import required - use Medium's "Import a story" feature
 
 ### Homepage/Landing Pages
 
