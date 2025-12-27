@@ -18,7 +18,6 @@ permalink: /blog/:year/:month/:day/:title/
 
 plugins_dir: _plugins
 sass_dir: _sass
-code_dir: downloads/code
 category_dir: /blog/categories
 
 highlighter: rouge
@@ -27,12 +26,6 @@ excerpt_separator: "<!-- more -->"
 recent_posts: 5
 titlecase: true
 future: true
-
-default_asides:
-  - custom/asides/about.html
-  - custom/asides/twitter.html
-  - asides/recent_posts.html
-  - custom/asides/social_links.html
 
 disqus_short_name: roacm
 disqus_show_comment_count: true
@@ -50,7 +43,6 @@ github_show_profile_link: true
 facebook_user: KarunJaphet
 twitter_user: javatarz
 linkedin_user: karunjaphet
-twitter_widget_id: 660845451051008000
 twitter_tweet_button: true
 
 markdown: kramdown
