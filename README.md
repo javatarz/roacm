@@ -2,15 +2,34 @@
 
 Source for the "Ramblings of a Coder's Mind" blog that's hosted at [karun.me](https://karun.me) (previously [blog.karun.me](https://blog.karun.me) and [karunab.com](https://karunab.com))
 
-## Local development
+## Quick Start
 
+```bash
+./scripts/setup.sh   # One-time setup (installs Ruby 3.2, just, dependencies)
+just run             # Start dev server at http://localhost:4000
 ```
-./local_run.sh
-docker run -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) local-jekyll thor jekyll:new Title for the new post
 
-echo "Find all categories: "
-awk '/^categories:/{flag=1; next} /^[a-zA-Z]/ && flag{flag=0} flag && /^  - /{gsub(/^  - /, ""); print}' _posts/*.markdown | sort -u
+Run `just --list` to see all available commands.
 
-echo "Find articles by category"
-awk -v cat="Tutorials" '/^categories:/{flag=1; next} /^[a-zA-Z]/ && flag{flag=0} flag && /^- /{gsub(/^  - /, ""); if($0==cat) print FILENAME}' _posts/*.markdown
+## Local Development
+
+See [docs/context/DEVELOPMENT.md](docs/context/DEVELOPMENT.md) for detailed documentation.
+
+### Common Commands
+
+```bash
+just run              # Start dev server (~1s startup)
+just test             # Run all tests (lint + e2e)
+just lint             # Run all linters
+just new-post "Title" # Create a new blog post
+```
+
+### Without `just`
+
+If you prefer not to install `just`, you can use the underlying scripts directly:
+
+```bash
+./local_run_native.sh              # Start dev server
+npm test                           # Run all tests
+./scripts/new-post.sh "Title"      # Create a new blog post
 ```
