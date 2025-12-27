@@ -82,7 +82,7 @@ exclude:
   - Gemfile*
   - README.md
   - jekyll.thor
-  - local_run.sh
+  - local_run_native.sh
   - Dockerfile
   - test-suite/
   - node_modules/

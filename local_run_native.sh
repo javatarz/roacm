@@ -55,7 +55,7 @@ if [ -z "$CURRENT_RUBY" ]; then
     echo "  - rbenv: rbenv install $REQUIRED_RUBY"
     echo "  - asdf: asdf install ruby $REQUIRED_RUBY"
     echo ""
-    echo "Or use Docker: ./local_run.sh"
+    echo "Native Ruby is the recommended way to run Jekyll."
     exit 1
 fi
 

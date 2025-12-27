@@ -13,9 +13,6 @@ default:
 run *args:
     ./local_run_native.sh {{args}}
 
-# Start development server with Docker (slower, but isolated)
-run-docker *args:
-    ./local_run.sh {{args}}
 
 # One-time project setup
 setup:

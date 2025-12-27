@@ -37,13 +37,13 @@ Husky runs lint-staged on commit, which auto-fixes and validates:
 - **JS**: ESLint + Prettier
 - **MD**: Prettier
 
-## Docker Setup
+## Local Development
 
-Uses Colima for Docker on macOS. The `local_run.sh` script:
+The `local_run_native.sh` script provides fast local development:
 
-1. Starts Colima if not running
-2. Builds/reuses `local-jekyll-dev` Docker image
-3. Runs Jekyll with incremental builds and live reload
+1. Uses native Ruby 3.2 (via mise/rbenv/asdf)
+2. Runs Jekyll with incremental builds and live reload
+3. Builds all 113 posts by default (~1.8s startup)
 
 ## CI/CD
 

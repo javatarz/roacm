@@ -31,7 +31,7 @@ exclude:
   - Gemfile.lock
   - README.md
   - jekyll.thor
-  - local_run.sh
+  - local_run_native.sh
   - Dockerfile
   - .git
   - .gitignore

@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./local_run.sh:*)",
+      "Bash(./local_run_native.sh:*)",
       "Bash(./local_run_test.sh:*)",
       "Bash(./scripts/setup.sh:*)",
       "Bash(bundle exec jekyll:*)",

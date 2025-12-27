@@ -25,27 +25,27 @@ if (fs.existsSync(siteDir)) {
     console.log('ℹ️  Using existing _site directory (less than 1 hour old)');
   } else if (isCI) {
     console.error(
-      '❌ _site directory is stale in CI. Jekyll build may have failed.'
+      '❌ _site directory is stale in CI. Jekyll build may have failed.',
     );
     process.exit(1);
   } else {
     console.log(
-      '⚠️  _site directory is old. Please rebuild Jekyll site manually.'
+      '⚠️  _site directory is old. Please rebuild Jekyll site manually.',
     );
-    console.log('   Run: ./local_run.sh in another terminal');
+    console.log('   Run: ./local_run_native.sh in another terminal');
     process.exit(0); // Exit gracefully for local dev
   }
 } else if (isCI) {
   console.error(
-    '❌ No _site directory found in CI. Jekyll build step is required.'
+    '❌ No _site directory found in CI. Jekyll build step is required.',
   );
   console.error(
-    '   Add "bundle exec jekyll build" before running HTML validation.'
+    '   Add "bundle exec jekyll build" before running HTML validation.',
   );
   process.exit(1);
 } else {
   console.log('⚠️  No _site directory found. Jekyll site needs to be built.');
-  console.log('   Run: ./local_run.sh to start the Jekyll server');
+  console.log('   Run: ./local_run_native.sh to start the Jekyll server');
   console.log('   HTML validation will be skipped for now.');
   process.exit(0); // Exit gracefully for local dev
 }
@@ -96,7 +96,7 @@ if (hasErrors) {
     console.error(`📄 ${error.file}:`);
     for (const msg of error.messages) {
       console.error(
-        `   Line ${msg.line}:${msg.col} - ${msg.message} (${msg.rule.id})`
+        `   Line ${msg.line}:${msg.col} - ${msg.message} (${msg.rule.id})`,
       );
     }
     console.error('');

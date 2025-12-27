@@ -28,7 +28,7 @@ vendor/bundle/
 Gemfile.lock
 
 # Scripts
-local_run.sh
+local_run_native.sh
 local_run_test.sh
 
 # IDE

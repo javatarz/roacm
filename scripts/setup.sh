@@ -285,9 +285,9 @@ fi
 print_color "Starting Jekyll server for baseline creation..." "$YELLOW"
 
 # Start Jekyll server in the background
-if [ -f "local_run.sh" ] && [ -x "local_run.sh" ] && command_exists docker; then
-  print_color "Using Docker via local_run.sh to start server (recommended)..." "$BLUE"
-  ./local_run.sh > /dev/null 2>&1 &
+if [ -f "local_run_native.sh" ] && [ -x "local_run_native.sh" ]; then
+  print_color "Starting server with native Ruby..." "$BLUE"
+  ./local_run_native.sh > /dev/null 2>&1 &
   SERVER_PID=$!
   USING_DOCKER=true
 elif command_exists jekyll && command_exists bundle; then
@@ -298,7 +298,7 @@ elif command_exists jekyll && command_exists bundle; then
 else
   print_color "⚠️  Cannot start Jekyll server automatically" "$YELLOW"
   print_color "   Please start your Jekyll server manually in another terminal:" "$YELLOW"
-  print_color "   Run: ./local_run.sh" "$CYAN"
+  print_color "   Run: ./local_run_native.sh" "$CYAN"
   read -p "   Press Enter when server is running on port 4000: "
   SERVER_PID=""
   USING_DOCKER=false

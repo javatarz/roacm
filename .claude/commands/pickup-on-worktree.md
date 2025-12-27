@@ -65,7 +65,7 @@ Create a dedicated Git worktree for working on a GitHub issue in parallel.
    All subsequent commands will run from this worktree automatically.
 
    To start Jekyll server:
-     ./local_run.sh --port <PORT>
+     ./local_run_native.sh --port <PORT>
 
    To switch contexts, tell me:
      "Switch to main repo"
