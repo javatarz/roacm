@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Find all h2 and h3 headings in the article content
-  const article = document.querySelector('section');
+  const article = document.querySelector('main');
   if (!article) {
     return;
   }
