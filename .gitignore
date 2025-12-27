@@ -10,6 +10,9 @@ _deploy.yml
 vendor/
 .jekyll-metadata
 .docker-build-time
+.bundle-hash
+.bundle/
+mise.toml
 
 # Test Suite
 test-suite/reports/

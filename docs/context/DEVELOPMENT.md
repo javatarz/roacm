@@ -10,13 +10,61 @@ ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at karun.me using `je
 
 ### Local Server
 
+Two options for running Jekyll locally:
+
+**Native Ruby (Recommended - faster startup)**
+
 ```bash
-./local_run.sh                    # Start Jekyll (limits to 10 posts)
+./local_run_native.sh             # Start Jekyll (~5-8s startup)
+./local_run_native.sh --all-posts # Include all posts
+./local_run_native.sh --port 4001 # Custom port (for worktrees)
+```
+
+Requires Ruby 3.2 installed via mise, rbenv, or asdf. See [Ruby Setup](#ruby-setup) below.
+
+**Docker (Fallback - slower but isolated)**
+
+```bash
+./local_run.sh                    # Start Jekyll (~35s startup)
 ./local_run.sh --all-posts        # Include all posts
 ./local_run.sh --port 4001        # Custom port (for worktrees)
 ```
 
+Requires Docker (via Colima on macOS). Use this if you have Ruby version issues.
+
 Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
+
+### Ruby Setup
+
+The project uses Ruby 3.2 (pinned in `.ruby-version` to match CI).
+
+**One-time setup with mise (recommended):**
+
+```bash
+# Install mise if you don't have it
+curl https://mise.run | sh
+
+# Install Ruby 3.2
+mise install ruby@3.2
+
+# Activate in this directory (reads .ruby-version)
+mise trust
+```
+
+**Or with rbenv:**
+
+```bash
+rbenv install 3.2
+rbenv local 3.2
+```
+
+**Verify setup:**
+
+```bash
+ruby -v  # Should show 3.2.x
+```
+
+The native script will automatically run `bundle install` when Gemfile.dev changes.
 
 ### Testing
 
@@ -62,11 +110,13 @@ When adding or removing gems:
 2. **Regenerate lockfiles** - CI will fail if lockfiles don't match Gemfiles:
 
    ```bash
-   # Update Gemfile.lock
+   # With native Ruby (if Ruby 3.2 installed):
+   BUNDLE_GEMFILE=Gemfile bundle lock --update
+   BUNDLE_GEMFILE=Gemfile.dev bundle lock --update
+
+   # Or with Docker:
    docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
      -e BUNDLE_GEMFILE=Gemfile local-jekyll-dev bundle lock --update
-
-   # Update Gemfile.dev.lock
    docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
      local-jekyll-dev bundle lock --update
    ```

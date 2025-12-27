@@ -38,3 +38,25 @@ local_run_test.sh
 
 # Node
 node_modules/
+package-lock.json
+
+# Test artifacts
+test-suite/
+test-results/
+playwright-report/
+.lighthouseci/
+
+# Documentation
+docs/
+README.md
+CLAUDE.md
+TESTING.md
+
+# Configuration files not needed in container
+package.json
+.eslintrc*
+.stylelintrc*
+.prettierrc*
+
+# Temporary files
+_config_all_posts.yml

@@ -46,8 +46,45 @@ print_header "ROACM Blog Test Environment Setup"
 print_color "This script will set up the automated testing infrastructure" "$BLUE"
 print_color "for theme development and continuous integration." "$BLUE"
 
-# Step 1: Check Prerequisites
-print_header "Step 1: Checking Prerequisites"
+# Step 1: Setup Ruby via mise (for fast native Jekyll)
+print_header "Step 1: Setting up Ruby Environment"
+
+RUBY_VERSION="3.2"
+
+# Check if mise is installed
+if command_exists mise; then
+  print_color "✅ mise is installed" "$GREEN"
+
+  # Check if mise is activated in shell
+  if mise current &> /dev/null; then
+    print_color "✅ mise is activated in shell" "$GREEN"
+
+    # Install Ruby 3.2 if not already installed
+    if ! mise list ruby 2>/dev/null | grep -q "$RUBY_VERSION"; then
+      print_color "Installing Ruby $RUBY_VERSION via mise (this may take a few minutes)..." "$YELLOW"
+      mise install ruby@$RUBY_VERSION
+    fi
+    print_color "✅ Ruby $RUBY_VERSION installed via mise" "$GREEN"
+
+    # Trust this directory
+    mise trust 2>/dev/null || true
+  else
+    print_color "⚠️  mise is installed but not activated in your shell" "$YELLOW"
+    print_color "   Add to your shell config (~/.zshrc or ~/.bashrc):" "$YELLOW"
+    print_color "   eval \"\$(mise activate zsh)\"  # or bash" "$CYAN"
+    print_color "" ""
+    print_color "   Then restart your terminal and run this script again." "$YELLOW"
+    print_color "   Continuing with system Ruby (Docker fallback available)..." "$YELLOW"
+  fi
+else
+  print_color "ℹ️  mise not found - recommended for fast native Jekyll" "$BLUE"
+  print_color "   Install with: curl https://mise.run | sh" "$CYAN"
+  print_color "   Then add to shell: eval \"\$(mise activate zsh)\"" "$CYAN"
+  print_color "   Continuing with system Ruby (Docker fallback available)..." "$YELLOW"
+fi
+
+# Step 2: Check Prerequisites
+print_header "Step 2: Checking Prerequisites"
 
 # Check Node.js
 if command_exists node; then
@@ -121,47 +158,66 @@ if [ ${#ERRORS[@]} -gt 0 ]; then
   exit 1
 fi
 
-# Step 2: Install Bundler if needed
+# Step 3: Install Bundler if needed
 if ! command_exists bundle && command_exists ruby; then
-  print_header "Step 2: Installing Bundler"
+  print_header "Step 3: Installing Bundler"
   print_color "Installing Bundler gem..." "$YELLOW"
   gem install bundler
   print_color "✅ Bundler installed successfully" "$GREEN"
 else
-  print_header "Step 2: Bundler Check"
+  print_header "Step 3: Bundler Check"
   print_color "✅ Bundler is already available" "$GREEN"
 fi
 
-# Step 3: Install Ruby Dependencies
-print_header "Step 3: Installing Ruby Dependencies"
+# Step 4: Install Ruby Dependencies
+print_header "Step 4: Installing Ruby Dependencies"
 if [ -f "Gemfile" ]; then
   print_color "Checking Ruby dependencies..." "$YELLOW"
 
   # Try to install bundler if needed
   if ! bundle --version > /dev/null 2>&1; then
     print_color "Attempting to install bundler..." "$YELLOW"
-    gem install bundler 2>/dev/null || {
+    gem install bundler --no-document 2>/dev/null || {
       print_color "⚠️  Cannot install bundler with system Ruby (requires sudo)" "$YELLOW"
-      print_color "   Jekyll will run via Docker instead (recommended)" "$YELLOW"
+      print_color "   Jekyll will run via Docker instead" "$YELLOW"
     }
   fi
 
-  # Try bundle install, but don't fail if it doesn't work
+  # Clean up CI-specific bundle config if present
+  if [ -f ".bundle/config" ] && grep -q "/home/runner" .bundle/config 2>/dev/null; then
+    print_color "Cleaning up CI-specific bundle config..." "$YELLOW"
+    rm -rf .bundle
+  fi
+
+  # Configure bundle for local development
   if bundle --version > /dev/null 2>&1; then
+    bundle config set --local path 'vendor/bundle' 2>/dev/null || true
+    bundle config unset --local deployment 2>/dev/null || true
+
+    # Use Gemfile.dev for faster local builds
+    export BUNDLE_GEMFILE=Gemfile.dev
+
+    # Add macOS platform to lockfile if needed
+    if ! grep -q "arm64-darwin" Gemfile.dev.lock 2>/dev/null; then
+      print_color "Adding macOS platform to lockfile..." "$YELLOW"
+      bundle lock --add-platform arm64-darwin-25 2>/dev/null || true
+      bundle lock --add-platform x86_64-darwin-25 2>/dev/null || true
+    fi
+
     bundle install 2>/dev/null || {
-      print_color "⚠️  Cannot install Ruby gems with system Ruby" "$YELLOW"
-      print_color "   This is fine - Jekyll will run via Docker" "$YELLOW"
+      print_color "⚠️  Cannot install Ruby gems" "$YELLOW"
+      print_color "   Jekyll will run via Docker instead" "$YELLOW"
     }
   else
     print_color "ℹ️  Skipping Ruby gem installation" "$BLUE"
-    print_color "   Jekyll will run via Docker (recommended approach)" "$BLUE"
+    print_color "   Jekyll will run via Docker" "$BLUE"
   fi
 else
   print_color "⚠️  Gemfile not found, skipping Ruby dependencies" "$YELLOW"
 fi
 
-# Step 4: Install Node Dependencies
-print_header "Step 4: Installing Node Dependencies"
+# Step 5: Install Node Dependencies
+print_header "Step 5: Installing Node Dependencies"
 if [ -f "package.json" ]; then
   print_color "Installing Node.js packages..." "$YELLOW"
   print_color "This may take a few minutes..." "$BLUE"
@@ -180,8 +236,8 @@ else
   exit 1
 fi
 
-# Step 5: Install Playwright Browsers
-print_header "Step 5: Installing Test Browsers"
+# Step 6: Install Playwright Browsers
+print_header "Step 6: Installing Test Browsers"
 print_color "Installing Playwright browsers for cross-browser testing..." "$YELLOW"
 print_color "This will download Chromium, Firefox, and WebKit..." "$BLUE"
 
@@ -189,8 +245,8 @@ npx playwright install --with-deps
 
 print_color "✅ Test browsers installed successfully" "$GREEN"
 
-# Step 6: Initialize Git Hooks
-print_header "Step 6: Setting up Git Hooks"
+# Step 7: Initialize Git Hooks
+print_header "Step 7: Setting up Git Hooks"
 
 # Initialize Husky
 print_color "Initializing Husky for pre-commit hooks..." "$YELLOW"
@@ -208,8 +264,8 @@ fi
 chmod +x .husky/*
 print_color "✅ Git hooks configured successfully" "$GREEN"
 
-# Step 7: Create Initial Test Baselines
-print_header "Step 7: Creating Test Baselines"
+# Step 8: Create Initial Test Baselines
+print_header "Step 8: Creating Test Baselines"
 
 # Check if Jekyll server is running
 if lsof -Pi :4000 -sTCP:LISTEN -t >/dev/null; then
@@ -282,8 +338,8 @@ fi
 
 print_color "✅ Test baselines created" "$GREEN"
 
-# Step 8: Verify Installation
-print_header "Step 8: Verifying Installation"
+# Step 9: Verify Installation
+print_header "Step 9: Verifying Installation"
 
 print_color "Running quick verification tests..." "$YELLOW"
 
@@ -312,8 +368,8 @@ else
   VERIFICATION_PASSED=false
 fi
 
-# Step 9: Create Git Ignore Entries
-print_header "Step 9: Updating Git Configuration"
+# Step 10: Create Git Ignore Entries
+print_header "Step 10: Updating Git Configuration"
 
 # Check if .gitignore needs updating
 if [ -f ".gitignore" ]; then
@@ -345,7 +401,7 @@ EOF
   fi
 fi
 
-# Step 10: Final Summary
+# Step 11: Final Summary
 print_header "🎉 Setup Complete!"
 
 if [ "$VERIFICATION_PASSED" = true ]; then
@@ -380,7 +436,12 @@ echo ""
 print_color "  See test-suite/README.md for detailed documentation" "$CYAN"
 
 echo ""
-print_color "🚀 Next Steps:" "$BOLD$BLUE"
+print_color "🚀 Start Development:" "$BOLD$BLUE"
+echo ""
+print_color "  ./local_run_native.sh     # Fast (~9s startup)" "$CYAN"
+print_color "  ./local_run.sh            # Docker fallback (~35s)" "$CYAN"
+echo ""
+print_color "🧪 Next Steps:" "$BOLD$BLUE"
 echo ""
 print_color "  1. Make a theme change" "$CYAN"
 print_color "  2. Run: npm test" "$CYAN"

@@ -8,7 +8,7 @@ module.exports = {
       numberOfRuns: 3,
       startServerCommand: process.env.CI
         ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000 --config _config.yml,_config_dev.yml'
-        : './local_run.sh --no-livereload',
+        : './local_run_native.sh --no-livereload',
       startServerReadyPattern: 'Server running',
       startServerReadyTimeout: 120000,
       settings: {
