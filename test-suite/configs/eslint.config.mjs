@@ -10,6 +10,7 @@ export default [
       'node_modules/**/*.js',
       'test-suite/**/*.js',
       'assets/js/lib/**/*.js',
+      'assets/js/*.min.js',
     ],
   },
 
