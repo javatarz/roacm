@@ -1,0 +1,39 @@
+{
+  "css": {
+    "classes": [
+      "visible",
+      "is-open",
+      "copied",
+      "active",
+      "selected",
+      "menu-open",
+      "error"
+    ],
+    "ids": [],
+    "patterns": [
+      "highlight",
+      "emoji"
+    ],
+    "elements": [
+      "h5",
+      "h6",
+      "abbr",
+      "acronym",
+      "cite",
+      "ins",
+      "samp",
+      "strike",
+      "tt",
+      "dd",
+      "fieldset",
+      "tfoot",
+      "thead",
+      "canvas",
+      "figcaption",
+      "hgroup",
+      "applet"
+    ]
+  },
+  "includes": [],
+  "images": []
+}

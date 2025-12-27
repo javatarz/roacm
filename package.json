@@ -4,7 +4,7 @@
   "description": "Automated testing for ROACM Jekyll blog theme",
   "scripts": {
     "prebuild:js": "cp node_modules/lunr/lunr.min.js assets/js/lib/",
-    "build:js": "cat assets/js/lib/lunr.min.js assets/js/code-blocks.js assets/js/reading-progress.js assets/js/back-to-top.js assets/js/lazy-loading.js assets/js/toc.js assets/js/search.js assets/js/mobile-menu.js | npx terser -o assets/js/bundle.min.js --compress --mangle --source-map",
+    "build:js": "cat assets/js/lib/lunr.min.js assets/js/umami-tracker.js assets/js/code-blocks.js assets/js/reading-progress.js assets/js/back-to-top.js assets/js/lazy-loading.js assets/js/toc.js assets/js/search.js assets/js/mobile-menu.js | npx terser -o assets/js/bundle.min.js --compress --mangle --source-map",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "npm run lint:css && npm run lint:js && npm run lint:html",
     "test:e2e": "playwright test -c test-suite/configs/playwright.config.ts",
@@ -15,6 +15,10 @@
     "lint:css": "stylelint \"assets/css/**/*.css\" --config test-suite/configs/stylelint.config.json",
     "lint:js": "eslint \"assets/js/**/*.js\" --config test-suite/configs/eslint.config.mjs",
     "lint:html": "node test-suite/scripts/validate-html.js",
+    "audit:css": "node scripts/audit-css.mjs",
+    "audit:includes": "bash scripts/audit-includes.sh",
+    "audit:images": "bash scripts/audit-images.sh",
+    "audit:dead-code": "npm run audit:css && npm run audit:includes && npm run audit:images",
     "images:optimize": "node scripts/optimize-images.mjs",
     "images:transform": "node scripts/transform-images.mjs",
     "prepare": "husky",
@@ -25,8 +29,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
-    "terser": "^5.37.0",
-    "sharp": "^0.33.5",
     "@eslint/js": "^9.39.1",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.48.0",
@@ -36,9 +38,12 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.3.0",
+    "purgecss": "^7.0.2",
+    "sharp": "^0.33.5",
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^39.0.1",
-    "stylelint-order": "^7.0.0"
+    "stylelint-order": "^7.0.0",
+    "terser": "^5.37.0"
   },
   "lint-staged": {
     "*.css": [
@@ -62,4 +67,3 @@
     "tmp": "0.2.4"
   }
 }
-
