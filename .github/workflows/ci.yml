@@ -82,6 +82,16 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
+      - name: Cache Jekyll build
+        uses: actions/cache@v4
+        with:
+          path: |
+            .jekyll-cache
+            .jekyll-metadata
+          key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-jekyll-
+
       - name: Build site for HTML validation
         run: bundle exec jekyll build
 
@@ -290,6 +300,16 @@ jobs:
 
       - name: Bundle JavaScript for production
         run: npm run build:js
+
+      - name: Cache Jekyll build
+        uses: actions/cache@v4
+        with:
+          path: |
+            .jekyll-cache
+            .jekyll-metadata
+          key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-jekyll-
 
       - name: Build the site in the jekyll/builder container
         run: |
