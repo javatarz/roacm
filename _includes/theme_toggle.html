@@ -56,6 +56,11 @@
         const currentTheme = localStorage.getItem('theme') || 'light';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
+
+        // Track theme toggle
+        if (window.UmamiTracker) {
+          window.UmamiTracker.track('theme-toggle', { theme: newTheme });
+        }
       });
 
       // Listen for system theme changes

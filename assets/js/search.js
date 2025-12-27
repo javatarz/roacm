@@ -191,6 +191,15 @@
       .join('');
 
     searchResults.innerHTML = html;
+
+    // Track search with results
+    if (window.UmamiTracker) {
+      window.UmamiTracker.track('search', {
+        query: query,
+        results_count: results.length,
+      });
+    }
+
     showResults();
   }
 

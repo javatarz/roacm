@@ -112,6 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
   tocLinks.forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
+
+      // Track ToC navigation
+      const headingText = this.textContent;
+      if (window.UmamiTracker) {
+        window.UmamiTracker.track('toc-navigate', {
+          heading: headingText,
+        });
+      }
+
       const targetId = this.getAttribute('href').slice(1);
       const target = document.getElementById(targetId);
       if (target) {
