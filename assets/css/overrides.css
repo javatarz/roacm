@@ -13,33 +13,33 @@
 
   /* Code block colors - VS Code dark theme inspired */
   --code-bg: #1e1e1e;
+}
 
-  /* ========================================================================== 
+/* ==========================================================================
    Deprecation Notice
    Visible, unobtrusive top-line banner
    ========================================================================== */
-  .deprecation-notice {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-left: 4px solid var(--accent-color);
-    color: var(--text-secondary);
-    padding: 10px 12px;
-    margin: 10px 0 16px;
-    font-size: 0.95rem;
-  }
+.deprecation-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-color);
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  margin: 10px 0 16px;
+  font-size: 0.95rem;
+}
 
-  .deprecation-notice .icon {
-    flex: 0 0 auto;
-    color: var(--accent-color);
-  }
+.deprecation-notice .icon {
+  flex: 0 0 auto;
+  color: var(--accent-color);
+}
 
-  .deprecation-notice a {
-    color: var(--text-primary);
-    text-decoration: underline;
-  }
+.deprecation-notice a {
+  color: var(--text-primary);
+  text-decoration: underline;
 }
 
 [data-theme='dark'] {
