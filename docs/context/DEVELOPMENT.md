@@ -6,74 +6,37 @@ Reference for working on the ROACM website codebase. Load this when working on l
 
 ROACM (Ramblings of a Coder's Mind) is a Jekyll-based blog at karun.me using `jekyll-theme-dinky` with customizations for typography, code blocks, reading progress, dark mode, and accessibility.
 
+## Quick Start
+
+```bash
+./scripts/setup.sh   # One-time setup (installs Ruby, just, dependencies)
+just run             # Start dev server at http://localhost:4000
+```
+
 ## Development Commands
 
-### Local Server
+All commands are available via `just`. Run `just --list` to see all options.
 
-Two options for running Jekyll locally:
-
-**Native Ruby (Recommended - faster startup)**
+### Common Commands
 
 ```bash
-./local_run_native.sh             # Start Jekyll (~5-8s startup)
-./local_run_native.sh --all-posts # Include all posts
-./local_run_native.sh --port 4001 # Custom port (for worktrees)
+just run              # Start dev server (~1s startup)
+just test             # Run all tests (lint + e2e)
+just lint             # Run all linters
+just preflight        # Full validation before release
+just new-post "Title" # Create a new blog post
 ```
-
-Requires Ruby 3.2 installed via mise, rbenv, or asdf. See [Ruby Setup](#ruby-setup) below.
-
-**Docker (Fallback - slower but isolated)**
-
-```bash
-./local_run.sh                    # Start Jekyll (~35s startup)
-./local_run.sh --all-posts        # Include all posts
-./local_run.sh --port 4001        # Custom port (for worktrees)
-```
-
-Requires Docker (via Colima on macOS). Use this if you have Ruby version issues.
-
-Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
-
-### Ruby Setup
-
-The project uses Ruby 3.2 (pinned in `.ruby-version` to match CI).
-
-**One-time setup with mise (recommended):**
-
-```bash
-# Install mise if you don't have it
-curl https://mise.run | sh
-
-# Install Ruby 3.2
-mise install ruby@3.2
-
-# Activate in this directory (reads .ruby-version)
-mise trust
-```
-
-**Or with rbenv:**
-
-```bash
-rbenv install 3.2
-rbenv local 3.2
-```
-
-**Verify setup:**
-
-```bash
-ruby -v  # Should show 3.2.x
-```
-
-The native script will automatically run `bundle install` when Gemfile.dev changes.
 
 ### Testing
 
 ```bash
-npm test                          # All tests (lint + e2e)
-npm run preflight                 # Full validation (all browsers + a11y + lighthouse)
-npm run test:e2e -- --project=chromium  # Single browser
-npm run test:a11y                 # Accessibility tests only
-npm run test:lighthouse           # Lighthouse performance tests
+just test             # All tests (lint + e2e)
+just preflight        # Full validation (all browsers + a11y + lighthouse)
+just test-e2e         # E2E tests (chromium by default)
+just test-e2e firefox # E2E tests with specific browser
+just test-a11y        # Accessibility tests only
+just test-lighthouse  # Lighthouse performance tests
+just test-visual      # Visual regression tests
 ```
 
 See `docs/context/TESTING.md` for detailed testing requirements.
@@ -81,24 +44,29 @@ See `docs/context/TESTING.md` for detailed testing requirements.
 ### Linting
 
 ```bash
-npm run lint                      # All linting
-npm run lint:css                  # CSS only
-npm run lint:js                   # JavaScript only
-npm run lint:html                 # HTML only (requires built site)
+just lint             # All linting
+just lint-css         # CSS only
+just lint-js          # JavaScript only
+just lint-html        # HTML only (requires built site)
 ```
 
 ### Worktree Management
 
 ```bash
-./scripts/worktree-list.sh        # List all worktrees with status
-./scripts/worktree-cleanup.sh     # Interactive cleanup of old worktrees
+just worktrees        # List all active worktrees
+just worktree-cleanup # Interactive cleanup of old worktrees
 ```
 
-### Creating New Posts
+### Server Options
 
 ```bash
-./scripts/new-post.sh "Post Title"
+just run                    # Start with defaults
+just run --all-posts        # Include all posts (slower)
+just run --port 4001        # Custom port (for worktrees)
+just run-docker             # Use Docker (slower, but isolated)
 ```
+
+Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
 
 ### Dependency Management
 

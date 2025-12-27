@@ -68,6 +68,14 @@ if command_exists mise; then
 
     # Trust this directory
     mise trust 2>/dev/null || true
+
+    # Install just (task runner) if not already installed
+    if ! command_exists just; then
+      print_color "Installing just (task runner) via mise..." "$YELLOW"
+      mise install just
+      mise use --global just
+    fi
+    print_color "✅ just task runner installed" "$GREEN"
   else
     print_color "⚠️  mise is installed but not activated in your shell" "$YELLOW"
     print_color "   Add to your shell config (~/.zshrc or ~/.bashrc):" "$YELLOW"
@@ -412,17 +420,15 @@ else
 fi
 
 echo ""
-print_color "📋 Available Test Commands:" "$BOLD$BLUE"
+print_color "📋 Available Commands (run 'just' to see all):" "$BOLD$BLUE"
 echo ""
-print_color "  npm test              - Run all tests" "$CYAN"
-print_color "  npm run test:unit     - Run linting and validation" "$CYAN"
-print_color "  npm run test:e2e      - Run end-to-end tests" "$CYAN"
-print_color "  npm run test:visual   - Run visual regression tests" "$CYAN"
-print_color "  npm run test:a11y     - Run accessibility tests" "$CYAN"
-print_color "  npm run test:lighthouse - Run performance tests" "$CYAN"
+print_color "  just run              # Start dev server (~1s startup)" "$CYAN"
+print_color "  just test             # Run all tests" "$CYAN"
+print_color "  just lint             # Run all linters" "$CYAN"
+print_color "  just preflight        # Full validation before release" "$CYAN"
+print_color "  just new-post \"Title\" # Create a new blog post" "$CYAN"
 echo ""
-print_color "  Or use the test runner:" "$BOLD$BLUE"
-print_color "  ./test-suite/run-tests.sh --help" "$CYAN"
+print_color "  Run 'just --list' to see all available commands" "$CYAN"
 
 echo ""
 print_color "🎣 Pre-commit Hooks:" "$BOLD$BLUE"
@@ -433,19 +439,15 @@ print_color "  before each commit to ensure code quality." "$CYAN"
 echo ""
 print_color "📚 Documentation:" "$BOLD$BLUE"
 echo ""
-print_color "  See test-suite/README.md for detailed documentation" "$CYAN"
+print_color "  See docs/context/DEVELOPMENT.md for detailed docs" "$CYAN"
 
 echo ""
-print_color "🚀 Start Development:" "$BOLD$BLUE"
+print_color "🚀 Next Steps:" "$BOLD$BLUE"
 echo ""
-print_color "  ./local_run_native.sh     # Fast (~9s startup)" "$CYAN"
-print_color "  ./local_run.sh            # Docker fallback (~35s)" "$CYAN"
-echo ""
-print_color "🧪 Next Steps:" "$BOLD$BLUE"
-echo ""
-print_color "  1. Make a theme change" "$CYAN"
-print_color "  2. Run: npm test" "$CYAN"
-print_color "  3. Commit your changes (hooks will run automatically)" "$CYAN"
+print_color "  1. Run: just run" "$CYAN"
+print_color "  2. Make a theme change" "$CYAN"
+print_color "  3. Run: just test" "$CYAN"
+print_color "  4. Commit (hooks run automatically)" "$CYAN"
 
 echo ""
 print_color "═══════════════════════════════════════════════════════════════" "$CYAN"
