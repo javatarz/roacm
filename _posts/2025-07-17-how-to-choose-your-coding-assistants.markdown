@@ -9,6 +9,7 @@ tags:
   - coding-assistants
   - developer-experience
   - software-licensing
+devto: true
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 
