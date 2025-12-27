@@ -120,6 +120,7 @@ jobs:
         run: npm ci
 
       - name: Cache Playwright Browsers
+        id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -131,8 +132,13 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright Browsers (with system deps)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Install Playwright Browsers (browsers only)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install ${{ matrix.browser }}
 
       - name: Run E2E Tests - ${{ matrix.browser }}
         run: npm run test:e2e -- --project=${{ matrix.browser }} --update-snapshots
@@ -181,6 +187,7 @@ jobs:
         run: npm ci
 
       - name: Cache Playwright Browsers
+        id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -192,8 +199,13 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Install Playwright
+      - name: Install Playwright (with system deps)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright (browsers only)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install chromium
 
       - name: Run Accessibility Tests
         run: npm run test:a11y -- --project=chromium

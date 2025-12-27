@@ -15,15 +15,10 @@ for mise_path in "$HOME/.local/bin/mise" "/opt/homebrew/bin/mise" "/usr/local/bi
 done
 
 # Parse arguments
-ALL_POSTS=false
 NO_LIVERELOAD=false
 PORT=4000
 for arg in "$@"; do
   case $arg in
-    --all-posts)
-      ALL_POSTS=true
-      shift
-      ;;
     --no-livereload)
       NO_LIVERELOAD=true
       shift
@@ -121,15 +116,6 @@ fi
 
 # Build config string
 CONFIG="_config.yml,_config_dev.yml"
-
-if [ "$ALL_POSTS" = true ]; then
-    echo "Building with ALL posts (this will be slower)..."
-    cat > ./_config_all_posts.yml <<EOF
-# Temporary config to build all posts
-limit_posts: 10000
-EOF
-    CONFIG="$CONFIG,_config_all_posts.yml"
-fi
 
 echo ""
 echo "Starting Jekyll on http://localhost:$PORT"
