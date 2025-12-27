@@ -9,7 +9,7 @@ tags:
   - leadership
   - engineering-culture
 evergreen: true
-devto: true
+cross_post: [devto, medium]
 ---
 
 Why most people believe they want transparency — but actually don't.

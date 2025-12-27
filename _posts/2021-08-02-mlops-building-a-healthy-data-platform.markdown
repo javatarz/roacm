@@ -9,7 +9,7 @@ tags:
   - mlops
   - data-engineering
   - machine-learning
-devto: true
+cross_post: [devto, medium]
 ---
 
 Spoiler: MLOps is to ML Platforms what DevOps is to most tech products. If you think this means MLOps is automating your deployments, this article is for you.
