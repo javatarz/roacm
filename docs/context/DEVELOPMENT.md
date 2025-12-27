@@ -50,6 +50,43 @@ just lint-js          # JavaScript only
 just lint-html        # HTML only (requires built site)
 ```
 
+### Dead Code Detection
+
+Automated detection of unused code to prevent silent accumulation.
+
+```bash
+just audit                # Run all audits
+just audit-css            # Detect unused CSS selectors
+just audit-includes       # Detect orphaned Jekyll includes
+just audit-images         # Detect unused images
+```
+
+**What Gets Detected:**
+
+- **Unused CSS**: Selectors not found in built HTML/JS (via PurgeCSS)
+- **Orphaned includes**: Files in `_includes/` not referenced anywhere
+- **Unused images**: Files in `assets/images/` not referenced in built site
+
+**Safelist Configuration**: `config/dead-code-safelist.json`
+
+Whitelist legitimate code that should not be flagged:
+
+```json
+{
+  "css": {
+    "classes": ["visible", "is-open"], // Individual class names
+    "elements": ["h5", "h6", "canvas"], // HTML elements
+    "patterns": ["highlight", "emoji"] // Regex patterns
+  },
+  "includes": ["analytics.html"], // Specific includes
+  "images": ["logo-alt.png"] // Specific images
+}
+```
+
+**CI Integration**: Runs automatically in `lint-and-validate` job after HTML validation. Build fails if dead code is detected.
+
+**Related**: #155 - Added dead code detection, #146 - Manual cleanup that inspired this automation
+
 ### Worktree Management
 
 ```bash

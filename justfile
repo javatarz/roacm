@@ -66,6 +66,22 @@ lint-js:
 lint-html:
     npm run lint:html
 
+# Audit for dead code (requires built site)
+audit:
+    npm run audit:dead-code
+
+# Audit CSS for unused selectors
+audit-css:
+    npm run audit:css
+
+# Audit for orphaned includes
+audit-includes:
+    npm run audit:includes
+
+# Audit for unused images
+audit-images:
+    npm run audit:images
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Content
 # ─────────────────────────────────────────────────────────────────────────────
