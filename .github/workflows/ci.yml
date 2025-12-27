@@ -98,6 +98,9 @@ jobs:
       - name: Validate HTML
         run: npm run lint:html
 
+      - name: Detect dead code
+        run: npm run audit:dead-code
+
   # E2E tests - only run when theme files change
   visual-and-e2e-tests:
     name: Visual & E2E Tests
