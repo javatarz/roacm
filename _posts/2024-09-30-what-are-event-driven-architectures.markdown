@@ -9,7 +9,7 @@ tags:
   - data-engineering
   - architecture
 evergreen: true
-cross_post: [devto]
+devto: true
 ---
 
 _A couple of years ago, I was part of group of individuals working on defining different Event Driven architectures during a weekend summit. A summary of the summit was already published by Martin Fowler as first as [a blog](https://martinfowler.com/articles/201701-event-driven.html) and later as [a talk](https://www.youtube.com/watch?v=STKCRSUsyP0), the blog takes a slightly different view than the explanation I needed and thus this post was created. This is a recreation of the contents in the talk. If you have watched it, you can skip reading this summary._

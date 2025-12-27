@@ -9,7 +9,7 @@ tags:
   - coding-assistants
   - code-quality
   - developer-experience
-cross_post: [devto, medium]
+devto: true
 ---
 
 Using AI coding assistants to introduce, automate, and evolve quality checks in your project.

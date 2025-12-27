@@ -9,7 +9,7 @@ tags:
   - ai-assisted-development
   - engineering-principles
   - ai-patterns
-cross_post: [devto, medium]
+devto: true
 ---
 
 Software engineering is changing — again.

@@ -8,7 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-tools
   - engineering-culture
-cross_post: [devto, medium]
+devto: true
 ---
 
 Rethinking the role of AI across the entire software lifecycle

@@ -8,7 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-patterns
   - engineering-culture
-cross_post: [devto, medium]
+devto: true
 ---
 
 Moving beyond tools: habits, prompts, and patterns for working well with AI
