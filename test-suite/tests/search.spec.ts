@@ -90,6 +90,9 @@ test.describe('Search Functionality', () => {
     await page.locator('body').click();
     await expect(searchInput).not.toBeFocused();
 
+    // Wait for focus transition to complete before sending keyboard event
+    await page.waitForTimeout(100);
+
     // Press Cmd+K (or Ctrl+K on non-Mac)
     await page.keyboard.press('Meta+k');
 
