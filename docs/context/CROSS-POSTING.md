@@ -26,7 +26,7 @@ devto: true
 1. **Trigger**: Push to `main` with changes in `_posts/`
 2. **Workflow**: `.github/workflows/devto-crosspost.yml`
 3. **Tracking**: `.devto-posts.json` prevents duplicate posts
-4. **Canonical URL**: Set automatically to `https://karun.me/blog/<slug>/`
+4. **Canonical URL**: Set automatically to `https://karun.me/blog/YYYY/MM/DD/<slug>/`
 
 ### Workflow Behavior
 
@@ -59,7 +59,7 @@ The workflow automatically converts Jekyll-specific syntax:
 | Jekyll Syntax                               | Converted To                                  |
 | ------------------------------------------- | --------------------------------------------- |
 | `{% highlight lang %}...{% endhighlight %}` | ` ```lang ... ``` `                           |
-| `{% post_url YYYY-MM-DD-slug %}`            | `https://karun.me/blog/slug/`                 |
+| `{% post_url YYYY-MM-DD-slug %}`            | `https://karun.me/blog/YYYY/MM/DD/slug/`      |
 | `{% include youtube.html id="..." %}`       | `{% embed https://youtube.com/watch?v=... %}` |
 | `{{ site.url }}`                            | `https://karun.me`                            |
 | `<!-- more -->`                             | (removed)                                     |
