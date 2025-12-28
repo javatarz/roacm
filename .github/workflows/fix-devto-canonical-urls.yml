@@ -1,0 +1,99 @@
+name: Fix dev.to canonical URLs (one-time)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-canonical-urls:
+    name: Update canonical URLs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fix canonical URLs on dev.to
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          SITE_URL: https://karun.me
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const DEVTO_API_URL = 'https://dev.to/api/articles';
+          const TRACKING_FILE = '.devto-posts.json';
+          const SITE_URL = process.env.SITE_URL;
+
+          function getCorrectCanonicalUrl(postPath) {
+            const filename = path.basename(postPath, '.markdown');
+            const match = filename.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+            if (!match) {
+              throw new Error(`Invalid post filename format: ${postPath}`);
+            }
+            const [, year, month, day, slug] = match;
+            return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+          }
+
+          async function updateArticle(id, canonicalUrl) {
+            const response = await fetch(`${DEVTO_API_URL}/${id}`, {
+              method: 'PUT',
+              headers: {
+                'api-key': process.env.DEVTO_API_KEY,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                article: {
+                  canonical_url: canonicalUrl
+                }
+              })
+            });
+
+            if (!response.ok) {
+              const error = await response.text();
+              throw new Error(`dev.to API error (${response.status}): ${error}`);
+            }
+
+            return response.json();
+          }
+
+          async function main() {
+            if (!fs.existsSync(TRACKING_FILE)) {
+              console.error(`Error: ${TRACKING_FILE} not found`);
+              process.exit(1);
+            }
+
+            const tracking = JSON.parse(fs.readFileSync(TRACKING_FILE, 'utf8'));
+            const posts = Object.entries(tracking);
+
+            console.log(`Found ${posts.length} posts to update\n`);
+
+            for (const [postPath, data] of posts) {
+              const correctUrl = getCorrectCanonicalUrl(postPath);
+
+              console.log(`Updating: ${postPath}`);
+              console.log(`  ID: ${data.id}`);
+              console.log(`  New canonical URL: ${correctUrl}`);
+
+              try {
+                await updateArticle(data.id, correctUrl);
+                console.log(`  ✅ Updated successfully\n`);
+
+                // Rate limit: wait 2 seconds between updates
+                await new Promise(resolve => setTimeout(resolve, 2000));
+              } catch (error) {
+                console.error(`  ❌ Failed: ${error.message}\n`);
+              }
+            }
+
+            console.log('Done!');
+          }
+
+          main().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
