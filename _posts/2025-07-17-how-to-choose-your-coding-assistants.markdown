@@ -10,6 +10,11 @@ tags:
   - developer-experience
   - software-licensing
 devto: true
+devto_tags:
+  - ai
+  - productivity
+  - programming
+  - discuss
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 

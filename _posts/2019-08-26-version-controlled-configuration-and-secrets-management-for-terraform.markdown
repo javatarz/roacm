@@ -10,6 +10,11 @@ tags:
   - security
   - ci-cd
 devto: true
+devto_tags:
+  - terraform
+  - devops
+  - security
+  - cicd
 ---
 
 [Terraform](https://www.terraform.io/) is a tool to build your infrastructure as code. We've been having a few challenges while trying to figure out how to how to manage configuration and secrets when integrating terraform with our CD pipeline.

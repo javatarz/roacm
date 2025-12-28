@@ -10,6 +10,11 @@ tags:
   - engineering-culture
 evergreen: true
 devto: true
+devto_tags:
+  - productivity
+  - programming
+  - career
+  - discuss
 ---
 The habits, tools, and practices that set great engineering teams apart.
 

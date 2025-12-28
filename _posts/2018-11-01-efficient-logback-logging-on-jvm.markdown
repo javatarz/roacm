@@ -11,6 +11,11 @@ tags:
   - performance
   - scala
 devto: true
+devto_tags:
+  - java
+  - performance
+  - programming
+  - tutorial
 ---
 
 Efficient logging that doesn't bring your application down is simple to setup but is often overlooked. Here are some quick tips on how to achieve exactly that

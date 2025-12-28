@@ -10,6 +10,11 @@ tags:
   - engineering-principles
   - ai-patterns
 devto: true
+devto_tags:
+  - ai
+  - programming
+  - productivity
+  - career
 ---
 
 Software engineering is changing — again.

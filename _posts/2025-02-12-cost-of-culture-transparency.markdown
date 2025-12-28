@@ -10,6 +10,11 @@ tags:
   - engineering-culture
 evergreen: true
 devto: true
+devto_tags:
+  - leadership
+  - career
+  - productivity
+  - discuss
 ---
 
 Why most people believe they want transparency — but actually don't.

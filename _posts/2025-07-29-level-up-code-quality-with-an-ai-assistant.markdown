@@ -10,6 +10,11 @@ tags:
   - code-quality
   - developer-experience
 devto: true
+devto_tags:
+  - ai
+  - programming
+  - testing
+  - tutorial
 ---
 
 Using AI coding assistants to introduce, automate, and evolve quality checks in your project.

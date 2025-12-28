@@ -8,6 +8,11 @@ category: Software Design
 tags:
   - data-engineering
 devto: true
+devto_tags:
+  - database
+  - architecture
+  - aws
+  - cloud
 ---
 
 When you have large volumes of data, storing it logically helps users discover information and makes understanding the information easier. In this post, we talk about some of the techniques we use to do so in our application.

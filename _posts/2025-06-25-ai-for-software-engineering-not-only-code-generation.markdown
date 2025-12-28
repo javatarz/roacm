@@ -9,6 +9,11 @@ tags:
   - ai-tools
   - engineering-culture
 devto: true
+devto_tags:
+  - ai
+  - programming
+  - productivity
+  - discuss
 ---
 
 Rethinking the role of AI across the entire software lifecycle

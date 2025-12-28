@@ -9,6 +9,11 @@ tags:
   - ai-patterns
   - engineering-culture
 devto: true
+devto_tags:
+  - ai
+  - programming
+  - productivity
+  - tutorial
 ---
 
 Moving beyond tools: habits, prompts, and patterns for working well with AI
