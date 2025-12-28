@@ -235,6 +235,149 @@ Deploy to a staging branch with production environment enabled.
 - If issues persist, remove `umami-tracker.js` from bundle script in `package.json`
 - Comment out specific event tracking calls to isolate issue
 
+## Analyzing Your Audience
+
+Follow these steps to understand your audience using Umami. Use "Last 30 days" or "All time" for meaningful patterns.
+
+### Step 1: Check Overall Traffic (Overview Tab)
+
+1. Go to **Overview** tab
+2. Note key metrics:
+   - **Visitors**: Unique visitors
+   - **Views**: Total page views
+   - **Bounce rate**: % leaving after one page (lower is better)
+   - **Visit duration**: Average time on site
+
+### Step 2: Find Most Popular Content (Overview → Pages)
+
+1. In Overview, scroll to **Pages** section
+2. Look at the **Path** tab for top pages by visitors
+3. Questions to answer:
+   - Which blog posts get the most traffic?
+   - Are people finding content pages or just the homepage?
+   - Which categories are popular?
+
+### Step 3: Understand Traffic Sources (Overview → Sources)
+
+1. Scroll to **Sources** section
+2. Check **Referrers** tab:
+   - Where is traffic coming from?
+   - Is dev.to cross-posting driving traffic?
+   - Direct vs referred traffic ratio?
+3. Check **Channels** tab for source categories
+
+### Step 4: Analyze User Behavior (Events Tab)
+
+1. Go to **Events** tab
+2. Check the **Chart** tab for event distribution
+3. Key events to analyze:
+
+| Event          | Question                     | How to Check                                           |
+| -------------- | ---------------------------- | ------------------------------------------------------ |
+| `theme-toggle` | Dark or light preference?    | Properties tab → Event: theme-toggle → Property: theme |
+| `toc-navigate` | Do readers use ToC?          | Compare toc-navigate count to page views               |
+| `search`       | What are people looking for? | Properties tab → Event: search → Property: query       |
+| `code-copy`    | Which code is useful?        | Properties tab → Event: code-copy → Property: language |
+| `share`        | Which platforms for sharing? | Properties tab → Event: share → Property: platform     |
+
+### Step 5: Deep Dive into Event Properties
+
+1. Go to **Events** → **Properties** tab
+2. Select an **Event** from dropdown
+3. Select a **Property** to see breakdown
+4. Example for theme preference:
+   - Event: `theme-toggle`
+   - Property: `theme`
+   - See dark vs light split
+
+### Step 6: Check Geographic Distribution (Overview → Location)
+
+1. Scroll to **Location** section
+2. Check **Countries** tab
+3. Useful for:
+   - Understanding audience timezone for posting
+   - Language considerations
+
+### Sample Analysis Questions
+
+| Question                             | Where to Find Answer                       |
+| ------------------------------------ | ------------------------------------------ |
+| Most popular blog posts?             | Overview → Pages → Path                    |
+| Dark or light theme preference?      | Events → Properties → theme-toggle → theme |
+| Do people use the Table of Contents? | Events → toc-navigate count vs total views |
+| What are people searching for?       | Events → Properties → search → query       |
+| Where does traffic come from?        | Overview → Sources → Referrers             |
+| Which code snippets are useful?      | Events → Properties → code-copy → language |
+| What devices do readers use?         | Overview → Environment → Devices           |
+
+### Recommended Analysis Schedule
+
+- **Weekly**: Check top pages, new referrers, search queries
+- **Monthly**: Full analysis of all metrics, compare to previous month
+- **After publishing**: Check if new post appears in top pages within 48h
+
+### Bot Filtering
+
+Umami **automatically filters bots and crawlers** using the `isbot` package. Your data should already exclude known bots.
+
+- Bot detection is enabled by default
+- Uses comprehensive list of known bot user agents
+- Not 100% foolproof (headless browsers like Puppeteer may count as human)
+- To disable bot filtering: Set `DISABLE_BOT_CHECK=true` in Umami's `.env` file
+
+### What Are People Searching For?
+
+To see search queries:
+
+1. Go to **Events** tab
+2. Click **Properties** tab
+3. Select Event: `search`
+4. Select Property: `query`
+5. See breakdown of what visitors searched for
+
+This reveals:
+
+- Content gaps (searches with low/zero results)
+- Topics readers want but can't find
+- Ideas for future blog posts
+
+You can also check `results_count` property to see if searches found content.
+
+### Which Page Did an Event Occur On?
+
+Events like `code-copy`, `share`, or `toc-navigate` don't directly show which page they occurred on. To find this:
+
+1. Go to **Events** tab
+2. Click **Activity** tab to see individual events
+3. Find the event you're interested in
+4. Click the **session avatar** (colored circle) next to the event
+5. A dialog opens showing the full session history
+6. Look for "Viewed page" entries near the event timestamp
+7. The page view immediately before the event is where it occurred
+
+**Example:**
+
+```
+3:22:50 PM - Viewed page /blog/2025/07/29/level-up-code-quality...
+3:22:56 PM - Triggered event code-copy    ← occurred on above page
+3:23:24 PM - Triggered event code-copy    ← also on same page
+```
+
+**Bonus insights from session view:**
+
+- See the user's full journey through your site
+- Identify which posts drive engagement (multiple events)
+- Understand reading patterns (linear vs jumping around)
+- See geographic location, browser, and device info
+
+### UTM Tracking (Future)
+
+Once you start sharing links with UTM parameters, check:
+
+1. Go to **UTM** tab (under Growth)
+2. See which campaigns drive traffic
+3. UTM format: `?utm_source=twitter&utm_medium=social&utm_campaign=post-name`
+
 ## Related Files
 
 - `assets/js/umami-tracker.js` - Core tracking utility
