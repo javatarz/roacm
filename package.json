@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Automated testing for ROACM Jekyll blog theme",
   "scripts": {
-    "prebuild:js": "cp node_modules/lunr/lunr.min.js assets/js/lib/",
+    "prebuild:js": "mkdir -p assets/js/lib && cp node_modules/lunr/lunr.min.js assets/js/lib/",
     "build:js": "cat assets/js/lib/lunr.min.js assets/js/umami-tracker.js assets/js/code-blocks.js assets/js/reading-progress.js assets/js/back-to-top.js assets/js/lazy-loading.js assets/js/toc.js assets/js/search.js assets/js/mobile-menu.js | npx terser -o assets/js/bundle.min.js --compress --mangle --source-map",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "npm run lint:css && npm run lint:js && npm run lint:html",
