@@ -107,6 +107,7 @@ Use Git worktrees to work on multiple issues in parallel without switching branc
 
 - **Read `docs/context/DEVELOPMENT.md`** - Commands, file structure, architecture
 - **Read `docs/context/TESTING.md`** - Testing requirements and workflows
+- **Read `docs/context/VISUAL_STYLE.md`** - Visual design, colors, accessibility (when making CSS/styling changes)
 
 ### Blog Content
 
