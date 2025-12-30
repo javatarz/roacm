@@ -5,6 +5,7 @@ updates:
   schedule:
     interval: "daily"
   labels:
-  - "CI/CD"
+  - "dependencies"
+  - "automated"
   commit-message:
     prefix: ci
