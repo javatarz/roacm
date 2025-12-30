@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const { execSync } = require('child_process');
 
 const DEVTO_API_URL = 'https://dev.to/api/articles';
 const TRACKING_FILE = '.devto-posts.json';
@@ -90,21 +89,12 @@ function getPostsToProcess() {
   if (manualPath) {
     return [manualPath];
   }
-  try {
-    const output = execSync('git diff --name-only HEAD~1 HEAD -- _posts/', {
-      encoding: 'utf8',
-    });
-    return output
-      .trim()
-      .split('\n')
-      .filter((f) => f.endsWith('.markdown'));
-  } catch {
-    console.log('Could not get changed files, checking all posts');
-    return fs
-      .readdirSync('_posts')
-      .filter((f) => f.endsWith('.markdown'))
-      .map((f) => `_posts/${f}`);
-  }
+  // Always check all posts - the main() function filters by devto: true
+  // and tracking file to determine what actually needs publishing
+  return fs
+    .readdirSync('_posts')
+    .filter((f) => f.endsWith('.markdown'))
+    .map((f) => `_posts/${f}`);
 }
 
 async function main() {
