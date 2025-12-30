@@ -356,29 +356,3 @@ jobs:
             git commit -m "Update dev.to tracking"
             git push
           fi
-
-  devto-update:
-    name: dev.to Update
-    runs-on: ubuntu-latest
-    needs: build-and-deploy
-    if: |
-      always() &&
-      github.event_name == 'workflow_dispatch' &&
-      needs.build-and-deploy.result == 'success'
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install gray-matter
-
-      - name: Update posts on dev.to
-        env:
-          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-          SITE_URL: https://karun.me
-          POST_PATH: ${{ github.event.inputs.post_path }}
-        run: node .github/scripts/devto-update.js

@@ -1,0 +1,56 @@
+name: dev.to Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_path:
+        description: 'Path to post file (e.g., _posts/2024-12-25-my-post.markdown)'
+        required: true
+        type: string
+
+jobs:
+  check-main-status:
+    name: Check Main Branch Status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if main CI is green
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          conclusion=$(gh run list \
+            --repo ${{ github.repository }} \
+            --workflow=ci.yml \
+            --branch=main \
+            --limit=1 \
+            --json conclusion \
+            --jq '.[0].conclusion')
+
+          if [ "$conclusion" != "success" ]; then
+            echo "❌ Main branch CI is not green (status: $conclusion)"
+            echo "Please fix main branch before updating dev.to posts"
+            exit 1
+          fi
+
+          echo "✅ Main branch CI is green"
+
+  update-devto:
+    name: Update dev.to Post
+    runs-on: ubuntu-latest
+    needs: check-main-status
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Update post on dev.to
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          SITE_URL: https://karun.me
+          POST_PATH: ${{ github.event.inputs.post_path }}
+        run: node .github/scripts/devto-update.js
