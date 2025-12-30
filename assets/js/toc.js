@@ -10,7 +10,22 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  const headings = article.querySelectorAll('h2, h3');
+  // Get all headings but exclude those in sidebars/metadata sections
+  const allHeadings = article.querySelectorAll('h2, h3');
+  const headings = Array.from(allHeadings).filter(function (heading) {
+    // Exclude headings within these sections
+    const inExcludedSection =
+      heading.closest('aside') ||
+      heading.closest('.post-metadata') ||
+      heading.closest('.post-navigation') ||
+      heading.closest('#disqus_thread');
+
+    // Exclude headings with specific text content
+    const text = heading.textContent.trim().toLowerCase();
+    const isExcludedText = text === 'credits' || text === 'comments';
+
+    return !inExcludedSection && !isExcludedText;
+  });
 
   // Only show ToC if there are 3+ headings
   if (headings.length < 3) {
