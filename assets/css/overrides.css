@@ -8,7 +8,7 @@
   --card-bg: #ffffff;
   --card-border: #e8e8e8;
   --card-shadow: rgb(0, 0, 0, 0.08);
-  --accent-color: #d62839; /* Brighter red for better link visibility (5.2:1 on white) */
+  --accent-color: #d32f2f; /* Vivid red meeting WCAG AA (4.7:1 on white) */
   --sidebar-accent-color: #ff5555; /* Lighter red for WCAG AA contrast on dark sidebar */
 
   /* Code block colors - VS Code dark theme inspired */
@@ -51,7 +51,7 @@
   --card-bg: #252525;
   --card-border: #404040;
   --card-shadow: rgb(0, 0, 0, 0.3);
-  --accent-color: #ff5f6d; /* Brighter coral for better link visibility (5.5:1 on #1a1a1a) */
+  --accent-color: #ff7b8a; /* Vivid salmon for clear link visibility without underlines */
 }
 
 /* Apply theme colors to body and main elements */
@@ -275,30 +275,19 @@ header a:hover {
 
 /* Enhanced link styling - uses CSS variable for theme support */
 
-/* Post content links - visible underline by default, animate on hover */
+/* Post content links - color only, no underline */
 .post-content a:not(.no-underline) {
-  background-image: linear-gradient(
-    to right,
-    var(--accent-color) 0%,
-    var(--accent-color) 100%
-  );
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  text-decoration: none; /* Use background underline instead */
-  transition:
-    background-size 0.3s ease,
-    color 0.2s ease;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
 .post-content a:not(.no-underline):hover {
-  background-size: 100% 2px;
+  opacity: 0.8;
 }
 
-/* Visited links - slightly muted (uses accent color with reduced opacity) */
+/* Visited links - keep same vivid color */
 .post-content a:visited {
   color: var(--accent-color);
-  opacity: 0.8;
 }
 
 /* External links indicator */
@@ -356,6 +345,12 @@ b {
 
 em {
   color: var(--text-primary);
+}
+
+/* Links inside emphasis should still use accent color */
+em a,
+a em {
+  color: var(--accent-color);
 }
 
 /* Buttons */
