@@ -1,0 +1,141 @@
+/* global require, process */
+/* eslint-disable no-console */
+const fs = require('fs');
+const path = require('path');
+const matter = require('gray-matter');
+
+const DEVTO_API_URL = 'https://dev.to/api/articles';
+const TRACKING_FILE = '.devto-posts.json';
+const SITE_URL = process.env.SITE_URL;
+
+function convertMarkdown(content) {
+  let converted = content;
+  converted = converted.replace(/<!--\s*more\s*-->/gi, '');
+  converted = converted.replace(
+    /\{%\s*highlight\s+(\w+)\s*%\}([\s\S]*?)\{%\s*endhighlight\s*%\}/g,
+    (match, lang, code) => `\`\`\`${lang}\n${code.trim()}\n\`\`\``,
+  );
+  converted = converted.replace(
+    /\{%\s*post_url\s+(\d{4})-(\d{2})-(\d{2})-([^\s%]+)\s*%\}/g,
+    (match, year, month, day, slug) =>
+      `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`,
+  );
+  converted = converted.replace(
+    /\{%\s*include\s+youtube\.html\s+id="([^"]+)"(?:\s+title="([^"]+)")?\s*%\}/g,
+    (match, id) => `{% embed https://www.youtube.com/watch?v=${id} %}`,
+  );
+  converted = converted.replace(/\{\{\s*site\.url\s*\}\}/g, SITE_URL);
+  converted = converted.replace(/\{\{\s*site\.excerpt_separator\s*\}\}/g, '');
+  converted = converted.replace(
+    /!\[([^\]]*)\]\((?!http)([^)]+)\)/g,
+    (match, alt, src) => {
+      const absoluteSrc = src.startsWith('/')
+        ? `${SITE_URL}${src}`
+        : `${SITE_URL}/${src}`;
+      return `![${alt}](${absoluteSrc})`;
+    },
+  );
+  converted = converted.replace(
+    /\[([^\]]+)\]\((?!http|#)([^)]+)\)/g,
+    (match, text, href) => {
+      const absoluteHref = href.startsWith('/')
+        ? `${SITE_URL}${href}`
+        : `${SITE_URL}/${href}`;
+      return `[${text}](${absoluteHref})`;
+    },
+  );
+  return converted.trim();
+}
+
+function getCanonicalUrl(postPath) {
+  const filename = path.basename(postPath, '.markdown');
+  const match = filename.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+  if (!match) {
+    throw new Error(`Invalid post filename format: ${postPath}`);
+  }
+  const [, year, month, day, slug] = match;
+  return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+}
+
+async function updateArticle(id, article) {
+  const response = await fetch(`${DEVTO_API_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'api-key': process.env.DEVTO_API_KEY,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ article }),
+  });
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`dev.to API error (${response.status}): ${error}`);
+  }
+  return response.json();
+}
+
+async function main() {
+  if (!fs.existsSync(TRACKING_FILE)) {
+    console.error(`Error: ${TRACKING_FILE} not found`);
+    process.exit(1);
+  }
+
+  const tracking = JSON.parse(fs.readFileSync(TRACKING_FILE, 'utf8'));
+  const specificPost = process.env.POST_PATH;
+
+  let postsToSync = Object.entries(tracking);
+  if (specificPost) {
+    postsToSync = postsToSync.filter(([p]) => p === specificPost);
+    if (postsToSync.length === 0) {
+      console.error(`Post not found in tracking: ${specificPost}`);
+      process.exit(1);
+    }
+  }
+
+  console.log(`Updating ${postsToSync.length} post(s) on dev.to\n`);
+
+  for (const [postPath, data] of postsToSync) {
+    if (!fs.existsSync(postPath)) {
+      console.log(`Skipping ${postPath} - file not found`);
+      continue;
+    }
+
+    const fileContent = fs.readFileSync(postPath, 'utf8');
+    const { data: frontmatter, content } = matter(fileContent);
+    const canonicalUrl = getCanonicalUrl(postPath);
+    const convertedContent = convertMarkdown(content);
+
+    const article = {
+      title: frontmatter.title,
+      body_markdown: convertedContent,
+      canonical_url: canonicalUrl,
+    };
+    if (frontmatter.description) {
+      article.description = frontmatter.description;
+    }
+    const tags = frontmatter.devto_tags || frontmatter.tags;
+    if (tags && Array.isArray(tags)) {
+      article.tags = tags
+        .slice(0, 4)
+        .map((t) => t.toLowerCase().replace(/[^a-z0-9]/g, ''));
+    }
+
+    console.log(`Updating: ${postPath}`);
+    console.log(`  ID: ${data.id}`);
+    console.log(`  Canonical URL: ${canonicalUrl}`);
+
+    try {
+      await updateArticle(data.id, article);
+      console.log('  ✅ Updated successfully\n');
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    } catch (error) {
+      console.error(`  ❌ Failed: ${error.message}\n`);
+    }
+  }
+
+  console.log('Done!');
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

@@ -1,0 +1,80 @@
+name: 'Setup Dependencies'
+description: 'Sets up Node.js, Ruby, and optionally Playwright with caching'
+
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '20'
+  ruby-version:
+    description: 'Ruby version to use'
+    required: false
+    default: '3.2'
+  playwright-browser:
+    description: 'Playwright browser to install (chromium, firefox, webkit, or empty to skip)'
+    required: false
+    default: ''
+  include-ruby:
+    description: 'Whether to set up Ruby'
+    required: false
+    default: 'true'
+  prebuild-js:
+    description: 'Run npm run prebuild:js to copy lunr.min.js'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Install Node dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Prebuild JS (copy lunr.min.js)
+      if: inputs.prebuild-js == 'true'
+      shell: bash
+      run: npm run prebuild:js
+
+    - name: Setup Ruby
+      if: inputs.include-ruby == 'true'
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby-version }}
+        bundler-cache: true
+
+    - name: Cache Jekyll build
+      if: inputs.include-ruby == 'true'
+      uses: actions/cache@v4
+      with:
+        path: |
+          .jekyll-cache
+          .jekyll-metadata
+        key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-jekyll-
+
+    - name: Cache Playwright Browsers
+      if: inputs.playwright-browser != ''
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
+
+    - name: Install Playwright (with system deps)
+      if: inputs.playwright-browser != '' && steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: npx playwright install --with-deps ${{ inputs.playwright-browser }}
+
+    - name: Install Playwright (browsers only) and system deps
+      if: inputs.playwright-browser != '' && steps.playwright-cache.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        npx playwright install-deps ${{ inputs.playwright-browser }}
+        npx playwright install ${{ inputs.playwright-browser }}
