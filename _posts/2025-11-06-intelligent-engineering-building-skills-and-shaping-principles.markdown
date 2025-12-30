@@ -38,23 +38,23 @@ These principles fall into two buckets: what is new, and what remains timeless b
 These principles exist because of AI. They address challenges that didn't matter before.
 
 #### AI augments, humans stay accountable.
-AI can help you move faster and see options you'd miss on your own. But it can't own the outcome. Engineering judgment, ethical responsibility, and decision-making stay with you. When something breaks in production, "the AI suggested it" isn't an acceptable answer.
+AI can help you move faster and see options you'd miss on your own. But it can't own the outcome. Engineering judgment stays with you. When something breaks in production, "the AI suggested it" isn't an acceptable answer.
 
 #### Context is everything.
-AI output reflects what you put in. Vague requests get vague results. If you want useful output, bring useful context — project constraints, coding standards, relevant examples, what you've already tried.
+AI output reflects what you put in. Vague requests get vague results. Bring useful context: project constraints, coding standards, relevant examples, what you've already tried.
 
 As systems grow, context management becomes a discipline of its own. How do new teammates get AI tools primed with the right information? How do you keep that context current? When context exceeds what fits in a prompt, you'll need solutions like modular documentation.
 
 #### Smarter AI needs smarter guardrails.
-Faster generation demands sharper review. AI-produced code still needs validation for correctness, security, and whether it actually solves the right problem. The easier code generation gets, the sharper review must be.
+Faster generation demands sharper review. AI-produced code still needs validation: Is it correct? Secure? Does it solve the right problem?
 
 #### Shape AI deliberately.
-I've seen teams adopt whatever AI tools are trending without asking whether they fit. Six months later, half the codebase assumes a specific assistant's quirks, onboarding docs reference prompts that no longer work, and no one remembers why certain patterns exist. Decide upfront: where does AI help us? Where does it not? What happens when we switch tools?
+I've seen teams adopt whatever AI tools are trending without asking whether they fit. Six months later, half the codebase assumed Copilot's import ordering, onboarding docs referenced prompts that no longer worked, and no one remembered why. Decide upfront: where does AI help us? Where does it not? What happens when we switch tools?
 
 #### Learning never stops.
 At the start of 2025, AI practices evolved weekly. By year's end, monthly. That's still faster than most teams are used to. What didn't work three months ago might work now. The only way to know is to keep experimenting.
 
-I recommend a 90-10 split: 90% of your time getting work done, 10% experimenting. Try new ways to solve the same problem. Revisit old problems to see if there's a simpler solution now. Check if techniques you learned last quarter still make sense. Ongoing experimentation keeps your skills sharp in a space that won't slow down.
+I've settled on 90% getting work done, 10% experimenting. Try new ways to solve the same problem. Revisit old problems to see if there's a simpler solution now. Check if techniques you learned last quarter still make sense.
 
 ### Timeless Foundations
 
@@ -63,7 +63,7 @@ These aren't new, but AI makes them more important.
 #### Learn fast, adapt continuously.
 Start small, validate often, and shorten feedback loops. If an AI-assisted workflow isn't helping, change it. Don't let sunk cost keep you on a bad path.
 
-#### Sustainable Value over fleeting output.
+#### Fast doesn't mean good.
 AI makes it easy to generate code fast. That doesn't mean the code is worth keeping. Unmaintainable, insecure, or rigid solutions cost more than they save. Build the right thing, not just the quick thing.
 
 ## What This Looks Like in Practice
@@ -83,11 +83,11 @@ Principles guide decisions. Skills make them possible.
 
 Here's what I've found worth investing in:
 
-**Context engineering matters more than prompt engineering.** A clever prompt won't fix bad context. I spend more time curating what information the model sees than crafting how I ask for things. Project documentation, coding standards, relevant examples. These shape output quality more than prompt tricks.
+**Context engineering matters more than prompt engineering.** A clever prompt won't fix bad context. I spend more time curating what information the model sees than crafting how I ask for things. Project documentation, coding standards, relevant examples. These matter more than prompt tricks.
 
 **Understanding tokens and context windows helps.** You don't need to become an ML engineer. But it helps to know why your 50-file codebase overwhelms the model, or why it "forgets" earlier instructions.
 
-**RAG and agents are worth learning.** When context exceeds what fits in a prompt, retrieval-augmented generation lets you pull in relevant information dynamically. When tasks need multiple steps, agents chain reasoning together. These aren't just buzzwords. They're practical patterns I use regularly.
+**Agentic workflow primitives matter more than AI theory.** You won't build RAG systems from scratch. You'll use tools with these built in. What matters is configuring them: hooks that customize behavior, skills that extend capabilities, context management that keeps information relevant. I spend more time learning how my tools' hooks work or how to structure context files than reading ML papers.
 
 ## Why This Matters
 
