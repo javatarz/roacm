@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Build the ToC HTML
   let tocHTML = '<nav class="toc-nav" aria-label="Table of contents">';
-  tocHTML += '<h4 class="toc-title">Contents</h4>';
+  tocHTML += '<div class="toc-title" aria-hidden="true">Contents</div>';
   tocHTML += '<ul class="toc-list">';
 
   headings.forEach(function (heading) {
