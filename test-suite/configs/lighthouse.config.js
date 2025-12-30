@@ -37,7 +37,7 @@ module.exports = {
         // CLS optimization tracked in #104
         'categories:performance': ['error', { minScore: 0.96 }],
         // Accessibility temporarily lowered (0.96 → 0.89) - color contrast issues from recent CSS changes
-        'categories:accessibility': ['error', { minScore: 0.89 }],
+        'categories:accessibility': ['error', { minScore: 0.92 }],
         // Skip best-practices: sometimes returns null due to charset audit
         'categories:seo': ['error', { minScore: 0.97 }],
 
