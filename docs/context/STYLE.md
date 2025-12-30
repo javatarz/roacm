@@ -68,7 +68,7 @@ Avoid weak openings like "In this post, we will discuss..." - get straight to th
 | `code`         | Commands, file names, technical terms         |
 | > Block quotes | Key takeaways, memorable statements           |
 | [Links]()      | Inline to external resources, don't over-link |
-| — Em dash      | Asides, parenthetical thoughts                |
+| Commas/parens  | For asides; avoid em-dashes (AI tell)         |
 
 ## Sentence Patterns
 
@@ -88,21 +88,22 @@ Avoid weak openings like "In this post, we will discuss..." - get straight to th
 
 ### Principles Format
 
-When presenting principles or guidelines, use clear headings with brief explanations:
+When presenting principles or guidelines, use clear headings with concrete explanations:
 
 ```markdown
-#### AI augments, humans stay accountable.
+#### Shape AI deliberately.
 
-AI can extend your reach... but it cannot own the outcome.
+I've seen teams adopt whatever AI tools are trending without asking whether they fit. Six months later, half the codebase assumes a specific assistant's quirks, onboarding docs reference prompts that no longer work, and no one remembers why certain patterns exist. Decide upfront: where does AI help us? Where does it not? What happens when we switch tools?
 ```
 
 ### Practical Examples
 
-Include "What this looks like in practice" sections:
+Include "What this looks like in practice" sections with personal voice:
 
 ```markdown
-- We use AI to explore ideas, but we validate assumptions ourselves.
-- We generate code fast, then review it twice as hard.
+- I use AI to draft implementations, then spend more time reviewing than I saved generating. The review is where the real work happens.
+- When AI suggests an approach, I ask "why?" If I can't explain the choice to a teammate, I don't use it.
+- I treat AI output like code from a confident junior developer — often correct, sometimes subtly wrong, occasionally completely off base.
 ```
 
 ### Calls to Action
@@ -133,6 +134,42 @@ Acknowledge contributors at the end:
 - Passive voice when active is clearer
 - Jargon without context for the audience
 
+## ChatGPT Tells to Avoid
+
+AI-generated content has recognizable patterns. Watch for these:
+
+### Structural Tells
+
+- **Abstract wisdom without specifics**: "Better thinking in produces better thinking out" — sounds profound, says nothing
+- **Missing the "I" voice**: Abstract "we" throughout instead of personal experience and opinions
+- **Overly parallel/poetic structures**: "Not X. Not Y. Z." for dramatic effect; forced symmetry
+- **Triple constructions**: "extend your reach, accelerate your ideas, and surface possibilities" — marketing-speak
+- **Blockquote overuse**: Too many quotes for emphasis dilutes their impact
+
+### Language Tells
+
+- **Buzzword soup**: "curiosity, continuous improvement, and lightweight experimentation"
+- **Generic thought leadership**: "AI is reshaping how we think while we deliver"
+- **Salesy phrases**: "That's the real craft of...", "Become harder to compete with over time"
+- **Passive corporate constructions**: "Intentional adoption prevents accidental dependencies being created"
+- **Redundancy dressed as emphasis**: "hallucinated APIs that do not exist"
+- **Em-dash overuse**: Most humans don't write with em-dashes; prefer commas, periods, or parentheses
+
+### Content Tells
+
+- **No friction or uncertainty**: Reads like settled truth from on high
+- **No personal anecdotes**: Principles without stories of when they applied (or failed)
+- **Aspirational framing**: "The engineers I admire most..." instead of "The engineers I've seen do this well..."
+
+## What Makes Writing Authentic
+
+- **Personal anecdotes**: Specific experiences — what worked, what didn't, what surprised you
+- **"I" for opinions, "we" to include the reader**: "I've found..." not "One might find..."
+- **Concrete failure modes**: "Prototypes that demo well but collapse under real load"
+- **Specific comparisons**: Show bad vs good ("Write a function to parse dates" vs "Parse ISO 8601 dates, handle timezone offsets, return None for invalid input")
+- **Acknowledge uncertainty**: "These principles aren't final. I expect to revise them..."
+- **Name tools and techniques**: Don't be generic when you have specific recommendations
+
 ## Review Checklist
 
 When reviewing a draft:
@@ -144,6 +181,9 @@ When reviewing a draft:
 5. Does the tone feel confident but approachable?
 6. Are technical terms explained or linked?
 7. Would this feel at home alongside the iE posts?
+8. **ChatGPT check**: Any abstract wisdom, buzzword soup, or missing "I" voice?
+9. **Authenticity check**: Are there personal anecdotes and concrete examples?
+10. **Concision check**: Can any sentence be tightened? Any redundancy?
 
 ## Reference Posts
 
