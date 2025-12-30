@@ -16,6 +16,12 @@ on:
       - "Dockerfile"
       - "local_run_native.sh"
       - "jekyll.thor"
+  workflow_dispatch:
+    inputs:
+      post_path:
+        description: 'Path to post file for dev.to sync (e.g., _posts/2024-12-25-my-post.markdown)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -26,7 +32,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Detect which files changed to determine if tests should run
+  # ============================================================================
+  # CHANGE DETECTION
+  # ============================================================================
   changes:
     name: Detect Changes
     runs-on: ubuntu-latest
@@ -45,14 +53,14 @@ jobs:
               - '_includes/**'
               - 'test-suite/**'
               - '.github/workflows/ci.yml'
+              - '.github/actions/**'
               - 'package.json'
               - 'package-lock.json'
 
-  # All test jobs run in parallel after changes detection for faster CI
-  # lint-and-validate, visual-and-e2e-tests, accessibility-tests, and performance-tests
-  # all start immediately after 'changes' job completes
+  # ============================================================================
+  # TESTING JOBS (run in parallel when theme files change)
+  # ============================================================================
 
-  # Linting jobs - only run when theme files change
   lint-and-validate:
     name: Lint and Validate
     runs-on: ubuntu-latest
@@ -61,36 +69,16 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          include-ruby: 'true'
 
       - name: Lint CSS
         run: npm run lint:css
 
       - name: Lint JavaScript
         run: npm run lint:js
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      - name: Cache Jekyll build
-        uses: actions/cache@v4
-        with:
-          path: |
-            .jekyll-cache
-            .jekyll-metadata
-          key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-jekyll-
 
       - name: Build site for HTML validation
         run: bundle exec jekyll build
@@ -101,9 +89,8 @@ jobs:
       - name: Detect dead code
         run: npm run audit:dead-code
 
-  # E2E tests - only run when theme files change
   visual-and-e2e-tests:
-    name: Visual & E2E Tests
+    name: Visual & E2E Tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.theme == 'true'
@@ -113,39 +100,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
         with:
-          node-version: '20'
-          cache: 'npm'
+          include-ruby: 'true'
+          playwright-browser: ${{ matrix.browser }}
+          prebuild-js: 'true'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Cache Playwright Browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ matrix.browser }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      - name: Install Playwright Browsers (with system deps)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps ${{ matrix.browser }}
-
-      - name: Install Playwright Browsers (browsers only) and system deps
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: |
-          npx playwright install-deps ${{ matrix.browser }}
-          npx playwright install ${{ matrix.browser }}
-
-      - name: Run E2E Tests - ${{ matrix.browser }}
+      - name: Run E2E Tests
         run: npm run test:e2e -- --project=${{ matrix.browser }} --update-snapshots
 
       - name: Upload test results
@@ -173,7 +135,6 @@ jobs:
           retention-days: 30
           if-no-files-found: ignore
 
-  # Accessibility tests - only run when theme files change
   accessibility-tests:
     name: Accessibility Tests
     runs-on: ubuntu-latest
@@ -182,37 +143,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Cache Playwright Browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium-${{ hashFiles('package-lock.json') }}
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      - name: Install Playwright (with system deps)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Playwright (browsers only) and system deps
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: |
-          npx playwright install-deps chromium
-          npx playwright install chromium
+          include-ruby: 'true'
+          playwright-browser: chromium
+          prebuild-js: 'true'
 
       - name: Run Accessibility Tests
         run: npm run test:a11y -- --project=chromium
@@ -225,7 +161,6 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
-  # Performance tests - only run when theme files change
   performance-tests:
     name: Performance Tests (Lighthouse)
     runs-on: ubuntu-latest
@@ -234,20 +169,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
+          include-ruby: 'true'
 
       - name: Run Lighthouse CI
         run: npm run test:lighthouse
@@ -289,15 +214,16 @@ jobs:
               });
             }
 
-  # Build and deploy - runs after tests pass OR if tests were skipped
+  # ============================================================================
+  # BUILD AND DEPLOY
+  # ============================================================================
+
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     needs: [changes, lint-and-validate, visual-and-e2e-tests, accessibility-tests, performance-tests]
-    # Run if:
-    # - All test jobs succeeded, OR
-    # - All test jobs were skipped (no theme changes)
-    # Do NOT run if any test job failed (including Lighthouse threshold checks in performance-tests)
+    # Run if all tests succeeded OR all tests were skipped (no theme changes)
+    # Do NOT run if any test job failed
     if: |
       always() &&
       (needs.changes.outputs.theme == 'false' ||
@@ -308,27 +234,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node.js for JS bundling
-        uses: actions/setup-node@v6
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install Node dependencies
-        run: npm ci
+          include-ruby: 'false'
 
       - name: Bundle JavaScript for production
         run: npm run build:js
-
-      - name: Cache Jekyll build
-        uses: actions/cache@v4
-        with:
-          path: |
-            .jekyll-cache
-            .jekyll-metadata
-          key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-jekyll-
 
       - name: Build the site in the jekyll/builder container
         run: |
@@ -360,7 +272,10 @@ jobs:
             -H "Content-Type: application/json" \
             --data '{"purge_everything":true}'
 
-  # Summary job for PR status checks
+  # ============================================================================
+  # TEST SUMMARY
+  # ============================================================================
+
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
@@ -395,3 +310,68 @@ jobs:
           fi
 
           echo "✅ All tests passed (including Lighthouse thresholds) and deployment succeeded!"
+
+  # ============================================================================
+  # DEV.TO PUBLISHING
+  # ============================================================================
+
+  devto-publish:
+    name: dev.to Publish
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.build-and-deploy.result == 'success'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Publish new posts to dev.to
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          SITE_URL: https://karun.me
+          POST_PATH: ${{ github.event.inputs.post_path }}
+        run: node .github/scripts/devto-publish.js
+
+      - name: Commit tracking file
+        if: success()
+        run: |
+          if [ -f .devto-posts.json ] && ! git diff --quiet .devto-posts.json 2>/dev/null; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .devto-posts.json
+            git commit -m "Update dev.to tracking"
+            git push
+          fi
+
+  devto-update:
+    name: dev.to Update
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    if: github.event_name == 'workflow_dispatch' && needs.build-and-deploy.result == 'success'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Update posts on dev.to
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          SITE_URL: https://karun.me
+          POST_PATH: ${{ github.event.inputs.post_path }}
+        run: node .github/scripts/devto-update.js
