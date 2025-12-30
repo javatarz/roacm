@@ -105,6 +105,6 @@ If you're experimenting with AI in your engineering work, I'd be curious to hear
 
 ## Credits
 
-_This blog would not have been possible without the review and feedback from_ [_Greg Reiser_](https://www.linkedin.com/in/greg-reiser-6910462/)_,_ [_George Song_](https://www.linkedin.com/in/gsong/) _and_ [_Dr. Karthika Vijayan_](https://www.linkedin.com/in/karthika-vijayan/) _for reviewing multiple versions of this post and providing patient feedback 😀._
+_This blog would not have been possible without the review and feedback from_ [_Greg Reiser_](https://www.linkedin.com/in/greg-reiser-6910462/)_,_ [_George Song_](https://www.linkedin.com/in/gsong/) _and_ [_Karthika Vijayan_](https://www.linkedin.com/in/karthika-vijayan/) _for reviewing multiple versions of this post and providing patient feedback 😀._
 
 _This content has been written on the shoulders of giants (at and outside_ [_Sahaj_](https://sahaj.ai)_)._
