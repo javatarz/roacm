@@ -8,6 +8,8 @@ on:
       - "README.md"
       - "Dockerfile"
       - "jekyll.thor"
+  schedule:
+    - cron: '30 4 * * *'  # 10:00 AM IST (4:30 AM UTC) daily
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -248,7 +250,7 @@ jobs:
           -v ${{ github.workspace }}:/srv/jekyll \
           -e JEKYLL_UID=$(id -u) \
           -e JEKYLL_GID=$(id -g) \
-          jvconseil/jekyll-docker:4.3.3 jekyll build --future
+          jvconseil/jekyll-docker:4.3.3 jekyll build
 
       - name: Transform images in HTML to picture elements
         run: npm run images:transform

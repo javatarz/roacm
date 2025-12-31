@@ -1,4 +1,4 @@
-/* global require, process */
+/* global require, process, module */
 /* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
@@ -58,14 +58,30 @@ function convertMarkdown(content) {
   return converted.trim();
 }
 
-function getCanonicalUrl(postPath) {
+function parsePostFilename(postPath) {
   const filename = path.basename(postPath, '.markdown');
   const match = filename.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
   if (!match) {
     throw new Error(`Invalid post filename format: ${postPath}`);
   }
   const [, year, month, day, slug] = match;
+  return { year, month, day, slug };
+}
+
+function getCanonicalUrl(postPath) {
+  const { year, month, day, slug } = parsePostFilename(postPath);
   return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+}
+
+function getPostDate(postPath) {
+  const { year, month, day } = parsePostFilename(postPath);
+  // Parse as UTC midnight (start of day)
+  return new Date(`${year}-${month}-${day}T00:00:00Z`);
+}
+
+function isFuturePost(postPath) {
+  const postDate = getPostDate(postPath);
+  return postDate > new Date();
 }
 
 async function createArticle(article) {
@@ -112,6 +128,13 @@ async function main() {
     const { data: frontmatter, content } = matter(fileContent);
     if (!frontmatter.devto) {
       console.log(`Skipping ${postPath} - devto: true not set`);
+      continue;
+    }
+    if (isFuturePost(postPath)) {
+      const postDate = getPostDate(postPath);
+      console.log(
+        `Skipping ${postPath} - future post (${postDate.toISOString().split('T')[0]})`,
+      );
       continue;
     }
     if (tracking[postPath]) {
@@ -165,7 +188,21 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Export for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    parsePostFilename,
+    getPostDate,
+    isFuturePost,
+    getCanonicalUrl,
+    convertMarkdown,
+  };
+}
+
+// Run main only when executed directly
+if (require.main === module) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
