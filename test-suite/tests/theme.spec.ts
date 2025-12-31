@@ -290,6 +290,139 @@ test.describe('Accessibility', () => {
     expect(textContrast).toBeTruthy();
     expect(darkTextContrast).toBeTruthy();
   });
+
+  test('ToC title has sufficient contrast in light mode @contrast', async ({ page }) => {
+    // Navigate to a post with ToC
+    await page.goto('/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/');
+
+    // Ensure light mode
+    const html = page.locator('html');
+    if (await html.getAttribute('data-theme') === 'dark') {
+      await page.locator('#theme-toggle').click();
+      await page.waitForTimeout(300);
+    }
+
+    // Get ToC title color and its effective background
+    const tocContrast = await page.evaluate(() => {
+      const tocTitle = document.querySelector('.toc-title');
+      if (!tocTitle) return { error: 'No .toc-title found' };
+
+      const titleStyles = window.getComputedStyle(tocTitle);
+      const titleColor = titleStyles.color;
+
+      // Find effective background - walk up the DOM
+      let bgColor = 'rgb(255, 255, 255)'; // default
+      let el: Element | null = tocTitle;
+      while (el) {
+        const bg = window.getComputedStyle(el).backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          bgColor = bg;
+          break;
+        }
+        el = el.parentElement;
+      }
+
+      // Parse RGB values
+      const parseRgb = (color: string) => {
+        const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (!match) return null;
+        return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) };
+      };
+
+      const fgRgb = parseRgb(titleColor);
+      const bgRgb = parseRgb(bgColor);
+
+      if (!fgRgb || !bgRgb) return { error: 'Could not parse colors', titleColor, bgColor };
+
+      // Calculate relative luminance (WCAG formula)
+      const luminance = (rgb: { r: number; g: number; b: number }) => {
+        const [rs, gs, bs] = [rgb.r / 255, rgb.g / 255, rgb.b / 255].map(c =>
+          c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+        );
+        return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+      };
+
+      const l1 = luminance(fgRgb);
+      const l2 = luminance(bgRgb);
+      const contrastRatio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+
+      return {
+        titleColor,
+        bgColor,
+        contrastRatio: Math.round(contrastRatio * 100) / 100,
+        fgLuminance: Math.round(l1 * 1000) / 1000,
+        bgLuminance: Math.round(l2 * 1000) / 1000
+      };
+    });
+
+    // Log for debugging
+    console.log('ToC title contrast in light mode:', tocContrast);
+
+    // WCAG AA requires 4.5:1 for normal text
+    expect(tocContrast).not.toHaveProperty('error');
+    expect((tocContrast as { contrastRatio: number }).contrastRatio).toBeGreaterThanOrEqual(4.5);
+  });
+
+  test('code blocks have sufficient contrast in light mode @contrast', async ({ page }) => {
+    // Navigate to a post with code blocks
+    await page.goto('/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/');
+
+    // Ensure light mode
+    const html = page.locator('html');
+    if (await html.getAttribute('data-theme') === 'dark') {
+      await page.locator('#theme-toggle').click();
+      await page.waitForTimeout(300);
+    }
+
+    // Get code block colors
+    const codeContrast = await page.evaluate(() => {
+      const codeBlock = document.querySelector('pre.highlight');
+      if (!codeBlock) return { error: 'No code block found' };
+
+      const styles = window.getComputedStyle(codeBlock);
+      const textColor = styles.color;
+      const bgColor = styles.backgroundColor;
+
+      // Parse RGB values
+      const parseRgb = (color: string) => {
+        const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (!match) return null;
+        return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) };
+      };
+
+      const fgRgb = parseRgb(textColor);
+      const bgRgb = parseRgb(bgColor);
+
+      if (!fgRgb || !bgRgb) return { error: 'Could not parse colors', textColor, bgColor };
+
+      // Calculate relative luminance (WCAG formula)
+      const luminance = (rgb: { r: number; g: number; b: number }) => {
+        const [rs, gs, bs] = [rgb.r / 255, rgb.g / 255, rgb.b / 255].map(c =>
+          c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+        );
+        return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+      };
+
+      const l1 = luminance(fgRgb);
+      const l2 = luminance(bgRgb);
+      const contrastRatio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+
+      return {
+        textColor,
+        bgColor,
+        contrastRatio: Math.round(contrastRatio * 100) / 100,
+        fgLuminance: Math.round(l1 * 1000) / 1000,
+        bgLuminance: Math.round(l2 * 1000) / 1000
+      };
+    });
+
+    // Log for debugging
+    console.log('Code block contrast in light mode:', codeContrast);
+
+    // WCAG AA requires 4.5:1 for normal text
+    expect(codeContrast).not.toHaveProperty('error');
+    expect((codeContrast as { contrastRatio: number }).contrastRatio).toBeGreaterThanOrEqual(4.5);
+  });
 });
 
 test.describe('Performance', () => {

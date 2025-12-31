@@ -13,6 +13,7 @@
 
   /* Code block colors - VS Code dark theme inspired */
   --code-bg: #1e1e1e;
+  --code-text: #e0e0e0; /* Light text on dark code background for both themes */
 }
 
 /* ==========================================================================
@@ -1698,11 +1699,10 @@ small {
   color: #e0e0e0; /* Bright enough to meet WCAG AA (4.5:1) after .toc-nav opacity:0.6 blending */
 }
 
-@media (prefers-color-scheme: dark) {
-  .toc-title {
-    color: #e0e0e0; /* Fallback for system dark mode before JS loads */
-  }
-}
+/* Note: Removed @media (prefers-color-scheme: dark) fallback for .toc-title
+   as it conflicts with the explicit theme toggle. The base .toc-title rule
+   uses var(--text-secondary) which works correctly for light mode. Dark mode
+   is handled by [data-theme='dark'] .toc-title. */
 
 .toc-list {
   list-style: none;
