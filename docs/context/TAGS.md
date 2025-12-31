@@ -185,6 +185,73 @@ else:
 PYEOF
 ```
 
+## dev.to Tags
+
+Posts cross-posted to dev.to use separate tags defined in `devto_tags` front matter. These must be valid dev.to tags.
+
+### Source
+
+Official tag list: https://dev.to/tags
+
+### Popular dev.to Tags (cached)
+
+**Last updated**: December 2024
+
+| Tag               | Posts | Notes                     |
+| ----------------- | ----- | ------------------------- |
+| `webdev`          | 292k  | General web development   |
+| `javascript`      | 217k  | JS ecosystem              |
+| `programming`     | 204k  | General programming       |
+| `beginners`       | 156k  | Beginner-friendly content |
+| `ai`              | 116k  | AI/ML topics              |
+| `tutorial`        | 99k   | How-to content            |
+| `react`           | 87k   | React framework           |
+| `python`          | 78k   | Python language           |
+| `devops`          | 66k   | DevOps practices          |
+| `career`          | 59k   | Career advice             |
+| `java`            | 53k   | Java language             |
+| `discuss`         | 52k   | Discussion posts          |
+| `aws`             | 50k   | AWS cloud                 |
+| `typescript`      | 39k   | TypeScript                |
+| `cloud`           | 36k   | Cloud platforms           |
+| `productivity`    | 35k   | Productivity tips         |
+| `architecture`    | 25k   | System design             |
+| `testing`         | 20k   | Testing practices         |
+| `security`        | 18k   | Security topics           |
+| `machinelearning` | 15k   | ML specific               |
+
+### Mapping Blog Tags to dev.to Tags
+
+| Blog tag                  | dev.to equivalent             |
+| ------------------------- | ----------------------------- |
+| `ai-assisted-development` | `ai`, `programming`           |
+| `coding-assistants`       | `ai`, `productivity`          |
+| `engineering-principles`  | `programming`, `architecture` |
+| `career`                  | `career`                      |
+| `java`                    | `java`                        |
+| `devops`                  | `devops`                      |
+| `infrastructure-as-code`  | `devops`, `cloud`             |
+| `testing`                 | `testing`                     |
+| `tutorials`               | `tutorial`                    |
+
+### Monthly Refresh Process
+
+1. Visit https://dev.to/tags to check current popular tags
+2. Update the cached list above if counts have changed significantly
+3. Check for new high-volume tags relevant to blog content
+4. If a tag is deprecated/removed, run this to find affected posts:
+
+```bash
+grep -l "devto_tags:" _posts/*.markdown | xargs grep -l "deprecated-tag"
+```
+
+### Guidelines
+
+- Use 4 dev.to tags maximum (platform limit)
+- Prefer high-volume tags for discoverability
+- Match content type: use `tutorial` for how-to posts, `discuss` for opinion pieces
+- `programming` and `ai` are good general tags for intelligent Engineering content
+
 ## Historical Context
 
 **Migration completed**: December 2024
