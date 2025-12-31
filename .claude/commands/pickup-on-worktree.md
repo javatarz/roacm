@@ -79,6 +79,37 @@ Create a dedicated Git worktree for working on a GitHub issue in parallel.
    - Track this context throughout the conversation
    - Do NOT return to main repo unless user explicitly requests it
 
+10. **For content cards** (issues with `content` label): Follow the collaborative content workflow below
+
+## Content Card Workflow
+
+When the issue has a `content` label (blog posts, documentation, etc.), do NOT jump straight into writing. Instead:
+
+1. **Explain the purpose first**: Before writing anything, explain:
+   - The point of the post (what problem it solves, why it matters)
+   - The high-level idea and core insight
+   - What readers should leave with
+   - How it relates to other content (series, references, etc.)
+
+2. **Get agreement on purpose**: Ask the user to confirm you're aligned before proceeding
+
+3. **Plan research together**: Before writing, discuss what research is needed:
+   - What's already written on this topic? (existing posts, external references)
+   - What sources should we read to understand the landscape?
+   - What's the best way to teach this topic? (visuals, analogies, examples?)
+   - Are there gaps in existing explanations we should fill?
+   - Present a research strategy and get user agreement before executing
+
+4. **Do the research**: Execute the agreed research plan, summarize findings, and discuss implications for the post
+
+5. **Outline structure**: Based on research, present the proposed sections/structure and get agreement
+
+6. **Work section by section**: For complex posts, discuss each major section before writing it
+
+7. **Write draft only after alignment**: Once there's full clarity on purpose, research, and structure, write the post
+
+**Why**: Content requires more collaboration than code. Rushing to write often produces drafts that miss the mark, wasting time on revisions. Getting alignment upfront is faster. Good research prevents reinventing the wheel and ensures we're adding value.
+
 ### When no issue number provided:
 
 1. **List active worktrees**: Run `git worktree list` and format output to show:
