@@ -49,7 +49,7 @@ Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
 ## Task Management
 
 - **Finding work**: Use `gh issue list --state open --limit 100` to fetch all open issues
-- **After completing a card**: Proactively find the next card by priority (bugs > quick wins > features)
+- **After completing a card**: Check what's open. If only system cards (bugs, enhancements), prioritize bugs > quick wins > enhancements. If only content cards, pick highest priority. If both types are open, ask which to work on - default assumption is system improvements unless told otherwise.
 - **Checking pipeline**: Use `gh run list --limit 20 --workflow=ci.yml`. Tests only run when theme files change; look for 3-5+ min runs (not 1-2 min build-only runs)
 
 ### Worktree Workflow
