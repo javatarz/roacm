@@ -55,6 +55,20 @@
   --accent-color: #ff7b8a; /* Vivid salmon for clear link visibility without underlines */
 }
 
+/* Table dark mode overrides - dinky theme uses light gray backgrounds */
+[data-theme='dark'] table {
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] td {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] tr:nth-child(even) td {
+  background: var(--card-bg);
+}
+
 /* Apply theme colors to body and main elements */
 body {
   background-color: var(--bg-primary);
