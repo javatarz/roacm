@@ -108,7 +108,10 @@ rm -f .jekyll-metadata
 rm -rf .jekyll-cache
 
 # Build Jekyll serve command
-JEKYLL_ARGS="--watch --incremental"
+# Note: --incremental is intentionally omitted. It's faster but doesn't detect new files,
+# so index pages won't update when posts are added or renamed. Full rebuilds are fast
+# enough for this site (~2-3 seconds) and always correct.
+JEKYLL_ARGS="--watch"
 
 if [ "$NO_LIVERELOAD" = false ]; then
     JEKYLL_ARGS="$JEKYLL_ARGS --livereload"

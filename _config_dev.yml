@@ -9,7 +9,9 @@ plugins:
   - jekyll-watch
   # jekyll-feed is intentionally excluded for 30s speedup
 
-incremental: true
+# incremental: true is intentionally disabled. It's faster but doesn't regenerate
+# index pages when posts are added or renamed. Full rebuilds are ~2s which is fine.
+incremental: false
 
 # Optimize for development
 show_drafts: true
