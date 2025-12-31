@@ -60,6 +60,23 @@ tags:
 - **Category**: Single category from `CATEGORIES.md`
 - **Tags**: 2-4 canonical tags from `TAGS.md`
 
+### Title Conventions for intelligent Engineering Posts
+
+**Branded titles** ("intelligent Engineering: ..."): Use for foundational posts about the iE philosophy, principles, or learning path. These are "big picture" posts that frame how to think about AI-assisted development.
+
+Examples:
+
+- "intelligent Engineering: Principles for Building With AI"
+- "intelligent Engineering: A Skill Map for Learning AI-Assisted Development"
+
+**Topic-focused titles**: Use for posts about specific concepts, techniques, or practices. These cover general-purpose topics that happen to be relevant to iE but aren't about the philosophy itself.
+
+Examples:
+
+- "Context Engineering for AI-Assisted Development"
+- "Patterns for AI assisted software development"
+- "How to choose your coding assistants"
+
 ### Optional Front Matter
 
 ```yaml
