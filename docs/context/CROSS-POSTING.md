@@ -56,15 +56,15 @@ devto_tags:
 
 The workflow automatically converts Jekyll-specific syntax:
 
-| Jekyll Syntax                               | Converted To                                  |
-| ------------------------------------------- | --------------------------------------------- |
-| `{% highlight lang %}...{% endhighlight %}` | ` ```lang ... ``` `                           |
-| `{% post_url YYYY-MM-DD-slug %}`            | `https://karun.me/blog/YYYY/MM/DD/slug/`      |
-| `{% include youtube.html id="..." %}`       | `{% embed https://youtube.com/watch?v=... %}` |
-| `{{ site.url }}`                            | `https://karun.me`                            |
-| `<!-- more -->`                             | (removed)                                     |
-| Relative image paths                        | Absolute URLs                                 |
-| Relative links                              | Absolute URLs                                 |
+| Jekyll Syntax                               | Converted To                                       |
+| ------------------------------------------- | -------------------------------------------------- |
+| `{% highlight lang %}...{% endhighlight %}` | ` ```lang ... ``` `                                |
+| `{% post_url YYYY-MM-DD-slug %}`            | dev.to URL if post exists there, else karun.me URL |
+| `{% include youtube.html id="..." %}`       | `{% embed https://youtube.com/watch?v=... %}`      |
+| `{{ site.url }}`                            | `https://karun.me`                                 |
+| `<!-- more -->`                             | (removed)                                          |
+| Relative image paths                        | Absolute URLs                                      |
+| Relative links                              | Absolute URLs                                      |
 
 ### Manual Trigger
 

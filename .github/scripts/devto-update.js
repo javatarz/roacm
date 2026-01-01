@@ -8,7 +8,7 @@ const DEVTO_API_URL = 'https://dev.to/api/articles';
 const TRACKING_FILE = '.devto-posts.json';
 const SITE_URL = process.env.SITE_URL;
 
-function convertMarkdown(content) {
+function convertMarkdown(content, tracking = {}) {
   let converted = content;
   converted = converted.replace(/<!--\s*more\s*-->/gi, '');
   converted = converted.replace(
@@ -17,8 +17,14 @@ function convertMarkdown(content) {
   );
   converted = converted.replace(
     /\{%\s*post_url\s+(\d{4})-(\d{2})-(\d{2})-([^\s%]+)\s*%\}/g,
-    (match, year, month, day, slug) =>
-      `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`,
+    (match, year, month, day, slug) => {
+      // Check if the linked post exists on dev.to
+      const postPath = `_posts/${year}-${month}-${day}-${slug}.markdown`;
+      if (tracking[postPath]?.url) {
+        return tracking[postPath].url;
+      }
+      return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+    },
   );
   converted = converted.replace(
     /\{%\s*include\s+youtube\.html\s+id="([^"]+)"(?:\s+title="([^"]+)")?\s*%\}/g,
@@ -102,7 +108,7 @@ async function main() {
     const fileContent = fs.readFileSync(postPath, 'utf8');
     const { data: frontmatter, content } = matter(fileContent);
     const canonicalUrl = getCanonicalUrl(postPath);
-    const convertedContent = convertMarkdown(content);
+    const convertedContent = convertMarkdown(content, tracking);
 
     const article = {
       title: frontmatter.title,

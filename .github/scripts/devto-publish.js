@@ -19,7 +19,7 @@ function saveTracking(tracking) {
   fs.writeFileSync(TRACKING_FILE, JSON.stringify(tracking, null, 2) + '\n');
 }
 
-function convertMarkdown(content) {
+function convertMarkdown(content, tracking = {}) {
   let converted = content;
   converted = converted.replace(/<!--\s*more\s*-->/gi, '');
   converted = converted.replace(
@@ -28,8 +28,14 @@ function convertMarkdown(content) {
   );
   converted = converted.replace(
     /\{%\s*post_url\s+(\d{4})-(\d{2})-(\d{2})-([^\s%]+)\s*%\}/g,
-    (match, year, month, day, slug) =>
-      `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`,
+    (match, year, month, day, slug) => {
+      // Check if the linked post exists on dev.to
+      const postPath = `_posts/${year}-${month}-${day}-${slug}.markdown`;
+      if (tracking[postPath]?.url) {
+        return tracking[postPath].url;
+      }
+      return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+    },
   );
   converted = converted.replace(
     /\{%\s*include\s+youtube\.html\s+id="([^"]+)"(?:\s+title="([^"]+)")?\s*%\}/g,
@@ -146,7 +152,7 @@ async function main() {
 
     console.log(`Creating ${postPath}...`);
     const canonicalUrl = getCanonicalUrl(postPath);
-    const convertedContent = convertMarkdown(content);
+    const convertedContent = convertMarkdown(content, tracking);
 
     const article = {
       title: frontmatter.title,

@@ -6,6 +6,7 @@ const {
   getPostDate,
   isFuturePost,
   getCanonicalUrl,
+  convertMarkdown,
 } = require('./devto-publish.js');
 
 describe('parsePostFilename', () => {
@@ -138,5 +139,56 @@ describe('getCanonicalUrl', () => {
     // SITE_URL is captured at module load, so we just verify the path format
     const url = getCanonicalUrl('_posts/2026-01-02-my-post.markdown');
     assert.ok(url.endsWith('/blog/2026/01/02/my-post/'));
+  });
+});
+
+describe('convertMarkdown', () => {
+  describe('post_url links', () => {
+    it('converts post_url to dev.to URL when post exists in tracking', () => {
+      const content =
+        'Check out [my post]({% post_url 2025-07-07-patterns-for-ai %})';
+      const tracking = {
+        '_posts/2025-07-07-patterns-for-ai.markdown': {
+          id: 123,
+          url: 'https://dev.to/javatarz/patterns-for-ai-4ga2',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(
+        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
+      );
+      assert.ok(!result.includes('/blog/2025/07/07/patterns-for-ai/'));
+    });
+
+    it('falls back to site URL when post not in tracking', () => {
+      const content =
+        'Check out [my post]({% post_url 2025-07-07-patterns-for-ai %})';
+      const tracking = {};
+      const result = convertMarkdown(content, tracking);
+      assert.ok(result.includes('/blog/2025/07/07/patterns-for-ai/'));
+    });
+
+    it('falls back to site URL when no tracking provided', () => {
+      const content =
+        'Check out [my post]({% post_url 2025-07-07-patterns-for-ai %})';
+      const result = convertMarkdown(content);
+      assert.ok(result.includes('/blog/2025/07/07/patterns-for-ai/'));
+    });
+
+    it('handles multiple post_url links with mixed tracking', () => {
+      const content = `
+        Link to [tracked]({% post_url 2025-01-01-tracked-post %})
+        Link to [untracked]({% post_url 2025-02-02-untracked-post %})
+      `;
+      const tracking = {
+        '_posts/2025-01-01-tracked-post.markdown': {
+          id: 1,
+          url: 'https://dev.to/user/tracked-post-abc',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(result.includes('https://dev.to/user/tracked-post-abc'));
+      assert.ok(result.includes('/blog/2025/02/02/untracked-post/'));
+    });
   });
 });
