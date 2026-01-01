@@ -440,3 +440,5 @@ The report identified seven practices that amplify AI's positive impact:
 This skill map is a snapshot. The tools evolve weekly. New capabilities emerge monthly.
 
 If you're on this journey, I'd like to hear what's working for you. What skills have I missed? What resources have you found valuable?
+
+**Coming up:** Putting these skills into practice. I'll walk through setting up intelligent Engineering on a real project, covering tool configuration, context files, and workflow patterns that work.
