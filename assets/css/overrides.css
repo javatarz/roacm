@@ -2729,3 +2729,28 @@ body.homepage {
     gap: 4px;
   }
 }
+
+/* ==========================================================================
+   Diagram Images
+   Centered SVG/image diagrams with size variants. Click to view full size.
+   Usage: ![alt text](url){: .diagram-md}
+   ========================================================================== */
+.diagram-sm,
+.diagram-md,
+.diagram-lg {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 100%;
+}
+
+.diagram-sm {
+  max-width: 400px;
+}
+
+.diagram-md {
+  max-width: 500px;
+}
+
+.diagram-lg {
+  max-width: 650px;
+}
