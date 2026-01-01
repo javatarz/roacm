@@ -286,4 +286,37 @@ describe('convertMarkdown', () => {
       assert.ok(result.includes('https://dev.to/user/post-two-xyz'));
     });
   });
+
+  describe('kramdown attribute stripping', () => {
+    it('strips kramdown class attributes from images', () => {
+      const content = '![alt text](/image.png){: .diagram-lg}';
+      const result = convertMarkdown(content, {});
+      assert.ok(result.includes('![alt text]'));
+      assert.ok(!result.includes('{:'));
+      assert.ok(!result.includes('.diagram-lg'));
+    });
+
+    it('strips kramdown attributes from links', () => {
+      const content = '[Link text](https://example.com){:target="_blank"}';
+      const result = convertMarkdown(content, {});
+      assert.ok(result.includes('[Link text]'));
+      assert.ok(!result.includes('{:'));
+      assert.ok(!result.includes('target='));
+    });
+
+    it('strips kramdown id and class attributes', () => {
+      const content = '![image](/img.png){: #myid .myclass}';
+      const result = convertMarkdown(content, {});
+      assert.ok(!result.includes('#myid'));
+      assert.ok(!result.includes('.myclass'));
+    });
+
+    it('handles clickable images with kramdown attributes', () => {
+      const content =
+        '[![alt](/assets/img.png){: .diagram-lg}](/assets/img.png)';
+      const result = convertMarkdown(content, {});
+      assert.ok(result.includes('[![alt]'));
+      assert.ok(!result.includes('{:'));
+    });
+  });
 });
