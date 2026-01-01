@@ -89,6 +89,8 @@ Here's what I've found worth investing in:
 
 **Agentic workflow primitives matter more than AI theory.** You won't build RAG systems from scratch. You'll use tools with these built in. What matters is configuring them: hooks that customize behavior, skills that extend capabilities, context management that keeps information relevant. I spend more time learning how my tools' hooks work or how to structure context files than reading ML papers.
 
+_For a comprehensive guide to building these skills, see [A Skill Map for Learning AI-Assisted Development]({{ site.url }}/blog/2026/01/01/intelligent-engineering-a-skill-map-for-learning-ai-assisted-development/)._
+
 ## Why This Matters
 
 I've seen what happens when teams adopt AI without thinking it through. Prototypes that demo well but collapse under real load. Codebases where no one understands why decisions were made because "the AI suggested it." Bugs that take days to track down because the generated code looked plausible but handled edge cases incorrectly.
