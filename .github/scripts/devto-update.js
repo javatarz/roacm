@@ -30,6 +30,18 @@ function convertMarkdown(content, tracking = {}) {
     /\{%\s*include\s+youtube\.html\s+id="([^"]+)"(?:\s+title="([^"]+)")?\s*%\}/g,
     (match, id) => `{% embed https://www.youtube.com/watch?v=${id} %}`,
   );
+  // Replace {{ site.url }}/blog/YYYY/MM/DD/slug/ links with dev.to URLs if available
+  converted = converted.replace(
+    /\{\{\s*site\.url\s*\}\}\/blog\/(\d{4})\/(\d{2})\/(\d{2})\/([^/\s)#]+)\/?/g,
+    (match, year, month, day, slug) => {
+      const postPath = `_posts/${year}-${month}-${day}-${slug}.markdown`;
+      if (tracking[postPath]?.url) {
+        // Remove trailing slash from dev.to URL to avoid /# before anchors
+        return tracking[postPath].url.replace(/\/$/, '');
+      }
+      return `${SITE_URL}/blog/${year}/${month}/${day}/${slug}/`;
+    },
+  );
   converted = converted.replace(/\{\{\s*site\.url\s*\}\}/g, SITE_URL);
   converted = converted.replace(/\{\{\s*site\.excerpt_separator\s*\}\}/g, '');
   converted = converted.replace(
