@@ -35,7 +35,7 @@ I've already written about the [five core principles]({{ site.url }}/blog/2025/1
 
 ## The Skill Map
 
-[![Skill progression map showing four stages: Foundations, AI Interaction, Workflow Integration, and Advanced/Agentic](/assets/images/posts/2026-01-01-skill-map/skill-progression.svg){: .diagram-lg}](/assets/images/posts/2026-01-01-skill-map/skill-progression.svg)
+[![Skill progression map showing four stages: Foundations, AI Interaction, Workflow Integration, and Advanced/Agentic](/assets/images/posts/2026-01-01-skill-map/skill-progression.png){: .diagram-lg}](/assets/images/posts/2026-01-01-skill-map/skill-progression.png)
 
 Master the skills at each stage before moving to the next. Skipping ahead creates gaps that AI will expose.
 
