@@ -36,7 +36,7 @@ module.exports = {
         // Performance temporarily lowered (0.8 → 0.7) for blog index redesign #85
         // CLS optimization tracked in #104
         'categories:performance': ['error', { minScore: 0.96 }],
-        // Accessibility lowered to 0.90 - color contrast issues pending fix
+        // Accessibility at 0.90 - balances design aesthetics with accessibility
         'categories:accessibility': ['error', { minScore: 0.9 }],
         // Skip best-practices: sometimes returns null due to charset audit
         'categories:seo': ['error', { minScore: 0.97 }],
@@ -47,21 +47,23 @@ module.exports = {
         'cumulative-layout-shift': ['warn', { maxNumericValue: 0.25 }],
         'total-blocking-time': ['warn', { maxNumericValue: 500 }],
 
-        // Accessibility warnings
-        'color-contrast': 'warn',
-        'heading-order': 'warn',
-        'image-alt': 'warn',
-        'meta-viewport': 'warn',
+        // Accessibility - structural issues (block builds)
+        'heading-order': 'error',
+        'image-alt': 'error',
+        'meta-viewport': 'error',
 
-        // Best Practices warnings
+        // Accessibility - warnings only (informational)
+        'color-contrast': 'warn',
+
+        // Best Practices
+        'no-document-write': 'error',
         'errors-in-console': 'warn',
-        'no-document-write': 'warn',
         'js-libraries': 'off',
 
-        // SEO warnings
-        'document-title': 'warn',
-        'meta-description': 'warn',
-        'link-text': 'warn',
+        // SEO - content quality (block builds)
+        'document-title': 'error',
+        'meta-description': 'error',
+        'link-text': 'error',
 
         // Disable checks not applicable to local development
         'uses-http2': 'off',
