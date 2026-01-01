@@ -11,6 +11,8 @@ const SITE_URL = process.env.SITE_URL;
 function convertMarkdown(content, tracking = {}) {
   let converted = content;
   converted = converted.replace(/<!--\s*more\s*-->/gi, '');
+  // Strip Kramdown/Jekyll attributes (e.g., {: .class #id})
+  converted = converted.replace(/\{:\s*[^}]+\}/g, '');
   converted = converted.replace(
     /\{%\s*highlight\s+(\w+)\s*%\}([\s\S]*?)\{%\s*endhighlight\s*%\}/g,
     (match, lang, code) => `\`\`\`${lang}\n${code.trim()}\n\`\`\``,
