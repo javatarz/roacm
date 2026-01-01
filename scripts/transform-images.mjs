@@ -115,6 +115,11 @@ async function transformImgTag(imgTag) {
     return imgTag;
   }
 
+  // Skip SVG files - they're vector graphics and shouldn't be converted to raster
+  if (/\.svg$/i.test(assetPath)) {
+    return imgTag;
+  }
+
   // Normalize path (remove leading slash for filesystem access)
   const normalizedPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
   const fullImagePath = join(SITE_DIR, normalizedPath);
