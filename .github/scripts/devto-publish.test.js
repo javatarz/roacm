@@ -191,4 +191,99 @@ describe('convertMarkdown', () => {
       assert.ok(result.includes('/blog/2025/02/02/untracked-post/'));
     });
   });
+
+  describe('site.url blog links', () => {
+    it('converts {{ site.url }}/blog/... to dev.to URL when post exists in tracking', () => {
+      const content =
+        'Check out [my post]({{ site.url }}/blog/2025/07/07/patterns-for-ai/)';
+      const tracking = {
+        '_posts/2025-07-07-patterns-for-ai.markdown': {
+          id: 123,
+          url: 'https://dev.to/javatarz/patterns-for-ai-4ga2',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(
+        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
+      );
+      assert.ok(!result.includes('karun.me/blog/2025/07/07/patterns-for-ai/'));
+    });
+
+    it('converts {{ site.url }}/blog/... without trailing slash', () => {
+      const content =
+        'Check out [my post]({{ site.url }}/blog/2025/07/07/patterns-for-ai)';
+      const tracking = {
+        '_posts/2025-07-07-patterns-for-ai.markdown': {
+          id: 123,
+          url: 'https://dev.to/javatarz/patterns-for-ai-4ga2',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(
+        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
+      );
+    });
+
+    it('preserves anchor fragments when converting to dev.to URL', () => {
+      const content =
+        'See [section]({{ site.url }}/blog/2025/07/07/patterns-for-ai/#important-section)';
+      const tracking = {
+        '_posts/2025-07-07-patterns-for-ai.markdown': {
+          id: 123,
+          url: 'https://dev.to/javatarz/patterns-for-ai-4ga2',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(
+        result.includes(
+          'https://dev.to/javatarz/patterns-for-ai-4ga2#important-section',
+        ),
+      );
+    });
+
+    it('falls back to site URL when post not in tracking', () => {
+      const content =
+        'Check out [my post]({{ site.url }}/blog/2025/07/07/patterns-for-ai/)';
+      const tracking = {};
+      const result = convertMarkdown(content, tracking);
+      assert.ok(result.includes('/blog/2025/07/07/patterns-for-ai/'));
+      assert.ok(!result.includes('dev.to'));
+    });
+
+    it('handles multiple site.url links with mixed tracking', () => {
+      const content = `
+        Link to [tracked]({{ site.url }}/blog/2025/01/01/tracked-post/)
+        Link to [untracked]({{ site.url }}/blog/2025/02/02/untracked-post/)
+      `;
+      const tracking = {
+        '_posts/2025-01-01-tracked-post.markdown': {
+          id: 1,
+          url: 'https://dev.to/user/tracked-post-abc',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(result.includes('https://dev.to/user/tracked-post-abc'));
+      assert.ok(result.includes('/blog/2025/02/02/untracked-post/'));
+    });
+
+    it('works alongside post_url conversions', () => {
+      const content = `
+        Using post_url: {% post_url 2025-01-01-post-one %}
+        Using site.url: [post two]({{ site.url }}/blog/2025/02/02/post-two/)
+      `;
+      const tracking = {
+        '_posts/2025-01-01-post-one.markdown': {
+          id: 1,
+          url: 'https://dev.to/user/post-one-abc',
+        },
+        '_posts/2025-02-02-post-two.markdown': {
+          id: 2,
+          url: 'https://dev.to/user/post-two-xyz',
+        },
+      };
+      const result = convertMarkdown(content, tracking);
+      assert.ok(result.includes('https://dev.to/user/post-one-abc'));
+      assert.ok(result.includes('https://dev.to/user/post-two-xyz'));
+    });
+  });
 });
