@@ -1,0 +1,49 @@
+<svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .axis { stroke: #666; stroke-width: 2; }
+    .axis-label { font-family: system-ui, sans-serif; font-size: 14px; fill: #333; }
+    .curve { fill: none; stroke: #2563eb; stroke-width: 3; }
+    .area { fill: url(#gradient); opacity: 0.3; }
+    .annotation { font-family: system-ui, sans-serif; font-size: 12px; fill: #666; }
+    .highlight { font-family: system-ui, sans-serif; font-size: 13px; fill: #dc2626; font-weight: 600; }
+  </style>
+
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="60" y1="220" x2="460" y2="220" class="axis"/>
+  <line x1="60" y1="220" x2="60" y2="40" class="axis"/>
+
+  <!-- Axis labels -->
+  <text x="260" y="260" text-anchor="middle" class="axis-label">Position in Context</text>
+  <text x="25" y="130" text-anchor="middle" transform="rotate(-90, 25, 130)" class="axis-label">Attention</text>
+
+  <!-- Position labels -->
+  <text x="80" y="240" text-anchor="middle" class="annotation">Start</text>
+  <text x="260" y="240" text-anchor="middle" class="annotation">Middle</text>
+  <text x="440" y="240" text-anchor="middle" class="annotation">End</text>
+
+  <!-- U-shaped curve (quadratic) -->
+  <path d="M 80 60 Q 260 200 440 60" class="curve"/>
+
+  <!-- Fill area under curve -->
+  <path d="M 80 60 Q 260 200 440 60 L 440 220 L 80 220 Z" class="area"/>
+
+  <!-- Annotations -->
+  <text x="80" y="50" text-anchor="middle" class="annotation">High</text>
+  <text x="440" y="50" text-anchor="middle" class="annotation">High</text>
+  <text x="260" y="175" text-anchor="middle" class="highlight">Lost in the Middle</text>
+
+  <!-- Arrow pointing to the dip -->
+  <path d="M 260 155 L 260 135" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>
