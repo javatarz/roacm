@@ -415,6 +415,179 @@ pre code {
   padding: 0;
 }
 
+/* ==========================================================================
+   Rouge Syntax Highlighting - Monokai Dark Theme
+   Overrides dinky theme's light rouge-github.scss for dark code blocks
+   ========================================================================== */
+.highlight table td {
+  padding: 5px;
+}
+
+.highlight table pre {
+  margin: 0;
+}
+
+.highlight,
+.highlight .w {
+  background-color: var(--code-bg);
+  color: #f8f8f2;
+}
+
+.highlight .c,
+.highlight .ch,
+.highlight .cd,
+.highlight .cpf,
+.highlight .cm,
+.highlight .c1 {
+  color: #75715e;
+  font-style: italic;
+}
+
+.highlight .cp {
+  color: #75715e;
+  font-weight: bold;
+}
+
+.highlight .cs {
+  color: #75715e;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.highlight .err {
+  background-color: #1e0010;
+  color: #960050;
+}
+
+.highlight .gi {
+  background-color: #324932;
+  color: #ffffff;
+}
+
+.highlight .gd {
+  background-color: #493131;
+  color: #ffffff;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .ges {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.highlight .gr,
+.highlight .gt {
+  color: #aa0000;
+}
+
+.highlight .gh,
+.highlight .gu {
+  color: #999999;
+}
+
+.highlight .go {
+  color: #888888;
+}
+
+.highlight .gp {
+  color: #555555;
+}
+
+.highlight .gs {
+  font-weight: bold;
+}
+
+.highlight .k,
+.highlight .kv,
+.highlight .kc,
+.highlight .kd,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt {
+  color: #66d9ef;
+  font-weight: bold;
+}
+
+.highlight .kn,
+.highlight .ow,
+.highlight .o {
+  color: #f92672;
+  font-weight: bold;
+}
+
+.highlight .mf,
+.highlight .mh,
+.highlight .il,
+.highlight .mi,
+.highlight .mo,
+.highlight .m,
+.highlight .mb,
+.highlight .mx,
+.highlight .se {
+  color: #ae81ff;
+}
+
+.highlight .sa {
+  color: #66d9ef;
+  font-weight: bold;
+}
+
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s2,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss,
+.highlight .s,
+.highlight .dl {
+  color: #e6db74;
+}
+
+.highlight .na {
+  color: #a6e22e;
+}
+
+.highlight .nc,
+.highlight .nd,
+.highlight .ne,
+.highlight .nf,
+.highlight .fm {
+  color: #a6e22e;
+  font-weight: bold;
+}
+
+.highlight .no {
+  color: #66d9ef;
+}
+
+.highlight .bp,
+.highlight .nb,
+.highlight .ni,
+.highlight .nn,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .nv,
+.highlight .vm {
+  color: #f8f8f2;
+}
+
+.highlight .nl {
+  color: #f8f8f2;
+  font-weight: bold;
+}
+
+.highlight .nt {
+  color: #f92672;
+}
+
 /* Inline code */
 p code,
 li code {
