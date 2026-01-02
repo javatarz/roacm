@@ -23,7 +23,6 @@ export default [
       sourceType: 'script',
       globals: {
         ...globals.browser,
-        Disqus: 'readonly',
         localStorage: 'readonly',
       },
     },

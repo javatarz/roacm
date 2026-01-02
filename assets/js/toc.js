@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inExcludedSection =
       heading.closest('aside') ||
       heading.closest('.post-metadata') ||
-      heading.closest('.post-navigation') ||
-      heading.closest('#disqus_thread');
+      heading.closest('.post-navigation');
 
     // Exclude headings with specific text content
     const text = heading.textContent.trim().toLowerCase();

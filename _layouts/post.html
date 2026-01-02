@@ -81,25 +81,30 @@ layout: default
 {% if page.comments %}
 <h2>Comments</h2>
 
-<div id="disqus_thread"></div>
 <script>
-  var disqus_config = function () {
-    this.page.url = '{{ site.url }}{{ page.url }}';
-    this.page.identifier = '{{ site.url }}{{ page.url }}';
-  };
+  // Load Giscus with the correct theme from localStorage
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
 
-  (function () {
-    var d = document,
-      s = d.createElement('script');
-    s.src = 'https://{{ site.disqus_short_name }}.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '{{ site.giscus.repo }}');
+    script.setAttribute('data-repo-id', '{{ site.giscus.repo_id }}');
+    script.setAttribute('data-category', '{{ site.giscus.category }}');
+    script.setAttribute('data-category-id', '{{ site.giscus.category_id }}');
+    script.setAttribute('data-mapping', '{{ site.giscus.mapping }}');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '{% if site.giscus.reactions_enabled %}1{% else %}0{% endif %}');
+    script.setAttribute('data-emit-metadata', '{% if site.giscus.emit_metadata %}1{% else %}0{% endif %}');
+    script.setAttribute('data-input-position', '{{ site.giscus.input_position }}');
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', '{{ site.giscus.lang }}');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    document.currentScript.parentNode.insertBefore(script, document.currentScript.nextSibling);
   })();
 </script>
-<noscript
-  >Please enable JavaScript to view the
-  <a href="https://disqus.com/?ref_noscript" rel="nofollow"
-    >comments powered by Disqus.</a
-  ></noscript
->
 {% endif %}

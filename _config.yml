@@ -27,8 +27,18 @@ recent_posts: 5
 titlecase: true
 future: true
 
-disqus_short_name: roacm
-disqus_show_comment_count: true
+# Giscus (GitHub Discussions-based comments)
+giscus:
+  repo: javatarz/roacm
+  repo_id: MDEwOlJlcG9zaXRvcnk0NTMzOTQ3Mg==
+  category: Comments
+  category_id: DIC_kwDOArPTUM4C0dle
+  mapping: pathname
+  reactions_enabled: true
+  emit_metadata: false
+  input_position: bottom
+  theme: preferred_color_scheme
+  lang: en
 
 # Umami Analytics (only loaded in production)
 umami:

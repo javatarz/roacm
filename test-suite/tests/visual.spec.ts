@@ -12,8 +12,8 @@ import { test, expect } from '@playwright/test';
 
 // Block external services that cause flaky tests due to async loading
 test.beforeEach(async ({ page }) => {
-  // Block Disqus comments - loads asynchronously and causes variable page height
-  await page.route('**/*.disqus.com/**', (route) => route.abort());
+  // Block Giscus comments - loads asynchronously and causes variable page height
+  await page.route('**/giscus.app/**', (route) => route.abort());
 });
 
 const viewports = [

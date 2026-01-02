@@ -56,7 +56,7 @@ module.exports = {
         'color-contrast': 'warn',
 
         // Best Practices
-        'no-document-write': 'warn', // Third-party scripts (Disqus) use this
+        'no-document-write': 'error',
         'errors-in-console': 'warn',
         'js-libraries': 'off',
 

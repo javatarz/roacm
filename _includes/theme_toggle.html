@@ -36,11 +36,14 @@
       }
       localStorage.setItem('theme', theme);
 
-      // Reload Disqus if it exists
-      if (typeof DISQUS !== 'undefined') {
-        DISQUS.reset({
-          reload: true
-        });
+      // Update Giscus theme if it exists
+      const giscusFrame = document.querySelector('iframe.giscus-frame');
+      if (giscusFrame) {
+        const giscusTheme = theme === 'dark' ? 'dark' : 'light';
+        giscusFrame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: giscusTheme } } },
+          'https://giscus.app'
+        );
       }
     };
 
