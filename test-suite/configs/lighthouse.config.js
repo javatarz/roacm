@@ -56,7 +56,7 @@ module.exports = {
         'color-contrast': 'warn',
 
         // Best Practices
-        'no-document-write': 'error',
+        'no-document-write': 'warn', // Giscus uses document.write() internally
         'errors-in-console': 'warn',
         'js-libraries': 'off',
 
