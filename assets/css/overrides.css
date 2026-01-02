@@ -2662,6 +2662,22 @@ body.homepage {
   width: 100%;
 }
 
+.video-container-small {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.video-container-medium,
+.video-container-default {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.video-container-large {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .featured-talk-content {
   padding: 24px;
 }

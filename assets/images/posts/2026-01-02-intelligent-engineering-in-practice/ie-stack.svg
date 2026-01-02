@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <style>
+      .box { fill: #f8f9fa; stroke: #888; stroke-width: 2; }
+      .connector { stroke: #aaa; stroke-width: 2; fill: none; }
+      .label { font-size: 16px; font-weight: 600; fill: #333; }
+      .annotation { font-size: 13px; fill: #aaa; }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="#aaa"/>
+    </marker>
+  </defs>
+
+  <!-- Level 4: Workflow -->
+  <rect class="box" x="140" y="20" width="160" height="50" rx="4"/>
+  <text class="label" x="220" y="52" text-anchor="middle">Workflow</text>
+  <text class="annotation" x="320" y="52">Level 4: What you just saw</text>
+
+  <!-- Connector 4->3 -->
+  <path class="connector" d="M220 70 L220 90" marker-end="url(#arrowhead)"/>
+
+  <!-- Level 3: Interaction -->
+  <rect class="box" x="140" y="90" width="160" height="50" rx="4"/>
+  <text class="label" x="220" y="122" text-anchor="middle">Interaction</text>
+  <text class="annotation" x="320" y="122">Level 3: How you interact</text>
+
+  <!-- Connector 3->2 -->
+  <path class="connector" d="M220 140 L220 160" marker-end="url(#arrowhead)"/>
+
+  <!-- Level 2: Context -->
+  <rect class="box" x="140" y="160" width="160" height="50" rx="4"/>
+  <text class="label" x="220" y="192" text-anchor="middle">Context</text>
+  <text class="annotation" x="320" y="192">Level 2: What the AI knows</text>
+
+  <!-- Connector 2->1 -->
+  <path class="connector" d="M220 210 L220 230" marker-end="url(#arrowhead)"/>
+
+  <!-- Level 1: Foundation -->
+  <rect class="box" x="140" y="230" width="160" height="50" rx="4"/>
+  <text class="label" x="220" y="262" text-anchor="middle">Foundation</text>
+  <text class="annotation" x="320" y="262">Level 1: Project setup</text>
+</svg>

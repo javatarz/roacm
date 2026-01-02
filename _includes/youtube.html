@@ -1,4 +1,8 @@
-<div class="video-container">
+{% if include["size"] %}
+<div class="video-container video-container-{{ include["size"] }}">
+{% else %}
+<div class="video-container video-container-default">
+{% endif %}
   <iframe
     src="https://www.youtube.com/embed/{{ include.id }}"
     title="{{ include.title | default: 'YouTube video' }}"
