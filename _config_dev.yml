@@ -15,7 +15,7 @@ incremental: false
 
 # Optimize for development
 show_drafts: true
-unpublished: false
+unpublished: true
 future: true
 profile: false  # Set to true if you want to see which parts are slow
 
