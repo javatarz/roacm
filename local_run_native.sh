@@ -4,6 +4,13 @@ set -e
 
 # Native Ruby Jekyll server (faster than Docker)
 # Requires Ruby 3.2 installed via mise, rbenv, or asdf
+#
+# Usage: ./local_run_native.sh [options]
+#
+# Options:
+#   --kill, -k       Kill existing server on port before starting
+#   --port <num>     Use specified port (default: 4000)
+#   --no-livereload  Disable livereload
 
 # Activate mise if available (needed for non-interactive shells like git hooks)
 # Check common mise locations since PATH may be limited in hooks
@@ -16,11 +23,16 @@ done
 
 # Parse arguments
 NO_LIVERELOAD=false
+KILL_EXISTING=false
 PORT=4000
 for arg in "$@"; do
   case $arg in
     --no-livereload)
       NO_LIVERELOAD=true
+      shift
+      ;;
+    --kill|-k)
+      KILL_EXISTING=true
       shift
       ;;
     --port)
@@ -38,9 +50,15 @@ done
 
 # Check if Jekyll is already running on the specified port
 if lsof -i :$PORT >/dev/null 2>&1; then
-    echo "Jekyll is already running on port $PORT."
-    echo "Visit http://localhost:$PORT or stop the existing process first."
-    exit 0
+    if [ "$KILL_EXISTING" = true ]; then
+        echo "Killing existing server on port $PORT..."
+        lsof -ti:$PORT | xargs kill 2>/dev/null || true
+        sleep 1
+    else
+        echo "Jekyll is already running on port $PORT."
+        echo "Visit http://localhost:$PORT or use --kill to restart."
+        exit 0
+    fi
 fi
 
 # Check Ruby version
