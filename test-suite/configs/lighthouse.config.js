@@ -6,10 +6,14 @@ module.exports = {
         'http://localhost:4000/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/',
       ],
       numberOfRuns: 3,
-      startServerCommand: process.env.CI
-        ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000 --config _config.yml,_config_dev.yml'
-        : './local_run_native.sh --no-livereload',
-      startServerReadyPattern: 'Server running',
+      startServerCommand: process.env.LIGHTHOUSE_USE_BUILT_SITE
+        ? 'npx serve _site -l 4000 --no-port-switching --no-clipboard'
+        : process.env.CI
+          ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000 --config _config.yml,_config_dev.yml'
+          : './local_run_native.sh --no-livereload',
+      startServerReadyPattern: process.env.LIGHTHOUSE_USE_BUILT_SITE
+        ? 'Accepting connections'
+        : 'Server running',
       startServerReadyTimeout: 120000,
       settings: {
         preset: 'desktop',

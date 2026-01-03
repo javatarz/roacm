@@ -176,8 +176,19 @@ jobs:
         with:
           include-ruby: 'true'
 
+      - name: Build site for Lighthouse testing
+        run: bundle exec jekyll build --config _config.yml,_config_dev.yml
+
+      - name: Transform images in HTML to picture elements
+        run: npm run images:transform
+
+      - name: Optimize and generate responsive images
+        run: npm run images:optimize
+
       - name: Run Lighthouse CI
         run: npm run test:lighthouse
+        env:
+          LIGHTHOUSE_USE_BUILT_SITE: 'true'
 
       - name: Upload Lighthouse Report
         if: always()
