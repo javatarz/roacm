@@ -57,7 +57,7 @@ module.exports = {
         'meta-viewport': 'error',
 
         // Accessibility - warnings only (informational)
-        // color-contrast temporarily disabled - Monokai theme needs audit #TBD
+        // color-contrast temporarily disabled - Monokai theme needs audit #203
         'color-contrast': 'off',
 
         // Best Practices
