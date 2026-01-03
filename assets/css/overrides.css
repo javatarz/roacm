@@ -1811,6 +1811,7 @@ small {
     max-height: calc(
       100vh - 180px
     ); /* Viewport-based to accommodate long ToCs */
+
     opacity: 1;
     overflow-y: auto;
     transition:
