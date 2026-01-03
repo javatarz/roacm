@@ -8,6 +8,7 @@ category: Engineering Practices
 tags:
   - leadership
   - engineering-culture
+image: /assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp
 evergreen: true
 devto: true
 devto_tags:
@@ -24,6 +25,8 @@ Transparency has been a cornerstone of Sahaj throughout my journey here. It is n
 Examples of transparency include sharing all business related data openly internally such as salaries, revenue, forecasted incoming work and people etc.
 
 <!-- more -->
+
+[![Team collaboration with transparency and open information flow]({{ site.url }}/assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp){: .diagram-md}]({{ site.url }}/assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp)
 
 ## Transparency promotes empowerment
 
