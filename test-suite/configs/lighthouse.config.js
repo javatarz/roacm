@@ -57,8 +57,7 @@ module.exports = {
         'meta-viewport': 'error',
 
         // Accessibility - warnings only (informational)
-        // color-contrast temporarily disabled - Monokai theme needs audit #203
-        'color-contrast': 'off',
+        'color-contrast': 'warn',
 
         // Best Practices
         'no-document-write': 'warn', // Giscus uses document.write() internally

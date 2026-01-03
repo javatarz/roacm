@@ -439,24 +439,24 @@ pre code {
 .highlight .cpf,
 .highlight .cm,
 .highlight .c1 {
-  color: #75715e;
+  color: #8e8972; /* WCAG AA: 4.74:1 contrast (was #75715e: 3.4:1) */
   font-style: italic;
 }
 
 .highlight .cp {
-  color: #75715e;
+  color: #8e8972; /* WCAG AA: 4.74:1 contrast (was #75715e: 3.4:1) */
   font-weight: bold;
 }
 
 .highlight .cs {
-  color: #75715e;
+  color: #8e8972; /* WCAG AA: 4.74:1 contrast (was #75715e: 3.4:1) */
   font-style: italic;
   font-weight: bold;
 }
 
 .highlight .err {
   background-color: #1e0010;
-  color: #960050;
+  color: #ff3388; /* WCAG AA: 4.83:1 contrast (was #960050: 1.92:1) */
 }
 
 .highlight .gi {
@@ -480,7 +480,7 @@ pre code {
 
 .highlight .gr,
 .highlight .gt {
-  color: #aa0000;
+  color: #ff4d4d; /* WCAG AA: 5.1:1 contrast (was #aa0000: 2.15:1) */
 }
 
 .highlight .gh,
@@ -493,7 +493,7 @@ pre code {
 }
 
 .highlight .gp {
-  color: #555555;
+  color: #888888; /* WCAG AA: 4.7:1 contrast (was #555555: 2.24:1) */
 }
 
 .highlight .gs {
@@ -514,7 +514,7 @@ pre code {
 .highlight .kn,
 .highlight .ow,
 .highlight .o {
-  color: #f92672;
+  color: #ff2c85; /* WCAG AA: 4.72:1 contrast (was #f92672: 4.4:1) */
   font-weight: bold;
 }
 
@@ -585,7 +585,7 @@ pre code {
 }
 
 .highlight .nt {
-  color: #f92672;
+  color: #ff2c85; /* WCAG AA: 4.72:1 contrast (was #f92672: 4.4:1) */
 }
 
 /* Inline code */
