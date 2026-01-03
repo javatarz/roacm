@@ -9,6 +9,7 @@ tags:
   - ai-assisted-development
   - ai-patterns
   - coding-assistants
+image: /assets/images/posts/2025-12-31-context-engineering/cover.jpg
 devto: true
 devto_tags:
   - ai
@@ -23,7 +24,7 @@ If you've used Claude Sonnet in [Claude Code](https://claude.ai/code), [Cursor](
 
 <!-- more -->
 
-<!-- TODO: Cover art from Shutterstock - search "whiteboard meeting brainstorming two people" - look for clear title at top, messy notes below -->
+[![Two people collaborating at a whiteboard with diagrams and notes]({{ site.url }}/assets/images/posts/2025-12-31-context-engineering/cover.jpg){: .diagram-lg}]({{ site.url }}/assets/images/posts/2025-12-31-context-engineering/cover.jpg)
 
 In [intelligent Engineering: Principles for Building With AI]({{ site.url }}/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/), I mentioned that "context is everything" and that "context engineering matters more than prompt engineering." But I didn't explain what that means or how to do it. This post fills that gap.
 

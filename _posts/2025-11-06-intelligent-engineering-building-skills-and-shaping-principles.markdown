@@ -9,6 +9,7 @@ tags:
   - ai-assisted-development
   - engineering-principles
   - ai-patterns
+image: /assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg
 devto: true
 devto_tags:
   - ai
@@ -24,6 +25,8 @@ I've spent the last two years applying AI across prototyping, internal tools, pr
 One thing has become clear: AI doesn't make engineering easier. It shifts where the hard parts are.
 
 <!-- more -->
+
+[![AI and human collaboration in software engineering]({{ site.url }}/assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg){: .diagram-lg}]({{ site.url }}/assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg)
 
 The teams I've seen succeed with AI aren't the ones using it everywhere. They're the ones using it deliberately, knowing when to trust it, when to verify, and when to ignore it entirely.
 
