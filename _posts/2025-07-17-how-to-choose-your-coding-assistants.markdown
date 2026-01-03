@@ -9,7 +9,7 @@ tags:
   - coding-assistants
   - developer-experience
   - software-licensing
-image: /assets/images/uploads/choose-coding-assistants-cover-art.jpg
+image: /assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art.jpg
 devto: true
 devto_tags:
   - ai
@@ -19,7 +19,7 @@ devto_tags:
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 
-[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/uploads/choose-coding-assistants-cover-art-650x433.jpg)]({{ site.url }}/assets/images/uploads/choose-coding-assistants-cover-art.jpg)
+[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art-650x433.jpg)]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art.jpg)
 
 Coding assistants like [Cursor](https://cursor.com/), [Windsurf](https://windsurf.com/), [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Codex](https://openai.com/index/openai-codex/), [Aider](https://aider.chat/), [OpenCode](https://github.com/sst/opencode), [JetBrains AI](https://www.jetbrains.com/ai/) etc. have been making the news for the last few months. Yet, the choice of tools is a lot harder and limited for some of us than it seems.
 
@@ -31,7 +31,7 @@ TL;DR: OpenCode > Claude Code > Aider > Copilot > *
 
 Not all tools are created equal. Tools evolve fairly rapidly so the examples listed here might be invalid fairly soon.
 
-![Coding assistants scale]({{ site.url }}/assets/images/uploads/code-generation-scale.png)
+![Coding assistants scale]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/code-generation-scale.png)
 
 You can plot the different types of coding assistants on a graph showcasing the amount of human involvement required (`lesser involvement = more automation`). The first GitHub Copilot release I used allowed tab completions. It would either complete single lines or entire blocks of code. You could describe your intent by creating a function with a good name or by writing a comment. GitHub Copilot then supported inline prompting or chat sessions.
 

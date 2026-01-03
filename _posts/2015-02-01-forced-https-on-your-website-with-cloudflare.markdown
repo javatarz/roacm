@@ -25,7 +25,7 @@ Though it's not perfect, you can get a SSL for your website for free.
 
 The communication between you and a website looks something like this without SSL.
 
-![No SSL Setup]({{ site.url }}/assets/images/uploads/No-SSL-Setup.png)
+![No SSL Setup]({{ site.url }}/assets/images/posts/2015-02-01-forced-https-on-your-website-with-cloudflare/No-SSL-Setup.png)
 
 It's prone to a [Man in the middle attack](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). This could be done by your neighbour tapping into the line, your ISP or someone half way across the world listening in on the server you request data from.
 
@@ -35,13 +35,13 @@ It's prone to a [Man in the middle attack](https://en.wikipedia.org/wiki/Man-in-
 
 CloudFlare is a CDN that provides you with additional security by analysing requests using crowd sourced data over hundreds and thousands of websites. Add your domain to CloudFlare and ask your DNS provider to send all requests to the CloudFlare servers. Once the setup is complete, your data will be sent to your server via CloudFlare. It ensures your IP is not exposed outside there by providing it with some amount of Denial of Service attack prevention since your IP is not directly exposed and it is CloudFlare's job to handle in coming Denial of Service attacks (once set up).
 
-![With CloudFlare]({{ site.url }}/assets/images/uploads/With-CloudFlare.png)
+![With CloudFlare]({{ site.url }}/assets/images/posts/2015-02-01-forced-https-on-your-website-with-cloudflare/With-CloudFlare.png)
 
 Users must note that the move to CloudFlare means you can't SSH to your machine anymore because they do not forward the port. You can create a subdomain that doesn't route traffic through CloudFlare. That makes it easier to SSH/FTP into the box but provides a way for attackers to access your machine bypassing CloudFlare's security. Alternately you can add a vhost entry on your machine ensuring you can connect with ease but this won't help you if you would like to connect from some other machine. You could just remember the IP if you're a pro :P The choice is yours!
 
 ### Enable CloudFlare's Universal SSL
 
-![CloudFlare SSL Config]({{ site.url }}/assets/images/uploads/cloudflare-ssl-config.png)
+![CloudFlare SSL Config]({{ site.url }}/assets/images/posts/2015-02-01-forced-https-on-your-website-with-cloudflare/cloudflare-ssl-config.png)
 
 CloudFlare provides a universal SSL for all domains routed through their service. As long as you trust CloudFlare's SSL keys not to be leaked (if they do, bigger businesses would have a problem way before your website does).
 
@@ -59,7 +59,7 @@ No need to write a htaccess or similar config on your server. Go to CloudFlare a
 
 Not quite.
 
-![With CloudFlare Universal SSL]({{ site.url }}/assets/images/uploads/With-CloudFlare-Universal-SSL.png)
+![With CloudFlare Universal SSL]({{ site.url }}/assets/images/posts/2015-02-01-forced-https-on-your-website-with-cloudflare/With-CloudFlare-Universal-SSL.png)
 
 The communication between you and CloudFlare is secure. The communication between CloudFlare and your server isn't.
 
@@ -69,7 +69,7 @@ You can create a self signed certificate on your server. For any Unix based serv
 
 Once you're done, go back to the CloudFlare settings for your domain and change the option to **Full SSL**.
 
-![With End to End Security]({{ site.url }}/assets/images/uploads/With-End-to-End-Security.png)
+![With End to End Security]({{ site.url }}/assets/images/posts/2015-02-01-forced-https-on-your-website-with-cloudflare/With-End-to-End-Security.png)
 
 # Potential Flaws?
 

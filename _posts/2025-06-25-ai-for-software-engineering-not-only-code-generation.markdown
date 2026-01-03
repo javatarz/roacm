@@ -8,7 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-tools
   - engineering-culture
-image: /assets/images/uploads/aifse-cover-art.jpg
+image: /assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-cover-art.jpg
 devto: true
 devto_tags:
   - ai
@@ -19,7 +19,7 @@ devto_tags:
 
 Rethinking the role of AI across the entire software lifecycle
 
-[![AIfSE Cover Art: Team collaboration]({{ site.url }}/assets/images/uploads/aifse-cover-art-650x366.jpg)]({{ site.url }}/assets/images/uploads/aifse-cover-art.jpg)
+[![AIfSE Cover Art: Team collaboration]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-cover-art-650x366.jpg)]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-cover-art.jpg)
 
 Everyone has been talking about using coding assistants to aid with software delivery. There is more to delivering good software than writing code.
 
@@ -27,7 +27,7 @@ Everyone has been talking about using coding assistants to aid with software del
 
 Every software development project requires a few different activities from analysis (what), to planning and design (how), to development (build), to testing (validate), to deployment (implement). Each of these activities depends on different skills and techniques that can benefit from the effective use of modern AI technologies.
 
-[![Software Delivery Stages]({{ site.url }}/assets/images/uploads/aifse-1-software-delivery-stages.png)]({{ site.url }}/assets/images/uploads/aifse-1-software-delivery-stages.png)
+[![Software Delivery Stages]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-1-software-delivery-stages.png)]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-1-software-delivery-stages.png)
 
 All software development methodologies, from waterfall to the different agile techniques, fundamentally follow the same cycle. We feel this cycle is not changing yet but there are improvements waiting to be unlocked for organisations.
 
@@ -79,7 +79,7 @@ Currently, users from the business (or product owners as a proxy) work with busi
 
 We see that this status-quo is ripe for disruption. Doing so requires us to build a system (or product) that absorbs domain context before it can be used.
 
-[![AI collaboration for analysis]({{ site.url }}/assets/images/uploads/aifse-2-ai-collaboration-for-analysis.png)]({{ site.url }}/assets/images/uploads/aifse-2-ai-collaboration-for-analysis.png)
+[![AI collaboration for analysis]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-2-ai-collaboration-for-analysis.png)]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-2-ai-collaboration-for-analysis.png)
 
 Since most teams are distributed, a conversational AI can help users prepare for their synchronous or asynchronous communication with the team given that the AI has the persona of a developer who is an expert at the specific tech that is used to work on the product. Similarly, delivery team members can use a conversational AI system to help understand the business context better and anticipate pushback and prep for it. Being able to understand the devil’s advocate stance in their head and prepare for it is something most people struggle with. Important conversations still happen through direct communication, however, both the users and the business analysts can help pair on preparing for the actual conversation with real people on the other side.
 
@@ -91,7 +91,7 @@ AI makes it possible to more quickly and thoroughly define and compare different
 
 When a system is built, the system design is built to meet some constraints and have a target state. Both the target state and constraints evolve over time. Good teams will track these constraints in the beginning and through the evolution of the product as [ADR](https://github.com/joelparkerhenderson/architecture-decision-record)s and [fitness functions](https://evolutionaryarchitecture.com/ffkatas/index.html). Some teams find it hard to keep track of the delta between the current and target state (current debt). Using AI tools, this debt is easier to identify, track and address. Teams can use specific prompts in different areas to identify these challenges and help evolve the system in the right direction.
 
-[![Software Delivery Stages]({{ site.url }}/assets/images/uploads/aifse-4-emergent-design-with-ai.png)]({{ site.url }}/assets/images/uploads/aifse-4-emergent-design-with-ai.png)
+[![Software Delivery Stages]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-4-emergent-design-with-ai.png)]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-4-emergent-design-with-ai.png)
 
 Tools like [eraser.io](http://eraser.io) exist to allow generation of architectural documents through text. Combining this with the ability to generate documentation based on the code, systems can ensure architectural documents are always up to date.
 
@@ -132,7 +132,7 @@ Traditionally, individuals caught drifts in software development. There are tool
 
 _The 4-week period are indicative examples of what teams may need. Tweak the time period on a need basis._
 
-[![Software Delivery Stages]({{ site.url }}/assets/images/uploads/aifse-3-ai-assisted-delivery-upskilling.png)]({{ site.url }}/assets/images/uploads/aifse-3-ai-assisted-delivery-upskilling.png)
+[![Software Delivery Stages]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-3-ai-assisted-delivery-upskilling.png)]({{ site.url }}/assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-3-ai-assisted-delivery-upskilling.png)
 
 AI’s role in software engineering goes far beyond code generation — it’s reshaping how we design systems, make decisions, and collaborate. To truly unlock its potential, we need to rethink not just our tools, but how our teams operate. In the next post, we’ll explore [**patterns for AI-assisted software delivery**]({{ site.url }}/blog/2025/07/07/patterns-for-ai-assisted-software-development/) — focusing on how to build more effective teams, and how individuals can work differently to make the most of AI in their day-to-day practice.
 

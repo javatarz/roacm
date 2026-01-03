@@ -22,7 +22,7 @@ devto_tags:
 <!-- more -->
 ## Life before version control
 Before we can do that, it's important to understand build process before we began on this journey.
-[![Terraform managed environments]({{ site.url }}/assets/images/uploads/terraform-environments.jpg)]({{ site.url }}/assets/images/uploads/terraform-environments.jpg)
+[![Terraform managed environments]({{ site.url }}/assets/images/posts/2019-08-26-version-controlled-configuration-and-secrets-management-for-terraform/terraform-environments.jpg)]({{ site.url }}/assets/images/posts/2019-08-26-version-controlled-configuration-and-secrets-management-for-terraform/terraform-environments.jpg)
 
 Our build model for this project was branch based. Each environment maps to a branch (`main -> dev`, `uat -> uat` and `production -> production`). All other (feature) branches only ran the plan stage against the `dev` environment.
 

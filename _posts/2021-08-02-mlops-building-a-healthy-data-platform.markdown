@@ -9,7 +9,7 @@ tags:
   - mlops
   - data-engineering
   - machine-learning
-image: /assets/images/uploads/mlops-cover-art.png
+image: /assets/images/posts/2021-08-02-mlops-building-a-healthy-data-platform/mlops-cover-art.png
 devto: true
 devto_tags:
   - machinelearning
@@ -20,7 +20,7 @@ devto_tags:
 
 Spoiler: MLOps is to ML Platforms what DevOps is to most tech products. If you think this means MLOps is automating your deployments, this article is for you.
 
-[![MLOps Cover Art: Collaboration between Data Scientists, Data Engineers and Operations users]({{ site.url }}/assets/images/uploads/mlops-cover-art-650x354.png)]({{ site.url }}/assets/images/uploads/mlops-cover-art.png)
+[![MLOps Cover Art: Collaboration between Data Scientists, Data Engineers and Operations users]({{ site.url }}/assets/images/posts/2021-08-02-mlops-building-a-healthy-data-platform/mlops-cover-art-650x354.png)]({{ site.url }}/assets/images/posts/2021-08-02-mlops-building-a-healthy-data-platform/mlops-cover-art.png)
 
 ## What is DevOps and how is it so much bigger than automating deployments?
 

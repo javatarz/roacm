@@ -8,7 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-patterns
   - engineering-culture
-image: /assets/images/uploads/patterns-aifse-cover-art.jpg
+image: /assets/images/posts/2025-07-07-patterns-for-ai-assisted-software-development/patterns-aifse-cover-art.jpg
 devto: true
 devto_tags:
   - ai
@@ -19,7 +19,7 @@ devto_tags:
 
 Moving beyond tools: habits, prompts, and patterns for working well with AI
 
-[![Patterns AIfSE Cover Art: Team collaboration]({{ site.url }}/assets/images/uploads/patterns-aifse-cover-art-650x339.jpg)]({{ site.url }}/assets/images/uploads/patterns-aifse-cover-art.jpg)
+[![Patterns AIfSE Cover Art: Team collaboration]({{ site.url }}/assets/images/posts/2025-07-07-patterns-for-ai-assisted-software-development/patterns-aifse-cover-art-650x339.jpg)]({{ site.url }}/assets/images/posts/2025-07-07-patterns-for-ai-assisted-software-development/patterns-aifse-cover-art.jpg)
 
 In the last post — [**AI for Software Engineering, not (only) Code Generation**]({{ site.url }}/blog/2025/06/25/ai-for-software-engineering-not-only-code-generation/) — we explored how AI is transforming software engineering beyond just writing code. Now, let’s look at what that means for teams and individuals in practice.
 

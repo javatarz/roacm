@@ -48,7 +48,7 @@ Let's start with an example to help visualise the problem in which the customer 
 insurance in an insurance provider's system which leads to a new quote being generated. This quote needs to be sent
 back to the user via an email.
 
-![Sample flow]({{ site.url }}/assets/images/uploads/eda-sample-flow.png)
+![Sample flow]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-sample-flow.png)
 
 If the services are built as visualised with calls across services being made, the services will be tightly coupled in
 their flow (since customer management needs to know of the existence of the quoting system which in-turn needs to know
@@ -60,7 +60,7 @@ In this pattern, a source system will send a "notification" to all other systems
 consumer needs to setup an event listener and figure out how to react to it. An example of this can be seen by the
 customer management system generating
 
-![Event notification]({{ site.url }}/assets/images/uploads/eda-event-notification.png)
+![Event notification]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-event-notification.png)
 
 Since the events do not have any information about what has changed, the downstream systems still need to call the
 upstream system to understand the details of what has changed to take action on the changes.
@@ -69,20 +69,20 @@ Here are a couple of versions of the customer changed event. The first version i
 changed event could include only the ID of the customer who's address has changed. For every other part of the
 information (including what's changed), the downstream systems need to contact the customer mamangement service.
 
-![Event notification - fetch info]({{ site.url }}/assets/images/uploads/eda-event-notification-fetch-info.png)
+![Event notification - fetch info]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-event-notification-fetch-info.png)
 
 Of course, these additional questions could be included in the event notification because they are related to the core
 event itself. There will always be some fields that a downstream system might need that are not directly part of the
 event but are required by the downstream system.
 
-![Event notification - fetch all related info]({{ site.url }}/assets/images/uploads/eda-event-notification-fetch-more-info.png)
+![Event notification - fetch all related info]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-event-notification-fetch-more-info.png)
 
 #### Advantages of using Event Notification
 
 Systems built are decoupled. When there's other actions that need to be made based on an address being changed, it's
 easy to add another system to take action on this event without changes being required on the customer management side.
 
-![Event notification - decoupling]({{ site.url }}/assets/images/uploads/eda-event-notification-decoupled-scaling.png)
+![Event notification - decoupling]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-event-notification-decoupled-scaling.png)
 
 #### Downsides of using Event Notification
 
@@ -106,7 +106,7 @@ access to information and the downstream system's availability is depedent on th
 Event carried state transfer (or ECST, for short) is sends all information related to the domain object in the event to avoid
 [Event Notification](#event-notification-pattern)'s need for call backs for additional information.
 
-![Event notification - ECST]({{ site.url }}/assets/images/uploads/eda-ecst.png)
+![Event notification - ECST]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-ecst.png)
 
 Downstream systems need to store the parts of the information they need for their usecase. If a difference between the
 old and new data is required, the data-structures chosen should make calculating differences easier.
@@ -125,7 +125,7 @@ The data will also have higher replication.
 An event sourced system is one where the events are stored on an event store/event log and where the current application
 state can be completely recreated based on the event store.
 
-![Event notification - Event sourcing]({{ site.url }}/assets/images/uploads/eda-event-sourcing.png)
+![Event notification - Event sourcing]({{ site.url }}/assets/images/posts/2024-09-30-what-are-event-driven-architectures/eda-event-sourcing.png)
 
 The event store is an append only log of events that have occurred and, in the example, the customer DB is an example
 of a snapshot. A snapshot is required for enhancing the performance of your store (since it stores the current state

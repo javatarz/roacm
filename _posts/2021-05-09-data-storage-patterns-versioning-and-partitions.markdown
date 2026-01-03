@@ -7,7 +7,7 @@ description: "Master data storage patterns for large-scale platforms: bucket seg
 category: Software Design
 tags:
   - data-engineering
-image: /assets/images/uploads/data-segregation-using-buckets.png
+image: /assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/data-segregation-using-buckets.png
 devto: true
 devto_tags:
   - database
@@ -24,7 +24,7 @@ In this post, we are going to use the terminology of AWS S3 buckets to store inf
 
 When you have large volumes of data, we have found it useful to separate data that comes in from the upstream providers (if any) from any insights we process and produce. This allows us to segregate access (different parts have different PII classifications) and apply different retention policies.
 
-[![Data processing pipeline between various buckets and the operations performed when data moves from one bucket to the other]({{ site.url }}/assets/images/uploads/data-segregation-using-buckets-622x422.png)]({{ site.url }}/assets/images/uploads/data-segregation-using-buckets.png)
+[![Data processing pipeline between various buckets and the operations performed when data moves from one bucket to the other]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/data-segregation-using-buckets-622x422.png)]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/data-segregation-using-buckets.png)
 
 We would separate each of these datasets so it’s clear where each came from. When setting up the location to store your data, refer to local laws (like GDPR) for details on data residency requirements.
 
@@ -34,11 +34,11 @@ Providers tend to make their own directories to send us data. This allows them t
 
 If this was an event driven system, we would have different event types suggesting that the data from an earlier date was modified. Since the volume of data is large and the batch nature of data transfer on our platform, verbal/written communication is preferred by our data providers which allows us to re-trigger our data pipelines for the affected days.
 
-[![The preferred layout of provider buckets]({{ site.url }}/assets/images/uploads/provider-buckets-data-layout-650x373.png)]({{ site.url }}/assets/images/uploads/provider-buckets-data-layout.png)
+[![The preferred layout of provider buckets]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/provider-buckets-data-layout-650x373.png)]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/provider-buckets-data-layout.png)
 
 ## Landing bucket
 
-[![Landing bucket data layout]({{ site.url }}/assets/images/uploads/landing-bucket-data-layout-650x537.png)]({{ site.url }}/assets/images/uploads/landing-bucket-data-layout.png)
+[![Landing bucket data layout]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/landing-bucket-data-layout-650x537.png)]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/landing-bucket-data-layout.png)
 
 Most data platforms either procure data or produce it internally. The usual mechanism is for a provider to write data into its own bucket and give its consumers (our platform) access. We copy the data into a landing bucket. This data is a full replica of what the provider gives us without any processing. Keeping data we received from the provider separate from data we process and insights we derive allows us to
 
@@ -50,7 +50,7 @@ Most data platforms either procure data or produce it internally. The usual mech
 
 The data in the landing bucket might be in a format sub optimal for processing (like CSV). The data might also be dirty. We take this opportunity to clean up the data and change the format to something more suitable for processing. For our use case, a downstream pipeline usually consumes a part of what the upstream pipeline produces. Since only a subset of the data is read downstream by a single job, using a file format that allows optimized columnar reads helped us boost performance and thus we use formats like ORC and parquet in our system. The output after this cleanup and transformation is written to the core bucket (since this data is clean input that’s optimised for further processing and thus core to the functioning of the platform).
 
-[![Core bucket data layout]({{ site.url }}/assets/images/uploads/core-bucket-data-layout-650x757.png)]({{ site.url }}/assets/images/uploads/core-bucket-data-layout.png)
+[![Core bucket data layout]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/core-bucket-data-layout-650x757.png)]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/core-bucket-data-layout.png)
 
 While landing has an exact replica of what the data provider gave us, core’s raw data just transforms it to a more appropriate format (parquet/ORC for our use case) and processing applies some data cleanup strategies, adds meta-data and a few processed columns.
 
@@ -58,7 +58,7 @@ While landing has an exact replica of what the data provider gave us, core’s r
 
 Your data platform probably has multiple models running on top of the core data that produce multiple insights. We write the output for each of these into its own directory.
 
-[![Derived bucket data layout]({{ site.url }}/assets/images/uploads/derived-bucket-data-layout-650x1312.png)]({{ site.url }}/assets/images/uploads/derived-bucket-data-layout.png)
+[![Derived bucket data layout]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/derived-bucket-data-layout-650x1312.png)]({{ site.url }}/assets/images/posts/2021-05-09-data-storage-patterns-versioning-and-partitions/derived-bucket-data-layout.png)
 
 ## Advantages of data segregation
 

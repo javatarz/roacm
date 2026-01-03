@@ -9,7 +9,7 @@ tags:
   - coding-assistants
   - code-quality
   - developer-experience
-image: /assets/images/uploads/code-quality-with-ai-cover-art.png
+image: /assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-cover-art.png
 devto: true
 devto_tags:
   - ai
@@ -20,7 +20,7 @@ devto_tags:
 
 Using AI coding assistants to introduce, automate, and evolve quality checks in your project.
 
-[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/uploads/code-quality-with-ai-cover-art-650x433.png)]({{ site.url }}/assets/images/uploads/code-quality-with-ai-cover-art.png)
+[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-cover-art-650x433.png)]({{ site.url }}/assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-cover-art.png)
 
 I have talked about teams needing to have a [world class developer experience]({{ site.url }}/blog/2025/06/23/what-makes-developer-experience-world-class/) as a pre-requisite for a well functioning team. When teams lack such a setup, the most common response is a lack of time or buy in from stakeholders to build these things. With [AI coding assistants being readily available to most developers today]({{ site.url }}/blog/2025/07/17/how-to-choose-your-coding-assistants/), the engineering effort and the cost investment for the business lesser reducing the barrier to entry.
 
@@ -105,7 +105,7 @@ Try to use multiple background agents if it helps speed up this process.
 
 Give it a few minutes to analyse the code. In my case, the following files were created. `README.md` says that “Tasks within the same phase can be executed in parallel by multiple Claude Code assistants, as long as prerequisites are met”. You are ready to hit `/clear` and clear out the context window.
 
-![Plan as tasks]({{ site.url }}/assets/images/uploads/code-quality-with-ai-tasks.jpg)
+![Plan as tasks]({{ site.url }}/assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-tasks.jpg)
 
 Phase 1 sets up the basic tools, phase 2 configures them, phase 3 focuses on integration and automation and phase 4 adds monitoring and focuses on improving the code quality.
 
@@ -132,7 +132,7 @@ available on `pip`.
 
 Once phase 1 and phase 2 of the plan are complete, the following files are created and ready to be committed.
 
-![Linting tools setup]({{ site.url }}/assets/images/uploads/code-quality-with-ai-linting-tools.jpg)
+![Linting tools setup]({{ site.url }}/assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-linting-tools.jpg)
 
 When the quality gates are added on phase 3, run the command once to test if everything works and create another commit. After this, I had to prompt it once more to integrate the lint steps into a simplified developer experience.
 
@@ -142,7 +142,7 @@ Please add `just lint` as a command to run all quality checks
 
 Test the brand new lint command and then run a commit. Ask claude code to proceed to phase 4.
 
-![Claude Code’s self doubt]({{ site.url }}/assets/images/uploads/code-quality-with-ai-claude-code-self-doubt.jpg)
+![Claude Code’s self doubt]({{ site.url }}/assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-claude-code-self-doubt.jpg)
 
 You might see Claude Code doubt a plan that it has created. It is a good question because the system is _functional_ but if we prefer the more advanced checks, we should request it pushes on with Phase 4 implementation.
 

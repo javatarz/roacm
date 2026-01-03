@@ -52,7 +52,7 @@ An admin needs to enable SSH access and SSH access keys from Stash > Administrat
 
 Ensure "SSH enabled" and "SSH access keys enabled" are checked (yes, it's important enough to be said twice). If your enterprise wants to restrict access to the source code, they probably have the network set up to ensure that the http based checkout currently being used by users is behind a firewall. In such a case, similar restrictions need to be made to secure the port mentioned there on the machine which runs stash. Please make a note of the SSH port for stash. Default port for this option is 7999.
 
-[caption id="" align="alignnone" width="300"][![Stash: SSH Enable Config]({{ site.url }}/assets/images/uploads/stash-ssh-enable-config-300x258.png)]({{ site.url }}/assets/images/uploads/stash-ssh-enable-config.png) Stash: SSH Enable Config[/caption]
+[caption id="" align="alignnone" width="300"][![Stash: SSH Enable Config]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/stash-ssh-enable-config-300x258.png)]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/stash-ssh-enable-config.png) Stash: SSH Enable Config[/caption]
 
 
 ## Add Access Keys
@@ -84,7 +84,7 @@ If you have the key on a remote machine, on terminal you can use the following c
 ## **Create a Plan**
 
 
-[caption id="" align="alignright" width="300"][![Bamboo: Create Plan Menu Option]({{ site.url }}/assets/images/uploads/create-plan-menu-option-300x29.png)]({{ site.url }}/assets/images/uploads/create-plan-menu-option.png) Bamboo: Create Plan Menu Option[/caption]
+[caption id="" align="alignright" width="300"][![Bamboo: Create Plan Menu Option]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/create-plan-menu-option-300x29.png)]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/create-plan-menu-option.png) Bamboo: Create Plan Menu Option[/caption]
 
 This can be done by using the create button on the top of the screen.  If you already have a plan, skip this step. If required, create a new project on the next screen.
 
@@ -92,10 +92,10 @@ This can be done by using the create button on the top of the screen.  If you a
 ## **Configure Plan**
 
 
-[caption id="" align="alignright" width="195"][![Bamboo: Configure Plan Option]({{ site.url }}/assets/images/uploads/bamboo-configure-plan-option.png)]({{ site.url }}/assets/images/uploads/bamboo-configure-plan-option.png) Bamboo: Configure Plan Option[/caption]
+[caption id="" align="alignright" width="195"][![Bamboo: Configure Plan Option]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/bamboo-configure-plan-option.png)]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/bamboo-configure-plan-option.png) Bamboo: Configure Plan Option[/caption]
 
 Click the "Actions" button on the top right corner and the "Configure plan" option.[
-]({{ site.url }}/assets/images/uploads/bamboo-configure-plan-option.png)
+]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/bamboo-configure-plan-option.png)
 
 
 ## **Repositories**
@@ -117,7 +117,7 @@ The following settings have to be used. Any fields not mentioned are to be fille
 	
   * Repository URL: SSH URL for the repository; probably _ssh://git@stash_host:stash_ssh_port/project_key/repo_key.git_; Open repository in Stash and click the clone button. If the repository has a SSH key added (or the user has a SSH key added for himself; this is NOT REQUIRED) you should be able to see the SSH URL
 
-[caption id="attachment_499" align="alignright" width="300"][![Stash: SSH Clone URL]({{ site.url }}/assets/images/uploads/stash-ssh-url-300x248.png)]({{ site.url }}/assets/images/uploads/stash-ssh-url.png) Stash: SSH Clone URL[/caption]
+[caption id="attachment_499" align="alignright" width="300"][![Stash: SSH Clone URL]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/stash-ssh-url-300x248.png)]({{ site.url }}/assets/images/posts/2014-03-11-atlassian-bamboo-downloading-code-from-atlassian-stash/stash-ssh-url.png) Stash: SSH Clone URL[/caption]
 
 	
   * Authentication Type: SSH private key

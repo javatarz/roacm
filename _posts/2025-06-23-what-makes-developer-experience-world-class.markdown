@@ -8,7 +8,7 @@ category: Engineering Practices
 tags:
   - developer-experience
   - engineering-culture
-image: /assets/images/uploads/devex-cover-art.jpg
+image: /assets/images/posts/2025-06-23-what-makes-developer-experience-world-class/devex-cover-art.jpg
 evergreen: true
 devto: true
 devto_tags:
@@ -19,7 +19,7 @@ devto_tags:
 ---
 The habits, tools, and practices that set great engineering teams apart.
 
-[![DevEx Cover Art: Good DevEx = Happy Developer]({{ site.url }}/assets/images/uploads/devex-cover-art-650x434.jpg)]({{ site.url }}/assets/images/uploads/devex-cover-art.jpg)
+[![DevEx Cover Art: Good DevEx = Happy Developer]({{ site.url }}/assets/images/posts/2025-06-23-what-makes-developer-experience-world-class/devex-cover-art-650x434.jpg)]({{ site.url }}/assets/images/posts/2025-06-23-what-makes-developer-experience-world-class/devex-cover-art.jpg)
 
 
 Developer experience (DevEx) isn’t just about fancy tools or slick UIs - it’s about removing friction so teams can move with confidence, speed, and clarity. In high-performing teams, great DevEx means fewer context switches, faster feedback loops, and more time spent actually building. In this post, we’ll explore the five non-negotiables every codebase should have to support world-class collaboration, and we’ll map out a practical DevEx stack to help your team deliver better products, faster.
