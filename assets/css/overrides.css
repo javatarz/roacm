@@ -1789,10 +1789,9 @@ small {
   #toc {
     position: fixed;
     right: 40px;
-    top: 120px;
+    top: 80px;
     width: 220px;
-    max-height: calc(100vh - 160px);
-    overflow-y: auto;
+    max-height: calc(100vh - 120px);
     z-index: 100;
   }
 
@@ -1803,13 +1802,21 @@ small {
     overflow: hidden;
     transition:
       max-height 0.3s ease,
-      opacity 0.2s ease;
+      opacity 0.2s ease,
+      overflow 0s 0.3s; /* Delay overflow change until after collapse */
   }
 
   /* Expanded state on hover */
   .toc-nav:hover .toc-list {
-    max-height: 500px;
+    max-height: calc(
+      100vh - 180px
+    ); /* Viewport-based to accommodate long ToCs */
     opacity: 1;
+    overflow-y: auto;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.2s ease,
+      overflow 0s; /* Immediate overflow change on expand */
   }
 
   /* Collapse indicator */
