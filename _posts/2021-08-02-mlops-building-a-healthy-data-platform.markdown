@@ -9,6 +9,7 @@ tags:
   - mlops
   - data-engineering
   - machine-learning
+image: /assets/images/uploads/mlops-cover-art.png
 devto: true
 devto_tags:
   - machinelearning

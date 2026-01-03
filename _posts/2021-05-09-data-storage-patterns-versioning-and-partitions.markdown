@@ -7,6 +7,7 @@ description: "Master data storage patterns for large-scale platforms: bucket seg
 category: Software Design
 tags:
   - data-engineering
+image: /assets/images/uploads/data-segregation-using-buckets.png
 devto: true
 devto_tags:
   - database

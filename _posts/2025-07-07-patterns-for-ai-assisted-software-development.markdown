@@ -8,6 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-patterns
   - engineering-culture
+image: /assets/images/uploads/patterns-aifse-cover-art.jpg
 devto: true
 devto_tags:
   - ai

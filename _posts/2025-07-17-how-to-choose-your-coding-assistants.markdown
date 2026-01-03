@@ -9,6 +9,7 @@ tags:
   - coding-assistants
   - developer-experience
   - software-licensing
+image: /assets/images/uploads/choose-coding-assistants-cover-art.jpg
 devto: true
 devto_tags:
   - ai

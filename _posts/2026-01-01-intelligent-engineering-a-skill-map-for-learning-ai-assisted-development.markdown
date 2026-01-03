@@ -9,6 +9,7 @@ tags:
   - ai-assisted-development
   - coding-assistants
   - career
+image: /assets/images/posts/2026-01-01-skill-map/skill-progression.png
 devto: true
 devto_tags:
   - ai

@@ -9,6 +9,7 @@ tags:
   - coding-assistants
   - code-quality
   - developer-experience
+image: /assets/images/uploads/code-quality-with-ai-cover-art.png
 devto: true
 devto_tags:
   - ai

@@ -8,6 +8,7 @@ category: Engineering Practices
 tags:
   - developer-experience
   - engineering-culture
+image: /assets/images/uploads/devex-cover-art.jpg
 evergreen: true
 devto: true
 devto_tags:

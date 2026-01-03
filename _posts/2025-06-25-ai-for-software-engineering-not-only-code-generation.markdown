@@ -8,6 +8,7 @@ category: intelligent Engineering
 tags:
   - ai-tools
   - engineering-culture
+image: /assets/images/uploads/aifse-cover-art.jpg
 devto: true
 devto_tags:
   - ai
