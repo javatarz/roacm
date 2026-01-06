@@ -20,7 +20,7 @@ devto_tags:
 
 Software engineering is changing. Again.
 
-I've spent the last two years applying AI across prototyping, internal tools, production systems, and team workflows. I've watched it generate elegant solutions in seconds and confidently produce complete nonsense. I've seen it save hours on boilerplate and cost hours debugging hallucinated APIs.
+I've spent the last two years applying AI across prototyping, internal tools, production systems, and team workflows. I've watched it produce an elegant solution in seconds, then confidently generate code calling APIs that don't exist. I've seen it save hours on boilerplate and cost hours debugging hallucinated dependencies.
 
 One thing has become clear: AI doesn't make engineering easier. It shifts where the hard parts are.
 
@@ -75,7 +75,7 @@ Here's what this means day-to-day:
 
 * I use AI to draft implementations, then spend more time reviewing than I saved generating. The review is where the real work happens.
 * When AI suggests an approach, I ask "why?" If I can't explain the choice to a teammate, I don't use it.
-* I've learned to be specific. "Write a function to parse dates" gets garbage. "Parse ISO 8601 dates, handle timezone offsets, return None for invalid input" gets something useful.
+* I've learned to be specific. "Write a function to parse dates" gets garbage. "Write unit tests for an ISO 8601 date parser, including edge cases for timezone offsets, leap seconds, and malformed input—then implement a function that passes them" gets something I can actually trust.
 * I treat AI output like code from a confident junior developer: often correct, sometimes subtly wrong, occasionally completely off base.
 
 The craft hasn't changed. I still need to understand the problem, reason about edge cases, and take responsibility for what ships.
