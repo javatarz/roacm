@@ -65,7 +65,7 @@ plugins:
   - jekyll-seo-tag
 
 # SEO Tag configuration
-description: "Got Tech? Will Hack. A blog about software engineering, technology, and the occasional rambling."
+description: "Writing about AI-assisted engineering, architecture, and developer experience."
 logo: /favicon.svg
 social:
   name: Karun Japhet
