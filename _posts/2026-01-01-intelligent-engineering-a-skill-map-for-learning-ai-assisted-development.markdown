@@ -442,4 +442,4 @@ This skill map is a snapshot. The tools evolve weekly. New capabilities emerge m
 
 If you're on this journey, I'd like to hear what's working for you. What skills have I missed? What resources have you found valuable?
 
-**Coming up:** Putting these skills into practice. I'll walk through setting up intelligent Engineering on a real project, covering tool configuration, context files, and workflow patterns that work.
+**Coming up:** Putting these skills into practice. I'll walk through [setting up intelligent Engineering on a real project]({{site.url}}/blog/2026/01/02/intelligent-engineering-in-practice/), covering tool configuration, context files, and workflow patterns that work.
