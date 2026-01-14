@@ -11,7 +11,7 @@ import fs from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
 
-const BASE_URL = 'https://blog.karun.me';
+const BASE_URL = 'https://karun.me';
 
 /**
  * Parse frontmatter and content from markdown file
