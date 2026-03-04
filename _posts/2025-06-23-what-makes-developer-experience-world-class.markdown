@@ -94,39 +94,39 @@ Have a clear and consistent code style that is enforced via linters and formatte
 
 Duck typing enthusiasts can look away but please prefer strong typing (Typescript over Javascript, `mypy` on Python etc.). Your IDE suggestions and ease of exploration of language APIs will thank you, especially if your team aren’t experts at the language.
 
-Build a codebase that has clean code architecture ([layered](https://imtarundhiman.substack.com/p/understanding-layered-architecture), [hexagonal](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)), etc.). The codebase should clearly showcase design preferences (composition over inheritance) and even codify them through tests or [fitness functions](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/) when possible.
+Build a codebase that has clean code architecture ([layered](https://www.baeldung.com/cs/layered-architecture), [hexagonal](https://alistair.cockburn.us/hexagonal-architecture/), etc.). The codebase should clearly showcase design preferences (composition over inheritance) and even codify them through tests or [fitness functions](https://gotopia.tech/episodes/232/building-evolutionary-architectures) when possible.
 
-When the code isn’t obvious, do not add comments. Write [better tests](https://www.thecoder.cafe/p/unit-tests-as-documentation) and [refactor your code](https://flatirons.com/blog/what-is-code-refactoring/).
+When the code isn’t obvious, do not add comments. Write [better tests](https://read.thecoder.cafe/p/unit-tests-as-documentation) and [refactor your code](https://refactoring.com/).
 
 ## Tooling and automation
 
-Run formatters, linters, and tests automatically (using tools like [pre-commit](https://pre-commit.com/) and [husky](https://github.com/typicode/husky)). Build CI/CD pipelines that are fast and reliable which provide meaningful feedback when things fail. Automatic deployments to non-prod environments. Automated rollbacks strategies when deploying to production. It’s 2025 and there are very few reasons to need downtime [even when running most standard migrations](https://ivelum.com/blog/zero-downtime-db-migrations/). [Build observability into your pipelines](https://www.youtube.com/watch?v=IA_z8KHAEWg&list=PLj6h78yzYM2NFT2PGItX2idBf7v8fHcy7&index=2) to help diagnose issues (like pipelines slowing down) quicker.
+Run formatters, linters, and tests automatically (using tools like [pre-commit](https://pre-commit.com/) and [husky](https://github.com/typicode/husky)). Build CI/CD pipelines that are fast and reliable which provide meaningful feedback when things fail. Automatic deployments to non-prod environments. Automated rollbacks strategies when deploying to production. It’s 2025 and there are very few reasons to need downtime [even when running most standard migrations](https://ivelum.com/blog/zero-downtime-db-migrations/). [Build observability into your pipelines](https://grafana.com/blog/2024/07/08/ci-cd-observability-a-rich-new-opportunity-for-opentelemetry/) to help diagnose issues (like pipelines slowing down) quicker.
 
 A local developer experience that is consistent with production ([docker](https://www.docker.com/), [docker compose](https://docs.docker.com/compose/), and [vagrant](https://developer.hashicorp.com/vagrant) environments for more bespoke OS’). Use scripts for common workflows (`just`, `npm` scripts).
 
-Builds need to be [deterministic and reproducible](https://en.wikipedia.org/wiki/Reproducible_builds). [Lock your dependencies](https://svenluijten.com/posts/what-is-a-lock-file-and-why-should-you-care) and avoid [dependency hell](https://medium.com/knerd/the-nine-circles-of-python-dependency-hell-481d53e3e025). This might not be a big deal to the experience of developers on a daily basis but add periodic checks for outdated or vulnerable dependencies (using tools like [snyk](https://snyk.io/blog/snyk-cli-cheat-sheet/)).
+Builds need to be [deterministic and reproducible](https://en.wikipedia.org/wiki/Reproducible_builds). [Lock your dependencies](https://svenluijten.com/posts/what-is-a-lock-file-and-why-should-you-care) and avoid [dependency hell](https://code.gofrendly.com/upgrading-your-dependencies-a-backend-developers-game-of-russian-roulette-7d315d5d53e6). This might not be a big deal to the experience of developers on a daily basis but add periodic checks for outdated or vulnerable dependencies (using tools like [snyk](https://snyk.io/blog/snyk-cli-cheat-sheet/)).
 
 ## Testing and verification
 
-Automate your tests with good quality [unit tests](https://www.artofunittesting.com/) for your logic, [integration tests](https://kentcdodds.com/blog/write-tests) for the boundaries and (hopefully [consumer driven](https://pactflow.io/blog/what-is-contract-testing/)) [contract tests](https://medium.com/@abo.saad.muaath/contract-testing-in-microservices-fundamentals-benefits-and-best-practices-f5928a12522e) for external APIs that together, make up a good [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) or [test trophy](https://kentcdodds.com/blog/write-tests). Do not chase test coverage numbers. Use coverage to catch critical paths that are not well tested. [Flaky tests suck](https://www.codewithjason.com/how-i-fix-flaky-tests/), please [eliminate them](https://www.lambdatest.com/learning-hub/flaky-test) like a plague. Make them easy to run using an obvious command (like `just test`, `npm test` or `./gradlew test`).
+Automate your tests with good quality [unit tests](https://www.artofunittesting.com/) for your logic, [integration tests](https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests) for the boundaries and (hopefully [consumer driven](https://docs.pact.io/getting_started/how_pact_works)) [contract tests](https://martinfowler.com/bliki/ContractTest.html) for external APIs that together, make up a good [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) or [test trophy](https://kentcdodds.com/blog/write-tests). Do not chase test coverage numbers. Use coverage to catch critical paths that are not well tested. [Flaky tests suck](https://www.codewithjason.com/how-i-fix-flaky-tests/), please [eliminate them](https://martinfowler.com/articles/nonDeterminism.html) like a plague. Make them easy to run using an obvious command (like `just test`, `npm test` or `./gradlew test`).
 
-Use [test doubles](https://martinfowler.com/bliki/TestDouble.html) when necessary. [Mocks and stubs](https://martinfowler.com/articles/mocksArentStubs.html) are required but [try to be stateful when possible](https://the-dext.github.io/TDD_Mocking-vs-No-Mocking/) (the last bit is a debatable opinion; one of the few endless debates in this blog). Use [snapshot tests](https://jestjs.io/docs/snapshot-testing) when possible but do not abuse this technique.
+Use [test doubles](https://martinfowler.com/bliki/TestDouble.html) when necessary. [Mocks and stubs](https://martinfowler.com/articles/mocksArentStubs.html) are required but [try to be stateful when possible](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks) (the last bit is a debatable opinion; one of the few endless debates in this blog). Use [snapshot tests](https://jestjs.io/docs/snapshot-testing) when possible but do not abuse this technique.
 
 Lint your code. Do so early. Add security linters (like [bandit](https://bandit.readthedocs.io/en/latest/) or [semgrep](https://semgrep.dev/))
 
 ## Collaboration and documentation
 
-Every project should have a `README.md`, a TL;DR of your quick start guide for developers. Add a `CONTRIBUTION.md` for guidelines on how people can be good contributors (do you practice [trunk based development](https://trunkbaseddevelopment.com/) or [git flow](https://www.gitkraken.com/learn/git/git-flow)? The answer will not be obvious to everyone when starting off on the project). Set up PR templates and code review guidelines to help aid internal conversations.
+Every project should have a `README.md`, a TL;DR of your quick start guide for developers. Add a `CONTRIBUTION.md` for guidelines on how people can be good contributors (do you practice [trunk based development](https://trunkbaseddevelopment.com/) or [git flow](https://nvie.com/posts/a-successful-git-branching-model/)? The answer will not be obvious to everyone when starting off on the project). Set up PR templates and code review guidelines to help aid internal conversations.
 
 Automate your setup. New developers on your team should be productive in less than 5 minutes of the repository checkout (including [the time taken to download dependencies](https://www.youtube.com/watch?v=dAJED82HDYg)).
 
-If you’re creating an SDK or API, please generate auto-generated documentation. Capture decisions as [Architectural Decision Records (ADRs) and C4 diagrams](https://medium.com/decathlondigital/software-architecture-architecture-decision-record-c4-11ceff211baf). This makes continued context maintenance and acquiring historical context easier.
+If you’re creating an SDK or API, please generate auto-generated documentation. Capture decisions as [Architectural Decision Records (ADRs) and C4 diagrams](https://adr.github.io/). This makes continued context maintenance and acquiring historical context easier.
 
 ## Team workflows and culture
 
-Decide on [Trunk Based Development](https://trunkbaseddevelopment.com/) (TBD) or [Git Flow](https://www.gitkraken.com/learn/git/git-flow) (GF). If you’re going with TBD, merge early and merge often but do so with [feature toggles](https://martinfowler.com/articles/feature-toggles.html). If you’re going with GF, create [short-lived feature branches](https://trunkbaseddevelopment.com/short-lived-feature-branches/).
+Decide on [Trunk Based Development](https://trunkbaseddevelopment.com/) (TBD) or [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) (GF). If you’re going with TBD, merge early and merge often but do so with [feature toggles](https://martinfowler.com/articles/feature-toggles.html). If you’re going with GF, create [short-lived feature branches](https://trunkbaseddevelopment.com/short-lived-feature-branches/).
 
-Set up a culture of [blameless retros](https://www.goretro.ai/post/how-to-run-a-blameless-sprint-retrospective) to learn from your mistakes effectively.
+Set up a culture of [blameless retros](https://sre.google/sre-book/postmortem-culture/) to learn from your mistakes effectively.
 
 Track tech debt actively on the backlog and manage it regularly. Acknowledge and prioritise debt alongside features.
 
@@ -142,7 +142,7 @@ Take 10 minutes today to write down your team’s DevEx wishlist. Start a conver
 
 Change starts with **you**.
 
-_In the next blog, we’ll dive into_ [**_how AI coding assistants can help amplify your impact_**](https://medium.com/@javatarz/level-up-code-quality-with-an-ai-assistant-a7b1fa3f9886) _- accelerating code quality, catching issues early, and automating the boring stuff - so you can focus on what really matters: building things that matter._
+_In the next blog, we’ll dive into_ [**_how AI coding assistants can help amplify your impact_**](https://blog.karun.me/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/) _- accelerating code quality, catching issues early, and automating the boring stuff - so you can focus on what really matters: building things that matter._
 
 # Credits
 
