@@ -6,17 +6,17 @@ title: "The Unix Philosophy for Agentic Coding"
 description: "Why AI coding agents should orchestrate deterministic tools instead of solving every problem themselves, and how the Unix philosophy applies to agentic workflows."
 category: intelligent Engineering
 tags:
-  - ai-assisted-development
   - ai-patterns
   - coding-assistants
-  - engineering-principles
+  - tools
+  - productivity
 image: /assets/images/posts/2026-03-05-the-unix-philosophy-for-agentic-coding/cover.png
 devto: true
 devto_tags:
   - ai
   - programming
   - productivity
-  - architecture
+  - tutorial
 ---
 
 Most people use AI coding agents backwards. They hand the agent a problem and ask it to solve the whole thing. The agent reads, reasons, generates, and hopes for the best.

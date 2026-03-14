@@ -16,7 +16,7 @@ devto_tags:
   - ai
   - programming
   - productivity
-  - architecture
+  - beginners
 ---
 
 Production agentic systems treat AI outputs as drafts. Most developers treat them as finished products.
