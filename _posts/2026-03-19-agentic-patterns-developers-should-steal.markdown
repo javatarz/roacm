@@ -16,7 +16,7 @@ devto_tags:
   - ai
   - programming
   - productivity
-  - beginners
+  - architecture
 ---
 
 Production agentic systems decompose problems and use the right tool for each step. Most developers hand the AI the whole problem.
