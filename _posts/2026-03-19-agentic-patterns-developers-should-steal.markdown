@@ -19,7 +19,7 @@ devto_tags:
   - beginners
 ---
 
-Production agentic systems treat AI outputs as drafts. Most developers treat them as finished products.
+Production agentic systems break problems down, constrain each step, and verify as they go. Most developers hand the AI the whole problem and review at the end.
 
 That's the gap. Teams building production AI workflows have developed patterns for making AI reliable. Developers using AI coding assistants like Claude Code, Cursor, or Copilot mostly haven't adopted them yet.
 
@@ -164,7 +164,7 @@ You don't need all nine patterns at once. Start with the ones that address your 
 - **Spending too much on tokens?** Start with [deterministic tool delegation](#deterministic-tool-delegation) and [context engineering](#context-engineering).
 - **Not sure if AI is helping?** [Observability](#observability) is still largely unsolved, but start by establishing baselines now so you can measure later.
 
-Stop treating AI outputs as finished products. Treat them as drafts that benefit from the same engineering discipline you'd apply to any other part of your workflow.
+Stop handing the AI the whole problem. Break it down, use the right tools for each step, and apply the same engineering discipline you'd use anywhere else.
 
 ---
 
