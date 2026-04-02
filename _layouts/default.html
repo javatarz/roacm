@@ -12,7 +12,7 @@
 
       {% include body/footer.html %}
     </div>
-
+    {% include body/deferred_styles.html %}
     {% if jekyll.environment == 'production' %}
     <script defer src="/assets/js/bundle.min.js"></script>
     {% else %}
