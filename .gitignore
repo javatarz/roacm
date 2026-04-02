@@ -1,5 +1,6 @@
 # Hidden files & folders
 .DS_Store
+.idea/
 .sass-cache/
 .deploy/
 .pygments-cache/
