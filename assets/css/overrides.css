@@ -137,6 +137,12 @@ a {
   transition: color 0.2s ease;
 }
 
+/* Theme sets a { font-weight: 200 } which prevents bold links. Inherit from parent so <strong><a> works. */
+strong a,
+b a {
+  font-weight: inherit;
+}
+
 a:hover,
 a:focus {
   color: var(--accent-color);
