@@ -26,8 +26,8 @@
       const sanitizedProps = sanitizeProperties(properties);
       window.umami.track(eventName, sanitizedProps);
     } catch (error) {
-      // Silent fail - don't break user experience if tracking fails
-      console.debug('Umami tracking error:', error);
+      // Don't break user experience if tracking fails; surface as warn for inspect
+      console.warn('Umami tracking error:', error);
     }
   }
 
