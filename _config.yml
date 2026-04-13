@@ -18,6 +18,10 @@ permalink: /blog/:year/:month/:day/:title/
 
 plugins_dir: _plugins
 sass_dir: _sass
+sass:
+  quiet_deps: true
+  silence_deprecations:
+    - import
 category_dir: /blog/categories
 
 highlighter: rouge
