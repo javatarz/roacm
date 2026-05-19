@@ -9,6 +9,7 @@ tags:
   - coding-assistants
   - ai-assisted-development
   - ai-patterns
+published: false
 devto: true
 devto_tags:
   - ai
@@ -228,9 +229,9 @@ When an agent is stuck, the card goes to `blocked` with a `needs-help` label and
 
 ## What it looks like in practice
 
-Here's a walkthrough on [credit-card-lending](https://github.com/javatarz/credit-card-lending). Three cards groomed and ready.
+Here's a walkthrough on [credit-card-lending](https://github.com/javatarz/credit-card-lending) using Agent Teams. Three cards groomed and ready. The session starts with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` enabled.
 
-### Check the backlog
+### Check the backlog and create the team
 
 ```
 > bd ready --plain
@@ -238,69 +239,46 @@ Here's a walkthrough on [credit-card-lending](https://github.com/javatarz/credit
 bd-c4a1  P1  Add payment grace period calculation     customer
 bd-e2f7  P1  Fix SSN validation accepting 000 prefix  customer
 bd-b8d3  P2  Add CSV export to transaction history     reporting
+
+> Create a team with three teammates, one for each card. Each teammate should use the worker agent definition and get its own worktree.
+
+Creating team "sprint-work"...
+
+Spawning teammate "grace-period" for bd-c4a1...
+  Worktree: work/bd-c4a1-payment-grace-period
+  Card claimed.
+
+Spawning teammate "ssn-fix" for bd-e2f7...
+  Worktree: work/bd-e2f7-fix-ssn-validation
+  Card claimed.
+
+Spawning teammate "csv-export" for bd-b8d3...
+  Worktree: work/bd-b8d3-csv-export-transactions
+  Card claimed.
+
+Team "sprint-work" running. Ctrl+T to toggle task list. Shift+Down to
+cycle between teammates.
 ```
 
-### Dispatch workers
+### Monitor progress
+
+The shared task list shows what each teammate is working on. `Ctrl+T` toggles it:
 
 ```
-> /dispatch
-
-Found 3 ready cards:
-
-| # | Card    | Title                                   | Priority |
-|---|---------|-----------------------------------------|----------|
-| 1 | bd-c4a1 | Add payment grace period calculation    | P1       |
-| 2 | bd-e2f7 | Fix SSN validation accepting 000 prefix | P1       |
-| 3 | bd-b8d3 | Add CSV export to transaction history   | P2       |
-
-Which cards to dispatch? (comma-separated IDs, or "all")
-> all
-
-Claiming bd-c4a1... done
-Spawning worker -> work/bd-c4a1-payment-grace-period (worktree)
-
-Claiming bd-e2f7... done
-Spawning worker -> work/bd-e2f7-fix-ssn-validation (worktree)
-
-Claiming bd-b8d3... done
-Spawning worker -> work/bd-b8d3-csv-export-transactions (worktree)
-
-| Card    | Branch                               | Status     |
-|---------|--------------------------------------|------------|
-| bd-c4a1 | work/bd-c4a1-payment-grace-period    | Dispatched |
-| bd-e2f7 | work/bd-e2f7-fix-ssn-validation      | Dispatched |
-| bd-b8d3 | work/bd-b8d3-csv-export-transactions | Dispatched |
-
-Workers running in background. Check `bd list --label review:pending` for completed work.
+Tasks:
+  [in_progress] bd-c4a1: Add payment grace period calculation (grace-period)
+  [completed]   bd-e2f7: Fix SSN validation accepting 000 prefix (ssn-fix)
+  [in_progress] bd-b8d3: Add CSV export to transaction history (csv-export)
 ```
 
-### Continue working
+While teammates work, I stay in the lead session. Groom next sprint's cards, explore a design problem, whatever needs thinking. Teammates message the lead if they're stuck or need clarification.
 
-While workers run, I stay in the main session. Groom next sprint's cards, explore a design problem, whatever needs thinking.
+### Review completed work
 
-### Check for completed work
-
-```
-> bd list --label review:pending
-
-bd-e2f7  Fix SSN validation accepting 000 prefix  [review:pending]
-bd-b8d3  Add CSV export to transaction history     [review:pending]
-```
-
-Two done. One still in progress.
-
-### Review
+`ssn-fix` and `csv-export` have finished. I review each worktree diff from the lead session.
 
 ```
-> /review-worktree
-
-| # | Card    | Title                             | Branch                               |
-|---|---------|-----------------------------------|--------------------------------------|
-| 1 | bd-e2f7 | Fix SSN validation 000 prefix     | work/bd-e2f7-fix-ssn-validation      |
-| 2 | bd-b8d3 | CSV export transaction history    | work/bd-b8d3-csv-export-transactions |
-
-Which worktree to review?
-> 1
+> Show me the diff for ssn-fix's worktree
 
 Commits (main..HEAD):
   a3f8c21 Fix SSN validation to reject 000 and 999 prefixes
@@ -309,20 +287,22 @@ Commits (main..HEAD):
 Changed files:
   src/.../customer/validation/SsnValidator.java      | 12 ++++++--
   src/.../customer/validation/SsnValidatorTest.java  | 28 ++++++++++++++++
+```
 
-Options: [d]iff [f]ile [t]ests [r]eview-agent [a]pprove re[j]ect
-> a
+Small, focused fix. Two files, clear test coverage. Merge it.
+
+```
+> Merge ssn-fix's worktree to main
 
 Merging work/bd-e2f7-fix-ssn-validation into main... done
 Closing bd-e2f7... done
 Removing worktree... done
 ```
 
-Small, focused fix. Two files, clear test coverage. Approve.
+Now the CSV export:
 
 ```
-Which worktree to review?
-> 2
+> Show me the diff for csv-export's worktree
 
 Commits (main..HEAD):
   b1c4e89 Add CSV export endpoint for transaction history
@@ -331,17 +311,21 @@ Commits (main..HEAD):
 
 Changed files:
   12 files changed, 847 insertions(+), 23 deletions(-)
-
-Options: [d]iff [f]ile [t]ests [r]eview-agent [a]pprove re[j]ect
-> j
-
-Feedback: Card asked for CSV export only. PDF export and UI dropdown
-are out of scope. Remove those and keep only the CSV export.
-
-Reopening bd-b8d3 with feedback... done
 ```
 
-Scope creep. The card said CSV export. The agent added PDF export and a UI component. This is a common failure mode: agents are eager to build adjacent features. The rejection feedback goes back to the card. Next dispatch, the worker reads it and knows exactly what to cut.
+Scope creep. The card said CSV export. The teammate added PDF export and a UI component.
+
+```
+> Reject. Send csv-export a message: "Card asked for CSV export only.
+  PDF export and UI dropdown are out of scope. Revert those changes
+  and keep only the CSV export."
+
+Message sent to csv-export. Reopening bd-b8d3...
+```
+
+With Agent Teams, the rejection goes directly to the teammate via `SendMessage`. The teammate receives the feedback, reverts the out-of-scope work, and resubmits. No re-dispatch needed.
+
+This is a common failure mode: agents are eager to build adjacent features. The tighter the acceptance criteria in the card, the less often this happens.
 
 ## Where it falls apart
 
