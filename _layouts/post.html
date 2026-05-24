@@ -2,6 +2,31 @@
 layout: default
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | default: page.excerpt | strip_html | jsonify }},
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.updated | default: page.date | date_to_xmlschema | jsonify }},
+  "url": {{ site.url | append: page.url | jsonify }},
+  "wordCount": {{ content | number_of_words }},
+  "author": {
+    "@type": "Person",
+    "name": {{ site.social.name | jsonify }},
+    "url": {{ site.url | jsonify }},
+    "sameAs": {{ site.social.links | jsonify }}
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.social.name | jsonify }},
+    "url": {{ site.url | jsonify }}
+  }{% if page.image %},
+  "image": {{ site.url | append: page.image | jsonify }}{% endif %}
+}
+</script>
+
 <div class="reading-progress-bar"></div>
 
 <h1 class="entry-title">{{ page.title }}</h1>
