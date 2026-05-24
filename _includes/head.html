@@ -5,6 +5,19 @@
 
   {% seo %}
 
+  {% if page.layout == 'homepage' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": {{ site.social.name | jsonify }},
+    "url": {{ site.url | jsonify }},
+    "sameAs": {{ site.social.links | jsonify }},
+    "knowsAbout": ["AI-assisted engineering", "distributed systems", "platform engineering", "software architecture", "MLOps"]
+  }
+  </script>
+  {% endif %}
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
