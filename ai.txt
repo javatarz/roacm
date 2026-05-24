@@ -1,0 +1,6 @@
+User-Agent: *
+Train: no
+Summarize: yes
+Quote: yes
+Attribute: yes
+Contact: karun@japhet.in
