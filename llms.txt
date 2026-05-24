@@ -1,0 +1,20 @@
+---
+layout: null
+---
+# {{ site.title }}
+
+> {{ site.description }} By {{ site.author }}.
+
+## Posts
+{% for post in site.posts %}
+- [{{ post.title }}]({{ site.url }}{{ post.url }}): {% if post.description %}{{ post.description }}{% else %}{{ post.excerpt | strip_html | truncatewords: 20, "" | strip }}{% endif %}
+{% endfor %}
+## Categories
+{% for category in site.category_descriptions %}
+- [{{ category[0] }}]({{ site.url }}/blog/categories/{{ category[0] | slugify }}/): {{ category[1] }}
+{% endfor %}
+## Optional
+
+- [About]({{ site.url }}/about/): Background on {{ site.author }}, engineer at Sahaj Software working on AI-assisted engineering, distributed systems, and architecture.
+- [Talks]({{ site.url }}/talks/): Conference and meetup talks on distributed systems, event-driven design, and AI.
+- [RSS]({{ site.url }}/atom.xml): Full content feed.
