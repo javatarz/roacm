@@ -4,10 +4,7 @@
 # including talks with no public recording and repeat deliveries of the same
 # talk at multiple venues.
 #
-# Relationship to talks.yml:
-#   - talks.yml is the auto-synced cache of RECORDED talks (YouTube playlist).
-#   - speaking.yml is the full record. Where a talk was recorded, video_id
-#     links to the YouTube id in talks.yml.
+# This is the single source of truth for the talks page and the homepage.
 #
 # Model: one entry per TALK. Each talk has a `deliveries` list (venue list),
 # so repeat deliveries appear under a single talk rather than as duplicates.
@@ -17,7 +14,8 @@
 #   type          talk | panel | podcast | workshop | bof
 #   date          Top-level sort key. The timeline renders newest-first by this.
 #                 Set it to the primary (card-displayed) delivery's date.
-#   video_id      YouTube id if recorded (matches talks.yml); omit if no recording
+#   video_id      YouTube id if recorded (the video to link to); omit if not recorded
+#   duration      Talk length for recorded talks, e.g. "2h 5m"; shown on the badge
 #   image         Card/timeline thumbnail (used when there is no video_id)
 #   description   One-line summary, shown under each timeline entry
 #   deliveries:   One entry per time/place the talk was given
@@ -49,6 +47,7 @@
   type: talk
   date: 2025-11-01
   video_id: HXq-Fr6XnV8
+  duration: "2h 5m"
   description: >
     How AI supports engineers across the full development lifecycle: sharpening
     requirements and design before code, test strategy and quality during, and
@@ -135,6 +134,7 @@
   type: panel
   date: 2024-04-25
   video_id: W42qxQ7MvRs
+  duration: "46m"
   description: >
     Panel on how responsible AI keeps systems fair and transparent by aligning
     them with ethical principles, covering bias mitigation, legal risks, and
@@ -149,6 +149,7 @@
   type: talk
   date: 2024-01-20
   video_id: IjizYxxNzvc
+  duration: "1h 7m"
   description: >
     Live coding session building a Q&A bot from scratch using Large Language
     Models, taking a practical LLM application from concept to working code.
@@ -181,6 +182,7 @@
   type: talk
   date: 2019-07-18
   video_id: x43rjpdWz18
+  duration: "1h 21m"
   description: >
     How machine learning helps banks stay ahead of credit-card fraudsters with
     adaptive fraud detection systems as attacker behaviour keeps evolving.
@@ -200,6 +202,7 @@
   type: podcast
   date: 2020-01-01
   video_id: tt7Pj_x6fPg
+  duration: "57m"
   description: >
     A conversation on the fun, the challenges, and the lessons learned managing
     data pipelines at scale, and what it takes to build reliable, scalable data
@@ -232,6 +235,7 @@
   type: talk
   date: 2018-02-01
   video_id: eER4n4p-KFk
+  duration: "59m"
   description: >
     Comparing serverless and microservice implementations of an event-driven
     system across cross-functional requirements, and where serverless is the
@@ -271,6 +275,7 @@
   type: talk
   date: 2017-04-01
   video_id: 4cJ4GyyOfII
+  duration: "48m"
   description: >
     Bridging the divide between modern event-sourced systems and more
     traditional architectures, with practical strategies for integrating legacy
