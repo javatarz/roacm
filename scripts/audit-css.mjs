@@ -18,20 +18,32 @@ const purgeSafelist = {
   greedy: (safelist.css.patterns || []).map((pattern) => new RegExp(pattern)),
 };
 
+// All stylesheets shipped to the browser, not just the theme's style.css.
+// overrides.css carries the bulk of our customizations and must be audited too.
+const cssFiles = [
+  '_site/assets/css/style.css',
+  '_site/assets/css/overrides.css',
+];
+
 // Run PurgeCSS to detect unused CSS
 const purgeCSSResults = await new PurgeCSS().purge({
   content: ['_site/**/*.html', '_site/assets/js/**/*.js'],
-  css: ['_site/assets/css/style.css'],
+  css: cssFiles,
   safelist: purgeSafelist,
   rejected: true,
   rejectedCss: true,
 });
 
-// Report rejected selectors
-const rejected = purgeCSSResults[0]?.rejected || [];
+// Report rejected selectors, grouped by file
+const rejected = purgeCSSResults.flatMap((result) =>
+  (result.rejected || []).map((sel) => ({
+    file: (result.file || '').split('/').pop(),
+    sel,
+  }))
+);
 if (rejected.length > 0) {
   console.error('❌ Unused CSS detected:');
-  rejected.forEach((sel) => console.error(`  - ${sel}`));
+  rejected.forEach(({ file, sel }) => console.error(`  - [${file}] ${sel}`));
   process.exit(1);
 }
 

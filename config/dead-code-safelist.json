@@ -1,5 +1,7 @@
 {
   "css": {
+    "_comment_temp": "Dead blog CSS temporarily safelisted pending removal in issue #226: post-content, no-underline, btn, pagination, homepage-work-tagline.",
+    "_comment_utils": "video-container size variants are intentional embed-size utilities (siblings of diagram-*), unused today but kept as authoring API.",
     "classes": [
       "visible",
       "is-open",
@@ -7,7 +9,15 @@
       "active",
       "selected",
       "menu-open",
-      "error"
+      "error",
+      "post-content",
+      "no-underline",
+      "btn",
+      "pagination",
+      "homepage-work-tagline",
+      "video-container-small",
+      "video-container-medium",
+      "video-container-large"
     ],
     "ids": [],
     "patterns": [
