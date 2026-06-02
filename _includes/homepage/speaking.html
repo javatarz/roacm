@@ -5,7 +5,7 @@
   carries the full history with video thumbnails.
 {% endcomment %}
 
-{% assign display_talks = site.data.speaking | slice: 0, 3 %}
+{% assign display_talks = site.data.speaking | sort: "date" | reverse | slice: 0, 3 %}
 
 <section class="homepage-section" aria-labelledby="speaking-heading">
   <div class="section-header">
@@ -31,8 +31,6 @@
         {%- when 'bof' -%}{%- assign format_label = 'BoF' -%}{%- assign format_class = 'talk-badge-bof' -%}
         {%- when 'panel' -%}{%- assign format_label = 'Panel' -%}{%- assign format_class = 'talk-badge-panel' -%}
         {%- when 'podcast' -%}{%- assign format_label = 'Podcast' -%}{%- assign format_class = 'talk-badge-podcast' -%}
-        {%- when 'live-coding' -%}{%- assign format_label = 'Live Coding' -%}{%- assign format_class = 'talk-badge-live' -%}
-        {%- when 'roundtable' -%}{%- assign format_label = 'Roundtable' -%}{%- assign format_class = 'talk-badge-roundtable' -%}
         {%- when 'workshop' -%}{%- assign format_label = 'Workshop' -%}{%- assign format_class = 'talk-badge-workshop' -%}
         {%- else -%}{%- assign format_label = 'Talk' -%}{%- assign format_class = 'talk-badge-talk' -%}
       {%- endcase -%}
@@ -40,11 +38,7 @@
       {% if talk.video_id %}<img class="homepage-card-thumb" src="https://img.youtube.com/vi/{{ talk.video_id }}/hqdefault.jpg" alt="" loading="lazy">{% elsif talk.image %}<img class="homepage-card-thumb" src="{{ talk.image }}" alt="" loading="lazy">{% endif %}
       <div class="talk-card-badges talk-card-badges--top">
         <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
-        {% if has_recording %}
-          <span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>
-        {% else %}
-          <span class="talk-badge talk-badge-unrecorded">&#8599; Event</span>
-        {% endif %}
+        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>{% endif %}
       </div>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">

@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Talks
-description: 'Conference talks, panels, podcasts, and roundtables by Karun Japhet on AI-assisted development, machine learning, event-driven architecture, and serverless systems.'
+description: 'Conference talks, panels, podcasts, and workshops by Karun Japhet on AI-assisted development, machine learning, event-driven architecture, and serverless systems.'
 permalink: /talks/
 ---
 
 <h1 class="entry-title">{{ page.title }}</h1>
 
 <p class="talks-intro">
-  A running list of the talks, panels, podcasts, and roundtables I've given,
+  A running list of the talks, panels, podcasts, and workshops I've given,
   newest first. Mostly distributed systems, event-driven design, machine
   learning, and lately how AI fits across the software lifecycle.
 </p>
@@ -52,8 +52,6 @@ permalink: /talks/
     {% when 'bof' %}{% assign format_label = 'BoF' %}{% assign format_class = 'talk-badge-bof' %}
     {% when 'panel' %}{% assign format_label = 'Panel' %}{% assign format_class = 'talk-badge-panel' %}
     {% when 'podcast' %}{% assign format_label = 'Podcast' %}{% assign format_class = 'talk-badge-podcast' %}
-    {% when 'live-coding' %}{% assign format_label = 'Live Coding' %}{% assign format_class = 'talk-badge-live' %}
-    {% when 'roundtable' %}{% assign format_label = 'Roundtable' %}{% assign format_class = 'talk-badge-roundtable' %}
     {% when 'workshop' %}{% assign format_label = 'Workshop' %}{% assign format_class = 'talk-badge-workshop' %}
     {% else %}{% assign format_label = 'Talk' %}{% assign format_class = 'talk-badge-talk' %}
   {% endcase %}
@@ -76,11 +74,7 @@ permalink: /talks/
       {% if t.description %}<p class="talk-timeline__desc">{{ t.description | strip_newlines }}</p>{% endif %}
       <div class="talk-card-badges talk-card-badges--top">
         <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
-        {% if has_recording %}
-          <span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>
-        {% else %}
-          <span class="talk-badge talk-badge-unrecorded">&#8599; Event</span>
-        {% endif %}
+        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>{% endif %}
       </div>
       {% if primary.co_speakers %}
         <p class="talk-card-collab">with

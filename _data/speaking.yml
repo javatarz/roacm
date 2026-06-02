@@ -14,7 +14,7 @@
 #
 # Fields:
 #   title         Talk title
-#   type          talk | panel | live-coding | podcast | roundtable | workshop | bof
+#   type          talk | panel | podcast | workshop | bof
 #   date          Top-level sort key. The timeline renders newest-first by this.
 #                 Set it to the primary (card-displayed) delivery's date.
 #   video_id      YouTube id if recorded (matches talks.yml); omit if no recording
@@ -61,7 +61,7 @@
       recorded: true
 
 - title: "Human + AI: intelligent Engineering in Action"
-  type: roundtable
+  type: talk
   date: 2025-12-10
   image: /assets/images/talks/2025-12-sahaj-emerge-human-ai-newyork.jpeg
   description: >
@@ -69,7 +69,7 @@
     SDLC: designing, building and deploying better solutions faster through
     collaboration between product, engineering and AI agents.
   deliveries:
-    - event: Sahaj Emerge
+    - event: Sahaj emerge
       location: New York, USA
       date: 2025-12-10
       url: https://sahaj.ai/events/human-ai-intelligent-engineering-in-action/
@@ -79,7 +79,7 @@
           linkedin: https://www.linkedin.com/in/gsong/
 
 - title: "Product Value Through intelligent Engineering"
-  type: roundtable
+  type: talk
   date: 2026-02-25
   image: /assets/images/talks/2026-02-sahaj-emerge-product-value-london.jpeg
   description: >
@@ -87,11 +87,11 @@
     deploying AI agents across the entire product delivery lifecycle, anchored
     by a Talon Outdoor case study on building AI into the core of a product.
   deliveries:
-    - event: Sahaj Emerge
+    - event: Sahaj emerge
       location: Mumbai, India
       date: 2026-02-17
       recorded: false
-    - event: Sahaj Emerge
+    - event: Sahaj emerge
       location: London, UK
       date: 2026-02-25
       url: https://sahaj.ai/events/product-value-through-intelligent-engineering/
@@ -101,7 +101,7 @@
           linkedin: https://www.linkedin.com/in/andrewstevens2/
 
 - title: "Why AI Tools Aren't Delivering Business Impact (And How to Fix It)"
-  type: roundtable
+  type: talk
   date: 2026-06-11
   image: /assets/images/talks/2026-06-sahaj-emerge-why-ai-tools-mumbai.jpeg
   description: >
@@ -110,14 +110,14 @@
     model: external practitioners building and operating solutions alongside
     internal teams for safer deployment and measurable ROI.
   deliveries:
-    - event: Sahaj Emerge
+    - event: Sahaj emerge
       location: Mumbai, India
       date: 2026-06-11
       url: https://sahaj.ai/events/why-ai-tools-arent-delivering-business-impact-and-how-to-fix-it/
       recorded: false
 
 - title: "intelligent Engineering Buildathon"
-  type: talk
+  type: workshop
   date: 2026-01-31
   image: /assets/images/talks/2026-01-sahaj-devday-buildathon-hyderabad.jpeg
   description: >
@@ -140,13 +140,13 @@
     them with ethical principles, covering bias mitigation, legal risks, and
     balancing innovation with governance.
   deliveries:
-    - event: DevFest Pune
+    - event: Google Developer Group DevFest
       location: Pune, India
       date: 2024-04-25
       recorded: true
 
 - title: "From Concept to Code: Building a Q&A Bot Live with LLM"
-  type: live-coding
+  type: talk
   date: 2024-01-20
   video_id: IjizYxxNzvc
   description: >
@@ -261,7 +261,7 @@
     platforms and shipping to production every week, leaning on unit tests and
     consumer-driven contract tests, with examples from the payment lifecycle.
   deliveries:
-    - event: QuaNTA NXT (Globant)
+    - event: Globant QuaNTA NXT
       location: Pune, India
       date: 2019-06-01
       url: https://stayrelevant.globant.com/en/culture/great-new-things/the-future-of-qe-envisioned-at-quanta-2019-pune-india/
@@ -279,6 +279,7 @@
     - event: O'Reilly Software Architecture Conference
       location: New York, USA
       date: 2017-04-01
+      url: https://www.oreilly.com/videos/oreilly-software-architecture/9781491976203/9781491976203-video302671/
       recorded: true
     - event: O'Reilly Software Architecture Conference
       location: London, UK

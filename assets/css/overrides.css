@@ -2654,25 +2654,7 @@ body.homepage {
   margin-bottom: 32px;
 }
 
-/* Featured Talk Section */
-.featured-talk {
-  margin-bottom: 32px;
-  width: 100%;
-}
-
-.featured-talk-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.featured-talk-video {
-  background: #000;
-}
-
+/* Video embeds (used in blog post content) */
 .video-container {
   aspect-ratio: 16 / 9;
   position: relative;
@@ -2703,178 +2685,8 @@ body.homepage {
   margin: 0 auto;
 }
 
-.featured-talk-content {
-  padding: 24px;
-}
-
-.featured-talk-title {
-  color: var(--text-primary);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 12px;
-}
-
-.featured-talk-meta {
-  color: var(--text-secondary);
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 14px;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.featured-talk-event {
-  font-weight: 600;
-}
-
-.featured-talk-description {
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Two-column featured card on wider screens so the video isn't oversized */
-@media (min-width: 700px) {
-  .featured-talk-card {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .featured-talk-video {
-    flex: 0 0 50%;
-  }
-
-  .featured-talk-content {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
-/* Talks Section */
-.talks-section {
-  margin-bottom: 32px;
-  width: 100%;
-}
-
-.talks-section h2 {
-  border-bottom: 2px solid var(--accent-color);
-  font-size: 22px;
-  margin: 0 0 8px;
-  padding-bottom: 8px;
-}
-
-.section-description {
-  color: var(--text-secondary);
-  font-size: 15px;
-  margin: 0 0 20px;
-}
-
-/* Talks Grid */
-.talks-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-/* Talk Card */
-.talk-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  text-decoration: none;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.talk-card:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 4px 12px var(--card-shadow);
-  transform: translateY(-2px);
-}
-
-.talk-card-thumbnail {
-  aspect-ratio: 16 / 9;
-  background: #000;
-  overflow: hidden;
-  position: relative;
-}
-
-.talk-card-thumbnail img {
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-}
-
-.talk-card-duration {
-  background: rgb(0, 0, 0, 0.8);
-  border-radius: 4px;
-  bottom: 8px;
-  color: #fff;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  padding: 2px 6px;
-  position: absolute;
-  right: 8px;
-}
-
-.talk-card-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 16px;
-}
-
-.talk-card-title {
-  -webkit-box-orient: vertical;
-  color: var(--text-primary);
-  display: -webkit-box;
-  font-size: 16px;
-  font-weight: 600;
-  -webkit-line-clamp: 2;
-  line-height: 1.4;
-  margin: 0 0 8px;
-  overflow: hidden;
-}
-
-.talk-card-meta {
-  color: var(--text-secondary);
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 13px;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
 .talk-card-event {
   font-weight: 500;
-}
-
-.talk-card-location::before {
-  content: '\2022';
-  margin-right: 8px;
-}
-
-.talk-card-description {
-  -webkit-box-orient: vertical;
-  color: var(--text-secondary);
-  display: -webkit-box;
-  flex-grow: 1;
-  font-size: 14px;
-  -webkit-line-clamp: 2;
-  line-height: 1.5;
-  margin: 0 0 12px;
-  overflow: hidden;
 }
 
 /* Talk Badges */
@@ -2899,18 +2711,8 @@ body.homepage {
 }
 
 .talk-badge-podcast {
-  background: rgb(0, 150, 136, 0.15);
-  color: #009688;
-}
-
-.talk-badge-live {
-  background: rgb(233, 30, 99, 0.15);
-  color: #e91e63;
-}
-
-.talk-badge-collab {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  background: rgb(46, 125, 50, 0.15);
+  color: #2e7d32;
 }
 
 [data-theme='dark'] .talk-badge-panel {
@@ -2919,66 +2721,45 @@ body.homepage {
 }
 
 [data-theme='dark'] .talk-badge-podcast {
-  background: rgb(0, 150, 136, 0.3);
-  color: #80cbc4;
-}
-
-[data-theme='dark'] .talk-badge-live {
-  background: rgb(233, 30, 99, 0.3);
-  color: #f48fb1;
+  background: rgb(46, 125, 50, 0.3);
+  color: #a5d6a7;
 }
 
 /* Format badges (muted tints) */
 .talk-badge-talk {
-  background: rgb(96, 125, 139, 0.15);
-  color: #546e7a;
-}
-
-.talk-badge-bof {
-  background: rgb(255, 152, 0, 0.15);
-  color: #e65100;
-}
-
-.talk-badge-roundtable {
-  background: rgb(63, 81, 181, 0.15);
-  color: #3f51b5;
-}
-
-.talk-badge-workshop {
   background: rgb(0, 131, 143, 0.15);
   color: #00838f;
 }
 
+.talk-badge-bof {
+  background: rgb(103, 58, 183, 0.15);
+  color: #673ab7;
+}
+
+.talk-badge-workshop {
+  background: rgb(25, 118, 210, 0.15);
+  color: #1565c0;
+}
+
 [data-theme='dark'] .talk-badge-talk {
-  background: rgb(96, 125, 139, 0.3);
-  color: #b0bec5;
+  background: rgb(0, 131, 143, 0.3);
+  color: #80deea;
 }
 
 [data-theme='dark'] .talk-badge-bof {
-  background: rgb(255, 152, 0, 0.3);
-  color: #ffcc80;
-}
-
-[data-theme='dark'] .talk-badge-roundtable {
-  background: rgb(63, 81, 181, 0.3);
-  color: #9fa8da;
+  background: rgb(103, 58, 183, 0.3);
+  color: #b39ddb;
 }
 
 [data-theme='dark'] .talk-badge-workshop {
-  background: rgb(0, 131, 143, 0.3);
-  color: #80deea;
+  background: rgb(25, 118, 210, 0.3);
+  color: #90caf9;
 }
 
 /* Recording axis - carries the accent colour (the signal that matters) */
 .talk-badge-recorded {
   background: var(--accent-color);
   color: #fff;
-}
-
-.talk-badge-unrecorded {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
 }
 
 /* Top-aligned badge row (vs the default bottom-aligned one) */
@@ -3000,17 +2781,6 @@ body.homepage {
   transform: translate(-50%, -50%);
 }
 
-/* No-video cards: subtle accent rail so they still read as engagements */
-.talk-card--no-video {
-  border-left: 3px solid var(--accent-color);
-}
-
-/* Year separator dot, matching location */
-.talk-card-year::before {
-  content: '\2022';
-  margin-right: 8px;
-}
-
 /* Co-speaker and repeat-venue lines */
 .talk-card-collab,
 .talk-card-also {
@@ -3028,24 +2798,8 @@ body.homepage {
   margin-bottom: 10px;
 }
 
-/* Discrete card links: thumbnail -> video, title -> recording/event,
-   location -> event page, co-speakers -> LinkedIn. */
-.talk-card-thumbnail {
-  display: block;
-}
-
-.talk-card-link {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.talk-card-link:hover {
-  color: var(--accent-color);
-}
-
 .talk-card-collab a,
-.talk-card-also a,
-a.talk-card-location {
+.talk-card-also a {
   color: var(--accent-color);
 }
 
@@ -3062,26 +2816,6 @@ a.talk-card-location {
 
 .talks-cta p {
   margin: 0;
-}
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  .talks-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .featured-talk-content {
-    padding: 16px;
-  }
-
-  .featured-talk-title {
-    font-size: 20px;
-  }
-
-  .featured-talk-meta {
-    flex-direction: column;
-    gap: 4px;
-  }
 }
 
 /* ==========================================================================
