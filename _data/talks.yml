@@ -49,9 +49,9 @@
 
 - id: IjizYxxNzvc
   title: "From Concept to Code: Building a Q&A Bot Live with LLM"
-  event: "Pune's 50th DevDay"
+  event: Sahaj DevDay
   location: Pune, India
-  date: 2024-01-01
+  date: 2024-01-20
   duration: "1:07:14"
   duration_minutes: 67
   views: 278
@@ -72,8 +72,8 @@
 - id: x43rjpdWz18
   title: "(Machine) Learning to Detect Fraudsters"
   event: Sahaj DevDay
-  location: Pune, India
-  date: 2019-07-01
+  location: Chennai, India
+  date: 2019-07-18
   duration: "1:21:00"
   duration_minutes: 81
   views: 299
