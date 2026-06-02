@@ -50,7 +50,7 @@ runs:
 
     - name: Cache Jekyll build
       if: inputs.include-ruby == 'true'
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           .jekyll-cache
@@ -62,7 +62,7 @@ runs:
     - name: Cache Playwright Browsers
       if: inputs.playwright-browser != ''
       id: playwright-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
