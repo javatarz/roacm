@@ -38,7 +38,7 @@
       {% if talk.video_id %}<img class="homepage-card-thumb" src="https://img.youtube.com/vi/{{ talk.video_id }}/hqdefault.jpg" alt="" loading="lazy">{% elsif talk.image %}<img class="homepage-card-thumb" src="{{ talk.image }}" alt="" loading="lazy">{% endif %}
       <div class="talk-card-badges talk-card-badges--top">
         <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
-        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>{% endif %}
+        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; {{ talk.duration | default: 'Recorded' }}</span>{% endif %}
       </div>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">

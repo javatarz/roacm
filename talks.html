@@ -74,7 +74,7 @@ permalink: /talks/
       {% if t.description %}<p class="talk-timeline__desc">{{ t.description | strip_newlines }}</p>{% endif %}
       <div class="talk-card-badges talk-card-badges--top">
         <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
-        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>{% endif %}
+        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; {{ t.duration | default: 'Recorded' }}</span>{% endif %}
       </div>
       {% if primary.co_speakers %}
         <p class="talk-card-collab">with
