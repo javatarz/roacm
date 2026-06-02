@@ -2455,15 +2455,6 @@ body.homepage {
   transform: translateY(-2px);
 }
 
-.homepage-card-thumb {
-  aspect-ratio: 16 / 9;
-  border-radius: 8px 8px 0 0;
-  display: block;
-  margin: -20px -20px 16px;
-  object-fit: cover;
-  width: calc(100% + 40px);
-}
-
 .homepage-card-title {
   color: var(--text-primary);
   font-size: 17px;
