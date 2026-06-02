@@ -1,97 +1,121 @@
 ---
 layout: default
 title: Talks
-description: 'Conference talks and presentations by Karun Japhet on AI-assisted development, machine learning, event-driven architecture, and serverless systems.'
+description: 'Conference talks, panels, podcasts, and roundtables by Karun Japhet on AI-assisted development, machine learning, event-driven architecture, and serverless systems.'
 permalink: /talks/
 ---
 
 <h1 class="entry-title">{{ page.title }}</h1>
 
 <p class="talks-intro">
-  I speak at conferences and meetups about distributed systems, event-driven design,
-  machine learning, and AI's role in the software lifecycle. Here are some of my recorded talks.
+  A running list of the talks, panels, podcasts, and roundtables I've given,
+  newest first. Mostly distributed systems, event-driven design, machine
+  learning, and lately how AI fits across the software lifecycle.
 </p>
 
-{% assign talks = site.data.talks %}
-{% assign featured_talk = talks | where: "featured", true | first %}
+{% assign all_talks = site.data.speaking | sort: "date" | reverse %}
 
-{% if featured_talk %}
-<section class="featured-talk" aria-labelledby="featured-talk-heading">
-  <h2 id="featured-talk-heading" class="visually-hidden">Featured Talk</h2>
-  <article class="featured-talk-card">
-    <div class="featured-talk-video">
-      <div class="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/{{ featured_talk.id }}"
-          title="{{ featured_talk.title }}"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+<ol class="talk-timeline">
+{% assign current_year = "" %}
+{% for t in all_talks %}
+  {% assign yr = t.date | date: "%Y" %}
+  {% if yr != current_year %}
+    {% assign year_count = 0 %}
+    {% for x in all_talks %}{% for dlv in x.deliveries %}{% assign dyr = dlv.date | date: "%Y" %}{% if dyr == yr %}{% assign year_count = year_count | plus: 1 %}{% endif %}{% endfor %}{% endfor %}
+    <li class="talk-timeline__year">
+      <span class="talk-timeline__year-label">{{ yr }}</span>
+      <span class="talk-timeline__year-count">{{ year_count }} talk{% unless year_count == 1 %}s{% endunless %}</span>
+    </li>
+    {% assign current_year = yr %}
+  {% endif %}
+
+  {%- comment -%} recording? {%- endcomment -%}
+  {% assign has_recording = false %}
+  {% if t.video_id %}{% assign has_recording = true %}{% endif %}
+  {% for d in t.deliveries %}{% if d.recorded %}{% assign has_recording = true %}{% endif %}{% endfor %}
+
+  {%- comment -%} click target + primary delivery {%- endcomment -%}
+  {% if t.video_id %}
+    {% assign link = 'https://www.youtube.com/watch?v=' | append: t.video_id %}
+    {% assign primary = t.deliveries | first %}
+  {% else %}
+    {% assign link = nil %}
+    {% assign primary = t.deliveries | first %}
+    {% assign picked = false %}
+    {% for d in t.deliveries %}
+      {% if d.url and picked == false %}{% assign link = d.url %}{% assign primary = d %}{% assign picked = true %}{% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {%- comment -%} format label {%- endcomment -%}
+  {% case t.type %}
+    {% when 'bof' %}{% assign format_label = 'BoF' %}{% assign format_class = 'talk-badge-bof' %}
+    {% when 'panel' %}{% assign format_label = 'Panel' %}{% assign format_class = 'talk-badge-panel' %}
+    {% when 'podcast' %}{% assign format_label = 'Podcast' %}{% assign format_class = 'talk-badge-podcast' %}
+    {% when 'live-coding' %}{% assign format_label = 'Live Coding' %}{% assign format_class = 'talk-badge-live' %}
+    {% when 'roundtable' %}{% assign format_label = 'Roundtable' %}{% assign format_class = 'talk-badge-roundtable' %}
+    {% when 'workshop' %}{% assign format_label = 'Workshop' %}{% assign format_class = 'talk-badge-workshop' %}
+    {% else %}{% assign format_label = 'Talk' %}{% assign format_class = 'talk-badge-talk' %}
+  {% endcase %}
+
+  <li class="talk-timeline__item">
+    <span class="talk-timeline__dot{% if has_recording %} is-recorded{% endif %}" aria-hidden="true"></span>
+    <div class="talk-timeline__row">
+    <div class="talk-timeline__content">
+      <div class="talk-timeline__date">{{ primary.date | date: '%b %Y' }}</div>
+      <h3 class="talk-timeline__title">
+        <a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ t.title }}</a>
+      </h3>
+      <div class="talk-timeline__meta">
+        <span class="talk-card-event">{{ primary.event }}</span>
+        {% if primary.location %}
+          &middot;
+          {% if primary.url %}<a href="{{ primary.url }}" target="_blank" rel="noopener noreferrer">{{ primary.location }}</a>{% else %}{{ primary.location }}{% endif %}
+        {% endif %}
       </div>
-    </div>
-    <div class="featured-talk-content">
-      <h3 class="featured-talk-title">{{ featured_talk.title }}</h3>
-      <div class="featured-talk-meta">
-        <span class="featured-talk-event">{{ featured_talk.event }}</span>
-        <span class="featured-talk-date">{{ featured_talk.date | date: "%b %Y" }}</span>
-        <span class="featured-talk-duration">{{ featured_talk.duration }}</span>
+      {% if t.description %}<p class="talk-timeline__desc">{{ t.description | strip_newlines }}</p>{% endif %}
+      <div class="talk-card-badges talk-card-badges--top">
+        <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
+        {% if has_recording %}
+          <span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>
+        {% else %}
+          <span class="talk-badge talk-badge-unrecorded">&#8599; Event</span>
+        {% endif %}
       </div>
-      <p class="featured-talk-description">{{ featured_talk.description }}</p>
+      {% if primary.co_speakers %}
+        <p class="talk-card-collab">with
+          {% for cs in primary.co_speakers %}
+            {% if cs.name %}{% if cs.linkedin %}<a href="{{ cs.linkedin }}" target="_blank" rel="noopener noreferrer">{{ cs.name }}</a>{% else %}{{ cs.name }}{% endif %}{% else %}{{ cs }}{% endif %}
+            {%- unless forloop.last %}, {% endunless -%}
+          {% endfor %}
+        </p>
+      {% endif %}
+      {% if t.deliveries.size > 1 %}
+        {% assign shown = 0 %}
+        <p class="talk-card-also">Also at
+          {% for d in t.deliveries %}
+            {% unless d.event == primary.event and d.location == primary.location and d.date == primary.date %}
+              {%- if shown > 0 %}, {% endif -%}
+              {% if d.url %}<a href="{{ d.url }}" target="_blank" rel="noopener noreferrer">{{ d.location }}</a>{% else %}{{ d.location }}{% endif %}
+              {% assign shown = shown | plus: 1 %}
+            {% endunless %}
+          {% endfor %}
+        </p>
+      {% endif %}
     </div>
-  </article>
-</section>
-{% endif %}
-
-{% assign ai_talks = talks | where: "theme", "ai-engineering" | where_exp: "talk", "talk.featured != true" %}
-{% if ai_talks.size > 0 %}
-<section class="talks-section" aria-labelledby="ai-talks-heading">
-  <h2 id="ai-talks-heading">AI & Intelligent Engineering</h2>
-  <p class="section-description">Talks on AI-assisted development, responsible AI, and building with LLMs.</p>
-  <div class="talks-grid">
-    {% for talk in ai_talks %}
-      {% include talk_card.html talk=talk %}
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
-
-{% assign ml_talks = talks | where: "theme", "machine-learning" %}
-{% assign data_talks = talks | where: "theme", "data-engineering" %}
-{% assign ml_data_talks = ml_talks | concat: data_talks | sort: "date" | reverse %}
-{% if ml_data_talks.size > 0 %}
-<section class="talks-section" aria-labelledby="ml-talks-heading">
-  <h2 id="ml-talks-heading">Machine Learning & Data</h2>
-  <p class="section-description">Talks on practical ML applications and data engineering at scale.</p>
-  <div class="talks-grid">
-    {% for talk in ml_data_talks %}
-      {% include talk_card.html talk=talk %}
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
-
-{% assign arch_talks = talks | where: "theme", "architecture" | sort: "date" | reverse %}
-{% if arch_talks.size > 0 %}
-<section class="talks-section" aria-labelledby="arch-talks-heading">
-  <h2 id="arch-talks-heading">Architecture & Integration</h2>
-  <p class="section-description">Talks on event-driven systems, serverless, and enterprise integration.</p>
-  <div class="talks-grid">
-    {% for talk in arch_talks %}
-      {% include talk_card.html talk=talk %}
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
+      {% if t.video_id or t.image %}
+      <a class="talk-timeline__thumb" href="{{ link }}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+        {% if t.video_id %}<img src="https://img.youtube.com/vi/{{ t.video_id }}/hqdefault.jpg" alt="" loading="lazy"><span class="talk-card-play" aria-hidden="true">&#9654;</span>{% else %}<img src="{{ t.image }}" alt="" loading="lazy">{% endif %}
+      </a>
+      {% endif %}
+    </div>
+  </li>
+{% endfor %}
+</ol>
 
 <section class="talks-cta">
   <p>
-    More talks on my
-    <a href="https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV"
-       target="_blank"
-       rel="noopener noreferrer">YouTube playlist</a>.
-    Interested in having me speak at your event?
+    Want me to speak at your event?
     <a href="mailto:karun@japhet.in">Get in touch</a>.
   </p>
 </section>

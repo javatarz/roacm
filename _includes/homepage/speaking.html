@@ -1,43 +1,57 @@
 {% comment %}
   Homepage Speaking Section
-  Shows curated talks from _data/talks.yml
-  Prioritizes talks with featured: true, then by date
+  Shows a curated set of engagements from _data/speaking.yml (recorded and not).
+  Cards are compact (no thumbnails) to keep the homepage light. The talks page
+  carries the full history with video thumbnails.
 {% endcomment %}
 
-{% assign featured_talks = site.data.talks | where: "featured", true %}
-{% assign all_talks = site.data.talks | sort: "date" | reverse %}
-{% if featured_talks.size >= 3 %}
-  {% assign display_talks = featured_talks | slice: 0, 3 %}
-{% else %}
-  {% assign display_talks = all_talks | slice: 0, 3 %}
-{% endif %}
+{% assign display_talks = site.data.speaking | slice: 0, 3 %}
 
 <section class="homepage-section" aria-labelledby="speaking-heading">
   <div class="section-header">
     <h2 id="speaking-heading">Speaking</h2>
-    <a href="https://www.youtube.com/playlist?list=PLY67XcOB0u1SCXn5Z8ZcMnDJHWV4DuPvV" class="view-all-link" target="_blank" rel="noopener">View all talks &rarr;</a>
+    <a href="/talks/" class="view-all-link">View all talks &rarr;</a>
   </div>
 
   <div class="homepage-cards-grid">
     {% for talk in display_talks %}
-    <a href="https://www.youtube.com/watch?v={{ talk.id }}" class="homepage-card" target="_blank" rel="noopener" {% if talk.description %}title="{{ talk.description | strip_newlines | strip }}"{% endif %}>
-      <h3 class="homepage-card-title">{{ talk.title }}</h3>
-      <div class="homepage-card-meta">
-        <span>{{ talk.event }}</span>
-        <span>{{ talk.date | date: "%Y" }}</span>
-        {% if talk.duration_minutes %}
-          {% assign hours = talk.duration_minutes | divided_by: 60 %}
-          {% assign mins = talk.duration_minutes | modulo: 60 %}
-          {% if hours > 0 %}
-            <span>{{ hours }}h {% if mins > 0 %}{{ mins }}m{% endif %}</span>
-          {% else %}
-            <span>{{ mins }}m</span>
-          {% endif %}
+      {%- assign primary = talk.deliveries | first -%}
+      {%- if talk.video_id -%}
+        {%- assign link = 'https://www.youtube.com/watch?v=' | append: talk.video_id -%}
+      {%- else -%}
+        {%- assign link = nil -%}
+        {%- for d in talk.deliveries -%}
+          {%- if d.url and link == nil -%}{%- assign link = d.url -%}{%- assign primary = d -%}{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- assign has_recording = false -%}
+      {%- if talk.video_id -%}{%- assign has_recording = true -%}{%- endif -%}
+      {%- for d in talk.deliveries -%}{%- if d.recorded -%}{%- assign has_recording = true -%}{%- endif -%}{%- endfor -%}
+      {%- case talk.type -%}
+        {%- when 'bof' -%}{%- assign format_label = 'BoF' -%}{%- assign format_class = 'talk-badge-bof' -%}
+        {%- when 'panel' -%}{%- assign format_label = 'Panel' -%}{%- assign format_class = 'talk-badge-panel' -%}
+        {%- when 'podcast' -%}{%- assign format_label = 'Podcast' -%}{%- assign format_class = 'talk-badge-podcast' -%}
+        {%- when 'live-coding' -%}{%- assign format_label = 'Live Coding' -%}{%- assign format_class = 'talk-badge-live' -%}
+        {%- when 'roundtable' -%}{%- assign format_label = 'Roundtable' -%}{%- assign format_class = 'talk-badge-roundtable' -%}
+        {%- when 'workshop' -%}{%- assign format_label = 'Workshop' -%}{%- assign format_class = 'talk-badge-workshop' -%}
+        {%- else -%}{%- assign format_label = 'Talk' -%}{%- assign format_class = 'talk-badge-talk' -%}
+      {%- endcase -%}
+    <a href="{{ link }}" class="homepage-card" target="_blank" rel="noopener noreferrer">
+      {% if talk.video_id %}<img class="homepage-card-thumb" src="https://img.youtube.com/vi/{{ talk.video_id }}/hqdefault.jpg" alt="" loading="lazy">{% elsif talk.image %}<img class="homepage-card-thumb" src="{{ talk.image }}" alt="" loading="lazy">{% endif %}
+      <div class="talk-card-badges talk-card-badges--top">
+        <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
+        {% if has_recording %}
+          <span class="talk-badge talk-badge-recorded">&#9654; Recorded</span>
+        {% else %}
+          <span class="talk-badge talk-badge-unrecorded">&#8599; Event</span>
         {% endif %}
       </div>
-      {% if talk.description %}
-      <p class="homepage-card-description">{{ talk.description | truncatewords: 25 }}</p>
-      {% endif %}
+      <h3 class="homepage-card-title">{{ talk.title }}</h3>
+      <div class="homepage-card-meta">
+        <span>{{ primary.event }}</span>
+        {% if primary.location %}<span>{{ primary.location }}</span>{% endif %}
+        <span>{{ primary.date | date: "%b %Y" }}</span>
+      </div>
     </a>
     {% endfor %}
   </div>

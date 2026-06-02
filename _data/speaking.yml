@@ -1,0 +1,287 @@
+# Speaking Engagements - Karun Japhet
+#
+# Comprehensive, MANUALLY-maintained record of every speaking engagement -
+# including talks with no public recording and repeat deliveries of the same
+# talk at multiple venues.
+#
+# Relationship to talks.yml:
+#   - talks.yml is the auto-synced cache of RECORDED talks (YouTube playlist).
+#   - speaking.yml is the full record. Where a talk was recorded, video_id
+#     links to the YouTube id in talks.yml.
+#
+# Model: one entry per TALK. Each talk has a `deliveries` list (venue list),
+# so repeat deliveries appear under a single talk rather than as duplicates.
+#
+# Fields:
+#   title         Talk title
+#   type          talk | panel | live-coding | podcast | roundtable | workshop | bof
+#   date          Top-level sort key. The timeline renders newest-first by this.
+#                 Set it to the primary (card-displayed) delivery's date.
+#   video_id      YouTube id if recorded (matches talks.yml); omit if no recording
+#   image         Card/timeline thumbnail (used when there is no video_id)
+#   description   One-line summary, shown under each timeline entry
+#   deliveries:   One entry per time/place the talk was given
+#     - event       Conference / series / meetup name
+#       location    City, Country (or "Remote")
+#       date        YYYY-MM-DD (use YYYY-MM-01 when only month is known)
+#       url         Deep link to the event page (omit if none exists)
+#       recorded    true if this specific delivery is the recorded one
+#       co_speakers Optional list, per-delivery (co-speakers vary by venue).
+#                   Each is either a plain name or { name, linkedin } to link it.
+
+- title: "Engineer the Environment, Not Just the Prompt"
+  type: talk
+  date: 2026-07-04
+  image: /assets/images/talks/2026-07-sahaj-devday-engineer-the-environment-bengaluru.jpeg
+  description: >
+    Prompt engineering was phase one of AI-augmented development and context
+    engineering was phase two, and it's hitting its ceiling. The next phase is
+    harness engineering: shaping the whole environment an agent works in, not
+    just the prompt.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Bengaluru, India
+      date: 2026-07-04
+      url: https://sahaj.ai/events/intelligent-engineering-reimagining-how-software-is-built-operated-and-evolved-with-ai/
+      recorded: false
+
+- title: "What Happens Before and After the Code? AI Has a Role There Too!"
+  type: talk
+  date: 2025-11-01
+  video_id: HXq-Fr6XnV8
+  description: >
+    How AI supports engineers across the full development lifecycle: sharpening
+    requirements and design before code, test strategy and quality during, and
+    debugging and operations after release.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Pune, India
+      date: 2025-11-01
+      url: https://sahaj.ai/events/what-happens-before-and-after-the-code-ai-has-a-role-there-too/
+      recorded: true
+
+- title: "Human + AI: intelligent Engineering in Action"
+  type: roundtable
+  date: 2025-12-10
+  image: /assets/images/talks/2025-12-sahaj-emerge-human-ai-newyork.jpeg
+  description: >
+    Sahaj "emerge" roundtable on getting real value from AI across the entire
+    SDLC: designing, building and deploying better solutions faster through
+    collaboration between product, engineering and AI agents.
+  deliveries:
+    - event: Sahaj Emerge
+      location: New York, USA
+      date: 2025-12-10
+      url: https://sahaj.ai/events/human-ai-intelligent-engineering-in-action/
+      recorded: false
+      co_speakers:
+        - name: George Song
+          linkedin: https://www.linkedin.com/in/gsong/
+
+- title: "Product Value Through intelligent Engineering"
+  type: roundtable
+  date: 2026-02-25
+  image: /assets/images/talks/2026-02-sahaj-emerge-product-value-london.jpeg
+  description: >
+    Breakfast roundtable on integrating AI into core business processes by
+    deploying AI agents across the entire product delivery lifecycle, anchored
+    by a Talon Outdoor case study on building AI into the core of a product.
+  deliveries:
+    - event: Sahaj Emerge
+      location: Mumbai, India
+      date: 2026-02-17
+      recorded: false
+    - event: Sahaj Emerge
+      location: London, UK
+      date: 2026-02-25
+      url: https://sahaj.ai/events/product-value-through-intelligent-engineering/
+      recorded: false
+      co_speakers:
+        - name: Andy Stevens
+          linkedin: https://www.linkedin.com/in/andrewstevens2/
+
+- title: "Why AI Tools Aren't Delivering Business Impact (And How to Fix It)"
+  type: roundtable
+  date: 2026-06-11
+  image: /assets/images/talks/2026-06-sahaj-emerge-why-ai-tools-mumbai.jpeg
+  description: >
+    Peer-level discussion on closing the "ambition gap" between powerful models
+    and measurable business impact, introducing the Embedded AI Co-Engineering
+    model: external practitioners building and operating solutions alongside
+    internal teams for safer deployment and measurable ROI.
+  deliveries:
+    - event: Sahaj Emerge
+      location: Mumbai, India
+      date: 2026-06-11
+      url: https://sahaj.ai/events/why-ai-tools-arent-delivering-business-impact-and-how-to-fix-it/
+      recorded: false
+
+- title: "intelligent Engineering Buildathon"
+  type: talk
+  date: 2026-01-31
+  image: /assets/images/talks/2026-01-sahaj-devday-buildathon-hyderabad.jpeg
+  description: >
+    A talk and hands-on build day on applying intelligent Engineering
+    practices: using AI-assisted coding tools and agents as part of the
+    development workflow to think better, move faster and build smarter.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Hyderabad, India
+      date: 2026-01-31
+      url: https://sahaj.ai/events/buildathon-using-the-intelligent-engineering-principles/
+      recorded: false
+
+- title: "Responsible AI"
+  type: panel
+  date: 2024-04-25
+  video_id: W42qxQ7MvRs
+  description: >
+    Panel on how responsible AI keeps systems fair and transparent by aligning
+    them with ethical principles, covering bias mitigation, legal risks, and
+    balancing innovation with governance.
+  deliveries:
+    - event: DevFest Pune
+      location: Pune, India
+      date: 2024-04-25
+      recorded: true
+
+- title: "From Concept to Code: Building a Q&A Bot Live with LLM"
+  type: live-coding
+  date: 2024-01-20
+  video_id: IjizYxxNzvc
+  description: >
+    Live coding session building a Q&A bot from scratch using Large Language
+    Models, taking a practical LLM application from concept to working code.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Pune, India
+      date: 2024-01-20
+      url: https://www.meetup.com/devday_pune/events/297633343/
+      recorded: true
+      co_speakers:
+        - name: Ajinkya Khot
+          linkedin: https://www.linkedin.com/in/ajinkyakhot/
+
+- title: "Optimizing Business Decisions with AI: Evolutionary Algorithms in Action"
+  type: talk
+  date: 2025-03-01
+  image: /assets/images/talks/2025-03-sahaj-devday-optimizing-hyderabad.jpeg
+  description: >
+    How machine learning and guided search techniques like genetic algorithms
+    tackle real-world business optimization problems, from formulating the
+    problem mathematically to implementing it in Python.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Hyderabad, India
+      date: 2025-03-01
+      url: https://sahaj.ai/events/optimizing-business-decisions-with-ai-evolutionary-algorithms-in-action/
+      recorded: false
+
+- title: "(Machine) Learning to Detect Fraudsters"
+  type: talk
+  date: 2019-07-18
+  video_id: x43rjpdWz18
+  description: >
+    How machine learning helps banks stay ahead of credit-card fraudsters with
+    adaptive fraud detection systems as attacker behaviour keeps evolving.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Chennai, India
+      date: 2019-07-18
+      url: https://www.meetup.com/devday_chennai/events/262867070/
+      recorded: true
+    - event: Sahaj DevDay
+      location: Pune, India
+      date: 2019-06-06
+      url: https://www.meetup.com/devday_pune/events/261345350/
+      recorded: false
+
+- title: "Managing Data Pipelines at Scale"
+  type: podcast
+  date: 2020-01-01
+  video_id: tt7Pj_x6fPg
+  description: >
+    A conversation on the fun, the challenges, and the lessons learned managing
+    data pipelines at scale, and what it takes to build reliable, scalable data
+    infrastructure.
+  deliveries:
+    - event: StackToHeap Podcast
+      location: Remote
+      date: 2020-01-01
+      recorded: true
+      co_speakers:
+        - name: Srimathi H
+          linkedin: https://www.linkedin.com/in/shrimats/
+
+- title: "Data Warfare: Tales from the Trenches"
+  type: bof
+  date: 2025-04-26
+  image: /assets/images/talks/2025-04-sahaj-devday-data-warfare-pune.jpeg
+  description: >
+    Hosted the closing Birds of a Feather: informal discussion groups on the
+    data engineering war stories from the day, from data stores at scale to
+    stream processing, petabyte-scale platforms, and change data capture.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Pune, India
+      date: 2025-04-26
+      url: https://sahaj.ai/events/data-warfare-tales-from-the-trenches/
+      recorded: false
+
+- title: "Microservices? Serverless is the answer!"
+  type: talk
+  date: 2018-02-01
+  video_id: eER4n4p-KFk
+  description: >
+    Comparing serverless and microservice implementations of an event-driven
+    system across cross-functional requirements, and where serverless is the
+    right choice.
+  deliveries:
+    - event: DevNexus
+      location: Atlanta, USA
+      date: 2018-02-01
+      url: https://devnexus.org/archive/devnexus2018/speakers/951
+      recorded: true
+    - event: O'Reilly Software Architecture Conference
+      location: New York, USA
+      date: 2018-02-01
+      url: https://www.oreilly.com/videos/oreilly-software-architecture/9781492028116/9781492028116-video318606/
+      recorded: true
+      co_speakers:
+        - name: Vinicius Gomes
+          linkedin: https://www.linkedin.com/in/vvgomes/
+
+# Talk title below is descriptive; the original was not published in the event recap.
+- title: "Releasing Event-Driven Microservices to Production Every Week"
+  type: talk
+  date: 2019-06-01
+  image: /assets/images/talks/2019-06-quanta-nxt-event-driven-microservices-pune.jpeg
+  description: >
+    Building horizontally scalable, asynchronous event-driven microservice
+    platforms and shipping to production every week, leaning on unit tests and
+    consumer-driven contract tests, with examples from the payment lifecycle.
+  deliveries:
+    - event: QuaNTA NXT (Globant)
+      location: Pune, India
+      date: 2019-06-01
+      url: https://stayrelevant.globant.com/en/culture/great-new-things/the-future-of-qe-envisioned-at-quanta-2019-pune-india/
+      recorded: false
+
+- title: "Bridging the Gap: System Integration in an Event Driven System"
+  type: talk
+  date: 2017-04-01
+  video_id: 4cJ4GyyOfII
+  description: >
+    Bridging the divide between modern event-sourced systems and more
+    traditional architectures, with practical strategies for integrating legacy
+    systems into event-driven ecosystems.
+  deliveries:
+    - event: O'Reilly Software Architecture Conference
+      location: New York, USA
+      date: 2017-04-01
+      recorded: true
+    - event: O'Reilly Software Architecture Conference
+      location: London, UK
+      date: 2017-10-01
+      url: https://www.oreilly.com/videos/oreilly-software-architecture/9781491985274/9781491985274-video315417/
+      recorded: true
