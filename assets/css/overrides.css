@@ -2423,9 +2423,32 @@ body.homepage {
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   padding: 20px;
+  position: relative;
   text-decoration: none;
   transition: all 0.2s ease;
+}
+
+.upcoming-ribbon {
+  background: #2e7d32;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  left: -30px;
+  letter-spacing: 0.6px;
+  padding: 5px 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 14px;
+  transform: rotate(-45deg);
+  width: 110px;
+}
+
+[data-theme='dark'] .upcoming-ribbon {
+  background: #388e3c;
 }
 
 .homepage-card:hover {
@@ -2457,17 +2480,6 @@ body.homepage {
 .homepage-card-meta span:not(:first-child)::before {
   content: '·';
   margin-right: 12px;
-}
-
-.homepage-card-description {
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  color: var(--text-secondary);
-  display: -webkit-box;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
-  overflow: hidden;
 }
 
 .homepage-card-reading-time::before {
