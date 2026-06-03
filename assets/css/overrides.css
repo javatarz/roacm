@@ -2434,19 +2434,24 @@ body.homepage {
 }
 
 .homepage-card-title {
+  border-bottom: none; /* Reset theme h3 border */
   color: var(--text-primary);
   font-size: 17px;
   font-weight: 600;
   line-height: 1.4;
   margin: 0 0 8px;
+  padding-bottom: 0; /* Reset theme h3 padding */
 }
 
 .homepage-card-meta {
+  border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   display: flex;
   font-size: 13px;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+  margin-top: auto; /* Push meta to bottom of card */
+  padding-top: 12px;
 }
 
 .homepage-card-meta span:not(:first-child)::before {
