@@ -35,10 +35,6 @@
         {%- else -%}{%- assign format_label = 'Talk' -%}{%- assign format_class = 'talk-badge-talk' -%}
       {%- endcase -%}
     <a href="{{ link }}" class="homepage-card" target="_blank" rel="noopener noreferrer">
-      <div class="talk-card-badges talk-card-badges--top">
-        <span class="talk-badge {{ format_class }}">{{ format_label }}</span>
-        {% if has_recording %}<span class="talk-badge talk-badge-recorded">&#9654; {{ talk.duration | default: 'Recorded' }}</span>{% endif %}
-      </div>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">
         <span>{{ primary.event }}</span>
