@@ -2431,24 +2431,25 @@ body.homepage {
 }
 
 .upcoming-ribbon {
-  background: #2e7d32;
+  background: linear-gradient(to bottom, #e53935, #b71c1c);
+  box-shadow: 0 2px 6px rgb(0, 0, 0, 0.35);
   color: #ffffff;
   font-size: 10px;
   font-weight: 700;
-  left: -30px;
   letter-spacing: 0.6px;
   padding: 5px 0;
   pointer-events: none;
   position: absolute;
+  right: -30px;
   text-align: center;
   text-transform: uppercase;
   top: 14px;
-  transform: rotate(-45deg);
+  transform: rotate(45deg);
   width: 110px;
 }
 
 [data-theme='dark'] .upcoming-ribbon {
-  background: #388e3c;
+  background: linear-gradient(to bottom, #ef5350, #c62828);
 }
 
 .homepage-card:hover {
