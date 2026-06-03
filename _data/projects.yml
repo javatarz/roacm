@@ -3,19 +3,19 @@
 
 featured:
   - name: serverless-cqrs
+    title: Event-Driven CQRS on AWS
     url: https://github.com/javatarz/serverless-cqrs
-    description: CQRS example using AWS Lambda
     language: JavaScript
     stars: 16
 
   - name: credit-card-lending
+    title: intelligent Engineering Sandbox
     url: https://github.com/javatarz/credit-card-lending
-    description: What happens when you build software with AI as a true collaborator? Exploring intelligent Engineering (iE) through a credit card lending platform — TDD, context docs for LLMs, and automated workflows.
     language: Java
     stars: 1
 
   - name: github-contribution-leaderboard
+    title: GitHub Contribution Leaderboard
     url: https://github.com/javatarz/github-contribution-leaderboard
-    description: Helps build a Hacktoberfest leaderboard on command line
     language: Python
     stars: 5

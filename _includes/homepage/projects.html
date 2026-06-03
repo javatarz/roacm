@@ -12,7 +12,7 @@
   <div class="homepage-cards-grid">
     {% for project in site.data.projects.featured limit:3 %}
     <a href="{{ project.url }}" class="homepage-card" target="_blank" rel="noopener" {% if project.description %}title="{{ project.description }}"{% endif %}>
-      <h3 class="homepage-card-title">{{ project.name }}</h3>
+      <h3 class="homepage-card-title">{{ project.title | default: project.name }}</h3>
       <div class="homepage-card-meta">
         {% if project.language %}
         <span>{{ project.language }}</span>
@@ -21,9 +21,6 @@
         <span>{{ project.stars }} stars</span>
         {% endif %}
       </div>
-      {% if project.description %}
-      <p class="homepage-card-description">{{ project.description }}</p>
-      {% endif %}
     </a>
     {% endfor %}
   </div>
