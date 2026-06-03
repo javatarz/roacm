@@ -15,16 +15,18 @@ This blog is my devlog: experiments, breakdowns, small tools, and notes from the
 
 ## What I'm exploring these days
 
-My current focus is **AI-assisted engineering**, not just code generation, but the full lifecycle:
+My current focus is **agentic engineering**: how software teams operate when AI isn't just a tool in the editor, but an active participant in the workflow.
 
-- clarifying requirements with AI
-- using LLMs as architectural thinking partners
-- debugging with structured prompting
-- improving delivery workflows with better tooling
+That's shifted what I think about. Less "how do I prompt better?" and more:
 
-I work mostly with Claude Code and GitHub Copilot, using techniques like prompt engineering, context engineering, and chain-of-thought scaffolding.
+- structuring codebases so multiple agents can reason about them reliably
+- figuring out what we can actually measure about AI-assisted development, and what's still missing
+- deciding where human judgement belongs and where the system should decide
+- how engineering skill develops when AI handles more of the mechanical work
 
-If you're interested in practical AI for software teams, that's what I write about.
+I work mostly in Claude Code, less as a copilot and more as the coordination layer for how work moves through a team.
+
+If you're trying to go beyond "AI writes my code" toward how AI changes how teams ship software, that's what I write about.
 
 ## Beyond the keyboard
 
