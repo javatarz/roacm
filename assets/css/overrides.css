@@ -294,22 +294,8 @@ header a:hover {
   color: #ffffff;
 }
 
-/* Enhanced link styling - uses CSS variable for theme support */
-
-/* Post content links - color only, no underline */
-.post-content a:not(.no-underline) {
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.post-content a:not(.no-underline):hover {
-  opacity: 0.8;
-}
-
-/* Visited links - keep same vivid color */
-.post-content a:visited {
-  color: var(--accent-color);
-}
+/* Post content link styling (color, hover, visited) is handled by the base
+   `a` rules above; .post-content only adds the external-link indicator. */
 
 /* External links indicator */
 .post-content a[href^='http']:not([href*='karun.me'])::after {
@@ -375,8 +361,7 @@ a em {
 }
 
 /* Buttons */
-button,
-.btn {
+button {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 600;
 }
@@ -822,13 +807,6 @@ blockquote p {
 
 blockquote p:last-child {
   margin-bottom: 0;
-}
-
-/* Pagination spacing */
-.pagination {
-  border-top: 1px solid var(--border-color);
-  margin-top: 60px;
-  padding-top: 30px;
 }
 
 /* Post navigation (previous/next) */
@@ -2498,13 +2476,6 @@ body.homepage {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 24px;
-}
-
-.homepage-work-tagline {
-  color: var(--text-primary);
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 0 16px;
 }
 
 .homepage-work-highlights {
