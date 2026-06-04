@@ -34,6 +34,13 @@ export async function stabilize(page: Page): Promise<void> {
 
     await document.fonts.ready;
 
+    // fonts.ready resolves when the font-swap is complete but before the
+    // compositor has necessarily applied the new glyph metrics to the render
+    // tree. Under CPU load (webkit especially) a screenshot taken immediately
+    // after fonts.ready can still catch the fallback font's antialiasing.
+    // Two rAF round-trips flush any pending compositor work.
+    await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
     // Wait until layout has actually stopped changing. fonts.ready / image load
     // resolving doesn't guarantee the resulting reflow has been applied — under
     // CPU load (a long serial run) a screenshot can be captured a frame early,
