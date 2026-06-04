@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby RUBY_VERSION
 
-gem "jekyll", "~> 4.3.3"
+gem "jekyll", "~> 4.4.1"
 
 # Theme
 gem "jekyll-theme-dinky", "~> 0.2.0"
@@ -12,8 +12,8 @@ group :jekyll_plugins do
   gem 'jekyll-sitemap', '~> 1.4.0'
   gem 'jekyll-target-blank', '~> 2.0.0'
   gem 'jekyll-watch', '~> 2.2.1'
-  gem 'jekyll-archives', '~> 2.2.1'
-  gem 'jekyll-seo-tag', '~> 2.8.0'
+  gem 'jekyll-archives', '~> 2.3.0'
+  gem 'jekyll-seo-tag', '~> 2.9.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
