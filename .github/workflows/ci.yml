@@ -176,11 +176,10 @@ jobs:
         uses: ./.github/actions/setup-deps
         with:
           include-ruby: 'true'
+          playwright-browser: chromium
 
-      - name: Install Chromium for Lighthouse
-        run: |
-          sudo apt-get install -y chromium-browser
-          echo "CHROME_PATH=$(which chromium-browser)" >> $GITHUB_ENV
+      - name: Set CHROME_PATH for Lighthouse
+        run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -name 'headless_shell' | head -1)" >> $GITHUB_ENV
 
       - name: Build site for Lighthouse testing
         run: bundle exec jekyll build --config _config.yml,_config_dev.yml
