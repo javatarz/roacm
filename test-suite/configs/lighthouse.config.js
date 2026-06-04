@@ -6,6 +6,9 @@ module.exports = {
         'http://localhost:4000/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/',
       ],
       numberOfRuns: 3,
+      chromeLaunchOptions: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
       startServerCommand: process.env.LIGHTHOUSE_USE_BUILT_SITE
         ? 'npx serve _site -l 4000 --no-port-switching --no-clipboard'
         : process.env.CI
