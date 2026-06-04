@@ -1,0 +1,7 @@
+# Minified vendor CSS (self-hosted Font Awesome) — keep as shipped, don't reformat
+assets/css/*.min.css
+
+# Generated / vendored
+_site/
+vendor/
+node_modules/
