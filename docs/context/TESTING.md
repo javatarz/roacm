@@ -126,6 +126,31 @@ scripts/visual-snapshots.sh --project=chromium --project=firefox  # two browsers
 `test-suite/reports/playwright-html-<browser>/` dir so reports don't overwrite
 each other.
 
+#### Targeted regen (fastest path for isolated changes)
+
+When you change one page's layout or a specific component, you don't need to
+regen all 180 snapshots. Use `snapshots:targeted` to regen only affected tests:
+
+```bash
+npm run snapshots:targeted              # auto-detect from git diff
+npm run snapshots:targeted -- homepage  # explicit page name / grep pattern
+npm run snapshots:targeted -- "dark mode"
+npm run snapshots:targeted -- --verify  # compare only (no update)
+npm run snapshots:targeted -- --dry-run # show what would run without running
+```
+
+Typical wall-clock times (warm Colima VM, 3 browsers in parallel):
+
+| Change type     | Tests/browser      | Wall-clock |
+| --------------- | ------------------ | ---------- |
+| Homepage layout | ~5                 | ~20s       |
+| Theme toggle    | ~8                 | ~30s       |
+| Mobile menu     | ~9                 | ~35s       |
+| Global CSS      | falls back to full | ~2 min     |
+
+Auto-detection maps changed files to test patterns. Global changes (CSS, default
+layout, sidebar) fall back to a full regen automatically.
+
 ## Common Test Locations
 
 ### Accessibility Tests
