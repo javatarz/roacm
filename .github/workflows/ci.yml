@@ -217,7 +217,7 @@ jobs:
         run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -name 'headless_shell' | head -1)" >> $GITHUB_ENV
 
       - name: Download site artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: built-site
           path: _site/
@@ -286,7 +286,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Download site artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: built-site
           path: _site/
