@@ -70,8 +70,10 @@ for arg in "$@"; do
   fi
 done
 
-# ── Default to visual-only tests; callers can override with --grep=X ────────
-if ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
+# ── Local runs: default to @visual only (fast baseline regen) ───────────────
+# CI runs all tests — functional E2E tests have no other home in the pipeline.
+# Callers can always override with an explicit --grep=X.
+if [ -z "${CI:-}" ] && ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
   OTHER_ARGS+=("--grep=@visual")
 fi
 
