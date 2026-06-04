@@ -70,10 +70,11 @@ for arg in "$@"; do
   fi
 done
 
-# ── Local runs: default to @visual only (fast baseline regen) ───────────────
-# CI runs all tests — functional E2E tests have no other home in the pipeline.
+# ── Default to @visual only unless a --grep is already specified ─────────────
+# CI passes --grep=@visual explicitly (visual-tests job). Local runs get it
+# automatically here so devs only regenerate pixel snapshots by default.
 # Callers can always override with an explicit --grep=X.
-if [ -z "${CI:-}" ] && ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
+if ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
   OTHER_ARGS+=("--grep=@visual")
 fi
 
