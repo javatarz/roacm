@@ -103,18 +103,6 @@ jobs:
           path: _site/
           retention-days: 1
 
-      - name: Build snapshot variant for visual tests
-        run: |
-          cp -r _site _site_snapshot
-          find _site_snapshot -name "*.html" -exec sed -i 's|https://karun.me||g' {} +
-
-      - name: Upload snapshot artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: built-site-snapshot
-          path: _site_snapshot/
-          retention-days: 1
-
   # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================
@@ -153,8 +141,8 @@ jobs:
     # so they match what devs generate locally on Apple Silicon. Keep this in
     # sync with the --platform in scripts/visual-snapshots.sh.
     runs-on: ubuntu-24.04-arm
-    needs: [changes, build]
-    if: needs.changes.outputs.theme == 'true' && needs.build.result == 'success'
+    needs: changes
+    if: needs.changes.outputs.theme == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -165,13 +153,7 @@ jobs:
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
         with:
-          include-ruby: 'false'
-
-      - name: Download snapshot site artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: built-site-snapshot
-          path: _site/
+          include-ruby: 'true'
 
       # Renders in the pinned Playwright container via the SAME script devs run
       # locally (scripts/visual-snapshots.sh), so committed Linux baselines match
@@ -179,8 +161,6 @@ jobs:
       # with `npm run snapshots`, never in CI.
       - name: Run visual tests (${{ matrix.browser }})
         run: bash scripts/visual-snapshots.sh --project=${{ matrix.browser }} --grep=@visual
-        env:
-          PREBUILT_SITE: '1'
 
       - name: Upload test results
         if: always()
