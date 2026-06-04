@@ -55,9 +55,9 @@ runs:
         path: |
           .jekyll-cache
           .jekyll-metadata
-        key: ${{ runner.os }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
+        key: ${{ runner.os }}-${{ runner.arch }}-jekyll-${{ hashFiles('_config.yml', 'Gemfile.lock') }}
         restore-keys: |
-          ${{ runner.os }}-jekyll-
+          ${{ runner.os }}-${{ runner.arch }}-jekyll-
 
     - name: Cache Playwright Browsers
       if: inputs.playwright-browser != ''
@@ -65,7 +65,7 @@ runs:
       uses: actions/cache@v5
       with:
         path: ~/.cache/ms-playwright
-        key: ${{ runner.os }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
+        key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
 
     - name: Install Playwright (with system deps)
       if: inputs.playwright-browser != '' && steps.playwright-cache.outputs.cache-hit != 'true'
