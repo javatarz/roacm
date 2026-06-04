@@ -61,6 +61,41 @@ jobs:
               - 'package-lock.json'
 
   # ============================================================================
+  # BUILD
+  # ============================================================================
+
+  build:
+    name: Build Site
+    runs-on: ubuntu-24.04-arm
+    needs: changes
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
+        with:
+          include-ruby: 'true'
+
+      - name: Bundle JavaScript for production
+        run: npm run build:js
+
+      - name: Build site
+        run: bundle exec jekyll build
+
+      - name: Transform images in HTML to picture elements
+        run: npm run images:transform
+
+      - name: Optimize and generate responsive images
+        run: npm run images:optimize
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: built-site
+          path: _site/
+          retention-days: 1
+
+  # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================
 
@@ -167,28 +202,25 @@ jobs:
   performance-tests:
     name: Performance Tests (Lighthouse)
     runs-on: ubuntu-24.04-arm
-    needs: changes
-    if: needs.changes.outputs.theme == 'true'
+    needs: [changes, build]
+    if: needs.changes.outputs.theme == 'true' && needs.build.result == 'success'
     steps:
       - uses: actions/checkout@v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
         with:
-          include-ruby: 'true'
+          include-ruby: 'false'
           playwright-browser: chromium
 
       - name: Set CHROME_PATH for Lighthouse
         run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -name 'headless_shell' | head -1)" >> $GITHUB_ENV
 
-      - name: Build site for Lighthouse testing
-        run: bundle exec jekyll build --config _config.yml,_config_dev.yml
-
-      - name: Transform images in HTML to picture elements
-        run: npm run images:transform
-
-      - name: Optimize and generate responsive images
-        run: npm run images:optimize
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: built-site
+          path: _site/
 
       - name: Run Lighthouse CI
         run: npm run test:lighthouse
@@ -239,11 +271,12 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-24.04-arm
-    needs: [changes, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
-    # Run if all tests succeeded OR all tests were skipped (no theme changes)
-    # Do NOT run if any test job failed
+    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
+    # Run if build succeeded AND (all tests passed OR all tests were skipped for non-theme changes)
+    # Do NOT run if build or any test job failed
     if: |
       always() &&
+      needs.build.result == 'success' &&
       (needs.changes.outputs.theme == 'false' ||
        (needs.lint-and-validate.result == 'success' &&
         needs.visual-tests.result == 'success' &&
@@ -252,22 +285,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup dependencies
-        uses: ./.github/actions/setup-deps
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
         with:
-          include-ruby: 'true'
-
-      - name: Bundle JavaScript for production
-        run: npm run build:js
-
-      - name: Build site
-        run: bundle exec jekyll build
-
-      - name: Transform images in HTML to picture elements
-        run: npm run images:transform
-
-      - name: Optimize and generate responsive images
-        run: npm run images:optimize
+          name: built-site
+          path: _site/
 
       - name: Deploy to S3
         if: success() && github.ref == 'refs/heads/main'
@@ -332,7 +354,7 @@ jobs:
     name: Test Summary
     runs-on: ubuntu-24.04-arm
     if: always()
-    needs: [changes, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
+    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
     steps:
       - name: Check results
         run: |
