@@ -39,7 +39,7 @@ jobs:
   # ============================================================================
   changes:
     name: Detect Changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     outputs:
       theme: ${{ github.event_name == 'schedule' && 'true' || steps.filter.outputs.theme }}
     steps:
@@ -66,7 +66,7 @@ jobs:
 
   lint-and-validate:
     name: Lint and Validate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
@@ -139,8 +139,8 @@ jobs:
 
   functional-e2e-tests:
     name: Functional E2E Tests
-    # x86 runner: functional tests check JS behaviour, not pixels — no arm64 needed
-    runs-on: ubuntu-latest
+    # arm64 runner: consistent with other jobs for shared npm/Ruby/Playwright caching
+    runs-on: ubuntu-24.04-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
@@ -166,7 +166,7 @@ jobs:
 
   performance-tests:
     name: Performance Tests (Lighthouse)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
@@ -234,7 +234,7 @@ jobs:
 
   build-and-deploy:
     name: Build and Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: [changes, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
     # Run if all tests succeeded OR all tests were skipped (no theme changes)
     # Do NOT run if any test job failed
@@ -292,7 +292,7 @@ jobs:
 
   nhs-score-check:
     name: NHS Score Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-and-deploy
     if: |
       always() &&
@@ -331,7 +331,7 @@ jobs:
 
   test-summary:
     name: Test Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: always()
     needs: [changes, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
     steps:
@@ -370,7 +370,7 @@ jobs:
 
   devto-publish:
     name: dev.to Publish
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-and-deploy
     if: |
       always() &&
