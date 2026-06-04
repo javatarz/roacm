@@ -101,6 +101,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     strategy:
+      fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
     steps:
