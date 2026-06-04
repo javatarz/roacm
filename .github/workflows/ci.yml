@@ -327,9 +327,6 @@ jobs:
       github.event_name != 'pull_request' &&
       needs.build-and-deploy.result == 'success'
     steps:
-      - name: Wait for deployment propagation
-        run: sleep 30
-
       - name: Check NHS score
         run: |
           RESPONSE=$(curl -sS -H 'User-Agent: nhs-score-check-action' \
