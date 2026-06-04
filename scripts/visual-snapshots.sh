@@ -54,10 +54,16 @@ PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"
 IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 
 # ── Site build (once, shared across all browser containers) ─────────────────
-echo "▶ Building site (snapshot overlay: assets served locally, not from prod)..."
-npm run prebuild:js >/dev/null
-npm run build:js >/dev/null
-bundle exec jekyll build --quiet --config _config.yml,_config_snapshot.yml
+# PREBUILT_SITE=1: CI downloads the snapshot artifact before running this
+# script, so _site/ is already populated — skip the build entirely.
+if [ "${PREBUILT_SITE:-}" = "1" ]; then
+  echo "▶ Using pre-built site (PREBUILT_SITE=1)..."
+else
+  echo "▶ Building site (snapshot overlay: assets served locally, not from prod)..."
+  npm run prebuild:js >/dev/null
+  npm run build:js >/dev/null
+  bundle exec jekyll build --quiet --config _config.yml,_config_snapshot.yml
+fi
 
 # ── Parse --project= flags out of the remaining args ────────────────────────
 PROJECTS=()
