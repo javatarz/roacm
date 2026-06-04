@@ -177,6 +177,11 @@ jobs:
         with:
           include-ruby: 'true'
 
+      - name: Install Chromium for Lighthouse
+        run: |
+          sudo apt-get install -y chromium-browser
+          echo "CHROME_PATH=$(which chromium-browser)" >> $GITHUB_ENV
+
       - name: Build site for Lighthouse testing
         run: bundle exec jekyll build --config _config.yml,_config_dev.yml
 
