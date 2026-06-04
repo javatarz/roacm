@@ -70,6 +70,11 @@ for arg in "$@"; do
   fi
 done
 
+# ── Default to visual-only tests; callers can override with --grep=X ────────
+if ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
+  OTHER_ARGS+=("--grep=@visual")
+fi
+
 # ── Single browser (or no browser filter): run one container ────────────────
 if [ "${#PROJECTS[@]}" -le 1 ]; then
   echo "▶ Running Playwright in ${IMAGE} (${DOCKER[*]}) ..."
