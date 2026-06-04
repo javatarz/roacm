@@ -14,7 +14,12 @@ export default defineConfig({
   // Single worker for snapshot runs (CI and the local container). Parallel
   // workers contend for CPU and let some pages (e.g. long posts in WebKit) be
   // captured before layout fully settles, producing non-deterministic heights.
-  workers: process.env.CI || process.env.STATIC_SERVE ? 1 : undefined,
+  // PLAYWRIGHT_WORKERS overrides this for experiments with larger Colima VMs
+  // (e.g. PLAYWRIGHT_WORKERS=3 on a 6-CPU VM). Validate determinism with
+  // regen → verify → verify before committing to a higher worker count.
+  workers: process.env.PLAYWRIGHT_WORKERS
+    ? parseInt(process.env.PLAYWRIGHT_WORKERS)
+    : (process.env.CI || process.env.STATIC_SERVE ? 1 : undefined),
   // Update missing snapshots in CI to generate platform-specific baselines
   updateSnapshots: process.env.UPDATE_SNAPSHOTS === 'missing' ? 'missing' : 'none',
   reporter: [

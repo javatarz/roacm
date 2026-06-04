@@ -111,6 +111,29 @@ image (~1–2 GB, one-time).
 colima start --profile pw --arch aarch64 --cpu 4 --memory 6
 ```
 
+**Experimental: more workers on a bigger VM**
+
+Each container defaults to `workers=1` for determinism. On a 6+ CPU VM you can
+try more workers per browser to cut per-browser time further. Validate determinism
+first (regen → verify → verify must all pass):
+
+```bash
+# Resize Colima VM
+colima stop --profile pw
+colima start --profile pw --arch aarch64 --cpu 6 --memory 8
+
+# Run with more workers (3 workers × 3 parallel browsers = 9 concurrent)
+PLAYWRIGHT_WORKERS=3 npm run snapshots
+
+# Verify determinism: regen then verify twice
+PLAYWRIGHT_WORKERS=3 npm run snapshots
+PLAYWRIGHT_WORKERS=3 npm run snapshots:verify
+PLAYWRIGHT_WORKERS=3 npm run snapshots:verify
+```
+
+If verify passes twice with no diffs, the worker count is safe to use. If you see
+flaky diffs (height changes on long posts), reduce `PLAYWRIGHT_WORKERS`.
+
 Other commands:
 
 ```bash
