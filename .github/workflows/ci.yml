@@ -94,7 +94,10 @@ jobs:
 
   visual-and-e2e-tests:
     name: Visual & E2E Tests (${{ matrix.browser }})
-    runs-on: ubuntu-latest
+    # arm64 runner (free for public repos): visual baselines are arm64-rendered
+    # so they match what devs generate locally on Apple Silicon. Keep this in
+    # sync with the --platform in scripts/visual-snapshots.sh.
+    runs-on: ubuntu-24.04-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     strategy:
@@ -107,11 +110,13 @@ jobs:
         uses: ./.github/actions/setup-deps
         with:
           include-ruby: 'true'
-          playwright-browser: ${{ matrix.browser }}
-          prebuild-js: 'true'
 
-      - name: Run E2E Tests
-        run: npm run test:e2e -- --project=${{ matrix.browser }} --update-snapshots
+      # Renders in the pinned Playwright container via the SAME script devs run
+      # locally (scripts/visual-snapshots.sh), so committed Linux baselines match
+      # CI byte-for-byte. Compare-only here — baselines are regenerated locally
+      # with `npm run snapshots`, never in CI.
+      - name: Run visual & E2E tests (${{ matrix.browser }})
+        run: bash scripts/visual-snapshots.sh --project=${{ matrix.browser }}
 
       - name: Upload test results
         if: always()
@@ -121,6 +126,8 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
+      # On a real diff, this holds the actual + diff images so you can see what
+      # changed (then run `npm run snapshots` locally to accept it).
       - name: Upload screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v7
@@ -128,15 +135,6 @@ jobs:
           name: playwright-screenshots-${{ matrix.browser }}
           path: test-suite/reports/playwright-results/**/*.png
           retention-days: 7
-
-      - name: Upload generated snapshots
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: generated-snapshots-${{ matrix.browser }}
-          path: test-suite/tests/**/*-snapshots/*-linux.png
-          retention-days: 30
-          if-no-files-found: ignore
 
   accessibility-tests:
     name: Accessibility Tests

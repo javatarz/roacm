@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { stabilize } from './helpers/stabilize';
 
 /**
  * Comprehensive Visual Regression Tests
@@ -55,8 +56,10 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
         // Use domcontentloaded instead of networkidle to avoid timeouts with embeds
         await pw.waitForLoadState('domcontentloaded');
 
-        // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(300);
+        // Settle web fonts (display=swap) + lazy images before capture, so the
+        // render is deterministic run-to-run and local-vs-CI. See
+        // helpers/stabilize.ts — replaces a brittle fixed wait.
+        await stabilize(pw);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -83,6 +86,7 @@ test.describe('Visual Regression - Tier 1 (Critical Pages)', () => {
         await pw.waitForTimeout(100);
       }
 
+      await stabilize(pw);
       await expect(pw).toHaveScreenshot(`${page.name}-dark.png`, {
         fullPage: true,
         animations: 'disabled',
@@ -104,8 +108,10 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
         // Use domcontentloaded instead of networkidle to avoid timeouts with embeds
         await pw.waitForLoadState('domcontentloaded');
 
-        // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(300);
+        // Settle web fonts (display=swap) + lazy images before capture, so the
+        // render is deterministic run-to-run and local-vs-CI. See
+        // helpers/stabilize.ts — replaces a brittle fixed wait.
+        await stabilize(pw);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -132,6 +138,7 @@ test.describe('Visual Regression - Tier 2 (Important Pages)', () => {
         await pw.waitForTimeout(100);
       }
 
+      await stabilize(pw);
       await expect(pw).toHaveScreenshot(`${page.name}-dark.png`, {
         fullPage: true,
         animations: 'disabled',
@@ -153,8 +160,10 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
         // Use domcontentloaded instead of networkidle to avoid timeouts with embeds
         await pw.waitForLoadState('domcontentloaded');
 
-        // Wait a bit for lazy-loaded content and images to settle
-        await pw.waitForTimeout(300);
+        // Settle web fonts (display=swap) + lazy images before capture, so the
+        // render is deterministic run-to-run and local-vs-CI. See
+        // helpers/stabilize.ts — replaces a brittle fixed wait.
+        await stabilize(pw);
 
         // Take screenshot with increased timeout for stability
         await expect(pw).toHaveScreenshot(`${page.name}-${viewport.name}.png`, {
@@ -181,6 +190,7 @@ test.describe('Visual Regression - Tier 3 (Secondary Pages)', () => {
         await pw.waitForTimeout(100);
       }
 
+      await stabilize(pw);
       await expect(pw).toHaveScreenshot(`${page.name}-dark.png`, {
         fullPage: true,
         animations: 'disabled',

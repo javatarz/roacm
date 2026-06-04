@@ -1,0 +1,8 @@
+# Overlay config for visual-snapshot builds (scripts/visual-snapshots.sh).
+#
+# Empty `url` so any `{{ site.url }}/assets/...` reference resolves to a
+# root-relative path served by the local static server, instead of the
+# production host. Screenshots must render the assets in THIS build — not
+# whatever is currently live on karun.me — for determinism, offline runs, and
+# so local image changes are actually tested. Only affects snapshot builds.
+url: ""

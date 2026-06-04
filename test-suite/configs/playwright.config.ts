@@ -5,11 +5,16 @@ export default defineConfig({
   testDir: path.join(__dirname, '../tests'),
   outputDir: path.join(__dirname, '../reports/playwright-results'),
   snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}-{platform}{ext}',
-  timeout: 30000,
+  // Snapshot runs render in a container (STATIC_SERVE); under arch emulation a
+  // cold page render can exceed 30s, so give those runs more headroom.
+  timeout: process.env.STATIC_SERVE ? 90000 : 30000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Single worker for snapshot runs (CI and the local container). Parallel
+  // workers contend for CPU and let some pages (e.g. long posts in WebKit) be
+  // captured before layout fully settles, producing non-deterministic heights.
+  workers: process.env.CI || process.env.STATIC_SERVE ? 1 : undefined,
   // Update missing snapshots in CI to generate platform-specific baselines
   updateSnapshots: process.env.UPDATE_SNAPSHOTS === 'missing' ? 'missing' : 'none',
   reporter: [
@@ -67,11 +72,15 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: process.env.CI
-      ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000'
-      : './local_run_native.sh --no-livereload',
+    // STATIC_SERVE: serve a prebuilt _site (used inside the Playwright Docker
+    // container, which has no Ruby). CI: live Jekyll. Local dev: native server.
+    command: process.env.STATIC_SERVE
+      ? 'node test-suite/scripts/static-server.js'
+      : process.env.CI
+        ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000'
+        : './local_run_native.sh --no-livereload',
     url: 'http://localhost:4000',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: !process.env.CI && !process.env.STATIC_SERVE,
     stdout: 'pipe',
     stderr: 'pipe',
     timeout: 120000,

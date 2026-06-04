@@ -5,6 +5,7 @@ A comprehensive automated testing framework for the ROACM Jekyll blog theme, ens
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - Ruby 3.0+
 - Docker (for local Jekyll server)
@@ -56,6 +57,23 @@ npm run lint:js     # ESLint for JavaScript
 npm run lint:html   # HTMLHint for generated HTML
 ```
 
+### Visual Snapshots (Linux-only, via Docker)
+
+Visual baselines are **Linux-only** — the build we deploy. They render inside a
+pinned Playwright container (forced to `linux/amd64`) so locally-generated
+baselines match CI exactly. After an intentional style change, regenerate with
+**one command**, commit the `*-linux.png` files, and push — CI goes green on the
+first try, no download-from-CI round-trip:
+
+```bash
+npm run snapshots          # regenerate baselines (chromium/firefox/webkit)
+npm run snapshots:verify   # compare only — what CI and pre-push run
+```
+
+Requires Docker running (Colima or Docker Desktop). First run pulls the image
+(~1–2 GB, one-time); on Apple Silicon the run is emulated so it's slower but
+pixel-accurate to CI. Full design: `scripts/visual-snapshots.sh`.
+
 ### E2E & Visual Tests
 
 ```bash
@@ -93,6 +111,7 @@ npm test
 ## 🔍 Test Coverage
 
 ### Visual & Functional Tests
+
 - ✅ Theme toggle (light/dark mode switching)
 - ✅ Theme persistence (localStorage)
 - ✅ CSS variable application
@@ -104,6 +123,7 @@ npm test
 - ✅ Visual regression screenshots
 
 ### Accessibility Tests
+
 - ✅ WCAG AA compliance
 - ✅ Color contrast validation
 - ✅ Keyboard navigation
@@ -112,6 +132,7 @@ npm test
 - ✅ Heading hierarchy
 
 ### Performance Tests
+
 - ✅ First Contentful Paint < 2s
 - ✅ Largest Contentful Paint < 2.5s
 - ✅ Cumulative Layout Shift < 0.1
@@ -120,6 +141,7 @@ npm test
 - ✅ SEO best practices
 
 ### Code Quality
+
 - ✅ CSS property order
 - ✅ CSS variable naming conventions
 - ✅ JavaScript best practices
@@ -140,6 +162,7 @@ Automatic checks run before each commit:
    - JS changes → Functionality tests
 
 To bypass hooks in emergency:
+
 ```bash
 git commit --no-verify -m "Emergency fix"
 ```
@@ -149,6 +172,7 @@ git commit --no-verify -m "Emergency fix"
 ### GitHub Actions Workflow
 
 The `.github/workflows/theme-tests.yml` workflow runs on:
+
 - Push to `main` branch
 - Pull requests to `main`
 - Only when theme files change
@@ -186,6 +210,7 @@ open test-suite/reports/lighthouse/index.html
 ### CI/CD
 
 Test results are uploaded as artifacts:
+
 - `playwright-report-{browser}` - E2E test results
 - `playwright-screenshots-{browser}` - Failed test screenshots
 - `accessibility-report` - A11y test results
@@ -196,6 +221,7 @@ Test results are uploaded as artifacts:
 ### Before Making Theme Changes
 
 1. **Baseline Screenshots**: Run visual tests to capture current state
+
    ```bash
    npm run test:visual -- --update-snapshots
    ```
@@ -208,11 +234,13 @@ Test results are uploaded as artifacts:
 ### After Making Changes
 
 1. **Local Testing**: Always test locally first
+
    ```bash
    npm test
    ```
 
 2. **Cross-browser Check**: Test in multiple browsers
+
    ```bash
    npm run test:e2e
    ```
@@ -227,12 +255,14 @@ Test results are uploaded as artifacts:
 ### Common Issues
 
 **Docker not running:**
+
 ```bash
 # Start Docker/Colima
 colima start
 ```
 
 **Port 4000 in use:**
+
 ```bash
 # Find and kill process
 lsof -i :4000
@@ -240,14 +270,16 @@ kill -9 [PID]
 ```
 
 **Playwright browsers not installed:**
+
 ```bash
 npx playwright install
 ```
 
-**Visual tests failing due to minor differences:**
+**Visual tests failing due to an intentional change:**
+
 ```bash
-# Update baseline screenshots
-npm run test:visual -- --update-snapshots
+# Regenerate the Linux baselines (Docker), then commit the *-linux.png files
+npm run snapshots
 ```
 
 ## 📝 Writing New Tests
@@ -271,7 +303,7 @@ test('new feature is accessible @a11y', async ({ page }) => {
   await injectAxe(page);
 
   await checkA11y(page, '.feature-selector', {
-    detailedReport: true
+    detailedReport: true,
   });
 });
 ```
@@ -291,10 +323,7 @@ Edit configurations in `test-suite/configs/`:
 Update `lighthouse.config.js` and test files to include new pages:
 
 ```javascript
-url: [
-  'http://localhost:4000/',
-  'http://localhost:4000/new-page.html',
-]
+url: ['http://localhost:4000/', 'http://localhost:4000/new-page.html'];
 ```
 
 ## 📚 Additional Resources

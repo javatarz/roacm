@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { stabilize } from './helpers/stabilize';
 
 const MOBILE_BREAKPOINT = 1280;
 
@@ -303,6 +304,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
       await page.setViewportSize(viewport);
       await page.goto('/blog/');
 
+      await stabilize(page);
       await expect(page).toHaveScreenshot(`mobile-menu-closed-${viewport.name}.png`, {
         fullPage: false,
         animations: 'disabled',
@@ -317,6 +319,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
       await page.locator('#hamburger-menu').click();
       await page.waitForTimeout(350); // Wait for animation
 
+      await stabilize(page);
       await expect(page).toHaveScreenshot(`mobile-menu-open-${viewport.name}.png`, {
         fullPage: false,
         animations: 'disabled',
@@ -339,6 +342,7 @@ test.describe('Mobile Navigation Dark Mode', () => {
     await page.locator('#hamburger-menu').click();
     await page.waitForTimeout(350);
 
+    await stabilize(page);
     await expect(page).toHaveScreenshot('mobile-menu-dark-mode.png', {
       fullPage: false,
       animations: 'disabled',

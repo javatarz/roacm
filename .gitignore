@@ -26,8 +26,18 @@ playwright-report/
 test-results/
 playwright/.cache/
 
+# Visual baselines are Linux-only (the build we deploy, reproduced via Docker —
+# see scripts/visual-snapshots.sh). Ignore any darwin/win32 snapshots a native
+# `playwright test` run might emit, so they can't clobber the Linux truth.
+test-suite/tests/**/*-darwin.png
+test-suite/tests/**/*-win32.png
+
 # Coverage reports
 coverage/
+
+# Core dumps (e.g. a browser process crashing inside the snapshot container)
+core
+core.*
 .nyc_output/
 
 # Lighthouse CI

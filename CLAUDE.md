@@ -46,6 +46,16 @@ Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
 - **Ensure pre-commit hooks are installed** before committing - verify hooks run successfully
 - **After pushing, check pipeline status in the background** - monitor CI and alert user if it fails
 
+### Visual Snapshots
+
+- **Visual baselines are Linux-only** (the build we deploy), rendered in a pinned
+  Playwright Docker container forced to `linux/arm64` so they match the arm64 CI
+  runner exactly. No more download-from-CI round-trip.
+- **After an intentional style change, regenerate with one command:** `npm run snapshots`,
+  then commit the changed `*-linux.png` files and push. CI compares and goes green first try.
+- **Requires** a native arm64 Docker engine (`colima start --profile pw --arch aarch64`)
+  and `docker`. See `scripts/visual-snapshots.sh` and `docs/context/TESTING.md`.
+
 ## Task Management
 
 - **Finding work**: Use `gh issue list --state open --limit 100` to fetch all open issues

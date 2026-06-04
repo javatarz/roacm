@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { stabilize } from './helpers/stabilize';
 
 test.describe('Theme Functionality', () => {
   test.beforeEach(async ({ page }) => {
@@ -12,6 +13,7 @@ test.describe('Theme Functionality', () => {
     await expect(html).not.toHaveAttribute('data-theme', 'dark');
 
     // Take light mode screenshot
+    await stabilize(page);
     await expect(page).toHaveScreenshot('blog-index-light.png', {
       fullPage: true,
       animations: 'disabled',
@@ -26,6 +28,7 @@ test.describe('Theme Functionality', () => {
     await expect(html).toHaveAttribute('data-theme', 'dark');
 
     // Take dark mode screenshot
+    await stabilize(page);
     await expect(page).toHaveScreenshot('blog-index-dark.png', {
       fullPage: true,
       animations: 'disabled',
@@ -163,6 +166,7 @@ test.describe('Responsive Design', () => {
       }
 
       // Take screenshot for visual regression
+      await stabilize(page);
       await expect(page).toHaveScreenshot(`blog-index-${viewport.name}.png`, {
         fullPage: true,
         animations: 'disabled',

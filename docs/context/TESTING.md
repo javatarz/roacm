@@ -81,32 +81,37 @@ npm run test:lighthouse   # Lighthouse performance tests
 npm run lint              # Linting (CSS, JS, HTML)
 ```
 
-### 3. Handle Platform-Specific Visual Snapshots
+### 3. Update Visual Snapshots (when a style change is intentional)
 
-Visual regression snapshots are platform-specific:
+Visual baselines are **Linux-only** — Linux is the build we deploy, and it's the
+one platform we can reproduce identically both locally and in CI. Snapshots are
+rendered inside a pinned Playwright Docker container (architecture forced to
+`linux/amd64` to match the CI runner), so what you generate locally matches CI
+byte-for-byte. There is no download-from-CI step anymore.
 
-- **macOS/darwin**: `*-chromium-darwin.png`, `*-firefox-darwin.png`, `*-webkit-darwin.png`
-- **Linux (CI)**: `*-chromium-linux.png`, `*-firefox-linux.png`, `*-webkit-linux.png`
+**When you make an intentional style change, regenerate baselines with one command:**
 
-**When CI fails due to missing Linux snapshots:**
+```bash
+npm run snapshots          # regenerate Linux baselines for chromium/firefox/webkit
+```
 
-1. Download artifacts from failed CI run:
+Then commit the changed `*-linux.png` files and push. CI compares against them
+and goes green on the first try — no round-trip.
 
-   ```bash
-   gh run download <run-id> --name generated-snapshots-chromium --dir /tmp/snapshots-chromium
-   gh run download <run-id> --name generated-snapshots-firefox --dir /tmp/snapshots-firefox
-   gh run download <run-id> --name generated-snapshots-webkit --dir /tmp/snapshots-webkit
-   ```
+Requirements: Docker running (Colima or Docker Desktop), plus Ruby/Jekyll and
+Node (already used by this repo). The first run pulls the container image (~1–2 GB,
+one-time). On Apple Silicon the run is emulated (amd64) so it's slower, but the
+pixels match CI exactly.
 
-2. Copy snapshots to test directories:
+Other commands:
 
-   ```bash
-   cp /tmp/snapshots-chromium/*/*.png test-suite/tests/
-   cp /tmp/snapshots-firefox/*/*.png test-suite/tests/
-   cp /tmp/snapshots-webkit/*/*.png test-suite/tests/
-   ```
+```bash
+npm run snapshots:verify   # compare only, all 3 browsers (what CI runs)
+npm run snapshots:verify -- --project=chromium   # one browser
+```
 
-3. Commit and push the new snapshots
+> Don't run `playwright test --update-snapshots` natively — it would write
+> `*-darwin.png` files (gitignored, never used). Always go through `npm run snapshots`.
 
 ## Common Test Locations
 

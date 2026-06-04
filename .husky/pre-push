@@ -39,21 +39,15 @@ do
     continue
   fi
 
-  echo "🎨 Theme files changed - running tests..."
+  echo "🎨 Theme files changed - running visual + E2E + a11y (Chromium, Linux container)..."
 
-  # Run E2E tests on Chromium (fast, catches most issues)
-  echo "📝 Running E2E tests (Chromium)..."
-  PLAYWRIGHT_HTML_OPEN=never npm run test:e2e -- --project=chromium || {
-    echo "❌ E2E tests failed. Push blocked."
-    echo "💡 Run 'npm run test:e2e' to see detailed results."
-    exit 1
-  }
-
-  # Run accessibility tests
-  echo "♿ Running accessibility tests..."
-  PLAYWRIGHT_HTML_OPEN=never npm run test:a11y -- --project=chromium || {
-    echo "❌ Accessibility tests failed. Push blocked."
-    echo "💡 Run 'npm run test:a11y' to see detailed results."
+  # Same Docker path as CI (scripts/visual-snapshots.sh) so the pixels compared
+  # here match the committed Linux baselines exactly. Covers e2e, visual and
+  # a11y in one chromium run.
+  PLAYWRIGHT_HTML_OPEN=never bash scripts/visual-snapshots.sh --project=chromium || {
+    echo "❌ Tests failed. Push blocked."
+    echo "💡 If a visual diff is intentional, run 'npm run snapshots' to update the"
+    echo "   Linux baselines, commit them, then push again."
     exit 1
   }
 
