@@ -67,6 +67,7 @@ plugins:
   - jekyll-target-blank
   - jekyll-archives
   - jekyll-seo-tag
+  - jekyll-last-modified-at
 
 # SEO Tag configuration
 description: "Writing about AI-assisted engineering, architecture, and developer experience."

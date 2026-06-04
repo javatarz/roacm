@@ -2,5 +2,13 @@
   {% if post.date %}{% include date_with_ordinal.html date=post.date %}{% endif %}
 
   {% if page.date %}<strong>Created</strong>: {% include date_with_ordinal.html date=page.date %}{% endif %}
-  {% if page.updated %}<br />Updated</strong>: {% include date_with_ordinal.html date=page.updated %}{% endif %}
+  {% assign updated_date = page.updated | default: page.last_modified_at %}
+  {% if updated_date %}
+    {% assign pub_ts = page.date | date: "%s" | plus: 0 %}
+    {% assign mod_ts = updated_date | date: "%s" | plus: 0 %}
+    {% assign diff_days = mod_ts | minus: pub_ts | divided_by: 86400 %}
+    {% if diff_days > 7 %}
+  <br /><strong>Updated</strong>: {% include date_with_ordinal.html date=updated_date %}
+    {% endif %}
+  {% endif %}
 </span>

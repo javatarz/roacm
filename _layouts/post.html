@@ -9,7 +9,7 @@ layout: default
   "headline": {{ page.title | jsonify }},
   "description": {{ page.description | default: page.excerpt | strip_html | jsonify }},
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
-  "dateModified": {{ page.updated | default: page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.updated | default: page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
   "url": {{ site.url | append: page.url | jsonify }},
   "wordCount": {{ content | number_of_words }},
   "author": {
@@ -41,6 +41,21 @@ layout: default
     </svg>
     {{ page.date | date: "%b %d, %Y" }}
   </span>
+  {% assign updated_date = page.updated | default: page.last_modified_at %}
+  {% if updated_date %}
+    {% assign pub_ts = page.date | date: "%s" | plus: 0 %}
+    {% assign mod_ts = updated_date | date: "%s" | plus: 0 %}
+    {% assign diff_days = mod_ts | minus: pub_ts | divided_by: 86400 %}
+    {% if diff_days > 7 %}
+  <span class="post-updated">
+    <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+    </svg>
+    Updated {{ updated_date | date: "%b %d, %Y" }}
+  </span>
+    {% endif %}
+  {% endif %}
   <span class="reading-time">
     <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="12" cy="12" r="10"></circle>
