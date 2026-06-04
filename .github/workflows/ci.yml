@@ -234,14 +234,10 @@ jobs:
           retention-days: 7
 
   performance-tests:
-    name: Performance Tests (shard ${{ matrix.shard }}/3)
+    name: Performance Tests (Lighthouse)
     runs-on: ubuntu-24.04-arm
     needs: [changes, build]
     if: needs.changes.outputs.theme == 'true' && needs.build.result == 'success'
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v6
 
@@ -260,45 +256,47 @@ jobs:
           name: built-site
           path: _site/
 
-      - name: Collect Lighthouse results (shard ${{ matrix.shard }}/3)
-        run: npx lhci collect --config=test-suite/configs/lighthouse.config.js --numberOfRuns=1
+      - name: Run Lighthouse CI
+        run: npm run test:lighthouse
         env:
           LIGHTHOUSE_USE_BUILT_SITE: 'true'
 
-      - name: Upload LHR shard
+      - name: Upload Lighthouse Report
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: lhci-shard-${{ matrix.shard }}
-          path: .lighthouseci/
+          name: lighthouse-report
+          path: test-suite/reports/lighthouse
           retention-days: 7
 
-  lighthouse-assert:
-    name: Lighthouse Assert (median of 3 shards)
-    runs-on: ubuntu-24.04-arm
-    needs: [changes, performance-tests]
-    if: needs.changes.outputs.theme == 'true' && needs.performance-tests.result == 'success'
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Comment PR with Lighthouse Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v9
         with:
-          node-version: '20'
-          cache: 'npm'
+          script: |
+            const fs = require('fs');
+            const reportPath = './test-suite/reports/lighthouse/manifest.json';
+            if (fs.existsSync(reportPath)) {
+              const manifest = JSON.parse(fs.readFileSync(reportPath));
+              const summary = manifest[0].summary;
 
-      - name: Install Node dependencies
-        run: npm ci
+              const comment = `## 🔦 Lighthouse Results
 
-      - name: Download shard artifacts
-        uses: actions/download-artifact@v8
-        with:
-          pattern: lhci-shard-*
-          path: lhci-shards/
-          merge-multiple: false
+              | Metric | Score |
+              |--------|-------|
+              | Performance | ${summary.performance * 100}% |
+              | Accessibility | ${summary.accessibility * 100}% |
+              | Best Practices | ${summary['best-practices'] * 100}% |
+              | SEO | ${summary.seo * 100}% |
+              `;
 
-      - name: Assert median Lighthouse scores
-        run: node test-suite/scripts/lighthouse-median-assert.mjs
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
 
   # ============================================================================
   # BUILD AND DEPLOY
@@ -307,7 +305,7 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-24.04-arm
-    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, lighthouse-assert]
+    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
     # Run if build succeeded AND (all tests passed OR all tests were skipped for non-theme changes)
     # Do NOT run if build or any test job failed
     if: |
@@ -317,7 +315,7 @@ jobs:
        (needs.lint-and-validate.result == 'success' &&
         needs.visual-tests.result == 'success' &&
         needs.functional-e2e-tests.result == 'success' &&
-        needs.lighthouse-assert.result == 'success'))
+        needs.performance-tests.result == 'success'))
     steps:
       - name: Download site artifact
         uses: actions/download-artifact@v8
@@ -385,7 +383,7 @@ jobs:
     name: Test Summary
     runs-on: ubuntu-24.04-arm
     if: always()
-    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, lighthouse-assert, build-and-deploy]
+    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
     steps:
       - name: Check results
         run: |
@@ -400,12 +398,12 @@ jobs:
           if [[ "${{ needs.lint-and-validate.result }}" != "success" || \
                 "${{ needs.visual-tests.result }}" != "success" || \
                 "${{ needs.functional-e2e-tests.result }}" != "success" || \
-                "${{ needs.lighthouse-assert.result }}" != "success" ]]; then
+                "${{ needs.performance-tests.result }}" != "success" ]]; then
             echo "❌ Some tests failed. Deployment was blocked."
             echo "  - Lint: ${{ needs.lint-and-validate.result }}"
             echo "  - Visual: ${{ needs.visual-tests.result }}"
             echo "  - Functional E2E (includes a11y): ${{ needs.functional-e2e-tests.result }}"
-            echo "  - Perf (includes Lighthouse thresholds): ${{ needs.lighthouse-assert.result }}"
+            echo "  - Perf (includes Lighthouse thresholds): ${{ needs.performance-tests.result }}"
             exit 1
           fi
 
