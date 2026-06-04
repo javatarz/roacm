@@ -82,6 +82,12 @@ twitter:
   username: javatarz
   card: summary_large_image
 
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/og-homepage.png
+
 jekyll-archives:
   enabled:
     - categories
