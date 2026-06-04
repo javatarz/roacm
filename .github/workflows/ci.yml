@@ -256,18 +256,13 @@ jobs:
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
         with:
-          include-ruby: 'false'
+          include-ruby: 'true'
 
       - name: Bundle JavaScript for production
         run: npm run build:js
 
-      - name: Build the site in the jekyll/builder container
-        run: |
-          docker run \
-          -v ${{ github.workspace }}:/srv/jekyll \
-          -e JEKYLL_UID=$(id -u) \
-          -e JEKYLL_GID=$(id -g) \
-          jvconseil/jekyll-docker:4.3.3 jekyll build
+      - name: Build site
+        run: bundle exec jekyll build
 
       - name: Transform images in HTML to picture elements
         run: npm run images:transform
