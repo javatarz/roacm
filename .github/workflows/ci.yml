@@ -136,7 +136,7 @@ jobs:
         run: npm run audit:dead-code
 
   visual-tests:
-    name: Visual Tests (${{ matrix.browser }})
+    name: Visual Tests (${{ matrix.label }})
     # arm64 runner (free for public repos): visual baselines are arm64-rendered
     # so they match what devs generate locally on Apple Silicon. Keep this in
     # sync with the --platform in scripts/visual-snapshots.sh.
@@ -146,7 +146,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        include:
+          - browser: chromium
+            label: chromium
+            grep: '@visual'
+            grep_invert: ''
+          - browser: firefox
+            label: firefox
+            grep: '@visual'
+            grep_invert: ''
+          # webkit split into two parallel shards by tier to halve execution time.
+          # Shard 1: visual tiers 1+2 (~30 tests). Shard 2: tier 3 + theme + mobile-menu (~29 tests).
+          # Grep-based rather than --shard because Playwright's file-based shard gives 54:5 distribution.
+          - browser: webkit
+            label: webkit-1
+            grep: '(Tier 1|Tier 2).*@visual'
+            grep_invert: ''
+          - browser: webkit
+            label: webkit-2
+            grep: '@visual'
+            grep_invert: 'Tier [12]'
     steps:
       - uses: actions/checkout@v6
 
@@ -159,14 +178,21 @@ jobs:
       # locally (scripts/visual-snapshots.sh), so committed Linux baselines match
       # CI byte-for-byte. Compare-only here — baselines are regenerated locally
       # with `npm run snapshots`, never in CI.
-      - name: Run visual tests (${{ matrix.browser }})
-        run: bash scripts/visual-snapshots.sh --project=${{ matrix.browser }} --grep=@visual
+      - name: Run visual tests (${{ matrix.label }})
+        run: |
+          GREP='${{ matrix.grep }}'
+          INVERT='${{ matrix.grep_invert }}'
+          if [ -n "$INVERT" ]; then
+            bash scripts/visual-snapshots.sh --project=${{ matrix.browser }} --grep="$GREP" --grep-invert="$INVERT"
+          else
+            bash scripts/visual-snapshots.sh --project=${{ matrix.browser }} --grep="$GREP"
+          fi
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report-${{ matrix.label }}
           path: test-suite/reports/playwright-html
           retention-days: 7
 
@@ -176,7 +202,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-screenshots-${{ matrix.browser }}
+          name: playwright-screenshots-${{ matrix.label }}
           path: test-suite/reports/playwright-results/**/*.png
           retention-days: 7
 
