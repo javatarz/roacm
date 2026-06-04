@@ -96,7 +96,10 @@ npm run snapshots          # regenerate Linux baselines for chromium/firefox/web
 ```
 
 This fans out to **3 parallel Docker containers** (one per browser), so wall-clock
-time is the slowest single browser (~2 min) rather than the serial sum (~6 min).
+time is the slowest single browser (~4–5 min regen, ~4 min verify) rather than the
+serial sum (~15 min). Tests are render-bound (font/image waits via `stabilize()`),
+not CPU-bound — increasing `PLAYWRIGHT_WORKERS` or adding CPU to the Colima VM
+does not meaningfully improve speed (measured, see #228).
 
 Then commit the changed `*-linux.png` files and push. CI compares against them
 and goes green on the first try — no round-trip.
@@ -110,29 +113,6 @@ image (~1–2 GB, one-time).
 ```bash
 colima start --profile pw --arch aarch64 --cpu 4 --memory 6
 ```
-
-**Experimental: more workers on a bigger VM**
-
-Each container defaults to `workers=1` for determinism. On a 6+ CPU VM you can
-try more workers per browser to cut per-browser time further. Validate determinism
-first (regen → verify → verify must all pass):
-
-```bash
-# Resize Colima VM
-colima stop --profile pw
-colima start --profile pw --arch aarch64 --cpu 6 --memory 8
-
-# Run with more workers (3 workers × 3 parallel browsers = 9 concurrent)
-PLAYWRIGHT_WORKERS=3 npm run snapshots
-
-# Verify determinism: regen then verify twice
-PLAYWRIGHT_WORKERS=3 npm run snapshots
-PLAYWRIGHT_WORKERS=3 npm run snapshots:verify
-PLAYWRIGHT_WORKERS=3 npm run snapshots:verify
-```
-
-If verify passes twice with no diffs, the worker count is safe to use. If you see
-flaky diffs (height changes on long posts), reduce `PLAYWRIGHT_WORKERS`.
 
 Other commands:
 
