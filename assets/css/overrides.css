@@ -1,3 +1,6 @@
+---
+---
+
 /* CSS Variables for theming - ROACM Theme */
 :root {
   --bg-primary: #ffffff;
@@ -298,7 +301,10 @@ header a:hover {
    `a` rules above; .post-content only adds the external-link indicator. */
 
 /* External links indicator */
-.post-content a[href^='http']:not([href*='karun.me'])::after {
+.post-content
+  a[href^='http']:not(
+    [href*='{{ site.url | remove: "https://" | remove: "http://" }}']
+  )::after {
   content: ' ↗';
   font-size: 0.8em;
   opacity: 0.6;

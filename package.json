@@ -54,8 +54,8 @@
   },
   "lint-staged": {
     "*.css": [
-      "stylelint --fix --config test-suite/configs/stylelint.config.json",
-      "stylelint --config test-suite/configs/stylelint.config.json",
+      "stylelint --fix --allow-empty-input --config test-suite/configs/stylelint.config.json",
+      "stylelint --allow-empty-input --config test-suite/configs/stylelint.config.json",
       "prettier --write"
     ],
     "*.js": [
