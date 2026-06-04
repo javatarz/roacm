@@ -108,7 +108,7 @@ trap cleanup EXIT INT TERM
 START=$(date +%s)
 
 for browser in "${PROJECTS[@]}"; do
-  tmpf=$(mktemp /tmp/pw-snapshot-XXXXX.log)
+  tmpf=$(mktemp "${TMPDIR:-/tmp}/pw-snapshot-XXXXXX")
   TMPFILES+=("$tmpf")
   "${DOCKER[@]}" run --rm \
     --platform linux/arm64 \
