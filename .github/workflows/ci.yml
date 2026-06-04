@@ -82,10 +82,18 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build
 
+      - name: Restore image optimization cache
+        id: image-cache
+        uses: actions/cache@v5
+        with:
+          path: _site/assets/images/
+          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
+
       - name: Transform images in HTML to picture elements
         run: npm run images:transform
 
       - name: Optimize and generate responsive images
+        if: steps.image-cache.outputs.cache-hit != 'true'
         run: npm run images:optimize
 
       - name: Upload site artifact
