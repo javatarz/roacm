@@ -95,23 +95,36 @@ byte-for-byte. There is no download-from-CI step anymore.
 npm run snapshots          # regenerate Linux baselines for chromium/firefox/webkit
 ```
 
+This fans out to **3 parallel Docker containers** (one per browser), so wall-clock
+time is the slowest single browser (~2 min) rather than the serial sum (~6 min).
+
 Then commit the changed `*-linux.png` files and push. CI compares against them
 and goes green on the first try — no round-trip.
 
-Requirements: Docker running (Colima or Docker Desktop), plus Ruby/Jekyll and
-Node (already used by this repo). The first run pulls the container image (~1–2 GB,
-one-time). On Apple Silicon the run is emulated (amd64) so it's slower, but the
-pixels match CI exactly.
+Requirements: Docker running (a native arm64 Colima profile, see below), plus
+Ruby/Jekyll and Node (already used by this repo). The first run pulls the container
+image (~1–2 GB, one-time).
+
+**Colima setup (one-time, if not already done):**
+
+```bash
+colima start --profile pw --arch aarch64 --cpu 4 --memory 6
+```
 
 Other commands:
 
 ```bash
-npm run snapshots:verify   # compare only, all 3 browsers (what CI runs)
+npm run snapshots:verify            # compare only, all 3 browsers (what CI runs)
 npm run snapshots:verify -- --project=chromium   # one browser
+scripts/visual-snapshots.sh --project=chromium --project=firefox  # two browsers in parallel
 ```
 
 > Don't run `playwright test --update-snapshots` natively — it would write
 > `*-darwin.png` files (gitignored, never used). Always go through `npm run snapshots`.
+
+**Per-browser HTML reports** (parallel runs only): each browser writes to its own
+`test-suite/reports/playwright-html-<browser>/` dir so reports don't overwrite
+each other.
 
 ## Common Test Locations
 

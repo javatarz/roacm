@@ -18,7 +18,9 @@ export default defineConfig({
   // Update missing snapshots in CI to generate platform-specific baselines
   updateSnapshots: process.env.UPDATE_SNAPSHOTS === 'missing' ? 'missing' : 'none',
   reporter: [
-    ['html', { outputFolder: path.join(__dirname, '../reports/playwright-html') }],
+    // PLAYWRIGHT_HTML_REPORT lets parallel browser containers each write to their
+    // own dir so concurrent runs don't clobber each other's HTML reports.
+    ['html', { outputFolder: process.env.PLAYWRIGHT_HTML_REPORT ?? path.join(__dirname, '../reports/playwright-html') }],
     ['json', { outputFile: path.join(__dirname, '../reports/playwright.json') }],
     ['list'],
   ],
