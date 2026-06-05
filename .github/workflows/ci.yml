@@ -82,6 +82,9 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build
 
+      - name: Minify CSS
+        run: npm run build:css
+
       - name: Restore image optimization cache
         id: image-cache
         uses: actions/cache@v5

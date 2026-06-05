@@ -98,6 +98,10 @@ new-post title:
 build-js:
     npm run build:js
 
+# Minify CSS in _site/ (run after jekyll build)
+build-css:
+    npm run build:css
+
 # Transform images to picture elements
 images-transform:
     npm run images:transform
