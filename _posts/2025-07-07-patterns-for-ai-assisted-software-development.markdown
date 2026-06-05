@@ -9,6 +9,8 @@ tags:
   - ai-patterns
   - engineering-culture
 image: /assets/images/posts/2025-07-07-patterns-for-ai-assisted-software-development/patterns-aifse-cover-art.jpg
+series: "AI Engineering Foundations"
+series_part: 2
 devto: true
 devto_tags:
   - ai

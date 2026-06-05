@@ -10,6 +10,8 @@ tags:
   - ai-patterns
   - coding-assistants
 image: /assets/images/posts/2025-12-31-context-engineering/cover.jpg
+series: "AI Engineering Foundations"
+series_part: 3
 devto: true
 devto_tags:
   - ai

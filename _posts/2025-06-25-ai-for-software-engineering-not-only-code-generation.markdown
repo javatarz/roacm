@@ -9,6 +9,8 @@ tags:
   - ai-tools
   - engineering-culture
 image: /assets/images/posts/2025-06-25-ai-for-software-engineering-not-only-code-generation/aifse-cover-art.jpg
+series: "AI Engineering Foundations"
+series_part: 1
 devto: true
 devto_tags:
   - ai
