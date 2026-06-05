@@ -19,6 +19,9 @@ import { stabilize } from './helpers/stabilize';
 test.beforeEach(async ({ page }) => {
   // Block Giscus comments - loads asynchronously and causes variable page height
   await page.route('**/giscus.app/**', (route) => route.abort());
+  // Block YouTube embeds - iframe content loads non-deterministically across environments
+  await page.route('**/youtube.com/**', (route) => route.abort());
+  await page.route('**/ytimg.com/**', (route) => route.abort());
 });
 
 const viewports = [
