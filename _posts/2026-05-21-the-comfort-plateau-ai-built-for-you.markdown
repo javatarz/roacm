@@ -10,6 +10,8 @@ tags:
   - ai-patterns
   - engineering-principles
   - career
+series: "Human Judgment in the AI Age"
+series_part: 2
 devto: true
 devto_tags:
   - ai

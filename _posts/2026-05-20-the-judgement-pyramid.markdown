@@ -11,6 +11,8 @@ tags:
   - engineering-principles
   - code-quality
 image: /assets/images/posts/2026-05-20-the-judgement-pyramid/cover.png
+series: "Human Judgment in the AI Age"
+series_part: 1
 devto: true
 devto_tags:
   - ai
