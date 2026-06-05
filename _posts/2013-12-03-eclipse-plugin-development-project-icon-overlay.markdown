@@ -8,6 +8,8 @@ title: 'Eclipse Plugin Development: Project Icon Overlay'
 description: "Fix Eclipse custom project icons by prioritizing nature IDs. Learn how to ensure your custom icon appears instead of Java's default."
 wordpress_id: 489
 category: Software Design
+series: "Eclipse Plugin Development"
+series_part: 2
 tags:
   - developer-experience
   - java

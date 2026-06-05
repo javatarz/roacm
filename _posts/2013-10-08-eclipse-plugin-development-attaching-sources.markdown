@@ -8,6 +8,8 @@ title: 'Eclipse Plugin Development: Attaching Sources'
 description: "Install Eclipse plugin development source code in 3 simple steps. Access RCP, PDE, and platform sources for better plugin development."
 wordpress_id: 480
 category: Software Design
+series: "Eclipse Plugin Development"
+series_part: 1
 tags:
   - developer-experience
   - java
