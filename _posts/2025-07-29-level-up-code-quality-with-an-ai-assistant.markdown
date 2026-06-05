@@ -10,6 +10,8 @@ tags:
   - code-quality
   - developer-experience
 image: /assets/images/posts/2025-07-29-level-up-code-quality-with-an-ai-assistant/code-quality-with-ai-cover-art.png
+series: "Practical Coding Assistants"
+series_part: 2
 devto: true
 devto_tags:
   - ai
