@@ -75,13 +75,12 @@ for arg in "$@"; do
   fi
 done
 
-# ── Default to @visual only unless a --grep is already specified ─────────────
-# CI passes --grep=@visual explicitly (visual-tests job). Local runs get it
-# automatically here so devs only regenerate pixel snapshots by default.
-# Callers can always override with an explicit --grep=X.
-if ! printf '%s\n' "${OTHER_ARGS[@]:-}" | grep -q '^--grep'; then
-  OTHER_ARGS+=("--grep=@visual")
-fi
+# ── Grep filter ──────────────────────────────────────────────────────────────
+# CI passes --grep=@visual explicitly (one job per browser, visual tests only).
+# Local runs — both regen (npm run snapshots) and verify (pre-push hook) — run
+# ALL tests so snapshot generation covers exactly what the hook verifies: visual
+# snapshots, E2E, and a11y in one pass. Callers can always override with an
+# explicit --grep=X.
 
 # ── Single browser (or no browser filter): run one container ────────────────
 if [ "${#PROJECTS[@]}" -le 1 ]; then
