@@ -8,6 +8,8 @@ title: File list generator v1.3
 description: "Generate file lists automatically with PowerShell. Updated v1.3 script with optional path variable and comprehensive documentation examples."
 wordpress_id: 436
 category: Projects
+series: "File List Generator"
+series_part: 3
 tags:
   - windows
   - productivity

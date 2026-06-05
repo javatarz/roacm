@@ -8,6 +8,8 @@ title: File list generator v1.1
 description: "Updated PowerShell script to generate clean file lists. New features exclude sample files and screenshots from your directory listings."
 wordpress_id: 284
 category: Projects
+series: "File List Generator"
+series_part: 2
 tags:
   - windows
   - productivity

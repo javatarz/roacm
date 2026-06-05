@@ -8,6 +8,8 @@ title: Clean File List Generation with PowerShell Script
 description: "Generate clean movie file lists with PowerShell. Script filters out subtitles and unwanted files, perfect for organizing media libraries."
 wordpress_id: 275
 category: Projects
+series: "File List Generator"
+series_part: 1
 tags:
   - windows
   - productivity
