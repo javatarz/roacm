@@ -8,6 +8,8 @@ title: HTC Incredible S - Fix for Bootloader saying "Security Warning"
 description: "Fix HTC Incredible S bootloader security warning that prevents boot. Complete guide with prevention tips documented on XDA-Developers."
 wordpress_id: 399
 category: Device Hacks
+series: "HTC Incredible S"
+series_part: 3
 tags:
   - mobile
   - troubleshooting
