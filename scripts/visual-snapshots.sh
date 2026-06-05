@@ -54,7 +54,12 @@ PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"
 IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 
 # ── Site build (once, shared across all browser containers) ─────────────────
+# Clean first: dev-server builds use _config_dev.yml (unpublished: true) which
+# can leave behind files for draft/unpublished posts. Jekyll only removes files
+# it owns from the current build, so stale dev-built files would otherwise sneak
+# into the snapshot baseline and diverge from CI (which always builds clean).
 echo "▶ Building site (snapshot overlay: assets served locally, not from prod)..."
+rm -rf _site/
 npm run prebuild:js >/dev/null
 npm run build:js >/dev/null
 bundle exec jekyll build --quiet --config _config.yml,_config_snapshot.yml
