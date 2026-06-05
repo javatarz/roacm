@@ -10,7 +10,7 @@ tags:
   - engineering-principles
   - ai-patterns
 image: /assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg
-series: "Intelligent Engineering"
+series: "intelligent Engineering 2025"
 series_part: 1
 devto: true
 devto_tags:
