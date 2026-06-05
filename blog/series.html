@@ -1,0 +1,44 @@
+---
+layout: page
+title: Series
+description: "Collections of related posts on software engineering, AI-assisted development, and technology. Read them in order for the full picture."
+permalink: /blog/series/
+---
+
+<div class="series-index">
+
+{% comment %}
+  Walk site.posts newest-first. First encounter of each series name
+  establishes its position — so ordered_series is sorted by most recent post.
+{% endcomment %}
+{% assign seen_series = "" | split: "" %}
+{% assign ordered_series = "" | split: "" %}
+{% for post in site.posts %}
+  {% if post.series %}
+    {% unless seen_series contains post.series %}
+      {% assign seen_series = seen_series | push: post.series %}
+      {% assign ordered_series = ordered_series | push: post.series %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for series_name in ordered_series %}
+  {% assign series_posts = site.posts | where: "series", series_name | sort: "series_part" %}
+  {% assign series_slug = series_name | slugify %}
+  <div class="series-group" id="{{ series_slug }}" role="region" aria-labelledby="series-heading-{{ series_slug }}">
+    <h2 class="series-group-heading" id="series-heading-{{ series_slug }}">
+      <span class="series-group-title">{{ series_name }}</span>
+      <span class="series-group-count">{{ series_posts.size }} parts</span>
+    </h2>
+    <ol class="series-group-list">
+      {% for post in series_posts %}
+      <li class="series-group-item">
+        <span class="series-group-part">{{ post.series_part }}</span>
+        <a href="{{ post.url }}" class="series-group-link">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endfor %}
+
+</div>

@@ -3038,3 +3038,66 @@ body.homepage {
 .series-nav-post-link:hover {
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   Series Index Page (/blog/series/)
+   Lists all series grouped by name, sorted by most recent post.
+   ========================================================================== */
+.series-index {
+  margin-top: 24px;
+}
+
+.series-group {
+  margin-bottom: 40px;
+}
+
+.series-group-heading {
+  align-items: baseline;
+  border-bottom: 2px solid var(--accent-color);
+  color: var(--text-primary);
+  display: flex;
+  font-size: 22px;
+  font-weight: 700;
+  justify-content: space-between;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+}
+
+.series-group-count {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.series-group-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.series-group-item {
+  align-items: baseline;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.series-group-part {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 13px;
+  min-width: 20px;
+  text-align: right;
+}
+
+.series-group-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.series-group-link:hover {
+  color: var(--accent-color);
+}
