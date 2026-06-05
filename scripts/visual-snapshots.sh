@@ -94,7 +94,8 @@ if [ "${#PROJECTS[@]}" -le 1 ]; then
     -e STATIC_SERVE=1 \
     -e "PLAYWRIGHT_WORKERS=${PLAYWRIGHT_WORKERS:-1}" \
     "$IMAGE" \
-    npx playwright test -c test-suite/configs/playwright.config.ts "$@"
+    npx playwright test -c test-suite/configs/playwright.config.ts \
+      ${PROJECTS[0]:+--project="${PROJECTS[0]}"} "${OTHER_ARGS[@]}"
 fi
 
 # ── Multiple browsers: fan out to parallel containers ───────────────────────
