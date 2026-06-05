@@ -1,0 +1,28 @@
+{% comment %}
+  Series Navigation Component
+  Shows series context and links to all parts when page.series is set
+{% endcomment %}
+{% if page.series %}
+  {% assign series_posts = site.posts | where: "series", page.series | sort: "series_part" %}
+  {% assign series_total = series_posts | size %}
+  {% if series_total > 1 %}
+<aside class="series-nav" aria-labelledby="series-nav-heading">
+  <div class="series-nav-header">
+    <span class="series-nav-label">Series</span>
+    <h2 id="series-nav-heading" class="series-nav-title">{{ page.series }}</h2>
+    <span class="series-nav-count">Part {{ page.series_part }} of {{ series_total }}</span>
+  </div>
+  <ol class="series-nav-list">
+    {% for post in series_posts %}
+    <li class="series-nav-item{% if post.url == page.url %} series-nav-current{% endif %}">
+      {% if post.url == page.url %}
+        <span class="series-nav-post-title">{{ post.title }}</span>
+      {% else %}
+        <a href="{{ post.url }}" class="series-nav-post-link">{{ post.title }}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</aside>
+  {% endif %}
+{% endif %}
