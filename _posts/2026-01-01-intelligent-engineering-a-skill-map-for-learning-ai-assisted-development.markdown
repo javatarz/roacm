@@ -10,6 +10,8 @@ tags:
   - coding-assistants
   - career
 image: /assets/images/posts/2026-01-01-skill-map/skill-progression.png
+series: "Intelligent Engineering"
+series_part: 2
 devto: true
 devto_tags:
   - ai

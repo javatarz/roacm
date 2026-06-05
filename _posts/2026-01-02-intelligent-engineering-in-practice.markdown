@@ -10,6 +10,8 @@ tags:
   - ai-patterns
   - engineering-culture
   - tutorials
+series: "Intelligent Engineering"
+series_part: 3
 devto: true
 devto_tags:
   - ai
