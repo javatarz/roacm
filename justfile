@@ -46,6 +46,10 @@ test-a11y:
 test-lighthouse:
     npm run test:lighthouse
 
+# Full suite in Docker (visual + E2E + a11y, chromium) — same as pre-push hook
+verify:
+    npm run verify
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Linting
 # ─────────────────────────────────────────────────────────────────────────────
