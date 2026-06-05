@@ -46,10 +46,6 @@
     rel="stylesheet"
     href="{{ 'assets/css/overrides.css?v=' | append: site.github.build_revision | relative_url }}"
   />
-  <link
-    rel="stylesheet"
-    href="{{ 'assets/css/fontawesome.min.css?v=' | append: site.github.build_revision | relative_url }}"
-  />
   {% if jekyll.environment == "production" and site.umami %}
   <!-- Umami Analytics -->
   <script defer src="{{ site.umami.src }}" data-website-id="{{ site.umami.website_id }}"></script>
