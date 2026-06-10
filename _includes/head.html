@@ -16,6 +16,23 @@
     "knowsAbout": ["AI-assisted engineering", "distributed systems", "platform engineering", "software architecture", "MLOps"]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ site.title | jsonify }},
+    "url": {{ site.url | jsonify }},
+    "description": {{ site.description | jsonify }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": {{ site.url | append: "/blog/?q={search_term_string}" | jsonify }}
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   {% endif %}
 
   <!-- Favicon -->
