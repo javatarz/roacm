@@ -362,7 +362,16 @@ jobs:
 
       - name: Deploy to S3
         if: success() && github.ref == 'refs/heads/main'
-        run: aws s3 sync ./_site s3://${{ vars.AWS_S3_BUCKET }} --acl public-read --delete
+        run: |
+          # Assets: images, fonts, JS, CSS — 1-day browser cache
+          aws s3 sync ./_site/assets s3://${{ vars.AWS_S3_BUCKET }}/assets \
+            --cache-control "public, max-age=86400" \
+            --acl public-read
+          # HTML, feed, sitemaps — 5-min browser cache with must-revalidate; --delete removes old pages
+          aws s3 sync ./_site s3://${{ vars.AWS_S3_BUCKET }} \
+            --exclude "assets/*" --exclude "*.map" \
+            --cache-control "public, max-age=300, must-revalidate" \
+            --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
