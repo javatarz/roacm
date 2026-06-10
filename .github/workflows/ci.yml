@@ -139,6 +139,16 @@ jobs:
             --ignore-urls "/\/assets\/images\/uploads\//,/^portableapps\.com/,/^karunab\.com/,/^Imagine%20Cup/,/^Clean%20File%20List/" \
             _site/
 
+      - name: Validate Atom feed
+        run: |
+          xmllint --noout _site/atom.xml
+          entry_count=$(grep -c '<entry>' _site/atom.xml || true)
+          if [ "$entry_count" -eq 0 ]; then
+            echo "❌ Atom feed has no entries"
+            exit 1
+          fi
+          echo "✅ Atom feed is valid XML with $entry_count entries"
+
   # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================
