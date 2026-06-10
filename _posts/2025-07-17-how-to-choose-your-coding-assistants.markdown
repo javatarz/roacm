@@ -9,7 +9,7 @@ tags:
   - coding-assistants
   - developer-experience
   - software-licensing
-image: /assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art.jpg
+image: /assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art-650x433.jpg
 series: "Practical Coding Assistants"
 series_part: 1
 devto: true
