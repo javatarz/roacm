@@ -33,6 +33,13 @@
     // Create results and overlay elements in body
     createSearchElements();
 
+    // Wire up ARIA relationship between input and listbox
+    searchInput.setAttribute('role', 'combobox');
+    searchInput.setAttribute('aria-expanded', 'false');
+    searchInput.setAttribute('aria-controls', 'search-results');
+    searchInput.setAttribute('aria-haspopup', 'listbox');
+    searchInput.setAttribute('aria-autocomplete', 'list');
+
     // Load search data
     loadSearchData();
 
@@ -171,8 +178,13 @@
         return (
           '<a href="' +
           post.url +
+          '" id="search-result-' +
+          index +
           '" class="search-result-item' +
           (index === 0 ? ' selected' : '') +
+          '" role="option"' +
+          ' aria-selected="' +
+          (index === 0 ? 'true' : 'false') +
           '" data-index="' +
           index +
           '">' +
@@ -191,6 +203,11 @@
       .join('');
 
     searchResults.innerHTML = html;
+
+    // Point input at first result so screen readers announce the selection
+    if (searchInput) {
+      searchInput.setAttribute('aria-activedescendant', 'search-result-0');
+    }
 
     // Track search with results
     if (window.UmamiTracker) {
@@ -227,12 +244,19 @@
     if (searchOverlay) {
       searchOverlay.classList.add('visible');
     }
+    if (searchInput) {
+      searchInput.setAttribute('aria-expanded', 'true');
+    }
   }
 
   function hideResults() {
     searchResults.classList.remove('visible');
     if (searchOverlay) {
       searchOverlay.classList.remove('visible');
+    }
+    if (searchInput) {
+      searchInput.setAttribute('aria-expanded', 'false');
+      searchInput.removeAttribute('aria-activedescendant');
     }
   }
 
@@ -259,11 +283,17 @@
 
   function updateSelection(items, newIndex) {
     items.forEach(function (item, i) {
-      item.classList.toggle('selected', i === newIndex);
+      const isSelected = i === newIndex;
+      item.classList.toggle('selected', isSelected);
+      item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
     });
     // Scroll selected item into view
     if (items[newIndex]) {
       items[newIndex].scrollIntoView({ block: 'nearest' });
+      // Keep combobox input pointing at the active descendant
+      if (searchInput && items[newIndex].id) {
+        searchInput.setAttribute('aria-activedescendant', items[newIndex].id);
+      }
     }
   }
 

@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Single visually-hidden aria-live region shared by all copy buttons
+  const ariaAnnouncer = document.createElement('span');
+  ariaAnnouncer.setAttribute('aria-live', 'polite');
+  ariaAnnouncer.setAttribute('aria-atomic', 'true');
+  ariaAnnouncer.style.cssText =
+    'position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;';
+  document.body.appendChild(ariaAnnouncer);
+
   // Wrap code blocks and add copy button
   document.querySelectorAll('pre').forEach(function (pre) {
     const wrapper = document.createElement('div');
@@ -18,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function () {
           button.textContent = 'Copied!';
           button.classList.add('copied');
+          ariaAnnouncer.textContent = 'Copied to clipboard';
 
           // Track successful code copy
           if (window.UmamiTracker) {
@@ -28,14 +37,17 @@ document.addEventListener('DOMContentLoaded', function () {
           setTimeout(function () {
             button.textContent = 'Copy';
             button.classList.remove('copied');
+            ariaAnnouncer.textContent = '';
           }, 2000);
         })
         .catch(function () {
           button.textContent = 'Failed';
           button.classList.add('error');
+          ariaAnnouncer.textContent = 'Copy failed';
           setTimeout(function () {
             button.textContent = 'Copy';
             button.classList.remove('error');
+            ariaAnnouncer.textContent = '';
           }, 2000);
         });
     });
