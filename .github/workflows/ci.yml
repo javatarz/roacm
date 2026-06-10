@@ -386,6 +386,61 @@ jobs:
             --data '{"purge_everything":true}'
 
   # ============================================================================
+  # SMOKE TEST
+  # ============================================================================
+
+  smoke-test:
+    name: Smoke Test (prod)
+    runs-on: ubuntu-24.04-arm
+    needs: build-and-deploy
+    if: |
+      always() &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request' &&
+      needs.build-and-deploy.result == 'success'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Derive latest post URL
+        id: latest-post
+        run: |
+          latest=$(ls _posts/*.markdown | sort | tail -1)
+          filename=$(basename "$latest" .markdown)
+          # Format: YYYY-MM-DD-slug → /blog/YYYY/MM/DD/slug/
+          year=$(echo "$filename" | cut -d- -f1)
+          month=$(echo "$filename" | cut -d- -f2)
+          day=$(echo "$filename" | cut -d- -f3)
+          slug=$(echo "$filename" | cut -d- -f4-)
+          echo "url=https://karun.me/blog/${year}/${month}/${day}/${slug}/" >> $GITHUB_OUTPUT
+          # Get title from frontmatter
+          title=$(grep '^title:' "$latest" | head -1 | sed 's/^title: *//;s/"//g')
+          echo "title=$title" >> $GITHUB_OUTPUT
+
+      - name: Smoke test prod endpoints
+        run: |
+          SITE=https://karun.me
+
+          echo "Checking homepage..."
+          curl -fsS -o /dev/null -w "%{http_code}" "$SITE/" | grep -q "200"
+          echo "✅ Homepage OK"
+
+          echo "Checking latest post: ${{ steps.latest-post.outputs.url }}"
+          curl -fsS -o /dev/null -w "%{http_code}" "${{ steps.latest-post.outputs.url }}" | grep -q "200"
+          echo "✅ Latest post OK"
+
+          echo "Checking atom.xml..."
+          curl -fsS -o /dev/null -w "%{http_code}" "$SITE/atom.xml" | grep -q "200"
+          echo "✅ atom.xml OK"
+
+          echo "Checking latest post title appears on homepage..."
+          curl -fsS "$SITE/" | grep -qi "${{ steps.latest-post.outputs.title }}" || \
+            { echo "⚠️ Latest post title not found on homepage (cache may be warming)"; }
+
+          echo "✅ All smoke tests passed"
+
+  # ============================================================================
   # AI READINESS CHECK
   # ============================================================================
 
@@ -429,7 +484,7 @@ jobs:
     name: Test Summary
     runs-on: ubuntu-24.04-arm
     if: always()
-    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
+    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy, smoke-test]
     steps:
       - name: Check results
         run: |
