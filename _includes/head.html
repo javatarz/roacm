@@ -27,7 +27,7 @@
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": {{ site.url | append: "/blog/?q={search_term_string}" | jsonify }}
+        "urlTemplate": "{{ site.url }}/blog/?q={% raw %}{search_term_string}{% endraw %}"
       },
       "query-input": "required name=search_term_string"
     }
