@@ -123,6 +123,10 @@ async function createArticle(article) {
 function getPostsToProcess() {
   const manualPath = process.env.POST_PATH;
   if (manualPath) {
+    const resolved = path.resolve(manualPath);
+    if (!resolved.startsWith(path.resolve('_posts') + path.sep)) {
+      throw new Error(`POST_PATH must be inside _posts/: ${manualPath}`);
+    }
     return [manualPath];
   }
   // Always check all posts - the main() function filters by devto: true
