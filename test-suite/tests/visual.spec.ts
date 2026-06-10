@@ -19,9 +19,24 @@ import { stabilize } from './helpers/stabilize';
 test.beforeEach(async ({ page }) => {
   // Block Giscus comments - loads asynchronously and causes variable page height
   await page.route('**/giscus.app/**', (route) => route.abort());
-  // Block YouTube embeds - iframe content loads non-deterministically across environments
+  // Block YouTube at network level (belt)
   await page.route('**/youtube.com/**', (route) => route.abort());
   await page.route('**/ytimg.com/**', (route) => route.abort());
+  // Also blank YouTube iframes at DOM level before they load — Firefox does not
+  // honour the route abort for cross-origin iframe src requests, so the embed
+  // renders live YouTube content and produces non-deterministic screenshots.
+  await page.addInitScript(() => {
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLIFrameElement && /youtube|ytimg/i.test(node.src)) {
+            node.src = 'about:blank';
+          }
+        }
+      }
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  });
 });
 
 const viewports = [
