@@ -8,7 +8,7 @@ layout: null
       "url": {{ post.url | jsonify }},
       "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
       "excerpt": {{ post.excerpt | strip_html | strip_newlines | truncate: 200 | jsonify }},
-      "content": {{ post.content | strip_html | strip_newlines | truncate: 1000 | jsonify }},
+      "content": {{ post.content | strip_html | strip_newlines | jsonify }},
       "categories": {{ post.categories | jsonify }},
       "tags": {{ post.tags | jsonify }}
     }{% unless forloop.last %},{% endunless %}
