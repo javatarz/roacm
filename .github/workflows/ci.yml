@@ -107,6 +107,39 @@ jobs:
           retention-days: 1
 
   # ============================================================================
+  # CONTENT VALIDATION (runs on every change, gates deploy)
+  # ============================================================================
+
+  validate-content:
+    name: Validate HTML Content
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
+        with:
+          include-ruby: 'true'
+
+      - name: Download site artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: built-site
+          path: _site/
+
+      - name: Validate HTML structure
+        run: npm run lint:html
+
+      - name: Check internal links and images
+        run: |
+          bundle exec htmlproofer \
+            --disable-external \
+            --no-enforce-https \
+            --ignore-urls "/\/assets\/images\/uploads\//,/^portableapps\.com/,/^karunab\.com/,/^Imagine%20Cup/,/^Clean%20File%20List/" \
+            _site/
+
+  # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================
 
@@ -308,12 +341,13 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-24.04-arm
-    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
-    # Run if build succeeded AND (all tests passed OR all tests were skipped for non-theme changes)
-    # Do NOT run if build or any test job failed
+    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
+    # Run if build and HTML validation succeeded AND (all tests passed OR all tests were skipped for non-theme changes)
+    # Do NOT run if build, validation, or any test job failed
     if: |
       always() &&
       needs.build.result == 'success' &&
+      needs.validate-content.result == 'success' &&
       (needs.changes.outputs.theme == 'false' ||
        (needs.lint-and-validate.result == 'success' &&
         needs.visual-tests.result == 'success' &&
@@ -386,15 +420,21 @@ jobs:
     name: Test Summary
     runs-on: ubuntu-24.04-arm
     if: always()
-    needs: [changes, build, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
+    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy]
     steps:
       - name: Check results
         run: |
           echo "Theme changes detected: ${{ needs.changes.outputs.theme }}"
           echo ""
 
+          if [[ "${{ needs.validate-content.result }}" != "success" ]]; then
+            echo "❌ HTML validation failed. Deployment was blocked."
+            echo "  - HTML validation: ${{ needs.validate-content.result }}"
+            exit 1
+          fi
+
           if [[ "${{ needs.changes.outputs.theme }}" == "false" ]]; then
-            echo "✅ No theme changes - tests skipped, build/deploy proceeded"
+            echo "✅ No theme changes - theme tests skipped, HTML validation passed, build/deploy proceeded"
             exit 0
           fi
 

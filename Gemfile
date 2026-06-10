@@ -22,3 +22,5 @@ end
 
 # Others
 gem 'kramdown-parser-gfm', '~> 1.1.0'
+
+gem "html-proofer", "~> 5.0"
