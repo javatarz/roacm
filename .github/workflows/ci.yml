@@ -128,6 +128,12 @@ jobs:
           name: built-site
           path: _site/
 
+      - name: Restore image optimization cache
+        uses: actions/cache@v5
+        with:
+          path: _site/assets/images/
+          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
+
       - name: Validate HTML structure
         run: npm run lint:html
 
