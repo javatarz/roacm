@@ -22,20 +22,17 @@ test.beforeEach(async ({ page }) => {
   // Block YouTube at network level (belt)
   await page.route('**/youtube.com/**', (route) => route.abort());
   await page.route('**/ytimg.com/**', (route) => route.abort());
-  // Also blank YouTube iframes at DOM level before they load — Firefox does not
-  // honour the route abort for cross-origin iframe src requests, so the embed
-  // renders live YouTube content and produces non-deterministic screenshots.
+  // Hide video embeds via CSS — the most reliable cross-browser approach.
+  // Playwright's route abort doesn't intercept Firefox cross-origin iframe
+  // navigations, and JS prototype patching can't intercept the HTML parser's
+  // attribute writes. CSS hiding keeps layout stable (height preserved) while
+  // eliminating YouTube UI variance between local Docker and CI runs.
   await page.addInitScript(() => {
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (node instanceof HTMLIFrameElement && /youtube|ytimg/i.test(node.src)) {
-            node.src = 'about:blank';
-          }
-        }
-      }
-    });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+    const style = document.createElement('style');
+    style.textContent = '.video-container { visibility: hidden !important; }';
+    document.addEventListener('DOMContentLoaded', () => document.head.appendChild(style), { once: true });
+    // Also inject immediately if head is already available (script runs before parse)
+    if (document.head) document.head.appendChild(style);
   });
 });
 
