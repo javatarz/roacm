@@ -19,6 +19,7 @@ import sharp from 'sharp';
 const SITE_DIR = '_site';
 const IMAGES_DIR = '_site/assets/images';
 const SRCSET_WIDTHS = [640, 960, 1280];
+const SMALL_IMAGE_THRESHOLD = 50 * 1024; // mirrors optimize-images.mjs — no srcset for small images
 
 // Track statistics
 const stats = {
@@ -120,12 +121,24 @@ async function transformImgTag(imgTag) {
     return imgTag;
   }
 
+  // Skip WebP sources - optimize-images.mjs skips .webp inputs so no responsive
+  // variants are generated for them; generating srcset would produce broken refs.
+  if (/\.webp$/i.test(assetPath)) {
+    return imgTag;
+  }
+
   // Normalize path (remove leading slash for filesystem access)
   const normalizedPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
   const fullImagePath = join(SITE_DIR, normalizedPath);
 
   if (!existsSync(fullImagePath)) {
     console.log(`  Skipping: ${src} (file not found at ${fullImagePath})`);
+    return imgTag;
+  }
+
+  // Skip small images — optimize-images.mjs won't generate srcset variants for them
+  const fileSize = (await stat(fullImagePath)).size;
+  if (fileSize < SMALL_IMAGE_THRESHOLD) {
     return imgTag;
   }
 
