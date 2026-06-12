@@ -172,7 +172,7 @@ article {
 }
 
 /* Desktop fluid layout - only above mobile breakpoint */
-@media (width > 960px) {
+@media (min-width: 961px) {
   .wrapper {
     margin: 0;
     max-width: none;
@@ -299,6 +299,13 @@ header a:hover {
 
 /* Post content link styling (color, hover, visited) is handled by the base
    `a` rules above; .post-content only adds the external-link indicator. */
+
+/* Underline prose links so color is not the only visual cue (WCAG 1.4.1) */
+.post-content a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
 
 /* External links indicator */
 .post-content
@@ -1606,7 +1613,7 @@ small {
 }
 
 /* Mobile adjustments */
-@media (width <= 720px) {
+@media (max-width: 720px) {
   .back-to-top {
     bottom: 20px;
     height: 44px;
@@ -2356,7 +2363,7 @@ body.homepage {
 }
 
 /* Center main content on homepage (no sidebar) */
-@media (width > 960px) {
+@media (min-width: 961px) {
   body.homepage main {
     margin-left: auto;
     margin-right: auto;
