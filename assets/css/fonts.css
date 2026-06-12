@@ -1,3 +1,57 @@
+/* Arvo — self-hosted (replaces the external Google Fonts CDN).
+ *
+ * Arvo is used for all headings (h1–h6) via _sass/jekyll-theme-dinky.scss.
+ * Four discrete files (normal/italic × 400/700); Arvo has no variable-font
+ * woff2 so each weight/style is a separate download.
+ * Files sourced from the Google Fonts css2 endpoint; latin only. */
+@font-face {
+  font-family: Arvo;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/arvo/arvo-latin-regular.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Arvo;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/arvo/arvo-latin-bold.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Arvo;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/arvo/arvo-latin-italic.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Arvo;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/arvo/arvo-latin-bold-italic.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
 /* Open Sans — self-hosted (replaces the external Google Fonts CDN).
  *
  * Open Sans v44 ships as a single variable woff2 per subset that covers the
