@@ -300,13 +300,6 @@ header a:hover {
 /* Post content link styling (color, hover, visited) is handled by the base
    `a` rules above; .post-content only adds the external-link indicator. */
 
-/* Underline prose links so color is not the only visual cue (WCAG 1.4.1) */
-.post-content a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
 /* External links indicator */
 .post-content
   a[href^='http']:not(
