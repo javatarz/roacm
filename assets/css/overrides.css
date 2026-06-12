@@ -2237,6 +2237,7 @@ small {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
+
 /* --- Theme Toggle Accessibility Focus (#271) --- */
 .theme-toggle:focus {
   outline: 2px solid var(--accent-color);
