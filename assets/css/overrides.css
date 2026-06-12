@@ -72,6 +72,10 @@
   background: var(--card-bg);
 }
 
+[data-theme='dark'] td code {
+  background: var(--code-bg);
+}
+
 /* Apply theme colors to body and main elements */
 body {
   background-color: var(--bg-primary);
@@ -587,7 +591,8 @@ pre code {
 
 /* Inline code */
 p code,
-li code {
+li code,
+td code {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 3px;
