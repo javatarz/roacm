@@ -2237,7 +2237,21 @@ small {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
+/* --- Theme Toggle Accessibility Focus (#271) --- */
+.theme-toggle:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
 
+.theme-toggle:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 /* --- Hamburger Icon Lines --- */
 .hamburger-menu .hamburger-line {
   background: var(--text-primary) !important;
