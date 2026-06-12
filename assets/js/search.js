@@ -40,12 +40,12 @@
     searchInput.setAttribute('aria-haspopup', 'listbox');
     searchInput.setAttribute('aria-autocomplete', 'list');
 
-    // Load search data
-    loadSearchData();
-
     // Event listeners
     searchInput.addEventListener('input', debounce(handleSearch, 200));
     searchInput.addEventListener('focus', function () {
+      if (!searchData) {
+        loadSearchData();
+      }
       if (searchInput.value.trim().length >= 2) {
         showResults();
       }
