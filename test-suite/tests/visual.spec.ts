@@ -60,6 +60,7 @@ const tier2Pages: PageDef[] = [
   { name: 'about', path: '/about/' },
   { name: 'talks', path: '/talks/' },
   { name: 'blog-post', path: '/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/' },
+  { name: 'blog-post-series', path: '/blog/2026/05/21/the-comfort-plateau-ai-built-for-you/' },
 ];
 
 // Tier 3: Secondary pages
