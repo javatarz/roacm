@@ -3,9 +3,10 @@
   Displays the latest post (or one with featured: true) as a hero section
 {% endcomment %}
 
-{% assign featured = site.posts | where: "featured", true | first %}
+{% assign published_posts = site.posts | where_exp: "post", "post.published != false" %}
+{% assign featured = published_posts | where: "featured", true | first %}
 {% unless featured %}
-  {% assign featured = site.posts.first %}
+  {% assign featured = published_posts.first %}
 {% endunless %}
 
 <section class="featured-post" aria-labelledby="featured-heading">

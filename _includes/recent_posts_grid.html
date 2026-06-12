@@ -16,7 +16,8 @@
   </div>
 
   <div class="recent-posts-grid">
-    {% for post in site.posts offset:skip_count limit:recent_count %}
+    {% assign published_posts = site.posts | where_exp: "post", "post.published != false" %}
+    {% for post in published_posts offset:skip_count limit:recent_count %}
       {% include post_card.html post=post %}
     {% endfor %}
   </div>

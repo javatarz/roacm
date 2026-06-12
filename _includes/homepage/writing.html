@@ -10,7 +10,8 @@
   </div>
 
   <div class="homepage-cards-grid">
-    {% for post in site.posts limit:3 %}
+    {% assign published_posts = site.posts | where_exp: "post", "post.published != false" %}
+    {% for post in published_posts limit:3 %}
     <a href="{{ post.url | relative_url }}" class="homepage-card">
       <h3 class="homepage-card-title">{{ post.title }}</h3>
       <div class="homepage-card-meta">

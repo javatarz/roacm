@@ -6,11 +6,12 @@
 
 {% assign max_related = 3 %}
 {% assign related_posts = "" | split: "" %}
+{% assign all_published = site.posts | where_exp: "post", "post.published != false" %}
 
 {% comment %} Step 1: Find posts in the same primary category {% endcomment %}
 {% if page.categories.size > 0 %}
   {% assign primary_category = page.categories | first %}
-  {% for post in site.posts %}
+  {% for post in all_published %}
     {% if post.url != page.url and related_posts.size < max_related %}
       {% if post.categories contains primary_category %}
         {% assign related_posts = related_posts | push: post %}
@@ -21,7 +22,7 @@
 
 {% comment %} Step 2: If we need more, find posts with shared tags {% endcomment %}
 {% if related_posts.size < max_related and page.tags.size > 0 %}
-  {% for post in site.posts %}
+  {% for post in all_published %}
     {% if post.url != page.url and related_posts.size < max_related %}
       {% unless related_posts contains post %}
         {% for tag in page.tags %}
@@ -37,7 +38,7 @@
 
 {% comment %} Step 3: If still need more, add recent posts {% endcomment %}
 {% if related_posts.size < max_related %}
-  {% for post in site.posts limit:10 %}
+  {% for post in all_published limit:10 %}
     {% if post.url != page.url and related_posts.size < max_related %}
       {% unless related_posts contains post %}
         {% assign related_posts = related_posts | push: post %}
