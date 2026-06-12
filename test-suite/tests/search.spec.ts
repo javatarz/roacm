@@ -121,6 +121,20 @@ test.describe('Search Functionality', () => {
     await expect(searchInput).not.toBeFocused();
   });
 
+  test('search results are within viewport on mobile (390px)', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/blog/');
+
+    const searchInput = page.locator('#search-input');
+    await searchInput.fill('code');
+    await page.waitForSelector('.search-results.visible', { timeout: 5000 });
+
+    const box = await page.locator('.search-results').boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y).toBeGreaterThanOrEqual(0);
+    expect(box!.y).toBeLessThan(844);
+  });
+
   test('lunr.js library loads correctly', async ({ page }) => {
     // Verify lunr is available globally
     const lunrAvailable = await page.evaluate(() => {

@@ -2120,7 +2120,7 @@ small {
   .search-results {
     left: 16px;
     right: 16px;
-    top: auto;
+    top: 180px;
     width: auto;
   }
 
