@@ -49,10 +49,10 @@ for arg in "$@"; do
 done
 
 # Check if Jekyll is already running on the specified port
-if lsof -i :$PORT >/dev/null 2>&1; then
+if "$(dirname "$0")/scripts/server-status.sh" "$PORT" >/dev/null 2>&1; then
     if [ "$KILL_EXISTING" = true ]; then
         echo "Killing existing server on port $PORT..."
-        lsof -ti:$PORT | xargs kill 2>/dev/null || true
+        lsof -ti:"$PORT" | xargs kill 2>/dev/null || true
         sleep 1
     else
         echo "Jekyll is already running on port $PORT."

@@ -21,6 +21,7 @@ All commands are available via `just`. Run `just --list` to see all options.
 
 ```bash
 just run              # Start dev server (~1s startup)
+just status           # Check if dev server is running (exit 0=running, 1=not)
 just test             # Run all tests (lint + e2e)
 just lint             # Run all linters
 just preflight        # Full validation before release
@@ -101,7 +102,11 @@ just run                    # Start with defaults
 just run --all-posts        # Include all posts (slower)
 just run --port 4001        # Custom port (for worktrees)
 just run-docker             # Use Docker (slower, but isolated)
+just status                 # Check if server is running on port 4000
+just status 4001            # Check a specific port
 ```
+
+Use `just status` before starting the server to avoid conflicts. Exit code 0 = running, 1 = not running.
 
 Server runs at http://localhost:4000 (main) or custom port for worktrees with live reload.
 

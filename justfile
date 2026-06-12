@@ -13,6 +13,9 @@ default:
 run *args:
     ./local_run_native.sh {{args}}
 
+# Check if the dev server is running
+status port="4000":
+    @./scripts/server-status.sh {{port}}
 
 # One-time project setup
 setup:
