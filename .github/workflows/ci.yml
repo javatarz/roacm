@@ -43,8 +43,8 @@ jobs:
     outputs:
       theme: ${{ github.event_name == 'schedule' && 'true' || steps.filter.outputs.theme }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: dorny/paths-filter@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4
         if: github.event_name != 'schedule'
         id: filter
         with:
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     needs: changes
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -87,7 +87,7 @@ jobs:
 
       - name: Restore image optimization cache
         id: image-cache
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: _site/assets/images/
           key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
@@ -100,7 +100,7 @@ jobs:
         run: npm run images:optimize
 
       - name: Upload site artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: built-site
           path: _site/
@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     needs: build
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -123,13 +123,13 @@ jobs:
           include-ruby: 'true'
 
       - name: Download site artifact
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: built-site
           path: _site/
 
       - name: Restore image optimization cache
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: _site/assets/images/
           key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
@@ -173,7 +173,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -227,7 +227,7 @@ jobs:
             grep: '@visual'
             grep_invert: 'Tier [12]'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -250,7 +250,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: playwright-report-${{ matrix.label }}
           path: test-suite/reports/playwright-html
@@ -260,7 +260,7 @@ jobs:
       # changed (then run `npm run snapshots` locally to accept it).
       - name: Upload screenshots on failure
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: playwright-screenshots-${{ matrix.label }}
           path: test-suite/reports/playwright-results/**/*.png
@@ -273,7 +273,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -287,7 +287,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: functional-e2e-report
           path: test-suite/reports/playwright-html
@@ -299,7 +299,7 @@ jobs:
     needs: [changes, build]
     if: needs.changes.outputs.theme == 'true' && needs.build.result == 'success'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -311,7 +311,7 @@ jobs:
         run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -name 'headless_shell' | head -1)" >> $GITHUB_ENV
 
       - name: Download site artifact
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: built-site
           path: _site/
@@ -323,7 +323,7 @@ jobs:
 
       - name: Upload Lighthouse Report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: lighthouse-report
           path: test-suite/reports/lighthouse
@@ -331,7 +331,7 @@ jobs:
 
       - name: Comment PR with Lighthouse Results
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const fs = require('fs');
@@ -379,7 +379,7 @@ jobs:
         needs.performance-tests.result == 'success'))
     steps:
       - name: Download site artifact
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: built-site
           path: _site/
@@ -423,7 +423,7 @@ jobs:
       github.event_name != 'pull_request' &&
       needs.build-and-deploy.result == 'success'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 1
 
@@ -561,12 +561,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: '20'
           cache: 'npm'

@@ -27,7 +27,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Node.js
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'npm'
@@ -43,14 +43,14 @@ runs:
 
     - name: Setup Ruby
       if: inputs.include-ruby == 'true'
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@89f90524b88a01fe6e0b732220432cc6142926af # v1.313.0
       with:
         ruby-version: ${{ inputs.ruby-version }}
         bundler-cache: true
 
     - name: Cache Jekyll build
       if: inputs.include-ruby == 'true'
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
       with:
         path: |
           .jekyll-cache
@@ -62,7 +62,7 @@ runs:
     - name: Cache Playwright Browsers
       if: inputs.playwright-browser != ''
       id: playwright-cache
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
       with:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
