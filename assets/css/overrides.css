@@ -692,7 +692,7 @@ article h1 a:hover {
 
 /* Blog post title - match homepage styling */
 .entry-title {
-  font-weight: 200;
+  font-weight: 700;
   margin-top: -20px; /* Reduce offset on category pages */
 }
 
@@ -770,7 +770,7 @@ footer {
   color: var(--text-primary);
 }
 
-footer h3 {
+footer h2 {
   color: var(--accent-color);
   font-weight: 400;
 }
@@ -904,7 +904,7 @@ blockquote p:last-child {
   min-width: 200px;
 }
 
-.metadata-section h4 {
+.metadata-section h3 {
   color: var(--text-secondary);
   font-size: 12px;
   font-weight: 600;
@@ -1558,7 +1558,7 @@ small {
 
 /* Responsive sidebar typography for limited vertical space */
 @media (height <= 1080px) {
-  footer h3 {
+  footer h2 {
     font-size: 16px;
     margin-bottom: 8px;
   }
@@ -1576,7 +1576,7 @@ small {
 
 /* More aggressive scaling for very limited space */
 @media (height <= 900px) {
-  footer h3 {
+  footer h2 {
     font-size: 15px;
     margin-bottom: 6px;
   }
@@ -1594,7 +1594,7 @@ small {
 
 /* Extreme case - ensure minimum usability */
 @media (height <= 800px) {
-  footer h3 {
+  footer h2 {
     font-size: 14px;
     margin-bottom: 5px;
   }
