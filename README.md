@@ -20,16 +20,9 @@ See [docs/context/DEVELOPMENT.md](docs/context/DEVELOPMENT.md) for detailed docu
 ```bash
 just run              # Start dev server (~1s startup)
 just test             # Run all tests (lint + e2e)
+just verify           # Full suite in Docker (same as pre-push hook)
 just lint             # Run all linters
+just snapshots        # Regenerate visual snapshots (Linux arm64 via Docker)
+just snapshots-failed # Re-run only previously failed snapshot tests
 just new-post "Title" # Create a new blog post
-```
-
-### Without `just`
-
-If you prefer not to install `just`, you can use the underlying scripts directly:
-
-```bash
-./local_run_native.sh              # Start dev server
-npm test                           # Run all tests
-./scripts/new-post.sh "Title"      # Create a new blog post
 ```

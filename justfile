@@ -53,6 +53,14 @@ test-lighthouse:
 verify:
     npm run verify
 
+# Regenerate visual snapshots (Linux arm64 via Docker)
+snapshots:
+    npm run snapshots
+
+# Re-run only previously failed snapshot tests
+snapshots-failed:
+    npm run snapshots:failed
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Linting
 # ─────────────────────────────────────────────────────────────────────────────
