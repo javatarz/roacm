@@ -125,6 +125,10 @@ test.describe('Search Functionality', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/blog/');
 
+    // On mobile the search input lives inside the off-canvas drawer; open it first
+    await page.locator('#hamburger-menu').click();
+    await page.waitForSelector('header.is-open', { timeout: 2000 });
+
     const searchInput = page.locator('#search-input');
     await searchInput.fill('code');
     await page.waitForSelector('.search-results.visible', { timeout: 5000 });
