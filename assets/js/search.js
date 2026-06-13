@@ -30,6 +30,18 @@
       return;
     }
 
+    // Swap shortcut badge to Ctrl K on non-Mac platforms
+    const shortcut = document.getElementById('search-shortcut');
+    if (shortcut) {
+      const platform =
+        (navigator.userAgentData && navigator.userAgentData.platform) ||
+        navigator.platform ||
+        '';
+      if (!platform.toLowerCase().includes('mac')) {
+        shortcut.textContent = 'Ctrl K';
+      }
+    }
+
     // Create results and overlay elements in body
     createSearchElements();
 
