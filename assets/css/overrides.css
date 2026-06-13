@@ -2367,7 +2367,7 @@ small {
     visibility: visible;
     width: 195px;
     padding-left: 25px;
-    padding-right: 0; /* Dinky's max-width:960px query sets padding-right:320px; reset it */
+    padding-right: 20px; /* Clamp Dinky's 320px right-padding leak at 720-960px down to 20px */
   }
 
   /* Main content takes full width */
