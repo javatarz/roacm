@@ -142,6 +142,21 @@ npm run snapshots:targeted -- --verify  # compare only (no update)
 npm run snapshots:targeted -- --dry-run # show what would run without running
 ```
 
+#### Regen only failed snapshots (after a blocked push)
+
+When the pre-push hook blocks with snapshot failures, Playwright writes the
+failed test IDs to `test-results/.last-run.json`. Use `--last-failed` to regen
+only those tests across all three browsers:
+
+```bash
+npm run snapshots:failed
+```
+
+This reads `.last-run.json` (written by the Docker container to the mounted
+working dir) and skips every test that passed. Fastest when the diff is small
+but `snapshots:targeted` over-targets (e.g. global CSS change that only broke
+one page in practice).
+
 Typical wall-clock times (warm Colima VM, 3 browsers in parallel):
 
 | Change type     | Tests/browser      | Wall-clock |
