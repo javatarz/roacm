@@ -229,6 +229,41 @@ Lighthouse CI enforces minimum score thresholds that **block builds** if violate
 - #101 - Improve Lighthouse scores
 - #137 - Improve accessibility score from 0.93 to 0.94+
 
+## Production Rollback
+
+### Auto-Rollback (automatic)
+
+If the post-deploy smoke test fails, the pipeline automatically:
+
+1. Downloads the `built-site` artifact from the last successful pipeline run
+2. Syncs it to S3 (replacing the bad deploy)
+3. Purges Cloudflare cache
+4. Verifies homepage + feed return HTTP 200
+5. Fails the pipeline so the bad commit gets flagged
+
+Self-heals in ~1–2 min without human intervention. The bad commit remains on `main` — investigate and fix in a follow-up commit.
+
+### Manual Rollback
+
+Use `gh run rerun` to redeploy an older artifact without rebuilding:
+
+```bash
+# 1. Find the run you want to roll back to
+gh run list --branch main --workflow ci.yml --limit 20
+
+# 2. Get the job ID for build-and-deploy in that run
+gh run view <run-id> --json jobs --jq '.jobs[] | select(.name | contains("Build and Deploy")) | {id: .databaseId, name: .name}'
+
+# 3. Re-run that specific job (downloads the original built-site artifact, re-deploys)
+gh run rerun <run-id> --job <job-id>
+```
+
+**Constraints:**
+
+- Window: GitHub only permits re-runs within **30 days** of the original run
+- Artifacts: `built-site` artifacts are retained for 30 days — same window
+- The `devto-publish` job re-runs as a dependent but its tracking file (`.devto-posts.json`) makes it a no-op — safe
+
 ## Architecture Patterns
 
 ### Dark Mode Implementation
