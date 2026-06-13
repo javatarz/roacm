@@ -1521,23 +1521,6 @@ blockquote p:last-child {
   margin: 0;
 }
 
-.author-social {
-  align-items: center;
-  display: flex;
-  gap: 12px;
-}
-
-.author-social a {
-  align-items: center;
-  color: var(--text-secondary);
-  display: flex;
-  transition: color 0.2s ease;
-}
-
-.author-social a:hover {
-  color: var(--accent-color);
-}
-
 /* Mobile: stack vertically */
 @media (max-width: 480px) {
   .author-bio {
@@ -1547,10 +1530,6 @@ blockquote p:last-child {
 
   .author-avatar {
     margin: 0 auto;
-  }
-
-  .author-social {
-    justify-content: center;
   }
 }
 
