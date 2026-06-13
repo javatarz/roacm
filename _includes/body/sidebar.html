@@ -3,4 +3,11 @@
   <h1 class="header"><a href="{{ "/blog/" | site.relative_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
   <p class="header">{% assign subtitle = site.subtitle | default: site.github.project_tagline %}{% if subtitle contains 'Scale' %}{{ subtitle | replace: 'Scale', '<span style="color: var(--sidebar-accent-color)">Scale</span>' }}{% else %}{{ subtitle }}{% endif %}</p>
   {% include search.html %}
+  <nav class="sidebar-nav" aria-label="Site navigation">
+    <ul>
+      <li><a href="{{ "/blog/" | relative_url }}"{% if page.url contains '/blog/' or page.layout == 'post' %} class="active" aria-current="page"{% endif %}>Writing</a></li>
+      <li><a href="{{ "/talks/" | relative_url }}"{% if page.url contains '/talks/' %} class="active" aria-current="page"{% endif %}>Talks</a></li>
+      <li><a href="{{ "/about/" | relative_url }}"{% if page.url contains '/about/' %} class="active" aria-current="page"{% endif %}>About</a></li>
+    </ul>
+  </nav>
 </header>

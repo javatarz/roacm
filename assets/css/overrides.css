@@ -317,6 +317,51 @@ header a:hover {
   color: #ffffff;
 }
 
+/* Sidebar navigation */
+.sidebar-nav {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li,
+.sidebar-nav li:hover {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.sidebar-nav a {
+  color: #cccccc;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 8px 0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  color: #ffffff;
+}
+
+.sidebar-nav a.active {
+  color: var(--sidebar-accent-color);
+}
+
 /* Post content link styling (color, hover, visited) is handled by the base
    `a` rules above; .post-content only adds the external-link indicator. */
 
@@ -2363,6 +2408,11 @@ small {
   /* Hide backdrop on desktop */
   .sidebar-backdrop {
     display: none !important;
+  }
+
+  /* Nav links only needed in mobile drawer; desktop has footer nav */
+  .sidebar-nav {
+    display: none;
   }
 }
 
