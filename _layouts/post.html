@@ -109,12 +109,20 @@ layout: default
 </nav>
 {% endif %}
 
+{% assign updated_date = page.updated | default: page.last_modified_at %}
+{% assign pub_ts = page.date | date: "%s" | plus: 0 %}
+{% assign mod_ts = updated_date | date: "%s" | plus: 0 %}
+{% assign diff_days = mod_ts | minus: pub_ts | divided_by: 86400 %}
+{% assign show_dates = false %}{% if updated_date and diff_days > 7 %}{% assign show_dates = true %}{% endif %}
+
+{% if page.categories.size > 0 or page.tags.size > 0 or show_dates %}
 <div class="post-metadata">
+  {% if show_dates %}
   <div class="metadata-section">
     <h3>Published</h3>
     <div class="metadata-content">{% include post/date.html %}</div>
   </div>
-
+  {% endif %}
   {% if page.categories.size > 0 %}
   <div class="metadata-section">
     <h3>Categories</h3>
@@ -131,6 +139,7 @@ layout: default
   </div>
   {% endif %}
 </div>
+{% endif %}
 
 {% include share_buttons.html %}
 

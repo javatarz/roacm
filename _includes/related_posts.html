@@ -2,20 +2,36 @@
   Related Posts Component
   Shows up to 3 related posts based on shared categories/tags
   Algorithm: Same category first, then shared tags, excludes current post
+  Excludes posts already linked by series_nav or post-navigation to avoid triple-linking
 {% endcomment %}
 
 {% assign max_related = 3 %}
 {% assign related_posts = "" | split: "" %}
 {% assign all_published = site.posts | where_exp: "post", "post.published != false" %}
 
+{% comment %} Collect URLs already surfaced by series_nav and post-navigation {% endcomment %}
+{% assign already_linked = "" | split: "" %}
+{% if page.series %}
+  {% assign series_posts_check = all_published | where: "series", page.series %}
+  {% for sp in series_posts_check %}
+    {% unless sp.url == page.url %}
+      {% assign already_linked = already_linked | push: sp.url %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+{% if page.previous %}{% assign already_linked = already_linked | push: page.previous.url %}{% endif %}
+{% if page.next %}{% assign already_linked = already_linked | push: page.next.url %}{% endif %}
+
 {% comment %} Step 1: Find posts in the same primary category {% endcomment %}
 {% if page.categories.size > 0 %}
   {% assign primary_category = page.categories | first %}
   {% for post in all_published %}
     {% if post.url != page.url and related_posts.size < max_related %}
-      {% if post.categories contains primary_category %}
-        {% assign related_posts = related_posts | push: post %}
-      {% endif %}
+      {% unless already_linked contains post.url %}
+        {% if post.categories contains primary_category %}
+          {% assign related_posts = related_posts | push: post %}
+        {% endif %}
+      {% endunless %}
     {% endif %}
   {% endfor %}
 {% endif %}
@@ -24,7 +40,7 @@
 {% if related_posts.size < max_related and page.tags.size > 0 %}
   {% for post in all_published %}
     {% if post.url != page.url and related_posts.size < max_related %}
-      {% unless related_posts contains post %}
+      {% unless related_posts contains post or already_linked contains post.url %}
         {% for tag in page.tags %}
           {% if post.tags contains tag and related_posts.size < max_related %}
             {% assign related_posts = related_posts | push: post %}
@@ -40,7 +56,7 @@
 {% if related_posts.size < max_related %}
   {% for post in all_published limit:10 %}
     {% if post.url != page.url and related_posts.size < max_related %}
-      {% unless related_posts contains post %}
+      {% unless related_posts contains post or already_linked contains post.url %}
         {% assign related_posts = related_posts | push: post %}
       {% endunless %}
     {% endif %}
