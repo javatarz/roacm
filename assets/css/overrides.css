@@ -3178,3 +3178,77 @@ body.homepage {
 .series-group-link:hover {
   color: var(--accent-color);
 }
+
+/* ==========================================================================
+   Print styles
+   Force light tokens regardless of active theme; hide chrome; fix code blocks
+   ========================================================================== */
+@media print {
+  /* Force light theme tokens so dark-mode visitors don't print white-on-white */
+  html {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #222222;
+    --text-secondary: #595959;
+    --border-color: #cccccc;
+    --card-bg: #ffffff;
+    --card-border: #cccccc;
+    --accent-color: #a00000;
+    --code-bg: #f5f5f5;
+    --code-text: #222222;
+  }
+
+  /* Remove data-theme so dark overrides don't win the cascade */
+  html[data-theme] {
+    background: #ffffff;
+    color: #222222;
+  }
+
+  /* Hide non-content chrome */
+  #mobile-sidebar,
+  .theme-toggle,
+  .hamburger-menu,
+  .skip-link,
+  .search-container,
+  .search-results,
+  .search-overlay,
+  .back-to-top,
+  .reading-progress-bar,
+  .share-buttons,
+  .toc-container,
+  .toc-nav,
+  .giscus,
+  .series-nav,
+  footer {
+    display: none !important;
+  }
+
+  /* Code blocks: browsers strip backgrounds — add border + force readable text */
+  pre,
+  code {
+    background: #f5f5f5 !important;
+    color: #222222 !important;
+    border: 1px solid #cccccc;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    page-break-inside: avoid;
+  }
+
+  /* Avoid breaking headings and cards across pages */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+  }
+
+  a {
+    color: #a00000;
+    text-decoration: underline;
+  }
+}
