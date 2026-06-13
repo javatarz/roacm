@@ -153,7 +153,6 @@ b a {
 a:hover,
 a:focus {
   color: var(--accent-color);
-  opacity: 0.85;
 }
 
 /* ==========================================================================
@@ -373,7 +372,6 @@ header a:hover {
   )::after {
   content: ' ↗';
   font-size: 0.8em;
-  opacity: 0.6;
 }
 
 /* Link focus for accessibility */
@@ -694,7 +692,7 @@ td code {
 }
 
 .copy-code-btn.copied {
-  background: #28a745;
+  background: #15803d;
 }
 
 /* Improved spacing for homepage */
@@ -1157,8 +1155,8 @@ blockquote p:last-child {
 [data-theme='dark'] .share-buttons .share-btn-copy.copied,
 .share-buttons .share-btn-copy.copied:hover,
 [data-theme='dark'] .share-buttons .share-btn-copy.copied:hover {
-  border-color: #22c55e !important;
-  color: #22c55e !important;
+  border-color: #15803d !important;
+  color: #15803d !important;
 }
 
 /* ==========================================================================
@@ -2132,14 +2130,13 @@ small {
 .search-result-date {
   color: var(--text-secondary);
   font-size: 11px;
-  opacity: 0.7;
 }
 
 .search-result-item mark {
-  background: rgb(195, 0, 0, 0.2);
-  border-radius: 2px;
+  background: transparent;
   color: var(--accent-color);
-  padding: 0 2px;
+  font-weight: 600;
+  padding: 0;
 }
 
 .search-no-results,
@@ -2513,7 +2510,7 @@ body.homepage {
 }
 
 .upcoming-ribbon {
-  background: linear-gradient(to bottom, #e53935, #b71c1c);
+  background: linear-gradient(to bottom, #c62828, #8d0000);
   box-shadow: 0 2px 6px rgb(0, 0, 0, 0.35);
   color: #ffffff;
   font-size: 10px;
@@ -2531,7 +2528,7 @@ body.homepage {
 }
 
 [data-theme='dark'] .upcoming-ribbon {
-  background: linear-gradient(to bottom, #ef5350, #c62828);
+  background: linear-gradient(to bottom, #c62828, #8d0000);
 }
 
 .homepage-card:hover {
@@ -2774,7 +2771,7 @@ body.homepage {
 
 .talk-badge-podcast {
   background: rgb(46, 125, 50, 0.15);
-  color: #2e7d32;
+  color: #1b5e20;
 }
 
 [data-theme='dark'] .talk-badge-panel {
@@ -2790,7 +2787,7 @@ body.homepage {
 /* Format badges (muted tints) */
 .talk-badge-talk {
   background: rgb(0, 131, 143, 0.15);
-  color: #00838f;
+  color: #006064;
 }
 
 .talk-badge-bof {
