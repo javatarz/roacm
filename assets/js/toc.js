@@ -138,13 +138,19 @@ document.addEventListener('DOMContentLoaded', function () {
       const targetId = this.getAttribute('href').slice(1);
       const target = document.getElementById(targetId);
       if (target) {
+        const prefersReducedMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches;
         const offset = target.offsetTop - 20;
         window.scrollTo({
           top: offset,
-          behavior: 'smooth',
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
         });
         // Update URL without jumping
         history.pushState(null, '', '#' + targetId);
+        // Move focus to the target heading so Tab resumes from chosen section
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
       }
     });
   });

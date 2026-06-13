@@ -31,9 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Scroll to top on click
   button.addEventListener('click', function () {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
     });
   });
 });
