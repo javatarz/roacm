@@ -227,10 +227,26 @@ h3 {
 }
 
 h4 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
   line-height: 1.5;
   margin: 24px 0 12px;
+}
+
+h5 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 20px 0 10px;
+}
+
+h6 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
 }
 
 /* First heading in post has less top margin */
@@ -1296,7 +1312,7 @@ blockquote p:last-child {
 
 .section-header h2 {
   color: var(--text-primary);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
   margin: 0;
 }
@@ -3006,7 +3022,7 @@ body.homepage {
 
 .series-nav-title {
   color: var(--text-primary);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
 }
