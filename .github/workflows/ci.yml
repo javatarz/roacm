@@ -217,16 +217,17 @@ jobs:
             grep: '@visual'
             grep_invert: ''
           # webkit split into two parallel shards by tier to halve execution time.
-          # Shard 1: visual tiers 1+2 (~30 tests). Shard 2: tier 3 + theme + mobile-menu (~29 tests).
+          # Shard 1: Tier 1+3 (short pages: homepage, blog-index, archive, category, tag, 404 — ~30 tests).
+          # Shard 2: Tier 2 + theme + mobile-menu (heavy blog posts, about, talks — ~35 tests).
           # Grep-based rather than --shard because Playwright's file-based shard gives 54:5 distribution.
           - browser: webkit
             label: webkit-1
-            grep: '(Tier 1|Tier 2).*@visual'
+            grep: 'Tier [13].*@visual'
             grep_invert: ''
           - browser: webkit
             label: webkit-2
             grep: '@visual'
-            grep_invert: 'Tier [12]'
+            grep_invert: 'Tier [13]'
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
