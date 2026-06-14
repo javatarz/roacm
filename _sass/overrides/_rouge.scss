@@ -471,7 +471,7 @@ blockquote p:last-child {
 }
 
 /* Mobile: stack vertically */
-@media (width <= 600px) {
+@media (width <= $bp-mobile) {
   .post-navigation {
     grid-template-columns: 1fr;
   }

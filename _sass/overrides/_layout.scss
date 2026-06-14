@@ -18,7 +18,7 @@ article {
 }
 
 /* Desktop fluid layout - only above mobile breakpoint */
-@media (width >= 961px) {
+@media (width >= $bp-desktop) {
   .wrapper {
     margin: 0;
     max-width: none;
@@ -147,7 +147,7 @@ header a:hover {
 .sidebar-logo {
   color: var(--sidebar-accent-color);
   display: block;
-  font-family: 'Fira Code', Monaco, Consolas, monospace;
+  font-family: -mono;
   font-size: 24px;
   font-weight: 400;
   margin-bottom: 8px;

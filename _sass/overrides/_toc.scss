@@ -165,7 +165,7 @@
 }
 
 /* Mobile adjustments */
-@media (width <= 600px) {
+@media (width <= $bp-mobile) {
   .toc-nav {
     padding: 14px 16px;
   }

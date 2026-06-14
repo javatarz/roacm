@@ -200,7 +200,7 @@
 }
 
 /* Responsive: Tablet (2 columns) */
-@media (width <= 900px) {
+@media (width <= $bp-tablet) {
   .recent-posts-grid,
   .category-posts-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -208,7 +208,7 @@
 }
 
 /* Responsive: Mobile (1 column) */
-@media (width <= 600px) {
+@media (width <= $bp-mobile) {
   .recent-posts-grid,
   .category-posts-grid {
     grid-template-columns: 1fr;

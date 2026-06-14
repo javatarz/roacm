@@ -299,7 +299,7 @@ small {
 }
 
 /* Mobile adjustments for 404 page */
-@media (width <= 600px) {
+@media (width <= $bp-mobile) {
   .error-header {
     flex-direction: column;
     gap: 16px;

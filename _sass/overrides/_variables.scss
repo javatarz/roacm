@@ -1,4 +1,10 @@
 
+// SCSS compile-time variables (expand at compile time, not runtime)
+$bp-mobile:  600px;
+$bp-tablet:  900px;
+$bp-desktop: 961px;
+$font-mono:  'Fira Code', Monaco, Consolas, monospace;
+
 /* CSS Variables for theming - ROACM Theme */
 :root {
   --bg-primary: #ffffff;
