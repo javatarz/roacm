@@ -60,55 +60,36 @@
   text-transform: uppercase;
 }
 
+@mixin talk-badge-colors($r, $g, $b, $light, $dark) {
+  background: rgb($r, $g, $b, 0.15);
+  color: $light;
+
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
+  [data-theme='dark'] & {
+    background: rgb($r, $g, $b, 0.3);
+    color: $dark;
+  }
+}
+
 .talk-badge-panel {
-  background: rgb(103, 58, 183, 0.15);
-  color: #673ab7;
+  @include talk-badge-colors(103, 58, 183, #673ab7, #b39ddb);
 }
 
 .talk-badge-podcast {
-  background: rgb(46, 125, 50, 0.15);
-  color: #1b5e20;
-}
-
-[data-theme='dark'] .talk-badge-panel {
-  background: rgb(103, 58, 183, 0.3);
-  color: #b39ddb;
-}
-
-[data-theme='dark'] .talk-badge-podcast {
-  background: rgb(46, 125, 50, 0.3);
-  color: #a5d6a7;
+  @include talk-badge-colors(46, 125, 50, #1b5e20, #a5d6a7);
 }
 
 /* Format badges (muted tints) */
 .talk-badge-talk {
-  background: rgb(0, 131, 143, 0.15);
-  color: #006064;
+  @include talk-badge-colors(0, 131, 143, #006064, #80deea);
 }
 
 .talk-badge-bof {
-  background: rgb(103, 58, 183, 0.15);
-  color: #673ab7;
+  @include talk-badge-colors(103, 58, 183, #673ab7, #b39ddb);
 }
 
 .talk-badge-workshop {
-  background: rgb(25, 118, 210, 0.15);
-  color: #1565c0;
-}
-
-[data-theme='dark'] .talk-badge-talk {
-  background: rgb(0, 131, 143, 0.3);
-  color: #80deea;
-}
-
-[data-theme='dark'] .talk-badge-bof {
-  background: rgb(103, 58, 183, 0.3);
-  color: #b39ddb;
-}
-
-[data-theme='dark'] .talk-badge-workshop {
-  background: rgb(25, 118, 210, 0.3);
-  color: #90caf9;
+  @include talk-badge-colors(25, 118, 210, #1565c0, #90caf9);
 }
 
 /* Recording axis - carries the accent colour (the signal that matters) */
