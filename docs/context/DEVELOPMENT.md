@@ -101,7 +101,6 @@ just worktree-cleanup # Interactive cleanup of old worktrees
 just run                    # Start with defaults
 just run --all-posts        # Include all posts (slower)
 just run --port 4001        # Custom port (for worktrees)
-just run-docker             # Use Docker (slower, but isolated)
 just status                 # Check if server is running on port 4000
 just status 4001            # Check a specific port
 ```
@@ -120,15 +119,8 @@ When adding or removing gems:
 2. **Regenerate lockfiles** - CI will fail if lockfiles don't match Gemfiles:
 
    ```bash
-   # With native Ruby (if Ruby 3.2 installed):
    BUNDLE_GEMFILE=Gemfile bundle lock --update
    BUNDLE_GEMFILE=Gemfile.dev bundle lock --update
-
-   # Or with Docker:
-   docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
-     -e BUNDLE_GEMFILE=Gemfile local-jekyll-dev bundle lock --update
-   docker run --rm -v $(pwd):/srv/jekyll --user $(id -u):$(id -g) \
-     local-jekyll-dev bundle lock --update
    ```
 
 3. Commit both the Gemfile changes AND the lockfile changes together

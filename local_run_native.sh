@@ -2,8 +2,8 @@
 
 set -e
 
-# Native Ruby Jekyll server (faster than Docker)
-# Requires Ruby 3.2 installed via mise, rbenv, or asdf
+# Native Ruby Jekyll server
+# Requires Ruby installed via mise, rbenv, or asdf (version from .ruby-version)
 #
 # Usage: ./local_run_native.sh [options]
 #
