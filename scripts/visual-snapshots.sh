@@ -2,62 +2,30 @@
 #
 # Generate or verify Linux visual-regression snapshots.
 #
-# Linux is the ONLY snapshot baseline — it's the build we deploy, and it's the
-# one platform we can reproduce byte-for-byte both locally and in CI by running
-# Playwright inside a pinned container. This script IS that reproducible path:
-# the dev, the pre-push hook, and CI all call it, so locally-generated baselines
-# match CI exactly. No more "push, wait for CI to fail, download snapshots".
+# Linux is the ONLY snapshot baseline — reproducible because:
+# - CI (ubuntu-24.04-arm): Playwright runs natively. The runner IS the baseline
+#   environment — Ubuntu 24.04 Noble arm64, same packages as the container.
+# - Local (macOS Apple Silicon): Playwright runs inside a pinned
+#   mcr.microsoft.com/playwright container via Colima arm64, so local baselines
+#   match CI byte-for-byte. No more "push, wait for CI to fail, download".
 #
-# Multi-browser invocations (npm run snapshots / npm run snapshots:verify) fan
-# out to parallel Docker containers — one per browser — so wall-clock time equals
-# the slowest single browser (~2 min) rather than their sum (~6 min). Single-browser
-# calls (what CI does per matrix job) run a single container as before.
+# Multi-browser local runs fan out to parallel Docker containers so wall-clock
+# time equals the slowest single browser (~2 min) rather than their sum (~6 min).
 #
 # Usage:
-#   npm run snapshots           # regen all 3 browsers in parallel
-#   npm run snapshots:verify    # verify all 3 browsers in parallel
-#   scripts/visual-snapshots.sh --project=chromium              # one browser (CI path)
-#   scripts/visual-snapshots.sh --project=chromium --project=webkit  # two in parallel
+#   npm run snapshots           # regen all 3 browsers in parallel (local, Docker)
+#   npm run snapshots:verify    # verify all 3 browsers in parallel (local, Docker)
+#   scripts/visual-snapshots.sh --project=chromium --grep=@visual  # CI path (native)
 #
-# Requires: Docker, Ruby/Jekyll, Node (all already used by this repo).
+# Local requires: Docker + Colima pw profile. CI requires: Node + Playwright browsers
+# (installed by setup-deps in the CI job).
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-if ! command -v docker >/dev/null 2>&1; then
-  echo "❌ Docker is required (visual snapshots render in a pinned Playwright container)." >&2
-  exit 1
-fi
-
-# Snapshots are arm64 (CI runs on ubuntu-24.04-arm; see ci.yml). Locally we need
-# a NATIVE arm64 Docker engine — emulating arm64 on an x86_64 VM is slow and can
-# drift. Target a dedicated arm64 Colima profile by its Docker context so a
-# differently-configured default engine is left untouched. In CI the runner is
-# already arm64, so use the default context there.
-DOCKER=(docker)
-if [ -z "${CI:-}" ]; then
-  CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-pw}"
-  if ! docker context inspect "$CTX" >/dev/null 2>&1; then
-    echo "❌ Docker context '$CTX' not found." >&2
-    echo "   One-time setup of a native arm64 engine for snapshots:" >&2
-    echo "     colima start --profile pw --arch aarch64 --cpu 4 --memory 6" >&2
-    echo "   (or point SNAPSHOT_DOCKER_CONTEXT at any native arm64 Docker context)" >&2
-    exit 1
-  fi
-  DOCKER=(docker --context "$CTX")
-fi
-
-# Pin the container to the EXACT Playwright version in node_modules so the
-# browser build — and therefore the pixels — match CI. -noble matches the
-# ubuntu-24.04-arm GitHub runner.
-PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"
-IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
-
-# ── Site build (once, shared across all browser containers) ─────────────────
+# ── Site build (once, shared across all runners/containers) ──────────────────
 # Clean first: dev-server builds use _config_dev.yml (unpublished: true) which
-# can leave behind files for draft/unpublished posts. Jekyll only removes files
-# it owns from the current build, so stale dev-built files would otherwise sneak
-# into the snapshot baseline and diverge from CI (which always builds clean).
+# can leave stale files that diverge from a clean CI build.
 echo "▶ Building site (snapshot overlay: assets served locally, not from prod)..."
 rm -rf _site/
 npm run prebuild:js >/dev/null
@@ -75,18 +43,42 @@ for arg in "$@"; do
   fi
 done
 
-# ── Grep filter ──────────────────────────────────────────────────────────────
-# CI passes --grep=@visual explicitly (one job per browser, visual tests only).
-# Local runs — both regen (npm run snapshots) and verify (pre-push hook) — run
-# ALL tests so snapshot generation covers exactly what the hook verifies: visual
-# snapshots, E2E, and a11y in one pass. Callers can always override with an
-# explicit --grep=X.
+# ── CI: run Playwright natively — no Docker pull overhead ────────────────────
+# ubuntu-24.04-arm IS the baseline environment. Browsers are pre-installed by
+# setup-deps (playwright install --with-deps) before this script runs.
+# STATIC_SERVE=1 tells the playwright config to serve the pre-built _site/.
+if [ -n "${CI:-}" ]; then
+  echo "▶ Running Playwright natively (CI: ubuntu-24.04-arm) ..."
+  exec env STATIC_SERVE=1 PLAYWRIGHT_WORKERS="${PLAYWRIGHT_WORKERS:-1}" \
+    npx playwright test -c test-suite/configs/playwright.config.ts \
+      ${PROJECTS[0]:+--project="${PROJECTS[0]}"} "${OTHER_ARGS[@]}"
+fi
 
-# ── Single browser (or no browser filter): run one container ────────────────
+# ── Local: Docker required ───────────────────────────────────────────────────
+if ! command -v docker >/dev/null 2>&1; then
+  echo "❌ Docker is required locally (snapshots render in a pinned Playwright container)." >&2
+  exit 1
+fi
+
+# Target a dedicated arm64 Colima profile — avoids touching a differently-
+# configured default Docker engine. Emulating arm64 on x86_64 is slow and drifts.
+CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-pw}"
+if ! docker context inspect "$CTX" >/dev/null 2>&1; then
+  echo "❌ Docker context '$CTX' not found." >&2
+  echo "   One-time setup of a native arm64 engine for snapshots:" >&2
+  echo "     colima start --profile pw --arch aarch64 --cpu 4 --memory 6" >&2
+  echo "   (or point SNAPSHOT_DOCKER_CONTEXT at any native arm64 Docker context)" >&2
+  exit 1
+fi
+DOCKER=(docker --context "$CTX")
+
+# Pin to the EXACT Playwright version so browser build — and pixels — match CI.
+PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"
+IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
+
+# ── Single browser (or no browser filter): one container ─────────────────────
 if [ "${#PROJECTS[@]}" -le 1 ]; then
   echo "▶ Running Playwright in ${IMAGE} (${DOCKER[*]}) ..."
-  # --platform linux/arm64: pixels must match the arm64 CI runner. Native on an
-  # arm64 engine (fast); explicit so the right image is always pulled.
   exec "${DOCKER[@]}" run --rm \
     --platform linux/arm64 \
     -v "$PWD":/work -w /work \

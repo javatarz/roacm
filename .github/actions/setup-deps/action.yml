@@ -14,6 +14,10 @@ inputs:
     description: 'Run npm run prebuild:js to copy lunr.min.js'
     required: false
     default: 'false'
+  skip-system-deps:
+    description: 'Skip playwright install-deps (apt-get). Use when the browser binary alone is sufficient and system packages are already present (e.g. Lighthouse headless_shell).'
+    required: false
+    default: 'false'
 
 runs:
   using: 'composite'
@@ -58,14 +62,17 @@ runs:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ inputs.playwright-browser }}-${{ hashFiles('package-lock.json') }}
 
-    - name: Install Playwright (with system deps)
-      if: inputs.playwright-browser != '' && steps.playwright-cache.outputs.cache-hit != 'true'
-      shell: bash
-      run: npx playwright install --with-deps ${{ inputs.playwright-browser }}
-
-    - name: Install Playwright (browsers only) and system deps
-      if: inputs.playwright-browser != '' && steps.playwright-cache.outputs.cache-hit == 'true'
+    - name: Install Playwright browsers
+      if: inputs.playwright-browser != ''
       shell: bash
       run: |
-        npx playwright install-deps ${{ inputs.playwright-browser }}
-        npx playwright install ${{ inputs.playwright-browser }}
+        if [ "${{ inputs.skip-system-deps }}" = "true" ]; then
+          # Binary only — no apt-get. Caller guarantees system deps are present.
+          npx playwright install ${{ inputs.playwright-browser }}
+        elif [ "${{ steps.playwright-cache.outputs.cache-hit }}" = "true" ]; then
+          # Binary cached; still need system packages (fonts, libs) on the runner.
+          npx playwright install-deps ${{ inputs.playwright-browser }}
+          npx playwright install ${{ inputs.playwright-browser }}
+        else
+          npx playwright install --with-deps ${{ inputs.playwright-browser }}
+        fi
