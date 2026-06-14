@@ -5,13 +5,13 @@
 @media print {
   /* Force light theme tokens so dark-mode visitors don't print white-on-white */
   html {
-    --bg-primary: #ffffff;
+    --bg-primary: #{$color-white};
     --bg-secondary: #f5f5f5;
     --text-primary: #222222;
     --text-secondary: #595959;
-    --border-color: #cccccc;
-    --card-bg: #ffffff;
-    --card-border: #cccccc;
+    --border-color: #{$color-gray-muted};
+    --card-bg: #{$color-white};
+    --card-border: #{$color-gray-muted};
     --accent-color: #a00000;
     --code-bg: #f5f5f5;
     --code-text: #222222;
@@ -19,8 +19,8 @@
 
   /* Remove data-theme so dark overrides don't win the cascade */
   html[data-theme] {
-    background: #ffffff;
-    color: #222222;
+    background: var(--bg-primary);
+    color: var(--text-primary);
   }
 
   /* Hide non-content chrome */
