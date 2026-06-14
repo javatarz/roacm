@@ -18,7 +18,7 @@ import sharp from 'sharp';
 
 const SITE_DIR = '_site';
 const IMAGES_DIR = '_site/assets/images';
-const SRCSET_WIDTHS = [640, 960, 1280];
+const SRCSET_WIDTHS = [640, 768, 960, 1280];
 const SMALL_IMAGE_THRESHOLD = 50 * 1024; // mirrors optimize-images.mjs — no srcset for small images
 
 // Track statistics
