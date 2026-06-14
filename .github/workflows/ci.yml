@@ -197,22 +197,27 @@ jobs:
             label: chromium
             grep: '@visual'
             grep_invert: ''
+            workers: '3'
           - browser: firefox
             label: firefox
             grep: '@visual'
             grep_invert: ''
+            workers: '3'
           # webkit split into two parallel shards by tier to halve execution time.
           # Shard 1: Tier 1+3 (short pages: homepage, blog-index, archive, category, tag, 404 — ~30 tests).
           # Shard 2: Tier 2 + theme + mobile-menu (heavy blog posts, about, talks — ~35 tests).
           # Grep-based rather than --shard because Playwright's file-based shard gives 54:5 distribution.
+          # workers=2 for webkit-2: long post renders are sensitive to CPU contention at workers=3.
           - browser: webkit
             label: webkit-1
             grep: 'Tier [13].*@visual'
             grep_invert: ''
+            workers: '3'
           - browser: webkit
             label: webkit-2
             grep: '@visual'
             grep_invert: 'Tier [13]'
+            workers: '2'
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
@@ -226,7 +231,7 @@ jobs:
       # Baselines are regenerated locally with `npm run snapshots`, never in CI.
       - name: Run visual tests (${{ matrix.label }})
         env:
-          PLAYWRIGHT_WORKERS: '3'
+          PLAYWRIGHT_WORKERS: ${{ matrix.workers }}
         run: |
           GREP='${{ matrix.grep }}'
           INVERT='${{ matrix.grep_invert }}'
