@@ -44,26 +44,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Build the ToC HTML
-  let tocHTML = '<nav class="toc-nav" aria-label="Table of contents">';
-  tocHTML += '<div class="toc-title" aria-hidden="true">Contents</div>';
-  tocHTML += '<ul class="toc-list">';
+  // Build the ToC DOM
+  const nav = document.createElement('nav');
+  nav.className = 'toc-nav';
+  nav.setAttribute('aria-label', 'Table of contents');
+
+  const title = document.createElement('div');
+  title.className = 'toc-title';
+  title.setAttribute('aria-hidden', 'true');
+  title.textContent = 'Contents';
+  nav.appendChild(title);
+
+  const ul = document.createElement('ul');
+  ul.className = 'toc-list';
 
   headings.forEach(function (heading) {
-    const level = heading.tagName === 'H2' ? 'toc-h2' : 'toc-h3';
-    tocHTML +=
-      '<li class="' +
-      level +
-      '">' +
-      '<a href="#' +
-      heading.id +
-      '" class="toc-link">' +
-      heading.textContent +
-      '</a></li>';
+    const li = document.createElement('li');
+    li.className = heading.tagName === 'H2' ? 'toc-h2' : 'toc-h3';
+
+    const a = document.createElement('a');
+    a.href = '#' + heading.id;
+    a.className = 'toc-link';
+    a.textContent = heading.textContent;
+
+    li.appendChild(a);
+    ul.appendChild(li);
   });
 
-  tocHTML += '</ul></nav>';
-  tocContainer.innerHTML = tocHTML;
+  nav.appendChild(ul);
+  tocContainer.appendChild(nav);
 
   // Highlight current section on scroll
   const tocLinks = tocContainer.querySelectorAll('.toc-link');
