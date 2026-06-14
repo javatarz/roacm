@@ -9,6 +9,17 @@ const {
   convertMarkdown,
 } = require('./devto-publish.js');
 
+function assertContainsUrl(result, expectedUrl) {
+  const { hostname, pathname } = new URL(expectedUrl);
+  const urls = (result.match(/https?:\/\/[^\s)]+/g) || []).map(
+    (u) => new URL(u),
+  );
+  assert.ok(
+    urls.some((u) => u.hostname === hostname && u.pathname === pathname),
+    `Expected result to contain URL for ${hostname}${pathname}`,
+  );
+}
+
 describe('parsePostFilename', () => {
   it('extracts date and slug from valid filename', () => {
     const result = parsePostFilename('_posts/2026-01-02-my-post-slug.markdown');
@@ -154,9 +165,7 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(
-        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
-      );
+      assertContainsUrl(result, 'https://dev.to/javatarz/patterns-for-ai-4ga2');
       assert.ok(!result.includes('/blog/2025/07/07/patterns-for-ai/'));
     });
 
@@ -187,7 +196,7 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(result.includes('https://dev.to/user/tracked-post-abc'));
+      assertContainsUrl(result, 'https://dev.to/user/tracked-post-abc');
       assert.ok(result.includes('/blog/2025/02/02/untracked-post/'));
     });
   });
@@ -203,9 +212,7 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(
-        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
-      );
+      assertContainsUrl(result, 'https://dev.to/javatarz/patterns-for-ai-4ga2');
       assert.ok(!result.includes('karun.me/blog/2025/07/07/patterns-for-ai/'));
     });
 
@@ -219,9 +226,7 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(
-        result.includes('https://dev.to/javatarz/patterns-for-ai-4ga2'),
-      );
+      assertContainsUrl(result, 'https://dev.to/javatarz/patterns-for-ai-4ga2');
     });
 
     it('preserves anchor fragments when converting to dev.to URL', () => {
@@ -262,7 +267,7 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(result.includes('https://dev.to/user/tracked-post-abc'));
+      assertContainsUrl(result, 'https://dev.to/user/tracked-post-abc');
       assert.ok(result.includes('/blog/2025/02/02/untracked-post/'));
     });
 
@@ -282,16 +287,8 @@ describe('convertMarkdown', () => {
         },
       };
       const result = convertMarkdown(content, tracking);
-      assert.ok(result.includes('https://dev.to/user/post-one-abc'));
-
-      const urls = (result.match(/https?:\/\/[^\s)]+/g) || []).map(
-        (url) => new URL(url),
-      );
-      assert.ok(
-        urls.some(
-          (url) => url.hostname === 'dev.to' && url.pathname === '/user/post-two-xyz',
-        ),
-      );
+      assertContainsUrl(result, 'https://dev.to/user/post-one-abc');
+      assertContainsUrl(result, 'https://dev.to/user/post-two-xyz');
     });
   });
 
