@@ -43,34 +43,28 @@ for arg in "$@"; do
   fi
 done
 
-# ── CI: run Playwright natively — no Docker pull overhead ────────────────────
-# ubuntu-24.04-arm IS the baseline environment. Browsers are pre-installed by
-# setup-deps (playwright install --with-deps) before this script runs.
-# STATIC_SERVE=1 tells the playwright config to serve the pre-built _site/.
-if [ -n "${CI:-}" ]; then
-  echo "▶ Running Playwright natively (CI: ubuntu-24.04-arm) ..."
-  exec env STATIC_SERVE=1 PLAYWRIGHT_WORKERS="${PLAYWRIGHT_WORKERS:-1}" \
-    npx playwright test -c test-suite/configs/playwright.config.ts \
-      ${PROJECTS[0]:+--project="${PROJECTS[0]}"} "${OTHER_ARGS[@]}"
-fi
-
-# ── Local: Docker required ───────────────────────────────────────────────────
+# ── Docker setup ─────────────────────────────────────────────────────────────
 if ! command -v docker >/dev/null 2>&1; then
-  echo "❌ Docker is required locally (snapshots render in a pinned Playwright container)." >&2
+  echo "❌ Docker is required (visual snapshots render in a pinned Playwright container)." >&2
   exit 1
 fi
 
-# Target a dedicated arm64 Colima profile — avoids touching a differently-
-# configured default Docker engine. Emulating arm64 on x86_64 is slow and drifts.
-CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-pw}"
-if ! docker context inspect "$CTX" >/dev/null 2>&1; then
-  echo "❌ Docker context '$CTX' not found." >&2
-  echo "   One-time setup of a native arm64 engine for snapshots:" >&2
-  echo "     colima start --profile pw --arch aarch64 --cpu 4 --memory 6" >&2
-  echo "   (or point SNAPSHOT_DOCKER_CONTEXT at any native arm64 Docker context)" >&2
-  exit 1
+# In CI the runner is already arm64 so use the default Docker context (the
+# image is pre-pulled and cached by the CI job before this script runs).
+# Locally, target a dedicated arm64 Colima profile to avoid touching a
+# differently-configured default engine.
+DOCKER=(docker)
+if [ -z "${CI:-}" ]; then
+  CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-pw}"
+  if ! docker context inspect "$CTX" >/dev/null 2>&1; then
+    echo "❌ Docker context '$CTX' not found." >&2
+    echo "   One-time setup of a native arm64 engine for snapshots:" >&2
+    echo "     colima start --profile pw --arch aarch64 --cpu 4 --memory 6" >&2
+    echo "   (or point SNAPSHOT_DOCKER_CONTEXT at any native arm64 Docker context)" >&2
+    exit 1
+  fi
+  DOCKER=(docker --context "$CTX")
 fi
-DOCKER=(docker --context "$CTX")
 
 # Pin to the EXACT Playwright version so browser build — and pixels — match CI.
 PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"

@@ -235,11 +235,28 @@ jobs:
         uses: ./.github/actions/setup-deps
         with:
           include-ruby: 'true'
-          playwright-browser: ${{ matrix.browser }}
 
-      # Runs Playwright natively on ubuntu-24.04-arm — same OS/arch as the local
-      # Docker baseline, so committed snapshots match CI byte-for-byte.
-      # Baselines are regenerated locally with `npm run snapshots` (Docker), never in CI.
+      - name: Restore Playwright Docker image cache
+        id: docker-image-cache
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+        with:
+          path: /tmp/playwright-docker.tar
+          key: playwright-docker-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Load cached Docker image
+        if: steps.docker-image-cache.outputs.cache-hit == 'true'
+        run: docker load < /tmp/playwright-docker.tar
+
+      - name: Pull Docker image and save to cache
+        if: steps.docker-image-cache.outputs.cache-hit != 'true'
+        run: |
+          PW_VERSION=$(node -p "require('@playwright/test/package.json').version")
+          docker pull --platform linux/arm64 mcr.microsoft.com/playwright:v${PW_VERSION}-noble
+          docker save mcr.microsoft.com/playwright:v${PW_VERSION}-noble > /tmp/playwright-docker.tar
+
+      # Renders in the pinned Playwright container via the SAME script devs run
+      # locally. Image is pre-loaded above (cache hit: ~15s, miss: pull+save ~60s).
+      # Baselines are regenerated locally with `npm run snapshots`, never in CI.
       - name: Run visual tests (${{ matrix.label }})
         run: |
           GREP='${{ matrix.grep }}'
