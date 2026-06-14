@@ -29,8 +29,8 @@ do
   # Get changed files (fallback to last 5 commits if range fails)
   changed_files=$(git diff --name-only "$range" 2>/dev/null || git diff --name-only HEAD~5..HEAD)
 
-  css_changed=$(echo "$changed_files" | grep -E '\.css$' || true)
-  js_changed=$(echo "$changed_files" | grep -E '\.js$' || true)
+  css_changed=$(echo "$changed_files" | grep -E '^assets/css/' || true)
+  js_changed=$(echo "$changed_files" | grep -E '^assets/js/' || true)
   layout_changed=$(echo "$changed_files" | grep -E '^(_layouts|_includes)/' || true)
   theme_changed="$css_changed$js_changed$layout_changed"
 
