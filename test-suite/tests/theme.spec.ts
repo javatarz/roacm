@@ -213,9 +213,6 @@ test.describe('Accessibility', () => {
     await page.locator('#theme-toggle').click();
     await expect(html).toHaveAttribute('data-theme', 'dark');
 
-    // Wait for CSS transitions to complete
-    await page.waitForTimeout(500);
-
     // Test dark mode accessibility
     const darkAccessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
@@ -303,7 +300,7 @@ test.describe('Accessibility', () => {
     const html = page.locator('html');
     if (await html.getAttribute('data-theme') === 'dark') {
       await page.locator('#theme-toggle').click();
-      await page.waitForTimeout(300);
+      await expect(html).not.toHaveAttribute('data-theme', 'dark');
     }
 
     // Get ToC title color and its effective background
@@ -375,7 +372,7 @@ test.describe('Accessibility', () => {
     const html = page.locator('html');
     if (await html.getAttribute('data-theme') === 'dark') {
       await page.locator('#theme-toggle').click();
-      await page.waitForTimeout(300);
+      await expect(html).not.toHaveAttribute('data-theme', 'dark');
     }
 
     // Get code block colors

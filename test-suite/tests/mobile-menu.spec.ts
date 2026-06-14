@@ -152,8 +152,9 @@ test.describe('Mobile Navigation Menu', () => {
 
       await hamburger.click();
 
-      // Wait for focus to move (setTimeout in JS)
-      await page.waitForTimeout(150);
+      await page.waitForFunction(() =>
+        document.getElementById('mobile-sidebar')?.contains(document.activeElement) ?? false
+      );
 
       // Focus should be inside sidebar
       const focusedInSidebar = await page.evaluate(() => {
@@ -170,7 +171,9 @@ test.describe('Mobile Navigation Menu', () => {
       const hamburger = page.locator('#hamburger-menu');
 
       await hamburger.click();
-      await page.waitForTimeout(150);
+      await page.waitForFunction(() =>
+        document.getElementById('mobile-sidebar')?.contains(document.activeElement) ?? false
+      );
 
       await page.keyboard.press('Escape');
 
@@ -185,7 +188,9 @@ test.describe('Mobile Navigation Menu', () => {
       const sidebar = page.locator('#mobile-sidebar');
 
       await hamburger.click();
-      await page.waitForTimeout(150);
+      await page.waitForFunction(() =>
+        document.getElementById('mobile-sidebar')?.contains(document.activeElement) ?? false
+      );
 
       // Get focusable elements count
       const focusableCount = await sidebar.locator('a[href], button, input').count();
@@ -220,10 +225,7 @@ test.describe('Mobile Navigation Menu', () => {
       // Expand viewport past breakpoint
       await page.setViewportSize({ width: 1400, height: 900 });
 
-      // Wait for resize handler debounce
-      await page.waitForTimeout(150);
-
-      // Menu should auto-close
+      // Menu should auto-close (auto-retries until resize debounce fires)
       await expect(sidebar).not.toHaveClass(/is-open/);
     });
   });
@@ -270,7 +272,7 @@ test.describe('Mobile Navigation Accessibility', () => {
 
     // Open menu
     await page.locator('#hamburger-menu').click();
-    await page.waitForTimeout(100);
+    await expect(page.locator('#hamburger-menu')).toHaveAttribute('aria-expanded', 'true');
 
     // Run accessibility scan
     const results = await new AxeBuilder({ page })
@@ -317,7 +319,7 @@ test.describe('Mobile Navigation Visual Regression', () => {
       await page.goto('/blog/');
 
       await page.locator('#hamburger-menu').click();
-      await page.waitForTimeout(350); // Wait for animation
+      await expect(page.locator('#mobile-sidebar')).toHaveClass(/is-open/);
 
       await stabilize(page);
       await expect(page).toHaveScreenshot(`mobile-menu-open-${viewport.name}.png`, {
@@ -336,11 +338,11 @@ test.describe('Mobile Navigation Dark Mode', () => {
 
     // Switch to dark mode
     await page.locator('#theme-toggle').click();
-    await page.waitForTimeout(100);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
     // Open mobile menu
     await page.locator('#hamburger-menu').click();
-    await page.waitForTimeout(350);
+    await expect(page.locator('#mobile-sidebar')).toHaveClass(/is-open/);
 
     await stabilize(page);
     await expect(page).toHaveScreenshot('mobile-menu-dark-mode.png', {
