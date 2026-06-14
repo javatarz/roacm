@@ -24,6 +24,14 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # ── Site build (once, shared across all runners/containers) ──────────────────
+# Ensure we use the project's Ruby version (Homebrew), not the macOS system Ruby.
+# Hooks and non-login shells often inherit a bare PATH that resolves to /usr/bin/ruby (2.6).
+if [ -z "${CI:-}" ] && command -v brew >/dev/null 2>&1; then
+  RUBY_VERSION="$(cat .ruby-version 2>/dev/null | tr -d '[:space:]')"
+  BREW_RUBY_BIN="$(brew --prefix "ruby@${RUBY_VERSION}" 2>/dev/null)/bin"
+  [ -d "$BREW_RUBY_BIN" ] && export PATH="$BREW_RUBY_BIN:$PATH"
+fi
+
 # Clean first: dev-server builds use _config_dev.yml (unpublished: true) which
 # can leave stale files that diverge from a clean CI build.
 echo "▶ Building site (snapshot overlay: assets served locally, not from prod)..."
