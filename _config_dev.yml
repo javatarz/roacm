@@ -33,8 +33,7 @@ exclude:
   - Gemfile.lock
   - README.md
   - jekyll.thor
-  - local_run_native.sh
-  - Dockerfile
+  - local_run.sh
   - .git
   - .gitignore
   - .dockerignore

@@ -11,7 +11,7 @@ default:
 
 # Start development server (native Ruby - fast)
 run *args:
-    ./local_run_native.sh {{args}}
+    ./local_run.sh {{args}}
 
 # Check if the dev server is running
 status port="4000":

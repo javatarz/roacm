@@ -1,11 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./local_run_native.sh:*)",
-      "Bash(./local_run_test.sh:*)",
+      "Bash(./local_run.sh:*)",
       "Bash(./scripts/setup.sh:*)",
       "Bash(bundle exec jekyll:*)",
-      "Bash(docker:*)",
       "Bash(colima:*)",
       "Bash(npm run:*)",
       "Bash(npm test:*)",

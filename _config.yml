@@ -104,8 +104,7 @@ exclude:
   - Gemfile*
   - README.md
   - jekyll.thor
-  - local_run_native.sh
-  - Dockerfile
+  - local_run.sh
   - test-suite/
   - node_modules/
   - package*.json

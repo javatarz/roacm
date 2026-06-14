@@ -39,9 +39,9 @@ Husky runs lint-staged on commit, which auto-fixes and validates:
 
 ## Local Development
 
-The `local_run_native.sh` script provides fast local development:
+The `local_run.sh` script provides fast local development:
 
-1. Uses native Ruby 3.2 (via mise/rbenv/asdf)
+1. Uses native Ruby (via mise/rbenv/asdf, version from .ruby-version)
 2. Runs Jekyll with incremental builds and live reload
 3. Builds all 113 posts by default (~1.8s startup)
 

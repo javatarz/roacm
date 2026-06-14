@@ -5,7 +5,7 @@ set -e
 # Native Ruby Jekyll server
 # Requires Ruby installed via mise, rbenv, or asdf (version from .ruby-version)
 #
-# Usage: ./local_run_native.sh [options]
+# Usage: ./local_run.sh [options]
 #
 # Options:
 #   --kill, -k       Kill existing server on port before starting

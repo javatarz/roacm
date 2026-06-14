@@ -88,7 +88,7 @@ If the setup script fails:
    # Make sure scripts are executable
    chmod +x scripts/setup.sh
    chmod +x test-suite/run-tests.sh
-   chmod +x local_run_native.sh
+   chmod +x local_run.sh
    ```
 
 3. **Port 4000 Already in Use**
@@ -111,7 +111,7 @@ If the setup script fails:
 
    ```bash
    # Make sure Jekyll server starts properly
-   ./local_run_native.sh
+   ./local_run.sh
    # Then run tests in another terminal
    npm test
    ```
