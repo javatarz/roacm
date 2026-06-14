@@ -95,7 +95,7 @@
 /* Recording axis - carries the accent colour (the signal that matters) */
 .talk-badge-recorded {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 
 /* Top-aligned badge row (vs the default bottom-aligned one) */
@@ -106,7 +106,7 @@
 
 /* Play affordance over recorded thumbnails */
 .talk-card-play {
-  color: #fff;
+  color: var(--text-on-dark);
   filter: drop-shadow(0 1px 3px rgb(0, 0, 0, 0.6));
   font-size: 40px;
   left: 50%;
