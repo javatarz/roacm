@@ -14,7 +14,7 @@
     "no-duplicate-selectors": null,
     "comment-empty-line-before": null,
     "shorthand-property-no-redundant-values": null,
-    "media-feature-range-notation": "context",
+    "media-feature-range-notation": "range",
     "at-rule-no-unknown": [
       true,
       {

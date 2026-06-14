@@ -175,7 +175,7 @@ article {
 }
 
 /* Desktop fluid layout - only above mobile breakpoint */
-@media (min-width: 961px) {
+@media (width >= 961px) {
   .wrapper {
     margin: 0;
     max-width: none;
@@ -949,7 +949,7 @@ blockquote p:last-child {
 }
 
 /* Mobile: stack vertically */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .post-navigation {
     grid-template-columns: 1fr;
   }
@@ -1118,14 +1118,14 @@ blockquote p:last-child {
 }
 
 /* Mobile: show copy text, hide on very small screens */
-@media (min-width: 400px) {
+@media (width >= 400px) {
   .share-btn-copy .copy-text {
     display: inline;
   }
 }
 
 /* Mobile: stack if needed */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .share-buttons {
     flex-wrap: wrap;
   }
@@ -1224,14 +1224,14 @@ blockquote p:last-child {
 }
 
 /* Mobile: stack cards vertically */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .related-posts-grid {
     grid-template-columns: 1fr;
   }
 }
 
 /* Tablet: 2 columns */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (769px <= width <= 1024px) {
   .related-posts-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1439,7 +1439,7 @@ blockquote p:last-child {
 }
 
 /* Responsive: Tablet (2 columns) */
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .recent-posts-grid,
   .category-posts-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1447,7 +1447,7 @@ blockquote p:last-child {
 }
 
 /* Responsive: Mobile (1 column) */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .recent-posts-grid,
   .category-posts-grid {
     grid-template-columns: 1fr;
@@ -1531,7 +1531,7 @@ blockquote p:last-child {
 }
 
 /* Mobile: stack vertically */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .author-bio {
     flex-direction: column;
     text-align: center;
@@ -1660,7 +1660,7 @@ small {
 }
 
 /* Mobile adjustments */
-@media (max-width: 720px) {
+@media (width <= 720px) {
   .back-to-top {
     bottom: 20px;
     height: 44px;
@@ -1788,7 +1788,7 @@ small {
 }
 
 /* Mobile adjustments for 404 page */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .error-header {
     flex-direction: column;
     gap: 16px;
@@ -1829,7 +1829,7 @@ small {
 }
 
 /* Desktop: Fixed position on the right side */
-@media (min-width: 1400px) {
+@media (width >= 1400px) {
   #toc {
     position: fixed;
     right: 40px;
@@ -1879,14 +1879,14 @@ small {
 }
 
 /* Medium screens: Hide ToC (not enough space) */
-@media (min-width: 961px) and (max-width: 1399px) {
+@media (961px <= width <= 1399px) {
   #toc {
     display: none;
   }
 }
 
 /* Mobile/Tablet: Inline ToC below title */
-@media (max-width: 960px) {
+@media (width <= 960px) {
   #toc {
     margin: 24px 0 32px;
   }
@@ -1987,7 +1987,7 @@ small {
 }
 
 /* Mobile adjustments */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .toc-nav {
     padding: 14px 16px;
   }
@@ -2160,7 +2160,7 @@ small {
 }
 
 /* Mobile adjustments for search */
-@media (max-width: 960px) {
+@media (width <= 960px) {
   .search-container {
     margin: 16px 0;
   }
@@ -2337,7 +2337,7 @@ small {
 }
 
 /* --- Mobile Breakpoint Styles --- */
-@media (max-width: 1279px) {
+@media (width <= 1279px) {
   /* Show hamburger on mobile */
   .hamburger-menu {
     display: flex;
@@ -2400,7 +2400,7 @@ small {
 }
 
 /* --- Desktop Layout Override --- */
-@media (min-width: 1280px) {
+@media (width >= 1280px) {
   /* Ensure sidebar is always visible on desktop */
   header {
     transform: none !important;
@@ -2430,7 +2430,7 @@ body.homepage {
 }
 
 /* Center main content on homepage (no sidebar) */
-@media (min-width: 961px) {
+@media (width >= 961px) {
   body.homepage main {
     margin-left: auto;
     margin-right: auto;
@@ -2660,14 +2660,14 @@ body.homepage {
 }
 
 /* Responsive: Tablet */
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .homepage-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Responsive: Mobile */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .homepage-hero {
     padding: 60px 20px;
   }
@@ -3007,7 +3007,7 @@ body.homepage {
   width: 100%;
 }
 
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .talk-timeline__row {
     flex-direction: column;
   }
