@@ -34,6 +34,17 @@
     "import-notation": "string",
     "selector-not-notation": "simple"
   },
+  "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "customSyntax": "postcss-scss",
+      "rules": {
+        "media-query-no-invalid": null,
+        "font-family-no-missing-generic-family-keyword": null,
+        "value-keyword-case": null
+      }
+    }
+  ],
   "ignoreFiles": [
     "_site/**/*.css",
     "vendor/**/*.css",
