@@ -5,6 +5,21 @@ $bp-tablet:  900px;
 $bp-desktop: 961px;
 $font-mono:  'Fira Code', Monaco, Consolas, monospace;
 
+@mixin card-base {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+@mixin hover-lift {
+  transform: translateY(-2px);
+}
+
+@mixin grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 /* CSS Variables for theming - ROACM Theme */
 :root {
   --bg-primary: #ffffff;

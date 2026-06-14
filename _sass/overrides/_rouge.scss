@@ -247,7 +247,8 @@ article + article {
 
 article:hover {
   box-shadow: 0 2px 12px var(--card-shadow);
-  transform: translateY(-2px);
+
+  @include hover-lift;
 }
 
 article h1 {
@@ -437,7 +438,8 @@ blockquote p:last-child {
 
 .post-nav-link:hover {
   border-color: var(--accent-color);
-  transform: translateY(-2px);
+
+  @include hover-lift;
 }
 
 .post-nav-prev {

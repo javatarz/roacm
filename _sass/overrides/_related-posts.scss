@@ -16,9 +16,9 @@
 }
 
 .related-posts-grid {
-  display: grid;
+  @include grid-3col;
+
   gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .related-post-card {
@@ -35,7 +35,8 @@
 
 .related-post-card:hover {
   border-color: var(--accent-color);
-  transform: translateY(-2px);
+
+  @include hover-lift;
 }
 
 .related-post-title {

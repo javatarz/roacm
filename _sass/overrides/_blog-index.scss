@@ -78,7 +78,8 @@
 
 .featured-post-card:hover {
   border-color: var(--accent-color);
-  transform: translateY(-2px);
+
+  @include hover-lift;
 }
 
 .featured-post-link {
@@ -146,15 +147,14 @@
 /* Post Card Grid */
 .recent-posts-grid,
 .category-posts-grid {
-  display: grid;
+  @include grid-3col;
+
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .post-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  @include card-base;
+
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
@@ -166,7 +166,8 @@
 
 .post-card:hover {
   border-color: var(--accent-color);
-  transform: translateY(-2px);
+
+  @include hover-lift;
 }
 
 .post-card-title {
