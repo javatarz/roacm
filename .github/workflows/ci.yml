@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: _site/assets/images/
-          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**', 'scripts/transform-images.mjs', 'scripts/optimize-images.mjs') }}
 
       - name: Transform images in HTML to picture elements
         run: npm run images:transform
@@ -133,7 +133,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: _site/assets/images/
-          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-images-${{ hashFiles('assets/images/**', 'scripts/transform-images.mjs', 'scripts/optimize-images.mjs') }}
 
       - name: Validate HTML structure
         run: npm run lint:html
