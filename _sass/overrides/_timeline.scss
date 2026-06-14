@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Speaking Timeline (alternative to the grouped card grid)
+   ========================================================================== */
+.talk-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.talk-timeline::before {
+  background: var(--border-color);
+  bottom: 8px;
+  content: '';
+  left: 7px;
+  position: absolute;
+  top: 8px;
+  width: 2px;
+}
+
+.talk-timeline__year {
+  align-items: baseline;
+  color: var(--text-primary);
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  justify-content: space-between;
+  margin: 28px 0 14px;
+  padding-left: 32px;
+}
+
+.talk-timeline__year-count {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.talk-timeline__year:first-child {
+  margin-top: 0;
+}
+
+.talk-timeline__item {
+  padding: 0 0 22px 32px;
+  position: relative;
+}
+
+.talk-timeline__dot {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  top: 4px;
+  width: 16px;
+}
+
+.talk-timeline__dot.is-recorded {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.talk-timeline__date {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.talk-timeline__title {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 2px 0 6px;
+}
+
+.talk-timeline__title a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.talk-timeline__title a:hover {
+  color: var(--accent-color);
+}
+
+.talk-timeline__meta {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.talk-timeline__meta a {
+  color: var(--accent-color);
+}
+
+.talk-timeline__desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 6px 0 10px;
+}
+
+.talk-timeline__row {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+}
+
+.talk-timeline__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.talk-timeline__thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  display: block;
+  flex: 0 0 200px;
+  margin-top: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.talk-timeline__thumb img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media (width <= 700px) {
+  .talk-timeline__row {
+    flex-direction: column;
+  }
+
+  .talk-timeline__thumb {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,313 @@
+/* ==========================================================================
+   Fluid Layout - Override theme's fixed 960px width
+   Only applies above mobile breakpoint (960px) to preserve mobile behavior
+   ========================================================================== */
+
+/* Override dinky theme gradients with solid backgrounds for accessibility */
+.wrapper {
+  background: var(--bg-primary);
+}
+
+main {
+  background: var(--bg-primary);
+}
+
+/* Ensure articles have opaque backgrounds for proper color contrast */
+article {
+  background: var(--bg-primary);
+}
+
+/* Desktop fluid layout - only above mobile breakpoint */
+@media (width >= 961px) {
+  .wrapper {
+    margin: 0;
+    max-width: none;
+    width: auto;
+  }
+
+  main {
+    float: none; /* Remove float, use margin instead */
+    margin-left: 250px; /* Sidebar (170px) + gap (80px) */
+    margin-right: 40px; /* Right margin for breathing room */
+    max-width: 1100px; /* Readable line length cap */
+    width: auto;
+  }
+}
+
+/* Heading colors for theme support */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+}
+
+/* Better heading hierarchy */
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 48px 0 24px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 40px 0 20px;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 32px 0 16px;
+}
+
+h4 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 24px 0 12px;
+}
+
+h5 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 20px 0 10px;
+}
+
+h6 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
+}
+
+/* First heading in post has less top margin */
+.post-content h1:first-child,
+.post-content h2:first-child {
+  margin-top: 0;
+}
+
+/* Post metadata (date + reading time) - used on homepage cards and post pages */
+.post-meta {
+  align-items: center;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.25rem;
+}
+
+.post-meta .post-date,
+.post-meta .reading-time {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.post-meta .icon {
+  flex-shrink: 0;
+  opacity: 0.8; /* Increased from 0.6 for better accessibility */
+}
+
+/* Header/sidebar styling - sidebar is always dark so needs light text */
+p.header {
+  color: #cccccc;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+h1.header,
+h1.header a,
+a.header,
+header a {
+  color: #ffffff;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+h1.header a:hover,
+a.header:hover,
+header a:hover {
+  color: var(--accent-color);
+}
+
+/* Sidebar logo - links to homepage */
+.sidebar-logo {
+  color: var(--sidebar-accent-color);
+  display: block;
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-logo:hover {
+  color: #ffffff;
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+  border-top: 1px solid rgb(255, 255, 255, 0.15);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: static; /* Override Dinky's header ul { position: absolute } at 720-960px viewports */
+}
+
+.sidebar-nav li,
+.sidebar-nav li:hover {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.sidebar-nav a {
+  color: #cccccc;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 8px 0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  color: #ffffff;
+}
+
+.sidebar-nav a.active {
+  color: var(--sidebar-accent-color);
+}
+
+/* Post content link styling (color, hover, visited) is handled by the base
+   `a` rules above; .post-content only adds the external-link indicator.
+   Note: external-link rule uses Liquid and lives in overrides.scss entry file. */
+
+/* Link focus for accessibility */
+a:focus {
+  border-radius: 2px;
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Heading links should be more subtle */
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover {
+  color: var(--accent-color);
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Paragraph text */
+p {
+  color: var(--text-primary);
+
+  /* Hanging punctuation for quotes */
+  hanging-punctuation: first last;
+
+  /* Better paragraph spacing */
+  margin: 20px 0;
+}
+
+/* Strong and emphasis */
+strong,
+b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+em {
+  color: var(--text-primary);
+}
+
+/* Links inside emphasis should still use accent color */
+em a,
+a em {
+  color: var(--accent-color);
+}
+
+/* Buttons */
+button {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* Enhanced code blocks - preserve monospace font */
+pre {
+  background: var(--code-bg);
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0, 0, 0, 0.1);
+  color: var(--code-text);
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
+  margin: 24px 0;
+  overflow-x: auto;
+  padding: 20px;
+  position: relative;
+}
+
+code,
+kbd,
+samp {
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.highlight,
+.highlighter-rouge .highlight {
+  background: var(--code-bg);
+  border-radius: 6px;
+  font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Courier New', monospace;
+}
+
+.highlighter-rouge .highlight pre {
+  margin: 0;
+  padding: 20px;
+}
+
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+

@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Series Navigation
+   Shows all parts of a series with current post highlighted.
+   Rendered above post content when page.series is set.
+   ========================================================================== */
+.series-nav {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 4px;
+  margin: 0 0 32px;
+  padding: 16px 20px;
+}
+
+.series-nav-header {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.series-nav-label {
+  color: var(--accent-color);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.series-nav-title {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.series-nav-count {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-left: auto;
+}
+
+.series-nav-list {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.series-nav-item {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 2px 0;
+}
+
+.series-nav-item + .series-nav-item {
+  margin-top: 4px;
+}
+
+.series-nav-current .series-nav-post-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.series-nav-post-link {
+  color: var(--accent-color);
+}
+
+.series-nav-post-link:hover {
+  text-decoration: underline;
+}
+

@@ -1,0 +1,33 @@
+---
+---
+@import "overrides/variables";
+@import "overrides/deprecation";
+@import "overrides/layout";
+
+// Must live here so Jekyll processes {{ site.url }} Liquid before passing to Sass.
+// Partials have no front matter so Liquid is not evaluated in them.
+.post-content
+  a[href^='http']:not(
+    [href*='{{ site.url | remove: "https://" | remove: "http://" }}']
+  )::after {
+  content: ' ↗';
+  font-size: 0.8em;
+}
+
+@import "overrides/rouge";
+@import "overrides/share-buttons";
+@import "overrides/related-posts";
+@import "overrides/blog-index";
+@import "overrides/author-bio";
+@import "overrides/toc";
+@import "overrides/search";
+@import "overrides/archive";
+@import "overrides/mobile-nav";
+@import "overrides/homepage";
+@import "overrides/reduced-motion";
+@import "overrides/talks";
+@import "overrides/timeline";
+@import "overrides/diagrams";
+@import "overrides/series-nav";
+@import "overrides/series-index";
+@import "overrides/print";

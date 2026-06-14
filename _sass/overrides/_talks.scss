@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Talks Page Styles
+   ========================================================================== */
+
+.talks-intro {
+  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Video embeds (used in blog post content) */
+.video-container {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  width: 100%;
+}
+
+.video-container iframe {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.video-container-small {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.video-container-medium,
+.video-container-default {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.video-container-large {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.talk-card-event {
+  font-weight: 500;
+}
+
+/* Talk Badges */
+.talk-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.talk-badge {
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.talk-badge-panel {
+  background: rgb(103, 58, 183, 0.15);
+  color: #673ab7;
+}
+
+.talk-badge-podcast {
+  background: rgb(46, 125, 50, 0.15);
+  color: #1b5e20;
+}
+
+[data-theme='dark'] .talk-badge-panel {
+  background: rgb(103, 58, 183, 0.3);
+  color: #b39ddb;
+}
+
+[data-theme='dark'] .talk-badge-podcast {
+  background: rgb(46, 125, 50, 0.3);
+  color: #a5d6a7;
+}
+
+/* Format badges (muted tints) */
+.talk-badge-talk {
+  background: rgb(0, 131, 143, 0.15);
+  color: #006064;
+}
+
+.talk-badge-bof {
+  background: rgb(103, 58, 183, 0.15);
+  color: #673ab7;
+}
+
+.talk-badge-workshop {
+  background: rgb(25, 118, 210, 0.15);
+  color: #1565c0;
+}
+
+[data-theme='dark'] .talk-badge-talk {
+  background: rgb(0, 131, 143, 0.3);
+  color: #80deea;
+}
+
+[data-theme='dark'] .talk-badge-bof {
+  background: rgb(103, 58, 183, 0.3);
+  color: #b39ddb;
+}
+
+[data-theme='dark'] .talk-badge-workshop {
+  background: rgb(25, 118, 210, 0.3);
+  color: #90caf9;
+}
+
+/* Recording axis - carries the accent colour (the signal that matters) */
+.talk-badge-recorded {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/* Top-aligned badge row (vs the default bottom-aligned one) */
+.talk-card-badges--top {
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+/* Play affordance over recorded thumbnails */
+.talk-card-play {
+  color: #fff;
+  filter: drop-shadow(0 1px 3px rgb(0, 0, 0, 0.6));
+  font-size: 40px;
+  left: 50%;
+  line-height: 1;
+  opacity: 0.85;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Co-speaker and repeat-venue lines */
+.talk-card-collab,
+.talk-card-also {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+
+.talk-card-also {
+  margin-top: 4px;
+}
+
+/* Homepage speaking cards: keep badges tidy at the top */
+.homepage-card .talk-card-badges--top {
+  margin-bottom: 10px;
+}
+
+.talk-card-collab a,
+.talk-card-also a {
+  color: var(--accent-color);
+}
+
+/* Talks CTA */
+.talks-cta {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 24px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.talks-cta p {
+  margin: 0;
+}
+

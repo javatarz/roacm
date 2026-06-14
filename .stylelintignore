@@ -1,5 +1,5 @@
 # Minified vendor CSS (self-hosted Font Awesome) — not ours to lint
 assets/css/*.min.css
 
-# Liquid-processed CSS — front matter and {{ }} templates break stylelint's parser
-assets/css/overrides.css
+# Liquid-processed SCSS — front matter breaks stylelint's parser
+assets/css/overrides.scss
