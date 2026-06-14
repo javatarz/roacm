@@ -351,8 +351,13 @@ article .entry-content {
 /* Footer styling */
 footer {
   color: var(--text-primary);
-  padding-left: 25px;
-  width: 195px;
+}
+
+@media (width >= 1280px) {
+  footer {
+    padding-left: 25px;
+    width: 195px;
+  }
 }
 
 footer h2 {
