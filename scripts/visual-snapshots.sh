@@ -68,7 +68,13 @@ fi
 
 # Pin to the EXACT Playwright version so browser build — and pixels — match CI.
 PW_VERSION="$(node -p "require('@playwright/test/package.json').version")"
-IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
+# CI pulls from GHCR (same network as Actions runners, faster than Docker Hub CDN).
+# Local dev uses mcr.microsoft.com directly (already cached, no GHCR auth needed).
+if [ -n "${CI:-}" ]; then
+  IMAGE="ghcr.io/javatarz/playwright:v${PW_VERSION}-noble"
+else
+  IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
+fi
 
 # ── Single browser (or no browser filter): one container ─────────────────────
 if [ "${#PROJECTS[@]}" -le 1 ]; then

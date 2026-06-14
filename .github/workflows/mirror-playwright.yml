@@ -1,0 +1,64 @@
+name: Mirror Playwright Image to GHCR
+
+# Mirrors mcr.microsoft.com/playwright:vX.Y.Z-noble → ghcr.io/javatarz/playwright:vX.Y.Z-noble
+# so CI visual-test jobs pull from GHCR (same network as GitHub Actions runners)
+# instead of Docker Hub CDN. Image is arm64-only (matches ubuntu-24.04-arm runners
+# and local Colima pw profile). Local dev still uses mcr.microsoft.com directly.
+#
+# One-time setup after first run:
+#   GitHub → Packages → playwright → Package settings → Change visibility to Public
+#   (public = no auth needed in CI, no secrets, simpler pull)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'package-lock.json'   # Playwright version bump → remirrror
+  schedule:
+    - cron: '0 2 * * 0'       # Weekly safety net
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  mirror:
+    name: Mirror to GHCR
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Resolve Playwright version
+        id: version
+        run: |
+          PW_VERSION=$(node -p "require('./package-lock.json').packages['node_modules/@playwright/test'].version")
+          echo "version=${PW_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "source=mcr.microsoft.com/playwright:v${PW_VERSION}-noble" >> "$GITHUB_OUTPUT"
+          echo "target=ghcr.io/${{ github.repository_owner }}/playwright:v${PW_VERSION}-noble" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if already mirrored
+        id: check
+        run: |
+          if docker manifest inspect "${{ steps.version.outputs.target }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "✅ ${{ steps.version.outputs.target }} already exists — skipping"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "📦 Not found — will mirror ${{ steps.version.outputs.source }}"
+          fi
+
+      - name: Pull, retag, and push
+        if: steps.check.outputs.exists != 'true'
+        run: |
+          docker pull --platform linux/arm64 "${{ steps.version.outputs.source }}"
+          docker tag "${{ steps.version.outputs.source }}" "${{ steps.version.outputs.target }}"
+          docker push "${{ steps.version.outputs.target }}"
+          echo "✅ Mirrored to ${{ steps.version.outputs.target }}"
