@@ -77,7 +77,7 @@ if [ "${#PROJECTS[@]}" -le 1 ]; then
     --platform linux/arm64 \
     -v "$PWD":/work -w /work \
     -e STATIC_SERVE=1 \
-    -e "PLAYWRIGHT_WORKERS=${PLAYWRIGHT_WORKERS:-1}" \
+    -e "PLAYWRIGHT_WORKERS=${PLAYWRIGHT_WORKERS:-2}" \
     "$IMAGE" \
     npx playwright test -c test-suite/configs/playwright.config.ts \
       ${PROJECTS[0]:+--project="${PROJECTS[0]}"} "${OTHER_ARGS[@]}"
@@ -113,7 +113,7 @@ for browser in "${PROJECTS[@]}"; do
     --platform linux/arm64 \
     -v "$PWD":/work -w /work \
     -e STATIC_SERVE=1 \
-    -e "PLAYWRIGHT_WORKERS=${PLAYWRIGHT_WORKERS:-1}" \
+    -e "PLAYWRIGHT_WORKERS=${PLAYWRIGHT_WORKERS:-2}" \
     -e "PLAYWRIGHT_HTML_REPORT=/work/test-suite/reports/playwright-html-${browser}" \
     "$IMAGE" \
     npx playwright test -c test-suite/configs/playwright.config.ts \
