@@ -283,7 +283,15 @@ describe('convertMarkdown', () => {
       };
       const result = convertMarkdown(content, tracking);
       assert.ok(result.includes('https://dev.to/user/post-one-abc'));
-      assert.ok(result.includes('https://dev.to/user/post-two-xyz'));
+
+      const urls = (result.match(/https?:\/\/[^\s)]+/g) || []).map(
+        (url) => new URL(url),
+      );
+      assert.ok(
+        urls.some(
+          (url) => url.hostname === 'dev.to' && url.pathname === '/user/post-two-xyz',
+        ),
+      );
     });
   });
 
