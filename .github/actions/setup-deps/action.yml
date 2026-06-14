@@ -1,6 +1,6 @@
 name: 'Setup Dependencies'
 description: 'Sets up Node.js, Ruby, and optionally Playwright with caching'
-# v2: adds skip-system-deps for Playwright browser-only installs
+# v3: visual tests pull Playwright image from GHCR in CI
 
 inputs:
   playwright-browser:
