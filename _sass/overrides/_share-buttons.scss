@@ -124,7 +124,7 @@
 [data-theme='dark'] .share-buttons .share-btn-copy.copied,
 .share-buttons .share-btn-copy.copied:hover,
 [data-theme='dark'] .share-buttons .share-btn-copy.copied:hover {
-  border-color: #15803d !important;
-  color: #15803d !important;
+  border-color: var(--share-copied) !important;
+  color: var(--share-copied) !important;
 }
 
