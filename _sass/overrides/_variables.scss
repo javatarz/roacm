@@ -5,6 +5,18 @@ $bp-tablet:  900px;
 $bp-desktop: 961px;
 $font-mono:  'Fira Code', Monaco, Consolas, monospace;
 
+// Base color palette — only for values used in 2+ semantic tokens
+$color-white:         #ffffff; // sidebar, hero, text on dark surfaces
+$color-off-white:     #f5f5f5; // light secondary bg, print code bg
+$color-dark:          #1a1a1a; // near-black; dark theme bg, hero gradient
+$color-dark-mid:      #2d2d2d; // hero gradient step
+$color-dark-deep:     #0d0d0d; // hero darkest gradient stop
+$color-gray-muted:    #cccccc; // sidebar muted text, print borders
+$color-red-ribbon:    #c62828; // ribbon gradient start
+$color-red-deep:      #8d0000; // ribbon gradient end
+$color-red-cta:       #c9302c; // CTA button
+$color-green-confirm: #15803d; // share button "copied" state
+
 @mixin card-base {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -33,6 +45,25 @@ $font-mono:  'Fira Code', Monaco, Consolas, monospace;
   --accent-color: #d32f2f; /* Vivid red meeting WCAG AA (4.7:1 on white) */
   --sidebar-accent-color: #ff5555; /* Lighter red for WCAG AA contrast on dark sidebar */
 
+  /* Sidebar — always dark regardless of theme */
+  --sidebar-text: #{$color-white};
+  --sidebar-text-muted: #{$color-gray-muted};
+
+  /* Text on permanently-dark surfaces (hero, recorded badge) */
+  --text-on-dark: #{$color-white};
+
+  /* Homepage hero gradient — changes between themes */
+  --hero-bg-start: #{$color-dark};
+  --hero-bg-end: #{$color-dark-mid};
+
+  /* Ribbon and CTA — fixed red, no theme variation */
+  --ribbon-bg-start: #{$color-red-ribbon};
+  --ribbon-bg-end: #{$color-red-deep};
+  --cta-bg: #{$color-red-cta};
+
+  /* Share button "copied" confirmation */
+  --share-copied: #{$color-green-confirm};
+
   /* Code block colors - VS Code dark theme inspired */
   --code-bg: #1e1e1e;
   --code-text: #e0e0e0; /* Light text on dark code background for both themes */
@@ -48,5 +79,9 @@ $font-mono:  'Fira Code', Monaco, Consolas, monospace;
   --card-border: #404040;
   --card-shadow: rgb(0, 0, 0, 0.3);
   --accent-color: #ff7b8a; /* Vivid salmon for clear link visibility without underlines */
+
+  /* Hero darkens further in dark mode */
+  --hero-bg-start: #{$color-dark-deep};
+  --hero-bg-end: #{$color-dark};
 }
 
