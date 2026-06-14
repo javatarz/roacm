@@ -1606,7 +1606,7 @@ small {
 }
 
 /* Responsive sidebar typography for limited vertical space */
-@media (height <= 1080px) {
+@media (max-height: 1080px) {
   footer h2 {
     font-size: 16px;
     margin-bottom: 8px;
@@ -1624,7 +1624,7 @@ small {
 }
 
 /* More aggressive scaling for very limited space */
-@media (height <= 900px) {
+@media (max-height: 900px) {
   footer h2 {
     font-size: 15px;
     margin-bottom: 6px;
@@ -1642,7 +1642,7 @@ small {
 }
 
 /* Extreme case - ensure minimum usability */
-@media (height <= 800px) {
+@media (max-height: 800px) {
   footer h2 {
     font-size: 14px;
     margin-bottom: 5px;
