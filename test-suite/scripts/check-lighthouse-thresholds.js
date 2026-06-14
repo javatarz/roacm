@@ -21,9 +21,9 @@ const REPO_ROOT = path.join(__dirname, '../..');
 function extractThresholds(configContent) {
   const thresholds = {};
 
-  // Match patterns like: "categories:performance": ["error", { minScore: 0.70 }]
+  // Match patterns like: 'categories:performance': ['error', { minScore: 0.70 }]
   const regex =
-    /"categories:(\w+)":\s*\["error",\s*{\s*minScore:\s*([\d.]+)\s*}\]/g;
+    /['"]categories:(\w+)['"]\s*:\s*\[['"]error['"]\s*,\s*{\s*minScore:\s*([\d.]+)\s*}\]/g;
 
   let match;
   while ((match = regex.exec(configContent)) !== null) {
