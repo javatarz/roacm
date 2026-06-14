@@ -225,6 +225,8 @@ jobs:
       # locally, so committed Linux baselines match CI byte-for-byte.
       # Baselines are regenerated locally with `npm run snapshots`, never in CI.
       - name: Run visual tests (${{ matrix.label }})
+        env:
+          PLAYWRIGHT_WORKERS: '3'
         run: |
           GREP='${{ matrix.grep }}'
           INVERT='${{ matrix.grep_invert }}'
@@ -270,6 +272,8 @@ jobs:
 
       - name: Run functional E2E tests (includes a11y)
         run: npm run test:e2e -- --project=chromium --grep-invert=@visual
+        env:
+          PLAYWRIGHT_WORKERS: '3'
 
       - name: Upload test results
         if: always()
