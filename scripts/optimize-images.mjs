@@ -4,7 +4,7 @@
  *
  * Processes images in _site/assets/images/ after Jekyll build:
  * - Converts PNG/JPG to WebP format
- * - Generates responsive srcset widths (640w, 960w, 1280w)
+ * - Generates responsive srcset widths (640w, 768w, 960w, 1280w)
  * - Compresses original formats as fallbacks
  *
  * Run after Jekyll build: npm run images:optimize
@@ -16,7 +16,7 @@ import { join, extname, basename, dirname } from 'node:path';
 import { existsSync } from 'node:fs';
 
 const SITE_IMAGES_DIR = '_site/assets/images';
-const SRCSET_WIDTHS = [640, 960, 1280];
+const SRCSET_WIDTHS = [640, 768, 960, 1280];
 const WEBP_QUALITY_PHOTO = 80;
 const WEBP_QUALITY_DIAGRAM = 90;
 const JPG_QUALITY = 85;
