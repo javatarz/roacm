@@ -9,3 +9,33 @@ updates:
   - "automated"
   commit-message:
     prefix: ci
+
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automated"
+  commit-message:
+    prefix: chore
+
+- package-ecosystem: "bundler"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automated"
+  commit-message:
+    prefix: chore
+
+- package-ecosystem: "docker"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automated"
+  commit-message:
+    prefix: chore
