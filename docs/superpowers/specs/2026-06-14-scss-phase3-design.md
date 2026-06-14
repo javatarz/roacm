@@ -245,6 +245,50 @@ npm run snapshots
 
 If any snapshot shows a diff: investigate before committing further.
 
+## Implementation context (read before starting)
+
+### Current state
+
+- Branch: `main`. Phase 2 committed and pushed, CI green.
+- SCSS partials: `_sass/overrides/` (20 files). Entry point: `assets/css/overrides.scss`.
+- Jekyll uses `sass-embedded` (Dart Sass 1.100) — SCSS nesting and `@mixin`/`@include` work.
+- Stylelint is configured with `postcss-scss` custom syntax for `.scss` files (upgraded in Phase 2). SCSS variable syntax passes lint.
+- Live Jekyll server runs externally — no need to start one for verification.
+
+### Build commands
+
+```bash
+# Full build + minify
+bundle exec jekyll build --config _config.yml && npm run build:css
+
+# Lint
+npm run lint:css
+
+# Visual snapshots (requires colima arm64 + Docker)
+npm run snapshots
+```
+
+### Where to define shared mixins
+
+All three mixins (`card-base`, `hover-lift`, `grid-3col`) go in `_variables.scss`,
+after the SCSS compile-time variables and before `:root`. This keeps all
+compile-time constructs in one place.
+
+### Baseline capture (Task 2)
+
+Before starting Task 2, capture the post-Task-1 minified output:
+
+```bash
+bundle exec jekyll build --config _config.yml && npm run build:css
+cp _site/assets/css/overrides.css /tmp/phase3-pre-mixin.css
+```
+
+### Commit granularity
+
+- Task 1: one commit for `_talks.scss`
+- Task 2: one commit covering all three mixins + all usage sites together (output is byte-identical, safe to bundle)
+- Task 3: one commit per partial changed, visual snapshots after all partials done
+
 ## Constraints
 
 - Do not replace CSS custom properties (`var(--)`) with SCSS vars — runtime vars
