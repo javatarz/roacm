@@ -90,12 +90,12 @@ sup {
 }
 
 [data-theme='dark'] .skip-link {
-  color: #1a1a1a;
+  color: var(--bg-primary);
 }
 
 [data-theme='dark'] .skip-link:focus {
-  color: #1a1a1a;
-  outline-color: #1a1a1a;
+  color: var(--bg-primary);
+  outline-color: var(--bg-primary);
 }
 
 /* Main content focus style - no outline needed for non-interactive target */
