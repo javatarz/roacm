@@ -18,9 +18,9 @@ body.homepage {
 
 /* Hero Section - Full width, outside wrapper */
 .homepage-hero {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, var(--hero-bg-start) 0%, var(--hero-bg-end) 100%);
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--text-on-dark);
   float: none; /* Override theme's section { float: right } */
   padding: 80px 40px;
   text-align: center;
@@ -28,7 +28,7 @@ body.homepage {
 }
 
 [data-theme='dark'] .homepage-hero {
-  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--hero-bg-start) 0%, var(--hero-bg-end) 100%);
 }
 
 .homepage-hero-content {
@@ -38,7 +38,7 @@ body.homepage {
 
 .homepage-hero-name {
   border-bottom: none;
-  color: #ffffff;
+  color: var(--text-on-dark);
   font-size: 48px;
   font-weight: 300;
   letter-spacing: -0.02em;
@@ -92,7 +92,7 @@ body.homepage {
 }
 
 .upcoming-ribbon {
-  background: linear-gradient(to bottom, #c62828, #8d0000);
+  background: linear-gradient(to bottom, var(--ribbon-bg-start), var(--ribbon-bg-end));
   box-shadow: 0 2px 6px rgb(0, 0, 0, 0.35);
   color: #ffffff;
   font-size: 10px;
@@ -110,7 +110,7 @@ body.homepage {
 }
 
 [data-theme='dark'] .upcoming-ribbon {
-  background: linear-gradient(to bottom, #c62828, #8d0000);
+  background: linear-gradient(to bottom, var(--ribbon-bg-start), var(--ribbon-bg-end));
 }
 
 .homepage-card:hover {
@@ -188,7 +188,7 @@ body.homepage {
   align-items: center;
   background: var(--accent-color);
   border-radius: 8px;
-  color: #ffffff;
+  color: var(--text-on-dark);
   display: inline-flex;
   font-size: 16px;
   font-weight: 600;
@@ -199,18 +199,18 @@ body.homepage {
 }
 
 .homepage-contact-cta:hover {
-  color: #ffffff;
+  color: var(--text-on-dark);
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
 [data-theme='dark'] .homepage-contact-cta {
-  background: #c9302c; /* Darker red for WCAG AA (5.4:1 contrast with white) */
+  background: var(--cta-bg); /* Darker red for WCAG AA (5.4:1 contrast with white) */
 }
 
 @media (prefers-color-scheme: dark) {
   .homepage-contact-cta {
-    background: #c9302c; /* Fallback for system dark mode */
+    background: var(--cta-bg); /* Fallback for system dark mode */
   }
 }
 
