@@ -50,4 +50,19 @@ export default [
       }],
     },
   },
+
+  // Node.js scripts — overrides browser config for .github/scripts/
+  {
+    files: ['.github/scripts/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
 ];

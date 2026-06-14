@@ -147,22 +147,7 @@ jobs:
             _site/
 
       - name: Validate Atom feed
-        run: |
-          node -e "
-            const fs = require('fs');
-            const xml = fs.readFileSync('_site/atom.xml', 'utf8');
-            // Basic well-formedness: must open and close <feed>
-            if (!xml.includes('<feed') || !xml.includes('</feed>')) {
-              console.error('❌ Atom feed missing <feed> element');
-              process.exit(1);
-            }
-            const entries = (xml.match(/<entry>/g) || []).length;
-            if (entries === 0) {
-              console.error('❌ Atom feed has no entries');
-              process.exit(1);
-            }
-            console.log('✅ Atom feed valid with ' + entries + ' entries');
-          "
+        run: node .github/scripts/validate-atom-feed.js
 
   # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
@@ -336,29 +321,8 @@ jobs:
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
-            const fs = require('fs');
-            const reportPath = './test-suite/reports/lighthouse/manifest.json';
-            if (fs.existsSync(reportPath)) {
-              const manifest = JSON.parse(fs.readFileSync(reportPath));
-              const summary = manifest[0].summary;
-
-              const comment = `## 🔦 Lighthouse Results
-
-              | Metric | Score |
-              |--------|-------|
-              | Performance | ${summary.performance * 100}% |
-              | Accessibility | ${summary.accessibility * 100}% |
-              | Best Practices | ${summary['best-practices'] * 100}% |
-              | SEO | ${summary.seo * 100}% |
-              `;
-
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: comment
-              });
-            }
+            const fn = require('./.github/scripts/lighthouse-comment.js')
+            await fn({github, context})
 
   # ============================================================================
   # BUILD AND DEPLOY
@@ -431,40 +395,13 @@ jobs:
 
       - name: Derive latest post URL
         id: latest-post
-        run: |
-          latest=$(ls _posts/*.markdown | sort | tail -1)
-          filename=$(basename "$latest" .markdown)
-          # Format: YYYY-MM-DD-slug → /blog/YYYY/MM/DD/slug/
-          year=$(echo "$filename" | cut -d- -f1)
-          month=$(echo "$filename" | cut -d- -f2)
-          day=$(echo "$filename" | cut -d- -f3)
-          slug=$(echo "$filename" | cut -d- -f4-)
-          echo "url=https://karun.me/blog/${year}/${month}/${day}/${slug}/" >> $GITHUB_OUTPUT
-          # Get title from frontmatter
-          title=$(grep '^title:' "$latest" | head -1 | sed 's/^title: *//;s/"//g')
-          echo "title=$title" >> $GITHUB_OUTPUT
+        run: bash .github/scripts/derive-latest-post-url.sh
 
       - name: Smoke test prod endpoints
-        run: |
-          SITE=https://karun.me
-
-          echo "Checking homepage..."
-          curl -fsS -o /dev/null -w "%{http_code}" "$SITE/" | grep -q "200"
-          echo "✅ Homepage OK"
-
-          echo "Checking latest post: ${{ steps.latest-post.outputs.url }}"
-          curl -fsS -o /dev/null -w "%{http_code}" "${{ steps.latest-post.outputs.url }}" | grep -q "200"
-          echo "✅ Latest post OK"
-
-          echo "Checking atom.xml..."
-          curl -fsS -o /dev/null -w "%{http_code}" "$SITE/atom.xml" | grep -q "200"
-          echo "✅ atom.xml OK"
-
-          echo "Checking latest post title appears on homepage..."
-          curl -fsS "$SITE/" | grep -qi "${{ steps.latest-post.outputs.title }}" || \
-            { echo "⚠️ Latest post title not found on homepage (cache may be warming)"; }
-
-          echo "✅ All smoke tests passed"
+        run: bash .github/scripts/smoke-test.sh
+        env:
+          LATEST_POST_URL: ${{ steps.latest-post.outputs.url }}
+          LATEST_POST_TITLE: ${{ steps.latest-post.outputs.title }}
 
   # ============================================================================
   # AUTO-ROLLBACK (triggered by smoke test failure)
@@ -484,18 +421,9 @@ jobs:
     steps:
       - name: Find last successful deploy run
         id: find-run
+        run: bash .github/scripts/find-rollback-run.sh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          LAST_RUN_ID=$(gh api \
-            "/repos/${{ github.repository }}/actions/workflows/ci.yml/runs?status=success&branch=main&per_page=10" \
-            --jq "[.workflow_runs[] | select(.id != ${{ github.run_id }})] | first | .id")
-          if [ -z "$LAST_RUN_ID" ] || [ "$LAST_RUN_ID" = "null" ]; then
-            echo "::error::No previous successful run found — cannot auto-rollback."
-            exit 1
-          fi
-          echo "run_id=$LAST_RUN_ID" >> $GITHUB_OUTPUT
-          echo "Rolling back to artifacts from run $LAST_RUN_ID"
 
       - name: Download last good built-site
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
@@ -553,26 +481,7 @@ jobs:
       needs.build-and-deploy.result == 'success'
     steps:
       - name: Check NHS score
-        run: |
-          RESPONSE=$(curl -sS -H 'User-Agent: nhs-score-check-action' \
-            "https://nothumansearch.ai/api/v1/site/karun.me")
-          SCORE=$(echo "$RESPONSE" | jq -r '.agentic_score // empty')
-
-          if [ -z "$SCORE" ]; then
-            echo "::warning::karun.me not yet indexed by NHS. Submitting for indexing (allow 24h)."
-            curl -s -X POST "https://nothumansearch.ai/api/v1/submit" \
-              -H 'Content-Type: application/json' \
-              -H 'User-Agent: nhs-score-check-action' \
-              -d '{"url":"https://karun.me"}' > /dev/null
-            exit 0
-          fi
-
-          echo "NHS score: $SCORE / 100"
-          if [ "$SCORE" -lt 30 ]; then
-            echo "::error::Score $SCORE is below the minimum threshold of 30."
-            exit 1
-          fi
-          echo "Score $SCORE >= 30. Pass."
+        run: bash .github/scripts/nhs-score-check.sh
 
   # ============================================================================
   # TEST SUMMARY
@@ -585,44 +494,16 @@ jobs:
     needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy, smoke-test, rollback]
     steps:
       - name: Check results
-        run: |
-          echo "Theme changes detected: ${{ needs.changes.outputs.theme }}"
-          echo ""
-
-          if [[ "${{ needs.validate-content.result }}" != "success" ]]; then
-            echo "❌ HTML validation failed. Deployment was blocked."
-            echo "  - HTML validation: ${{ needs.validate-content.result }}"
-            exit 1
-          fi
-
-          if [[ "${{ needs.changes.outputs.theme }}" == "false" ]]; then
-            echo "✅ No theme changes - theme tests skipped, HTML validation passed, build/deploy proceeded"
-            exit 0
-          fi
-
-          if [[ "${{ needs.lint-and-validate.result }}" != "success" || \
-                "${{ needs.visual-tests.result }}" != "success" || \
-                "${{ needs.functional-e2e-tests.result }}" != "success" || \
-                "${{ needs.performance-tests.result }}" != "success" ]]; then
-            echo "❌ Some tests failed. Deployment was blocked."
-            echo "  - Lint: ${{ needs.lint-and-validate.result }}"
-            echo "  - Visual: ${{ needs.visual-tests.result }}"
-            echo "  - Functional E2E (includes a11y): ${{ needs.functional-e2e-tests.result }}"
-            echo "  - Perf (includes Lighthouse thresholds): ${{ needs.performance-tests.result }}"
-            exit 1
-          fi
-
-          if [[ "${{ needs.build-and-deploy.result }}" != "success" ]]; then
-            echo "❌ Build/deploy failed."
-            exit 1
-          fi
-
-          if [[ "${{ needs.smoke-test.result }}" == "failure" ]]; then
-            echo "❌ Smoke test failed after deploy — site auto-rolled back. Investigate this commit."
-            exit 1
-          fi
-
-          echo "✅ All tests passed (including Lighthouse thresholds) and deployment succeeded!"
+        run: bash .github/scripts/test-summary.sh
+        env:
+          THEME_CHANGED: ${{ needs.changes.outputs.theme }}
+          VALIDATE_RESULT: ${{ needs.validate-content.result }}
+          LINT_RESULT: ${{ needs.lint-and-validate.result }}
+          VISUAL_RESULT: ${{ needs.visual-tests.result }}
+          FUNCTIONAL_RESULT: ${{ needs.functional-e2e-tests.result }}
+          PERF_RESULT: ${{ needs.performance-tests.result }}
+          DEPLOY_RESULT: ${{ needs.build-and-deploy.result }}
+          SMOKE_RESULT: ${{ needs.smoke-test.result }}
 
   # ============================================================================
   # DEV.TO PUBLISHING
