@@ -213,6 +213,17 @@ test.describe('Accessibility', () => {
     await page.locator('#theme-toggle').click();
     await expect(html).toHaveAttribute('data-theme', 'dark');
 
+    // Wait for CSS transitions to settle before scanning (topic-pill has transition: all 0.2s;
+    // axe scans mid-transition produce incorrect interpolated colour values)
+    await page.waitForFunction(() =>
+      !Array.from(document.querySelectorAll('.topic-pill:not(.topic-pill--all)')).some(el => {
+        const s = window.getComputedStyle(el);
+        const bg = s.backgroundColor;
+        // Transition complete when bg matches dark --bg-secondary rgb(42,42,42)
+        return bg !== 'rgb(42, 42, 42)' && bg !== '';
+      })
+    );
+
     // Test dark mode accessibility
     const darkAccessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
