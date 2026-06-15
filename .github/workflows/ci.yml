@@ -186,7 +186,7 @@ jobs:
     # arm64 runner (free for public repos): visual baselines are arm64-rendered
     # so they match what devs generate locally on Apple Silicon. Keep this in
     # sync with the --platform in scripts/visual-snapshots.sh.
-    runs-on: ubuntu-24.04-arm
+    runs-on: blacksmith-4vcpu-ubuntu-2404-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     strategy:
@@ -262,7 +262,7 @@ jobs:
   functional-e2e-tests:
     name: Functional E2E Tests
     # arm64 runner: consistent with other jobs for shared npm/Ruby/Playwright caching
-    runs-on: ubuntu-24.04-arm
+    runs-on: blacksmith-4vcpu-ubuntu-2404-arm
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
