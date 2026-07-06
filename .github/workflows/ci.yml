@@ -428,6 +428,10 @@ jobs:
     permissions:
       actions: read
     steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 1
+
       - name: Find last successful deploy run
         id: find-run
         run: bash .github/scripts/find-rollback-run.sh
