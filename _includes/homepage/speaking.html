@@ -35,11 +35,8 @@
         {%- else -%}{%- assign format_label = 'Talk' -%}{%- assign format_class = 'talk-badge-talk' -%}
       {%- endcase -%}
     {%- assign primary_date_str = primary.date | date: "%Y-%m-%d" -%}
-    {%- assign today_str = site.time | date: "%Y-%m-%d" -%}
-    {%- assign is_upcoming = false -%}
-    {%- if primary_date_str >= today_str -%}{%- assign is_upcoming = true -%}{%- endif -%}
-    <a href="{{ link }}" class="homepage-card" target="_blank" rel="noopener noreferrer">
-      {%- if is_upcoming -%}<span class="upcoming-ribbon">Upcoming</span>{%- endif -%}
+    <a href="{{ link }}" class="homepage-card" target="_blank" rel="noopener noreferrer" data-talk-date="{{ primary_date_str }}">
+      <span class="upcoming-ribbon" hidden>Upcoming</span>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">
         <span>{{ primary.event }}</span>
