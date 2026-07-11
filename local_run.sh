@@ -61,26 +61,17 @@ if "$(dirname "$0")/scripts/server-status.sh" "$PORT" >/dev/null 2>&1; then
     fi
 fi
 
-# Check Ruby version
-REQUIRED_RUBY="3.2"
-CURRENT_RUBY=$(ruby -v 2>/dev/null | grep -oE '[0-9]+\.[0-9]+' | head -1)
-
-if [ -z "$CURRENT_RUBY" ]; then
+# Check Ruby is available (version pinned via .ruby-version, matches CI)
+if ! command -v ruby >/dev/null 2>&1; then
     echo "Error: Ruby not found."
     echo ""
-    echo "Please install Ruby $REQUIRED_RUBY using one of:"
-    echo "  - mise: mise install ruby@$REQUIRED_RUBY"
-    echo "  - rbenv: rbenv install $REQUIRED_RUBY"
-    echo "  - asdf: asdf install ruby $REQUIRED_RUBY"
+    echo "Please install Ruby using one of:"
+    echo "  - mise: mise install ruby"
+    echo "  - rbenv: rbenv install \$(cat .ruby-version)"
+    echo "  - asdf: asdf install ruby \$(cat .ruby-version)"
     echo ""
     echo "Native Ruby is the recommended way to run Jekyll."
     exit 1
-fi
-
-if [ "$CURRENT_RUBY" != "$REQUIRED_RUBY" ]; then
-    echo "Warning: Ruby $CURRENT_RUBY detected, but $REQUIRED_RUBY is recommended (matching CI)."
-    echo "Consider switching with: mise use ruby@$REQUIRED_RUBY"
-    echo ""
 fi
 
 # Check if bundler is installed

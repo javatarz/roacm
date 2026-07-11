@@ -49,7 +49,7 @@ print_color "for theme development and continuous integration." "$BLUE"
 # Step 1: Setup Ruby via mise (for fast native Jekyll)
 print_header "Step 1: Setting up Ruby Environment"
 
-RUBY_VERSION="3.2"
+RUBY_VERSION=$(cat .ruby-version 2>/dev/null || echo "3.4")
 
 # Check if mise is installed
 if command_exists mise; then
@@ -59,7 +59,7 @@ if command_exists mise; then
   if mise current &> /dev/null; then
     print_color "✅ mise is activated in shell" "$GREEN"
 
-    # Install Ruby 3.2 if not already installed
+    # Install pinned Ruby version if not already installed
     if ! mise list ruby 2>/dev/null | grep -q "$RUBY_VERSION"; then
       print_color "Installing Ruby $RUBY_VERSION via mise (this may take a few minutes)..." "$YELLOW"
       mise install ruby@$RUBY_VERSION
