@@ -134,11 +134,15 @@ done
 echo ""
 
 # Wait for all containers; print each browser's output sequentially
+# `wait ... || code=$?` (not `wait; code=$?`) so a failing container doesn't
+# trip `set -e` and abort the loop before printing that container's output —
+# under -e, a failing command's exit is only forgiven when it's the LHS of
+# a`||`, not just a separate statement before `code=$?` reads it.
 OVERALL=0
 for i in "${!PIDS[@]}"; do
   browser="${PROJECTS[$i]}"
-  wait "${PIDS[$i]}"
-  code=$?
+  code=0
+  wait "${PIDS[$i]}" || code=$?
   printf '─%.0s' $(seq 1 60); echo ""
   echo "  [$browser]  exit=$code"
   printf '─%.0s' $(seq 1 60); echo ""
