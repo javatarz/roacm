@@ -10,6 +10,7 @@
 
 main {
   background: var(--bg-primary);
+  box-sizing: border-box;
 }
 
 /* Ensure articles have opaque backgrounds for proper color contrast */
