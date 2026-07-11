@@ -123,6 +123,7 @@
 
   /* Main content takes full width */
   main {
+    box-sizing: border-box; /* keep width:100% from including padding, not adding to it */
     margin-left: 0;
     margin-right: 0;
     padding: 70px 20px 20px 20px; /* Extra top padding for hamburger menu */
