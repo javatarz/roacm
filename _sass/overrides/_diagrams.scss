@@ -12,14 +12,14 @@
 }
 
 .diagram-sm {
-  max-width: 400px;
+  max-width: min(400px, 100%);
 }
 
 .diagram-md {
-  max-width: 500px;
+  max-width: min(500px, 100%);
 }
 
 .diagram-lg {
-  max-width: 650px;
+  max-width: min(650px, 100%);
 }
 
