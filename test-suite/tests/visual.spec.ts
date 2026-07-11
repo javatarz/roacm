@@ -110,18 +110,24 @@ registerPageTests('Tier 2 (Important Pages)', tier2Pages);
 registerPageTests('Tier 3 (Secondary Pages)', tier3Pages);
 
 test.describe('Visual Regression - Responsive Layout', () => {
-  test('blog index has no horizontal scroll at all viewports', async ({ page, browserName }) => {
-    for (const viewport of viewports) {
-      await page.setViewportSize(viewport);
-      await page.goto('/blog/');
+  const scrollCheckPages = ['/', '/blog/'];
 
-      const isWebKitMobile = browserName === 'webkit' && viewport.name === 'mobile';
-      if (!isWebKitMobile) {
-        const hasHorizontalScroll = await page.evaluate(() => {
-          return document.documentElement.scrollWidth > document.documentElement.clientWidth;
-        });
-        expect(hasHorizontalScroll).toBe(false);
+  for (const scrollCheckPage of scrollCheckPages) {
+    test(`${scrollCheckPage} has no horizontal scroll at all viewports`, async ({ page, browserName }) => {
+      for (const viewport of viewports) {
+        await page.setViewportSize(viewport);
+        await page.goto(scrollCheckPage);
+
+        // TODO(#296): WebKit mobile is exempted here pending investigation into
+        // whether this masks a real overflow bug or is a genuine WebKit quirk.
+        const isWebKitMobile = browserName === 'webkit' && viewport.name === 'mobile';
+        if (!isWebKitMobile) {
+          const hasHorizontalScroll = await page.evaluate(() => {
+            return document.documentElement.scrollWidth > document.documentElement.clientWidth;
+          });
+          expect(hasHorizontalScroll, `${scrollCheckPage} @ ${viewport.name}`).toBe(false);
+        }
       }
-    }
-  });
+    });
+  }
 });
