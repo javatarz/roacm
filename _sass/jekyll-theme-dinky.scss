@@ -183,7 +183,10 @@ pre {
 /* Tables */
 
 table {
-  width:100%;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  width: max-content;
 }
 
 table {
