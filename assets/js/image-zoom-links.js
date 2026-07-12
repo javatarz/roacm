@@ -23,7 +23,11 @@ function wrapImage(img) {
   }
 
   const link = document.createElement('a');
-  link.href = img.currentSrc || img.src;
+  // Use the raw attribute, not img.src/currentSrc — those are always browser-
+  // resolved to an absolute http(s):// URL, which the site's external-link
+  // CSS (.post-content a[href^=http]::after) would decorate with an "external
+  // link" arrow even though this points at our own asset, not another site.
+  link.href = img.getAttribute('src');
   link.target = '_blank';
   link.rel = 'noopener';
   // Anchors are inline by default, which reintroduces the classic "gap under
