@@ -27,7 +27,7 @@ If your perception of AI's impact is that unreliable, what are you actually meas
 
 <!-- more -->
 
-[![A figure in a boat on foggy water, holding a lantern that barely illuminates the surrounding mist]({{ site.url }}/assets/images/posts/2026-03-12-observability-for-ai-assisted-development/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-03-12-observability-for-ai-assisted-development/cover.png)
+![A figure in a boat on foggy water, holding a lantern that barely illuminates the surrounding mist]({{ site.url }}/assets/images/posts/2026-03-12-observability-for-ai-assisted-development/cover.png){: .diagram-lg}
 
 ## You Need a Baseline First
 

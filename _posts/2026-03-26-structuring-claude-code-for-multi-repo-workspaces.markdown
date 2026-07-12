@@ -26,7 +26,7 @@ Here's how I've been setting this up to work across repositories.
 
 <!-- more -->
 
-[![Three translucent layers showing org, team, and repo context stacking in a multi-repo workspace]({{ site.url }}/assets/images/posts/2026-03-26-structuring-claude-code-for-multi-repo-workspaces/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-03-26-structuring-claude-code-for-multi-repo-workspaces/cover.png)
+![Three translucent layers showing org, team, and repo context stacking in a multi-repo workspace]({{ site.url }}/assets/images/posts/2026-03-26-structuring-claude-code-for-multi-repo-workspaces/cover.png){: .diagram-lg}
 
 ## The problem
 

@@ -26,7 +26,7 @@ Examples of transparency include sharing all business related data openly intern
 
 <!-- more -->
 
-[![Team collaboration with transparency and open information flow]({{ site.url }}/assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp){: .diagram-md}]({{ site.url }}/assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp)
+![Team collaboration with transparency and open information flow]({{ site.url }}/assets/images/posts/2025-02-12-cost-of-culture-transparency/cover.webp){: .diagram-md}
 
 ## Transparency promotes empowerment
 

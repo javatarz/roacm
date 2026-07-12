@@ -21,7 +21,7 @@ devto_tags:
   - architecture
 ---
 
-[![A three-tiered cutaway workshop with a glowing envelope descending between layers]({{ site.url }}/assets/images/posts/2026-05-20-the-judgement-pyramid/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-05-20-the-judgement-pyramid/cover.png)
+![A three-tiered cutaway workshop with a glowing envelope descending between layers]({{ site.url }}/assets/images/posts/2026-05-20-the-judgement-pyramid/cover.png){: .diagram-lg}
 
 A team I was talking to had built a code-review skill in Claude Code. It looked good: a careful prompt, a set of rules, and examples. Then it shipped a PR with a nested recursive loop inside another recursive loop. Cyclomatic complexity any static analyser ([PMD](https://pmd.github.io/), [radon](https://radon.readthedocs.io/), [ESLint's complexity rule](https://eslint.org/docs/latest/rules/complexity)) would have flagged in milliseconds. The skill missed it.
 

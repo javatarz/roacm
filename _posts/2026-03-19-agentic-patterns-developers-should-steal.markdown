@@ -27,7 +27,7 @@ These patterns aren't theoretical. They're practical and don't require special t
 
 <!-- more -->
 
-[![A figure crossing a bridge from a chaotic single-screen setup to an organised multi-station workspace]({{ site.url }}/assets/images/posts/2026-03-19-agentic-patterns-developers-should-steal/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-03-19-agentic-patterns-developers-should-steal/cover.png)
+![A figure crossing a bridge from a chaotic single-screen setup to an organised multi-station workspace]({{ site.url }}/assets/images/posts/2026-03-19-agentic-patterns-developers-should-steal/cover.png){: .diagram-lg}
 
 ## The Patterns
 

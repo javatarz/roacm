@@ -21,7 +21,7 @@ devto_tags:
 image: /assets/images/posts/2026-05-21-the-comfort-plateau-ai-built-for-you/cover.png
 ---
 
-[![A man stands proudly next to a bicycle in a park, hand on hip, satisfied. The bicycle looks polished and complete but cannot actually be ridden.]({{ site.url }}/assets/images/posts/2026-05-21-the-comfort-plateau-ai-built-for-you/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-05-21-the-comfort-plateau-ai-built-for-you/cover.png)
+![A man stands proudly next to a bicycle in a park, hand on hip, satisfied. The bicycle looks polished and complete but cannot actually be ridden.]({{ site.url }}/assets/images/posts/2026-05-21-the-comfort-plateau-ai-built-for-you/cover.png){: .diagram-lg}
 
 I've spent the last year watching engineers and writers adopt these tools, and the same pattern keeps showing up. The first three months look transformative. The next nine look almost identical to the first three.
 

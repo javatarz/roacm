@@ -36,7 +36,7 @@ Here's what it looks like in action:
 
 Before diving into details, here's the mental model I use. intelligent Engineering isn't one thing. It's layers that enable each other:
 
-[![The intelligent Engineering Stack: four layers from Foundation at the bottom, through Context, Interaction, to Workflow at the top](/assets/images/posts/2026-01-02-intelligent-engineering-in-practice/ie-stack.svg){: .diagram-md}](/assets/images/posts/2026-01-02-intelligent-engineering-in-practice/ie-stack.svg)
+![The intelligent Engineering Stack: four layers from Foundation at the bottom, through Context, Interaction, to Workflow at the top](/assets/images/posts/2026-01-02-intelligent-engineering-in-practice/ie-stack.svg){: .diagram-md}
 
 _This diagram shows [Claude Code's](https://claude.ai/code/) primitives. Other AI assistants have different building blocks: Cursor has rules and `.cursorrules`, Windsurf has Cascade workflows. The layers matter more than the specific implementation._
 

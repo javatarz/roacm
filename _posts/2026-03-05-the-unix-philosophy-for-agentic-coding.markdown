@@ -25,7 +25,7 @@ There's a better way. One that's cheaper, more predictable, and already well und
 
 <!-- more -->
 
-[![A robotic conductor directing an orchestra of developer tools]({{ site.url }}/assets/images/posts/2026-03-05-the-unix-philosophy-for-agentic-coding/cover.png){: .diagram-lg}]({{ site.url }}/assets/images/posts/2026-03-05-the-unix-philosophy-for-agentic-coding/cover.png)
+![A robotic conductor directing an orchestra of developer tools]({{ site.url }}/assets/images/posts/2026-03-05-the-unix-philosophy-for-agentic-coding/cover.png){: .diagram-lg}
 
 ## The Pattern
 

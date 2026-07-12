@@ -26,7 +26,7 @@ If you've used Claude Sonnet in [Claude Code](https://claude.ai/code), [Cursor](
 
 <!-- more -->
 
-[![Two people collaborating at a whiteboard with diagrams and notes]({{ site.url }}/assets/images/posts/2025-12-31-context-engineering/cover.jpg){: .diagram-lg}]({{ site.url }}/assets/images/posts/2025-12-31-context-engineering/cover.jpg)
+![Two people collaborating at a whiteboard with diagrams and notes]({{ site.url }}/assets/images/posts/2025-12-31-context-engineering/cover.jpg){: .diagram-lg}
 
 In [intelligent Engineering: Principles for Building With AI]({{ site.url }}/blog/2025/11/06/intelligent-engineering-building-skills-and-shaping-principles/), I mentioned that "context is everything" and that "context engineering matters more than prompt engineering." But I didn't explain what that means or how to do it. This post fills that gap.
 
@@ -72,7 +72,7 @@ The whiteboard's physical dimensions are the **context window**. There's a fixed
 
 Remember how your teammate focused on the top and bottom of the board but missed the middle? That's a real phenomenon. Research shows a U-shaped attention curve: information at the start and end of context gets more attention than information in the middle.
 
-[![U-shaped attention curve showing high attention at start and end of context, with 'Lost in the Middle' highlighting the attention dip](/assets/images/posts/2025-12-31-context-engineering/attention-curve.svg){: .diagram-sm}](/assets/images/posts/2025-12-31-context-engineering/attention-curve.svg)
+![U-shaped attention curve showing high attention at start and end of context, with 'Lost in the Middle' highlighting the attention dip](/assets/images/posts/2025-12-31-context-engineering/attention-curve.svg){: .diagram-sm}
 
 This means:
 - Cramming everything into context can hurt performance
@@ -185,7 +185,7 @@ For large tasks, send people to side rooms with fresh whiteboards:
 - Sub-agents return condensed summaries
 - Main agent integrates results without carrying full sub-task context
 
-[![Sub-agent workflow: main agent delegates tasks to sub-agents with fresh context, receives summaries back, and integrates results](/assets/images/posts/2025-12-31-context-engineering/sub-agents.svg){: .diagram-md}](/assets/images/posts/2025-12-31-context-engineering/sub-agents.svg)
+![Sub-agent workflow: main agent delegates tasks to sub-agents with fresh context, receives summaries back, and integrates results](/assets/images/posts/2025-12-31-context-engineering/sub-agents.svg){: .diagram-md}
 
 This mirrors how teams work: delegate, get summaries, integrate. Claude Code supports this pattern for [parallel issue work](https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/) using git worktrees.
 

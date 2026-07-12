@@ -28,7 +28,7 @@ One thing has become clear: AI doesn't make engineering easier. It shifts where 
 
 <!-- more -->
 
-[![AI and human collaboration in software engineering]({{ site.url }}/assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg){: .diagram-lg}]({{ site.url }}/assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg)
+![AI and human collaboration in software engineering]({{ site.url }}/assets/images/posts/2025-11-06-intelligent-engineering-building-skills-and-shaping-principles/cover.jpg){: .diagram-lg}
 
 The teams I've seen succeed with AI aren't the ones using it everywhere. They're the ones using it deliberately, knowing when to trust it, when to verify, and when to ignore it entirely.
 
