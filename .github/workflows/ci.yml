@@ -159,7 +159,7 @@ jobs:
   lint-and-validate:
     name: Lint and Validate
     runs-on: ubuntu-24.04-arm
-    needs: changes
+    needs: [changes, build]
     if: needs.changes.outputs.theme == 'true'
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -167,7 +167,7 @@ jobs:
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
         with:
-          include-ruby: 'true'
+          include-ruby: 'false'
 
       - name: Lint CSS
         run: npm run lint:css
@@ -175,11 +175,11 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint:js
 
-      - name: Build site for HTML validation
-        run: bundle exec jekyll build
-
-      - name: Validate HTML
-        run: npm run lint:html
+      - name: Download site artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: built-site
+          path: _site/
 
       - name: Detect dead code
         run: npm run audit:dead-code
