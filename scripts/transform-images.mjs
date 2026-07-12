@@ -127,6 +127,13 @@ async function transformImgTag(imgTag) {
     return imgTag;
   }
 
+  // Skip GIFs - optimize-images.mjs doesn't process them either (animated GIFs
+  // need animated WebP encoding, which it doesn't do), so a <picture> WebP
+  // source would reference a variant that's never generated.
+  if (/\.gif$/i.test(assetPath)) {
+    return imgTag;
+  }
+
   // Normalize path (remove leading slash for filesystem access)
   const normalizedPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
   const fullImagePath = join(SITE_DIR, normalizedPath);
