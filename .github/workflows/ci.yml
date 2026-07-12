@@ -153,14 +153,14 @@ jobs:
         run: node .github/scripts/validate-atom-feed.js
 
   # ============================================================================
-  # EXTERNAL LINK CHECK (scheduled run only, warn-level, never gates deploy)
+  # EXTERNAL LINK CHECK (scheduled + manual runs only, never gates deploy)
   # ============================================================================
 
   check-external-links:
     name: Check External Links (scheduled)
     runs-on: ubuntu-24.04-arm
     needs: build
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
@@ -185,8 +185,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-htmlproofer-external-
 
-      - name: Check external links (warn-only)
-        continue-on-error: true
+      # No continue-on-error: this job is decoupled from build-and-deploy's
+      # `needs`, so letting it fail is safe and gives a real GitHub Actions
+      # failure notification instead of a silently-ignored warning.
+      - name: Check external links
         run: |
           bundle exec htmlproofer \
             --no-enforce-https \
