@@ -153,6 +153,48 @@ jobs:
         run: node .github/scripts/validate-atom-feed.js
 
   # ============================================================================
+  # EXTERNAL LINK CHECK (scheduled run only, warn-level, never gates deploy)
+  # ============================================================================
+
+  check-external-links:
+    name: Check External Links (scheduled)
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    if: github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
+        with:
+          include-ruby: 'true'
+
+      - name: Download site artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: built-site
+          path: _site/
+
+      # html-proofer has no --disable-internal flag, so this re-checks internal
+      # links too (cheap, no network calls) alongside the external pass.
+      - name: Restore htmlproofer external link cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
+        with:
+          path: tmp/.htmlproofer
+          key: ${{ runner.os }}-htmlproofer-external-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-htmlproofer-external-
+
+      - name: Check external links (warn-only)
+        continue-on-error: true
+        run: |
+          bundle exec htmlproofer \
+            --no-enforce-https \
+            --cache '{"timeframe": {"external": "3d"}}' \
+            --ignore-urls "/\/assets\/images\/uploads\//,/^portableapps\.com/,/^karunab\.com/,/^Imagine%20Cup/,/^Clean%20File%20List/" \
+            _site/
+
+  # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================
 
