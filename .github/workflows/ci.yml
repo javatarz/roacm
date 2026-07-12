@@ -296,6 +296,37 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
+  image-overflow-tests:
+    name: Image Overflow Tests (mobile-chrome)
+    # Own job so ~120 mobile-chrome checks don't inflate functional-e2e's
+    # critical path; runs in parallel, timed to land near webkit-2 (#301).
+    runs-on: ubuntu-24.04-arm
+    needs: changes
+    if: needs.changes.outputs.theme == 'true'
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup dependencies
+        uses: ./.github/actions/setup-deps
+        with:
+          include-ruby: 'true'
+          playwright-browser: chromium
+          prebuild-js: 'true'
+          skip-system-deps: 'true'
+
+      - name: Run image overflow tests (mobile-chrome)
+        run: npm run test:e2e -- --project=mobile-chrome test-suite/tests/image-overflow.spec.ts
+        env:
+          PLAYWRIGHT_WORKERS: '3'
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: image-overflow-report
+          path: test-suite/reports/playwright-html
+          retention-days: 7
+
   performance-tests:
     name: Performance Tests (Lighthouse)
     runs-on: ubuntu-24.04-arm
@@ -348,7 +379,7 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-24.04-arm
-    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests]
+    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, image-overflow-tests, performance-tests]
     # Run if build and HTML validation succeeded AND (all tests passed OR all tests were skipped for non-theme changes)
     # Do NOT run if build, validation, or any test job failed
     if: |
@@ -359,6 +390,7 @@ jobs:
        (needs.lint-and-validate.result == 'success' &&
         needs.visual-tests.result == 'success' &&
         needs.functional-e2e-tests.result == 'success' &&
+        needs.image-overflow-tests.result == 'success' &&
         needs.performance-tests.result == 'success'))
     steps:
       - name: Download site artifact
@@ -515,7 +547,7 @@ jobs:
     name: Test Summary
     runs-on: ubuntu-24.04-arm
     if: always()
-    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, performance-tests, build-and-deploy, smoke-test, rollback]
+    needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, image-overflow-tests, performance-tests, build-and-deploy, smoke-test, rollback]
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
@@ -528,6 +560,7 @@ jobs:
           LINT_RESULT: ${{ needs.lint-and-validate.result }}
           VISUAL_RESULT: ${{ needs.visual-tests.result }}
           FUNCTIONAL_RESULT: ${{ needs.functional-e2e-tests.result }}
+          IMAGE_OVERFLOW_RESULT: ${{ needs.image-overflow-tests.result }}
           PERF_RESULT: ${{ needs.performance-tests.result }}
           DEPLOY_RESULT: ${{ needs.build-and-deploy.result }}
           SMOKE_RESULT: ${{ needs.smoke-test.result }}

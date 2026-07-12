@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Requires: THEME_CHANGED, VALIDATE_RESULT, LINT_RESULT, VISUAL_RESULT,
-#           FUNCTIONAL_RESULT, PERF_RESULT, DEPLOY_RESULT, SMOKE_RESULT env vars
+#           FUNCTIONAL_RESULT, IMAGE_OVERFLOW_RESULT, PERF_RESULT,
+#           DEPLOY_RESULT, SMOKE_RESULT env vars
 set -euo pipefail
 
 echo "Theme changes detected: ${THEME_CHANGED}"
@@ -20,11 +21,13 @@ fi
 if [[ "${LINT_RESULT}" != "success" || \
       "${VISUAL_RESULT}" != "success" || \
       "${FUNCTIONAL_RESULT}" != "success" || \
+      "${IMAGE_OVERFLOW_RESULT}" != "success" || \
       "${PERF_RESULT}" != "success" ]]; then
   echo "❌ Some tests failed. Deployment was blocked."
   echo "  - Lint: ${LINT_RESULT}"
   echo "  - Visual: ${VISUAL_RESULT}"
   echo "  - Functional E2E (includes a11y): ${FUNCTIONAL_RESULT}"
+  echo "  - Image overflow (mobile-chrome): ${IMAGE_OVERFLOW_RESULT}"
   echo "  - Perf (includes Lighthouse thresholds): ${PERF_RESULT}"
   exit 1
 fi
