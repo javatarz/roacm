@@ -277,6 +277,11 @@ jobs:
           include-ruby: 'true'
           playwright-browser: chromium
           prebuild-js: 'true'
+          # apt-get install-deps ran on every cache hit (~30s tax, #312).
+          # ubuntu-24.04-arm GH-hosted image ships the libs full chromium
+          # needs; if this job starts failing to launch chromium, that
+          # assumption is wrong — revert to default (unset) here.
+          skip-system-deps: 'true'
 
       - name: Run functional E2E tests (includes a11y)
         run: npm run test:e2e -- --project=chromium --grep-invert=@visual
