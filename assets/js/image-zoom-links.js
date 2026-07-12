@@ -26,6 +26,10 @@ function wrapImage(img) {
   link.href = img.currentSrc || img.src;
   link.target = '_blank';
   link.rel = 'noopener';
+  // Anchors are inline by default, which reintroduces the classic "gap under
+  // an inline image" whitespace bug that `img { display: block }` (see
+  // _sass/overrides/_rouge.scss) already exists to prevent for bare images.
+  link.style.display = 'block';
   img.replaceWith(link);
   link.appendChild(img);
 }
