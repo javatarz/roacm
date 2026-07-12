@@ -164,6 +164,6 @@ Make sure you set _$isAutoStart_ to _**false**_ since .rtorrent.rc starts the pl
 
 And you're done. Enjoy torrenting on linux with rTorrent and ruTorrent WebUI awesomeness :)
 
-One last thing, make sure you compile XMLRPC-C with --disable-cplusplus. The XMLRPC-C install is the one thing that kept giving me issues. The solution to this was in a **bug patch** that could not be found. I simply have the patched file that you are free to use if you are facing the same issue. Take [this file](karunab.com/wp-content/uploads/2010/02/xmlrpc_curl_transport.c) and put it in xmlrpc-c-1.11.00\lib\curl_transport and continue the process. The patched file comes with a disclaimer of course. I am not sure what changes were made. It worked for me. Use it at your own risk.
+One last thing, make sure you compile XMLRPC-C with --disable-cplusplus. The XMLRPC-C install is the one thing that kept giving me issues. The solution to this was in a **bug patch** that could not be found. I simply have the patched file that you are free to use if you are facing the same issue. Take [this file](http://karunab.com/wp-content/uploads/2010/02/xmlrpc_curl_transport.c) and put it in xmlrpc-c-1.11.00\lib\curl_transport and continue the process. The patched file comes with a disclaimer of course. I am not sure what changes were made. It worked for me. Use it at your own risk.
 
 I hope this tutorial helps you lost souls trying to get rTorrent on Ubuntu with ruTorrent as your WebUI.
