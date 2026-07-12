@@ -188,22 +188,29 @@ jobs:
       # No continue-on-error: this job is decoupled from build-and-deploy's
       # `needs`, so letting it fail is safe and gives a real GitHub Actions
       # failure notification instead of a silently-ignored warning.
-      # Beyond the general ignore-urls below, these 7 hosts are known to
-      # bot-wall scrapers on otherwise-live pages (confirmed via manual runs:
-      # linkedin 999/429, reddit/medium/openai/jstor/npmjs 403). Skipped
-      # entirely rather than filtered by status code, since many *other*
-      # domains (old SourceForge projects, dead forums, expired blogs) also
-      # return 403/429 and those ARE real rot — status code alone can't tell
-      # bot-block from dead-site here, so this stays a short, explicit list
-      # instead of a blanket --ignore-status-codes.
+      # Beyond the general ignore-urls below, these 12 hosts are known to
+      # bot-wall scrapers on otherwise-live pages (confirmed alive via
+      # independent curl checks, still 403/429/999 against the CI runner
+      # regardless of UA/concurrency tuning). Skipped entirely rather than
+      # filtered by status code, since many *other* domains (old SourceForge
+      # projects, dead forums, expired blogs) also return 403/429 and those
+      # ARE real rot — status code alone can't tell bot-block from dead-site
+      # here, so this stays a short, explicit list instead of a blanket
+      # --ignore-status-codes. connecttimeout/timeout bumped above defaults
+      # (10s/30s) to reduce false failures from slow-but-alive sites.
+      # Scoped to posts from 2020 onwards: pre-2020 archive is a large,
+      # low-priority backlog of 20-year-old link rot (tracked separately on
+      # #311) that swamped the daily signal. 2006-2019 is a fixed, closed
+      # range that never grows, so this regex needs no yearly maintenance.
       - name: Check external links
         run: |
           bundle exec htmlproofer \
             --no-enforce-https \
             --cache '{"timeframe": {"external": "3d"}}' \
-            --typhoeus '{"headers":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"}}' \
+            --typhoeus '{"headers":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"},"connecttimeout":20,"timeout":45}' \
             --hydra '{"max_concurrency":4}' \
-            --ignore-urls "/\/assets\/images\/uploads\//,/^portableapps\.com/,/^karunab\.com/,/^Imagine%20Cup/,/^Clean%20File%20List/,/^https?:\/\/(www\.)?linkedin\.com/,/^https?:\/\/(www\.)?reddit\.com/,/^https?:\/\/medium\.com/,/^https?:\/\/openai\.com/,/^https?:\/\/(www\.)?jstor\.org/,/^https?:\/\/papers\.ssrn\.com/,/^https?:\/\/(www\.)?npmjs\.com/,/^https?:\/\/localhost/,/#:~:text=/" \
+            --ignore-files "/^_site\/blog\/(200[6-9]|201[0-9])\//" \
+            --ignore-urls "/\/assets\/images\/uploads\//,/^portableapps\.com/,/^karunab\.com/,/^Imagine%20Cup/,/^Clean%20File%20List/,/^https?:\/\/(www\.)?linkedin\.com/,/^https?:\/\/(www\.)?reddit\.com/,/^https?:\/\/medium\.com/,/^https?:\/\/openai\.com/,/^https?:\/\/(www\.)?jstor\.org/,/^https?:\/\/papers\.ssrn\.com/,/^https?:\/\/(www\.)?npmjs\.com/,/^https?:\/\/localhost/,/#:~:text=/,/^https?:\/\/(www\.)?baeldung\.com/,/^https?:\/\/retromat\.org/,/^https?:\/\/(www\.)?verywellmind\.com/,/^https?:\/\/claude\.ai/,/^https?:\/\/cursor\.directory/" \
             _site/
 
   # ============================================================================
