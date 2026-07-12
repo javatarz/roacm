@@ -32,7 +32,7 @@ if (fs.existsSync(siteDir)) {
     console.log(
       '⚠️  _site directory is old. Please rebuild Jekyll site manually.',
     );
-    console.log('   Run: ./local_run_native.sh in another terminal');
+    console.log('   Run: ./local_run.sh in another terminal');
     process.exit(0); // Exit gracefully for local dev
   }
 } else if (isCI) {
@@ -45,7 +45,7 @@ if (fs.existsSync(siteDir)) {
   process.exit(1);
 } else {
   console.log('⚠️  No _site directory found. Jekyll site needs to be built.');
-  console.log('   Run: ./local_run_native.sh to start the Jekyll server');
+  console.log('   Run: ./local_run.sh to start the Jekyll server');
   console.log('   HTML validation will be skipped for now.');
   process.exit(0); // Exit gracefully for local dev
 }

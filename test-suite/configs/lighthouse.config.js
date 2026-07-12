@@ -10,7 +10,7 @@ module.exports = {
         ? 'npx serve _site -l 4000 --no-port-switching --no-clipboard'
         : process.env.CI
           ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000 --config _config.yml,_config_dev.yml'
-          : './local_run_native.sh --no-livereload',
+          : './local_run.sh --no-livereload',
       startServerReadyPattern: process.env.LIGHTHOUSE_USE_BUILT_SITE
         ? 'Accepting connections'
         : 'Server running',

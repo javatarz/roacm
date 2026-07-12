@@ -85,7 +85,7 @@ export default defineConfig({
       ? 'node test-suite/scripts/static-server.js'
       : process.env.CI
         ? 'bundle exec jekyll serve --host 0.0.0.0 --port 4000'
-        : './local_run_native.sh --no-livereload',
+        : './local_run.sh --no-livereload',
     url: 'http://localhost:4000',
     reuseExistingServer: !process.env.CI && !process.env.STATIC_SERVE,
     stdout: 'pipe',
