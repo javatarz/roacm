@@ -22,6 +22,16 @@ function wrapImage(img) {
     return;
   }
 
+  // transform-images.mjs rewrites large images into <picture><source
+  // type="image/webp">...<img></picture>. The <picture> spec requires <img>
+  // to be a direct child (optionally after <source> elements) for the
+  // source-selection algorithm to apply; inserting the anchor between
+  // <picture> and <img> breaks that relationship and made the browser
+  // re-fetch the full-size fallback image independently of the already-
+  // selected WebP source. Wrap the whole <picture> instead, so <img> stays
+  // exactly where the browser expects it.
+  const target = img.closest('picture') || img;
+
   const link = document.createElement('a');
   // Use the raw attribute, not img.src/currentSrc — those are always browser-
   // resolved to an absolute http(s):// URL, which the site's external-link
@@ -34,8 +44,8 @@ function wrapImage(img) {
   // an inline image" whitespace bug that `img { display: block }` (see
   // _sass/overrides/_rouge.scss) already exists to prevent for bare images.
   link.style.display = 'block';
-  img.replaceWith(link);
-  link.appendChild(img);
+  target.replaceWith(link);
+  link.appendChild(target);
 }
 
 document
