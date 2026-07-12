@@ -178,9 +178,9 @@ This is how you interact with the AI during development. The examples use Claude
 
 | Tool | Equivalents |
 |------|-------------|
-| **Cursor** | [Rules](https://cursor.com/docs/context/rules#rules) (`.cursorrules`), custom instructions |
+| **Cursor** | [Rules](https://cursor.com/docs/rules#rules) (`.cursorrules`), custom instructions |
 | **GitHub Copilot** | [Custom instructions](https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot) (`.github/copilot-instructions.md`) |
-| **Windsurf** | [Workflows](https://docs.windsurf.com/windsurf/cascade/workflows), [rules](https://docs.windsurf.com/windsurf/cascade/memories#memories-and-rules) |
+| **Windsurf** (now Devin Desktop) | [Workflows](https://docs.devin.ai/desktop/cascade/workflows), [rules](https://docs.devin.ai/desktop/cascade/memories#rules) |
 | **OpenAI Codex** | [AGENTS.md](https://developers.openai.com/codex/guides/agents-md/), [skills](https://developers.openai.com/codex/skills/) |
 
 Claude Code organizes these into distinct primitives: [commands](https://code.claude.com/docs/en/slash-commands), [skills](https://code.claude.com/docs/en/skills), and [hooks](https://code.claude.com/docs/en/hooks). Each serves a different purpose.
