@@ -7,6 +7,34 @@ set -euo pipefail
 echo "Theme changes detected: ${THEME_CHANGED}"
 echo ""
 
+# Retry visibility (observability only — never gates the pipeline). Playwright's
+# JSON reporter records a `results` entry per attempt; a test with more than one
+# result that ultimately passed was masked by a retry (#310).
+report_dir="${PLAYWRIGHT_JSON_DIR:-}"
+if [[ -n "${report_dir}" && -d "${report_dir}" ]]; then
+  retried_count=0
+  while IFS= read -r -d '' report; do
+    job_label=$(basename "$(dirname "${report}")")
+    job_label=${job_label#playwright-json-}
+    while IFS=$'\t' read -r project title retries; do
+      [[ -z "${project}" ]] && continue
+      retried_count=$((retried_count + 1))
+      echo "::warning::${job_label} [${project}] ${title} — passed after ${retries} retry(ies)"
+    done < <(jq -r '
+      [.. | objects | select(has("specs")) | .specs[] as $spec |
+        ($spec.tests // [])[] |
+        select((.results | length) > 1) |
+        select(.results[-1].status == "passed") |
+        [.projectName, $spec.title, (.results[-1].retry | tostring)] | @tsv
+      ][]
+    ' "${report}")
+  done < <(find "${report_dir}" -name 'playwright.json' -print0)
+  echo "Retried-but-passed tests this run: ${retried_count}"
+else
+  echo "No Playwright JSON reports available — retry visibility skipped"
+fi
+echo ""
+
 if [[ "${VALIDATE_RESULT}" != "success" ]]; then
   echo "❌ HTML validation failed. Deployment was blocked."
   echo "  - HTML validation: ${VALIDATE_RESULT}"

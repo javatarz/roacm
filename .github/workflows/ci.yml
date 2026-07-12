@@ -252,6 +252,15 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
+      - name: Upload Playwright JSON report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: playwright-json-${{ matrix.label }}
+          path: test-suite/reports/playwright.json
+          if-no-files-found: warn
+          retention-days: 7
+
       # On a real diff, this holds the actual + diff images so you can see what
       # changed (then run `npm run snapshots` locally to accept it).
       - name: Upload screenshots on failure
@@ -296,6 +305,15 @@ jobs:
           path: test-suite/reports/playwright-html
           retention-days: 7
 
+      - name: Upload Playwright JSON report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: playwright-json-functional-e2e
+          path: test-suite/reports/playwright.json
+          if-no-files-found: warn
+          retention-days: 7
+
   image-overflow-tests:
     name: Image Overflow Tests (mobile-chrome)
     # Own job so ~120 mobile-chrome checks don't inflate functional-e2e's
@@ -325,6 +343,15 @@ jobs:
         with:
           name: image-overflow-report
           path: test-suite/reports/playwright-html
+          retention-days: 7
+
+      - name: Upload Playwright JSON report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: playwright-json-image-overflow
+          path: test-suite/reports/playwright.json
+          if-no-files-found: warn
           retention-days: 7
 
   performance-tests:
@@ -552,10 +579,21 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 1
+
+      - name: Download Playwright JSON reports
+        if: needs.changes.outputs.theme == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: playwright-json-*
+          path: playwright-json-reports
+          merge-multiple: false
+
       - name: Check results
         run: bash .github/scripts/test-summary.sh
         env:
           THEME_CHANGED: ${{ needs.changes.outputs.theme }}
+          PLAYWRIGHT_JSON_DIR: playwright-json-reports
           VALIDATE_RESULT: ${{ needs.validate-content.result }}
           LINT_RESULT: ${{ needs.lint-and-validate.result }}
           VISUAL_RESULT: ${{ needs.visual-tests.result }}
