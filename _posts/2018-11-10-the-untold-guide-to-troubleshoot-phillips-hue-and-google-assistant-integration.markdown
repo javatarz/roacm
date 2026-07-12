@@ -20,7 +20,7 @@ If the app does not ask you to hit the button on your bridge, your account **alr
 
 You can see what bridge is associated with your [MeetHue account](https://account.meethue.com) on the [bridges page](https://account.meethue.com/bridge).
 
-![There can only be one](https://chapterbreak.net/wp-content/uploads/2015/12/only-one.gif "There can only be one")
+![There can only be one]({{ site.url }}/assets/images/posts/2018-11-10-the-untold-guide-to-troubleshoot-phillips-hue-and-google-assistant-integration/only-one.gif "There can only be one")
 
 Remove any older bridges you might have on your account and try logging into the Phillips Hue app again. Once complete, you should be able to link your Google Home assistant to your Phillips Hue app.
 
