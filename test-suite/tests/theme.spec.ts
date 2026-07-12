@@ -72,32 +72,35 @@ test.describe('Theme Functionality', () => {
     expect(darkBgColor).toBe('#1a1a1a');
   });
 
-  test.skip('reading progress bar tracks scroll position', async ({ page }) => {
-    // Skip this test as reading progress bar might not be on all pages
+  test('reading progress bar tracks scroll position', async ({ page }) => {
     // Navigate to a blog post with content
     await page.goto('/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/');
 
-    // Check progress bar exists
+    // Check progress bar exists (starts at width: 0, so not yet "visible" by
+    // Playwright's bounding-box definition — just assert it's attached).
     const progressBar = page.locator('.reading-progress-bar');
-    await expect(progressBar).toBeVisible();
+    await expect(progressBar).toBeAttached();
 
     // Scroll to middle of page
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
 
-    // Check progress bar width is approximately 50%
-    const width = await progressBar.evaluate(el => {
-      return parseInt(window.getComputedStyle(el).width) / window.innerWidth * 100;
-    });
-    expect(width).toBeGreaterThan(40);
-    expect(width).toBeLessThan(60);
+    // Progress bar updates via a scroll-triggered requestAnimationFrame; poll
+    // until the width has settled instead of racing the next paint.
+    const readWidth = () =>
+      progressBar.evaluate(el => (parseInt(window.getComputedStyle(el).width) / window.innerWidth) * 100);
+    await expect.poll(readWidth).toBeGreaterThan(40);
+    expect(await readWidth()).toBeLessThan(60);
   });
 
-  test.skip('back-to-top button appears on scroll', async ({ page }) => {
-    // Skip this test as back-to-top button might not be on all pages
+  test('back-to-top button appears on scroll', async ({ page }) => {
+    // Reduced motion makes the scroll-to-top jump instantly instead of
+    // animating, so the post-click assertion isn't racing a smooth scroll.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+
     // Navigate to a long post
     await page.goto('/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/');
 
-    const backToTop = page.locator('#back-to-top');
+    const backToTop = page.locator('.back-to-top');
 
     // Initially hidden
     await expect(backToTop).toBeHidden();
@@ -112,24 +115,26 @@ test.describe('Theme Functionality', () => {
     await backToTop.click();
 
     // Verify scrolled to top
-    const scrollY = await page.evaluate(() => window.scrollY);
-    expect(scrollY).toBeLessThan(50);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(50);
   });
 
-  test.skip('code block copy button works', async ({ page, context }) => {
-    // Skip this test as it requires specific page structure
+  test('code block copy button works', async ({ page, context, browserName }) => {
+    // grantPermissions' clipboard permissions are Chromium-only; functional-e2e
+    // runs chromium exclusively, so skip elsewhere (e.g. local `npm run preflight`).
+    test.skip(browserName !== 'chromium', 'clipboard permissions only supported in Chromium');
+
     // Grant clipboard permissions
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
     // Navigate to a post with code blocks
     await page.goto('/blog/2025/07/29/level-up-code-quality-with-an-ai-assistant/');
 
-    // Find first code block
-    const codeBlock = page.locator('.highlight').first();
+    // Find first code block (code-blocks.js wraps each <pre> in .code-block-wrapper)
+    const codeBlock = page.locator('.code-block-wrapper').first();
     await codeBlock.hover();
 
     // Click copy button
-    const copyButton = codeBlock.locator('.copy-button');
+    const copyButton = codeBlock.locator('.copy-code-btn');
     await expect(copyButton).toBeVisible();
     await copyButton.click();
 
