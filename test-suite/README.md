@@ -91,7 +91,6 @@ npm run test:e2e -- --project=chromium
 npm run test:e2e -- --project=firefox
 npm run test:e2e -- --project=webkit
 npm run test:e2e -- --project=mobile-chrome
-npm run test:e2e -- --project=macbook-pro-14
 ```
 
 ### Performance Tests
@@ -118,7 +117,7 @@ npm test
 - ✅ Reading progress bar tracking
 - ✅ Back-to-top button functionality
 - ✅ Code block copy button
-- ✅ Responsive layouts (desktop, tablet, mobile, MacBook Pro 14")
+- ✅ Responsive layouts (desktop, tablet, mobile)
 - ✅ No horizontal scrolling at any viewport
 - ✅ Visual regression screenshots
 

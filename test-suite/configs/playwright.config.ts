@@ -57,25 +57,6 @@ export default defineConfig({
       name: 'mobile-chrome',
       use: { ...devices['Pixel 5'] },
     },
-    {
-      name: 'mobile-safari',
-      use: { ...devices['iPhone 12'] },
-    },
-
-    // Tablet viewports
-    {
-      name: 'tablet',
-      use: { ...devices['iPad (gen 7)'] },
-    },
-
-    // Custom viewports for your specific needs
-    {
-      name: 'macbook-pro-14',
-      use: {
-        viewport: { width: 1512, height: 982 },
-        deviceScaleFactor: 2,
-      },
-    },
   ],
 
   webServer: {
