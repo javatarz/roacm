@@ -245,6 +245,26 @@ layout, sidebar) fall back to a full regen automatically.
 
 6. Commit both changes together (HTML + test update)
 
+## Link Validation (htmlproofer)
+
+CI runs `htmlproofer` in two places, split by cost/flakiness:
+
+- **`validate-content`** (every push/PR, gates deploy): `--disable-external` —
+  internal links, images, and anchors only. Fast, deterministic, safe to gate on.
+- **`check-external-links`** (daily `schedule` run only, never gates deploy):
+  full check including external links. `continue-on-error: true` (warn-level) —
+  external-site flakiness (rate limits, transient 5xx, bot blocks) makes
+  hard-failing this too noisy to trust. Results cache in `tmp/.htmlproofer`
+  (persisted via `actions/cache`, 3-day timeframe) so repeat runs skip
+  re-verifying known-good links and stay polite to external hosts; known-broken
+  links are always rechecked regardless of cache.
+
+There's no `--disable-internal` flag in html-proofer 5.x, so the scheduled job
+re-checks internal links too — cheap, since that check never hits the network.
+
+Check the scheduled run's Actions log for the `check-external-links` job to
+catch external link rot — it's warn-only, so nothing pages you automatically.
+
 ## Lighthouse Thresholds
 
 Lighthouse CI enforces minimum score thresholds. See the "Performance & Quality Gates" section in CLAUDE.md for details on threshold management.
