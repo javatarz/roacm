@@ -86,7 +86,7 @@ npm run lint              # Linting (CSS, JS, HTML)
 Visual baselines are **Linux-only** — Linux is the build we deploy, and it's the
 one platform we can reproduce identically both locally and in CI. Snapshots are
 rendered inside a pinned Playwright Docker container (architecture forced to
-`linux/amd64` to match the CI runner), so what you generate locally matches CI
+`linux/arm64` to match the arm64 CI runner), so what you generate locally matches CI
 byte-for-byte. There is no download-from-CI step anymore.
 
 **When you make an intentional style change, regenerate baselines with one command:**
@@ -252,7 +252,7 @@ Lighthouse CI enforces minimum score thresholds. See the "Performance & Quality 
 **Quick reference** (from `test-suite/configs/lighthouse.config.js`):
 
 - Performance: 0.96 (96%)
-- Accessibility: 0.94 (94%)
+- Accessibility: 0.90 (90%)
 - SEO: 0.97 (97%)
 
 If a change causes Lighthouse to fail, investigate the root cause before reducing thresholds.
