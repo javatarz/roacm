@@ -21,7 +21,7 @@ devto_tags:
 ---
 Why it’s harder for a professional developer to use a tool despite the wide variety of choices
 
-[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art-650x433.jpg)]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art.jpg)
+[![Chosing Coding Assistants Cover Art: Choose your tool]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art-650x433.jpg)]({{ site.url }}/assets/images/posts/2025-07-17-how-to-choose-your-coding-assistants/choose-coding-assistants-cover-art-650x433.jpg)
 
 Coding assistants like [Cursor](https://cursor.com/), [Windsurf](https://windsurf.com/), [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Codex](https://openai.com/index/openai-codex/), [Aider](https://aider.chat/), [OpenCode](https://github.com/sst/opencode), [JetBrains AI](https://www.jetbrains.com/ai/) etc. have been making the news for the last few months. Yet, the choice of tools is a lot harder and limited for some of us than it seems.
 
