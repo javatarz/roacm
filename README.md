@@ -1,6 +1,6 @@
 # Ramblings of a Coder's Mind (Source)
 
-Source for the "Ramblings of a Coder's Mind" blog that's hosted at [karun.me](https://karun.me) (previously [blog.karun.me](https://blog.karun.me) and [karunab.com](https://karunab.com))
+Source for the "Ramblings of a Coder's Mind" blog that's hosted at [karun.me](https://karun.me) (previously [blog.karun.me](https://blog.karun.me) and [karunab.com](http://web.archive.org/web/20250820221059/https://www.karunab.com/))
 
 ## Quick Start
 
