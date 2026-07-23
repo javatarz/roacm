@@ -202,10 +202,17 @@ jobs:
       # low-priority backlog of 20-year-old link rot (tracked separately on
       # #311) that swamped the daily signal. 2006-2019 is a fixed, closed
       # range that never grows, so this regex needs no yearly maintenance.
+      # check-external-hash disabled: several linked doc sites (cursor.com,
+      # developer.harness.io) are client-side-rendered SPAs (Next.js,
+      # Docusaurus with data-has-hydrated=false) whose anchors don't exist
+      # in the server-sent HTML htmlproofer fetches — only after JS runs in
+      # a real browser. That makes hash checks against them permanently
+      # false-positive, unlike full-page 404s which stay a reliable signal.
       - name: Check external links
         run: |
           bundle exec htmlproofer \
             --no-enforce-https \
+            --no-check-external-hash \
             --cache '{"timeframe": {"external": "3d"}}' \
             --typhoeus '{"headers":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"},"connecttimeout":20,"timeout":45}' \
             --hydra '{"max_concurrency":4}' \
