@@ -44,7 +44,7 @@ jobs:
     outputs:
       theme: ${{ github.event_name == 'schedule' && 'true' || steps.filter.outputs.theme }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dorny/paths-filter@7b450fff21473bca461d4b92ce414b9d0420d706 # v4
         if: github.event_name != 'schedule'
         id: filter
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     needs: changes
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     needs: build
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -162,7 +162,7 @@ jobs:
     needs: build
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -223,7 +223,7 @@ jobs:
     needs: [changes, build]
     if: needs.changes.outputs.theme == 'true'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -283,7 +283,7 @@ jobs:
             grep_invert: ''
             workers: '2'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -339,7 +339,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -383,7 +383,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.theme == 'true'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -421,7 +421,7 @@ jobs:
     needs: [changes, build]
     if: needs.changes.outputs.theme == 'true' && needs.build.result == 'success'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup dependencies
         uses: ./.github/actions/setup-deps
@@ -526,7 +526,7 @@ jobs:
       github.event_name != 'pull_request' &&
       needs.build-and-deploy.result == 'success'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
 
@@ -556,7 +556,7 @@ jobs:
     permissions:
       actions: read
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
 
@@ -621,7 +621,7 @@ jobs:
       github.event_name != 'pull_request' &&
       needs.build-and-deploy.result == 'success'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
       - name: Check NHS score
@@ -637,7 +637,7 @@ jobs:
     if: always()
     needs: [changes, build, validate-content, lint-and-validate, visual-tests, functional-e2e-tests, image-overflow-tests, performance-tests, build-and-deploy, smoke-test, rollback]
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
 
@@ -680,7 +680,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
 
