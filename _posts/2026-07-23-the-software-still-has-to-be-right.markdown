@@ -29,11 +29,11 @@ A team I know handed story grooming to an agent. They gave it a skill: a reusabl
 
 The team reviewed them and waved them through. The product owner did not. The stories were too long. They used engineering phrasing instead of the business language the product owner expected. They took longer to read than the old hand-written ones, and by the time you finished one, you were not sure it was any sharper than a shorter version would have been. The feedback came back blunt: the quality was lower, and it "felt AI-written."
 
-Here is the thing worth being precise about. The problem was not that a machine wrote it. The problem was that the quality was lower and nobody caught it until the scarcest person in the room did. "Felt AI-written" is not a diagnosis. It is a symptom. The real question is quieter and more useful: was the skill doing the right thing, and how would we know if it stopped?
+The problem was not that a machine wrote it. The problem was that the quality was lower and nobody caught it until the scarcest person in the room did. "Felt AI-written" is not a diagnosis. It is a symptom. The real question is quieter and more useful: was the skill doing the right thing, and how would we know if it stopped?
 
 ## The bar did not move
 
-Notice what did not change in that story. The software, or in this case the story that becomes software, still has to be right. AI did not lower that bar. Nobody decided that user stories can now be vague, or that payment code can now leak, or that a dependency can now be whatever the model felt like typing. The standard is exactly what it always was.
+The software, or in this case the story that becomes software, still has to be right. AI did not lower that bar. Nobody decided that user stories can now be vague, or that payment code can now leak, or that a dependency can now be whatever the model felt like typing. The standard is exactly what it always was.
 
 What changed is the thing we were using to clear the bar. For most teams, most of the time, the guarantee that work met the standard was a human reading it. Code review. A product owner reading a story. A senior engineer looking over a design. That review was the safety net. And for years it was good enough that plenty of teams treated everything else as optional.
 
@@ -81,7 +81,7 @@ Keep that split in mind as we walk the lifecycle. The same failure shape shows u
 
 ### In grooming, the net is a bottleneck
 
-Go back to the verbose story. Review did catch it, eventually, through the product owner. But look at what that cost: your scarcest, most expensive reviewer spent their attention on line-editing that a check should have done, and they caught it late, after the story had already eaten review cycles. Worse, verbosity is the failure you can see. It announces itself. The failures that matter are the ones that read fine.
+Go back to the verbose story. Review did catch it, eventually, through the product owner. Your scarcest, most expensive reviewer spent their attention on line-editing that a check should have done, and they caught it late, after the story had already eaten review cycles. Worse, verbosity is the failure you can see. It announces itself. The failures that matter are the ones that read fine.
 
 So what net belongs here? Most of grooming quality is checkable without taste. Does the story have every required section. Is it under a length budget. Do its terms match the business glossary rather than drifting into engineering jargon. That is a **structural lint on the artifact**, and it runs in a second. Above it sits an [LLM-as-judge](https://hamel.dev/blog/posts/llm-judge/): a model grading tone and clarity against a rubric, which catches the fuzzy quality a lint cannot. And above that sits the product owner, who owns the one question no check can answer: is this the right thing to build at all.
 
@@ -109,7 +109,7 @@ Models invent package names that do not exist, at rates between 5 and 21 percent
 
 #### Secrets in a fixture
 
-Hard-coded credentials are [the dominant category of critical security findings in agent-generated pull requests](https://arxiv.org/abs/2607.12428), at 99.6 percent. Here is the twist: two thirds of the genuine leaks in that study were introduced by the humans in those workflows. Vigilance drops when the agent does most of the typing. Either way, review missed 81 percent of them, and a leaked credential is irreversible the moment it is pushed.
+Hard-coded credentials are [the dominant category of critical security findings in agent-generated pull requests](https://arxiv.org/abs/2607.12428), at 99.6 percent. Two thirds of the genuine leaks in that study were introduced by the humans in those workflows. Vigilance drops when the agent does most of the typing. Either way, review missed 81 percent of them, and a leaked credential is irreversible the moment it is pushed.
 
 #### Malicious and over-reaching skills
 

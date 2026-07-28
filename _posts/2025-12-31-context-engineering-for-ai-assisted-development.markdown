@@ -34,7 +34,7 @@ In [intelligent Engineering: Principles for Building With AI]({{ site.url }}/blo
 
 Imagine you're in a day-long strategy meeting. There's one whiteboard in the room. That's all the shared space you have.
 
-Your teammate is brilliant. They can see everything on the board and reason about it. But here's the thing: they have no memory outside this whiteboard. What's written is all they know. Erase something, and it's gone.
+Your teammate is brilliant. They can see everything on the board and reason about it. They have no memory outside this whiteboard. What's written is all they know. Erase something, and it's gone.
 
 Before the meeting started, someone wrote ground rules at the top: "Focus on Q1 priorities. Be specific. No tangents." This section doesn't get erased. It frames everything that follows. (That's the system prompt.)
 
