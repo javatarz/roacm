@@ -40,7 +40,7 @@
     "@axe-core/playwright": "^4.12.1",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.1",
     "eslint": "^10.8.0",
     "globals": "^17.7.0",
     "gray-matter": "^4.0.3",
