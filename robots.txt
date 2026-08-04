@@ -14,6 +14,12 @@ Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
 # Allow retrieval/answer-engine crawlers — content can be cited
 User-agent: ChatGPT-User
 Allow: /
@@ -25,6 +31,9 @@ User-agent: ClaudeBot
 Allow: /
 
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 Sitemap: https://karun.me/sitemap.xml
