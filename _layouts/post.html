@@ -6,8 +6,10 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "mainEntityOfPage": {{ site.url | append: page.url | jsonify }},
   "headline": {{ page.title | jsonify }},
   "description": {{ page.description | default: page.excerpt | strip_html | jsonify }},
+  "inLanguage": "en",
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
   "dateModified": {{ page.updated | default: page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
   "url": {{ site.url | append: page.url | jsonify }},
@@ -23,7 +25,8 @@ layout: default
     "name": {{ site.social.name | jsonify }},
     "url": {{ site.url | jsonify }}
   }{% if page.image %},
-  "image": {{ site.url | append: page.image | jsonify }}{% endif %}
+  "image": {{ site.url | append: page.image | jsonify }}{% endif %}{% if page.syndication %},
+  "sameAs": {{ page.syndication | jsonify }}{% endif %}
 }
 </script>
 
