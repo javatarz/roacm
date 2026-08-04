@@ -111,3 +111,35 @@ To cross-post a specific post manually:
 - The import tool handles canonical URLs automatically
 - Review formatting after import (code blocks, images)
 - Can add to publications (e.g., inspiredbrilliance) after publishing
+
+---
+
+## Sahaj.ai (Manual, no canonical support)
+
+**Note:** Sahaj.ai has no way to set a canonical URL back to karun.me, unlike dev.to and Medium. Without that signal, search engines and AI crawlers have no automatic way to know karun.me is the source rather than sahaj.ai.
+
+### Manual Process
+
+1. Publish to karun.me first and let it sit for a few days before republishing, so it gets crawled/indexed as the original
+2. Paste the post into sahaj.ai and add a visible attribution line near the top: "Originally published on [karun.me](https://karun.me/blog/your-post/)"
+3. Publish on sahaj.ai
+
+### Why the order matters
+
+With no `rel=canonical` available, publish-first timing and a visible attribution link are the only precedence signals left — both are things search engines and AI crawlers can actually observe. Publishing on sahaj.ai before karun.me, or skipping the attribution link, risks the higher-authority sahaj.ai copy being treated as the source instead of karun.me.
+
+---
+
+## Schema: the `syndication` front matter field
+
+Once a post is live on any of the platforms above, add its URL to the post's `syndication` front matter array. This populates a `sameAs` field on the post's schema.org markup, telling AI crawlers the same work also exists at those URLs:
+
+```yaml
+syndication:
+  - https://dev.to/javatarz/your-post-slug-abc123
+  - https://medium.com/inspiredbrilliance/your-post-slug-hash
+  - https://sahaj.ai/blog/your-post-slug
+```
+
+- Fill these in after the fact — none of the URLs are known until after each platform's publish step
+- If you're adding this to a post more than 7 days after its original `date`, also set `updated: <the post's original date>` in front matter. Without it, the `jekyll-last-modified-at` plugin will pick up the new commit and make the post falsely appear updated (visible badge + `dateModified` in schema), even though no content actually changed
