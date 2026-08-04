@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-latest=$(ls _posts/*.markdown | sort | tail -1)
+latest=""
+for f in $(ls _posts/*.markdown | sort -r); do
+  frontmatter=$(awk '/^---$/{c++; next} c==1' "$f")
+  if echo "$frontmatter" | grep -qE '^published:[[:space:]]*false[[:space:]]*$'; then
+    continue
+  fi
+  latest="$f"
+  break
+done
+
+if [ -z "$latest" ]; then
+  echo "::error::No published post found in _posts/"
+  exit 1
+fi
+
 filename=$(basename "$latest" .markdown)
 
 year=$(echo "$filename" | cut -d- -f1)

@@ -1,5 +1,3 @@
-/* global require, process, module */
-/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
@@ -152,6 +150,10 @@ async function main() {
     const { data: frontmatter, content } = matter(fileContent);
     if (!frontmatter.devto) {
       console.log(`Skipping ${postPath} - devto: true not set`);
+      continue;
+    }
+    if (frontmatter.published === false) {
+      console.log(`Skipping ${postPath} - published: false (draft)`);
       continue;
     }
     if (isFuturePost(postPath)) {
