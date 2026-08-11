@@ -247,38 +247,22 @@ layout, sidebar) fall back to a full regen automatically.
 
 ## Link Validation (htmlproofer)
 
-CI runs `htmlproofer` in two places, split by cost/flakiness:
+CI runs `htmlproofer` in `validate-content` (every push/PR, gates deploy) with
+`--disable-external` — internal links, images, and anchors only. Fast,
+deterministic, safe to gate on.
 
-- **`validate-content`** (every push/PR, gates deploy): `--disable-external` —
-  internal links, images, and anchors only. Fast, deterministic, safe to gate on.
-- **`check-external-links`** (daily `schedule` run, or manual `workflow_dispatch`
-  — never gates deploy): full check including external links. Not decoupled
-  by `continue-on-error` — it's simply not in `build-and-deploy`'s `needs`, so
-  letting the job genuinely fail is safe and produces a real GitHub Actions
-  failure notification instead of a silently-ignored warning. Results cache in
-  `tmp/.htmlproofer` (persisted via `actions/cache`, 3-day timeframe) so repeat
-  runs skip re-verifying known-good links and stay polite to external hosts;
-  known-broken links are always rechecked regardless of cache.
-
-  Uses a real browser `User-Agent` and `hydra max_concurrency: 4` (see
-  `--typhoeus`/`--hydra` flags) — many sites 403/429 the default html-proofer
-  UA or high concurrency even when genuinely alive. What's left after that is
-  a short, explicit `--ignore-urls` allowlist for a handful of hosts confirmed
-  (via manual `workflow_dispatch` runs) to bot-wall scrapers regardless of UA:
-  linkedin.com, reddit.com, medium.com, openai.com, jstor.org, papers.ssrn.com,
-  npmjs.com. This is intentionally host-based, not status-code-based —
-  `--ignore-status-codes 403,429` was considered and rejected, because many
-  _other_ domains (dead SourceForge subprojects, defunct forums, expired
-  blogs) also return 403/429 and those failures are real link rot, not
-  bot-blocking. Status code alone can't tell the two apart here. Also ignored:
-  `localhost` URLs (illustrative, not real links) and the `#:~:text=` Chrome
-  text-fragment syntax (a parser gap, not a real anchor check).
-
-There's no `--disable-internal` flag in html-proofer 5.x, so the scheduled job
-re-checks internal links too — cheap, since that check never hits the network.
-
-Trigger a manual check any time with `gh workflow run ci.yml`, then watch the
-`check-external-links` job.
+There used to be a second `check-external-links` job (daily `schedule` run,
+full check including external links, never gated deploy). It was removed:
+external sites increasingly 403/429 requests from CI datacenter IPs
+regardless of UA/concurrency tuning, and status code alone can't tell
+"bot-walled but alive" from "actually dead" — a growing per-host
+`--ignore-urls` allowlist (linkedin.com, reddit.com, medium.com, stack
+overflow.com, ...) chased new false positives every few weeks without
+converging, and there was no reliable way to verify page existence without
+fetching the page from the same blocked vantage point. Link rot on old posts
+is real but low-stakes for a personal blog; the daily false-positive noise
+cost more than it caught. If this gets revisited, check the git history for
+the removed job's config before rebuilding it from scratch.
 
 ## Lighthouse Thresholds
 
