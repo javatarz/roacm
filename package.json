@@ -42,7 +42,7 @@
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.62.1",
     "eslint": "^10.8.1",
-    "globals": "^17.8.0",
+    "globals": "^17.9.0",
     "gray-matter": "^4.0.3",
     "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
