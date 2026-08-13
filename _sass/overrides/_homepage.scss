@@ -133,11 +133,16 @@ body.homepage {
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   display: flex;
+  flex-wrap: wrap;
   font-size: 13px;
-  gap: 12px;
+  gap: 4px 12px;
   margin-bottom: 0;
   margin-top: auto; /* Push meta to bottom of card */
   padding-top: 12px;
+
+  span {
+    white-space: nowrap;
+  }
 }
 
 .homepage-card-meta span:not(:first-child)::before {

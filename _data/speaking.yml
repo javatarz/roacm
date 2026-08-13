@@ -27,6 +27,20 @@
 #       co_speakers Optional list, per-delivery (co-speakers vary by venue).
 #                   Each is either a plain name or { name, linkedin } to link it.
 
+- title: "Human + AI: Redefining Engineering Excellence"
+  type: talk
+  date: 2026-08-18
+  description: >
+    ELC exec dinner on applying AI across the entire product development
+    lifecycle, not just code generation, covering accountability, context
+    engineering, guardrails and continuous learning with AI tools.
+  deliveries:
+    - event: ELC Dinner
+      location: San Francisco, USA
+      date: 2026-08-18
+      url: https://sfelc.com/event/exec-dinner-human-ai-redefining-engineering-excellence-ymzd844bgf
+      recorded: false
+
 - title: "Engineer the Environment, Not Just the Prompt"
   type: talk
   date: 2026-07-04
