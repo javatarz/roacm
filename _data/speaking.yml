@@ -27,6 +27,22 @@
 #       co_speakers Optional list, per-delivery (co-speakers vary by venue).
 #                   Each is either a plain name or { name, linkedin } to link it.
 
+- title: "A Green Harness Is Not a Healthy Harness"
+  type: talk
+  date: 2026-09-05
+  description: >
+    Guardrails go stale until they're confidently wrong: standing-rules files
+    that rot, rule density that crosses adherence thresholds, and agents
+    quietly disabling failing gates. Distinguishing guardrails agents can
+    disable from ones that hold, with three strategies for treating harnesses
+    as production systems.
+  deliveries:
+    - event: The Fifth Elephant
+      location: Hyderabad, India
+      date: 2026-09-05
+      url: https://hasgeek.com/fifthelephant/agent-harnesses-small-models-hyd-meetup/
+      recorded: false
+
 - title: "Human + AI: Redefining Engineering Excellence"
   type: talk
   date: 2026-08-18
