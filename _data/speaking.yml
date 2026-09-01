@@ -30,6 +30,7 @@
 - title: "A Green Harness Is Not a Healthy Harness"
   type: talk
   date: 2026-09-05
+  image: /assets/images/talks/2026-09-fifthelephant-green-harness-hyderabad.jpeg
   description: >
     Guardrails go stale until they're confidently wrong: standing-rules files
     that rot, rule density that crosses adherence thresholds, and agents
@@ -37,7 +38,7 @@
     disable from ones that hold, with three strategies for treating harnesses
     as production systems.
   deliveries:
-    - event: The Fifth Elephant
+    - event: Fifth Elephant
       location: Hyderabad, India
       date: 2026-09-05
       url: https://hasgeek.com/fifthelephant/agent-harnesses-small-models-hyd-meetup/
