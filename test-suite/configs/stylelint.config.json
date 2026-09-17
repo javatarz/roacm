@@ -41,7 +41,8 @@
       "rules": {
         "media-query-no-invalid": null,
         "font-family-no-missing-generic-family-keyword": null,
-        "value-keyword-case": null
+        "value-keyword-case": null,
+        "at-rule-prelude-no-invalid": null
       }
     }
   ],
