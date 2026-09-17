@@ -370,7 +370,7 @@ jobs:
           skip-system-deps: 'true'
 
       - name: Set CHROME_PATH for Lighthouse
-        run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -name 'headless_shell' | head -1)" >> $GITHUB_ENV
+        run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -type f \( -name 'headless_shell' -o -name 'chrome-headless-shell' \) | head -1)" >> $GITHUB_ENV
 
       - name: Download site artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
