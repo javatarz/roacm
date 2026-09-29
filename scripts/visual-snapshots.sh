@@ -63,11 +63,11 @@ fi
 # differently-configured default engine.
 DOCKER=(docker)
 if [ -z "${CI:-}" ]; then
-  CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-pw}"
+  CTX="${SNAPSHOT_DOCKER_CONTEXT:-colima-arm64}"
   if ! docker context inspect "$CTX" >/dev/null 2>&1; then
     echo "❌ Docker context '$CTX' not found." >&2
     echo "   One-time setup of a native arm64 engine for snapshots:" >&2
-    echo "     colima start --profile pw --arch aarch64 --cpu 4 --memory 6" >&2
+    echo "     colima start --profile arm64 --arch aarch64 --cpu 4 --memory 6" >&2
     echo "   (or point SNAPSHOT_DOCKER_CONTEXT at any native arm64 Docker context)" >&2
     exit 1
   fi

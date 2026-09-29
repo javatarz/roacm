@@ -53,7 +53,7 @@ Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
   runner exactly. No more download-from-CI round-trip.
 - **After an intentional style change, regenerate with one command:** `npm run snapshots`,
   then commit the changed `*-linux.png` files and push. CI compares and goes green first try.
-- **Requires** a native arm64 Docker engine (`colima start --profile pw --arch aarch64`)
+- **Requires** a native arm64 Docker engine (`colima start --profile arm64 --arch aarch64`)
   and `docker`. See `scripts/visual-snapshots.sh` and `docs/context/TESTING.md`.
 
 ## Task Management

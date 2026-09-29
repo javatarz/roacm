@@ -111,7 +111,7 @@ image (~1–2 GB, one-time).
 **Colima setup (one-time, if not already done):**
 
 ```bash
-colima start --profile pw --arch aarch64 --cpu 4 --memory 6
+colima start --profile arm64 --arch aarch64 --cpu 4 --memory 6
 ```
 
 Other commands:
