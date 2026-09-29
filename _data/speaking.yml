@@ -29,6 +29,22 @@
 
 - title: "A Green Harness Is Not a Healthy Harness"
   type: talk
+  date: 2026-10-24
+  image: /assets/images/talks/2026-10-sahaj-devday-green-harness-pune.jpeg
+  description: >
+    Instrumenting a coding agent's harness against silent failure: standing
+    rules that go stale, rule density that crosses an adherence cliff, and
+    agents satisfying a failing gate by deleting the test behind it. A failure
+    taxonomy for the harness itself, and the safety net for each failure.
+  deliveries:
+    - event: Sahaj DevDay
+      location: Pune, India
+      date: 2026-10-24
+      url: https://sahaj.ai/events/software-engineering-in-the-age-of-ai/
+      recorded: false
+
+- title: "A Green Harness Is Not a Healthy Harness"
+  type: talk
   date: 2026-09-05
   image: /assets/images/talks/2026-09-fifthelephant-green-harness-hyderabad.jpeg
   description: >
