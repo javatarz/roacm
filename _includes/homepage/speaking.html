@@ -35,7 +35,11 @@
         {%- else -%}{%- assign format_label = 'Talk' -%}{%- assign format_class = 'talk-badge-talk' -%}
       {%- endcase -%}
     {%- assign primary_date_str = primary.date | date: "%Y-%m-%d" -%}
+    {%- if link -%}
     <a href="{{ link }}" class="homepage-card" target="_blank" rel="noopener noreferrer" data-talk-date="{{ primary_date_str }}">
+    {%- else -%}
+    <div class="homepage-card" data-talk-date="{{ primary_date_str }}">
+    {%- endif %}
       <span class="upcoming-ribbon" hidden>Upcoming</span>
       <h3 class="homepage-card-title">{{ talk.title }}</h3>
       <div class="homepage-card-meta">
@@ -43,7 +47,7 @@
         {% if primary.location %}<span>{{ primary.location }}</span>{% endif %}
         <span>{{ primary.date | date: "%b %Y" }}</span>
       </div>
-    </a>
+    {% if link %}</a>{% else %}</div>{% endif %}
     {% endfor %}
   </div>
 </section>

@@ -62,7 +62,7 @@ permalink: /talks/
     <div class="talk-timeline__content">
       <div class="talk-timeline__date">{{ primary.date | date: '%b %Y' }}</div>
       <h3 class="talk-timeline__title">
-        <a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ t.title }}</a>
+        {% if link %}<a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ t.title }}</a>{% else %}{{ t.title }}{% endif %}
       </h3>
       <div class="talk-timeline__meta">
         <span class="talk-card-event">{{ primary.event }}</span>
@@ -97,7 +97,7 @@ permalink: /talks/
         </p>
       {% endif %}
     </div>
-      {% if t.video_id or t.image %}
+      {% if link and (t.video_id or t.image) %}
       <a class="talk-timeline__thumb" href="{{ link }}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
         {% if t.video_id %}<img src="https://img.youtube.com/vi/{{ t.video_id }}/hqdefault.jpg" alt="" loading="lazy"><span class="talk-card-play" aria-hidden="true">&#9654;</span>{% else %}<img src="{{ t.image }}" alt="" loading="lazy">{% endif %}
       </a>
