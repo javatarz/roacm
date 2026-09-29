@@ -60,6 +60,18 @@
       url: https://hasgeek.com/fifthelephant/agent-harnesses-small-models-hyd-meetup/
       recorded: false
 
+- title: "Adopting AI Across Engineering"
+  type: talk
+  date: 2026-09-25
+  description: >
+    Private talk on adopting AI across an engineering organization, beyond
+    individual tools and pilots.
+  deliveries:
+    - event: Private event
+      location: Remote
+      date: 2026-09-25
+      recorded: false
+
 - title: "Human + AI: Redefining Engineering Excellence"
   type: talk
   date: 2026-08-18
