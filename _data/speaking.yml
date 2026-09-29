@@ -90,7 +90,8 @@
 - title: "Engineer the Environment, Not Just the Prompt"
   type: talk
   date: 2026-07-04
-  image: /assets/images/talks/2026-07-sahaj-devday-engineer-the-environment-bengaluru.jpeg
+  video_id: YN1ILUTlr4k
+  duration: "53m"
   description: >
     Prompt engineering was phase one of AI-augmented development and context
     engineering was phase two, and it's hitting its ceiling. The next phase is
@@ -101,7 +102,7 @@
       location: Bengaluru, India
       date: 2026-07-04
       url: https://sahaj.ai/events/intelligent-engineering-reimagining-how-software-is-built-operated-and-evolved-with-ai/
-      recorded: false
+      recorded: true
 
 - title: "What Happens Before and After the Code? AI Has a Role There Too!"
   type: talk
