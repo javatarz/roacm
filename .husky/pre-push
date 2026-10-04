@@ -8,6 +8,24 @@ node test-suite/scripts/check-lighthouse-thresholds.js || {
   exit 1
 }
 
+# Dead-code audit (unused CSS, includes, images, duplicate images). CI runs it
+# on every theme change, but content edits (e.g. _data) can orphan assets too,
+# so run it on every push. Builds to a temp dir to leave a running dev server's
+# _site alone.
+echo "🔍 Running dead-code audit..."
+SITE_DIR=$(mktemp -d)
+export SITE_DIR
+trap 'rm -rf "$SITE_DIR"' EXIT
+bundle exec jekyll build --quiet -d "$SITE_DIR" || {
+  echo "❌ Jekyll build failed. Push blocked."
+  exit 1
+}
+npm run --silent audit:dead-code || {
+  echo "❌ Dead-code audit failed. Push blocked."
+  echo "💡 Remove the unused asset/CSS or add it to config/dead-code-safelist.json."
+  exit 1
+}
+
 # Get the range of commits being pushed
 remote="$1"
 z40=0000000000000000000000000000000000000000

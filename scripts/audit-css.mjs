@@ -20,14 +20,15 @@ const purgeSafelist = {
 
 // All stylesheets shipped to the browser, not just the theme's style.css.
 // overrides.css carries the bulk of our customizations and must be audited too.
+const siteDir = process.env.SITE_DIR || '_site';
 const cssFiles = [
-  '_site/assets/css/style.css',
-  '_site/assets/css/overrides.css',
+  `${siteDir}/assets/css/style.css`,
+  `${siteDir}/assets/css/overrides.css`,
 ];
 
 // Run PurgeCSS to detect unused CSS
 const purgeCSSResults = await new PurgeCSS().purge({
-  content: ['_site/**/*.html', '_site/assets/js/**/*.js'],
+  content: [`${siteDir}/**/*.html`, `${siteDir}/assets/js/**/*.js`],
   css: cssFiles,
   safelist: purgeSafelist,
   rejected: true,
