@@ -81,7 +81,7 @@ jobs:
         run: npm run build:js
 
       - name: Build site
-        run: bundle exec jekyll build
+        run: bash scripts/jekyll-build-strict.sh
 
       - name: Minify CSS
         run: npm run build:css

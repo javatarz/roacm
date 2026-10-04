@@ -16,10 +16,14 @@ echo "🔍 Running dead-code audit..."
 SITE_DIR=$(mktemp -d)
 export SITE_DIR
 trap 'rm -rf "$SITE_DIR"' EXIT
-bundle exec jekyll build --quiet -d "$SITE_DIR" || {
-  echo "❌ Jekyll build failed. Push blocked."
+BUILD_LOG=$(mktemp)
+bash scripts/jekyll-build-strict.sh -d "$SITE_DIR" > "$BUILD_LOG" 2>&1 || {
+  cat "$BUILD_LOG"
+  rm -f "$BUILD_LOG"
+  echo "❌ Jekyll build failed or emitted Liquid warnings. Push blocked."
   exit 1
 }
+rm -f "$BUILD_LOG"
 npm run --silent audit:dead-code || {
   echo "❌ Dead-code audit failed. Push blocked."
   echo "💡 Remove the unused asset/CSS or add it to config/dead-code-safelist.json."
