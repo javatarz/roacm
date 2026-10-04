@@ -26,6 +26,7 @@
     "audit:includes": "bash scripts/audit-includes.sh",
     "audit:images": "bash scripts/audit-images.sh",
     "audit:duplicates": "bash scripts/audit-duplicates.sh",
+    "validate:talks": "node test-suite/scripts/validate-talks.js",
     "audit:dead-code": "npm run audit:css && npm run audit:includes && npm run audit:images && npm run audit:duplicates",
     "images:optimize": "node scripts/optimize-images.mjs",
     "images:transform": "node scripts/transform-images.mjs",

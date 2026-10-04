@@ -184,6 +184,9 @@ jobs:
       - name: Detect dead code
         run: npm run audit:dead-code
 
+      - name: Validate talks page against speaking data
+        run: npm run validate:talks
+
   visual-tests:
     name: Visual Tests (${{ matrix.label }})
     # arm64 runner (free for public repos): visual baselines are arm64-rendered

@@ -29,6 +29,10 @@ npm run --silent audit:dead-code || {
   echo "💡 Remove the unused asset/CSS or add it to config/dead-code-safelist.json."
   exit 1
 }
+npm run --silent validate:talks || {
+  echo "❌ Talks page does not match _data/speaking.yml. Push blocked."
+  exit 1
+}
 
 # Get the range of commits being pushed
 remote="$1"
