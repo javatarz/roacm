@@ -8,7 +8,7 @@ gem "jekyll-theme-dinky", "~> 0.2.0"
 
 # Plugins
 group :jekyll_plugins do
-  gem 'jekyll-feed', '~> 0.6'
+  gem 'jekyll-feed', '~> 0.18'
   gem 'jekyll-sitemap', '~> 1.4.0'
   gem 'jekyll-target-blank', '~> 2.0.0'
   gem 'jekyll-watch', '~> 2.2.1'
