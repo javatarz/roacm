@@ -127,7 +127,7 @@ jobs:
         run: npm run test:scripts
 
       - name: Download site artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: built-site
           path: _site/
@@ -176,7 +176,7 @@ jobs:
         run: npm run lint:js
 
       - name: Download site artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: built-site
           path: _site/
@@ -376,7 +376,7 @@ jobs:
         run: echo "CHROME_PATH=$(find ~/.cache/ms-playwright -type f \( -name 'headless_shell' -o -name 'chrome-headless-shell' \) | head -1)" >> $GITHUB_ENV
 
       - name: Download site artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: built-site
           path: _site/
@@ -424,7 +424,7 @@ jobs:
         needs.performance-tests.result == 'success'))
     steps:
       - name: Download site artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: built-site
           path: _site/
@@ -509,7 +509,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Download last good built-site
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: built-site
           path: _site/
@@ -586,7 +586,7 @@ jobs:
       - name: Download Playwright JSON reports
         if: needs.changes.outputs.theme == 'true'
         continue-on-error: true
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           pattern: playwright-json-*
           path: playwright-json-reports
