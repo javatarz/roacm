@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">The onboarding quiz loop</title>
+  <desc id="d">The agent teaches a level, recommends files for you to read, then quizzes you on both. If you pass, it goes one level deeper and teaches the next level. If you don't, it explains the level again.</desc>
+  <style>
+    .box { fill: #2a78d6; fill-opacity: 0.12; stroke: #2a78d6; stroke-width: 1.5; }
+    .gate { fill: #eb6834; fill-opacity: 0.12; stroke: #eb6834; stroke-width: 1.5; }
+    .label { font-size: 15px; font-weight: 600; fill: #7a7a7a; text-anchor: middle; }
+    .note { font-size: 13px; fill: #7a7a7a; text-anchor: middle; }
+    .edge { font-size: 13px; font-weight: 600; fill: #7a7a7a; }
+    .line { stroke: #7a7a7a; stroke-width: 1.5; fill: none; }
+    .head { fill: #7a7a7a; }
+  </style>
+
+  <!-- Boxes -->
+  <rect class="box" x="20" y="110" width="150" height="60" rx="8"/>
+  <text class="label" x="95" y="136">Agent teaches</text>
+  <text class="label" x="95" y="156">a level</text>
+
+  <rect class="box" x="210" y="110" width="160" height="60" rx="8"/>
+  <text class="label" x="290" y="136">Agent recommends</text>
+  <text class="label" x="290" y="156">files to read</text>
+
+  <rect class="box" x="410" y="110" width="150" height="60" rx="8"/>
+  <text class="label" x="485" y="136">Agent quizzes</text>
+  <text class="label" x="485" y="156">you on both</text>
+
+  <path class="gate" d="M665,92 L730,140 L665,188 L600,140 Z"/>
+  <text class="label" x="665" y="145">Passed?</text>
+
+  <rect class="box" x="770" y="110" width="115" height="60" rx="8"/>
+  <text class="label" x="827" y="136">Go one</text>
+  <text class="label" x="827" y="156">level deeper</text>
+
+  <!-- Forward arrows -->
+  <path class="line" d="M170,140 H202"/><path class="head" d="M210,140 l-9,-5 v10 z"/>
+  <path class="line" d="M370,140 H402"/><path class="head" d="M410,140 l-9,-5 v10 z"/>
+  <path class="line" d="M560,140 H592"/><path class="head" d="M600,140 l-9,-5 v10 z"/>
+  <path class="line" d="M730,140 H762"/><path class="head" d="M770,140 l-9,-5 v10 z"/>
+  <text class="edge" x="736" y="130">yes</text>
+
+  <!-- Deeper back to teach, over the top -->
+  <path class="line" d="M827,110 V50 H95 V102"/>
+  <path class="head" d="M95,110 l-5,-9 h10 z"/>
+  <text class="note" x="461" y="42">teach the next level</text>
+
+  <!-- Gate no back to teach, underneath -->
+  <path class="line" d="M665,188 V230 H95 V178"/>
+  <path class="head" d="M95,170 l-5,9 h10 z"/>
+  <text class="edge" x="675" y="212">no</text>
+  <text class="note" x="380" y="252">explain it again</text>
+</svg>
