@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Engineering maturity sets the ceiling for AI autonomy</title>
+  <desc id="d">Engineering maturity E0 to E5 on the horizontal axis, AI autonomy A0 to A5 on the vertical axis. A curved line marks the ceiling: about A1 at E0, rising through A2 at E2, then A3 at E3, A4 at E4 and A5 at E5. Above it is the unsafe zone, where rework, waiting and cost rise. On the line, AI uses what the engineering supports. Below it is headroom.</desc>
+  <style>
+    .unsafe { fill: #eb6834; fill-opacity: 0.12; }
+    .room { fill: #2a78d6; fill-opacity: 0.12; }
+    .axis { stroke: #7a7a7a; stroke-width: 1.5; fill: none; }
+    .ceil { stroke: #2e9e6b; stroke-width: 6; fill: none; stroke-linecap: round; }
+    .tick { font-size: 13px; fill: #7a7a7a; text-anchor: middle; }
+    .label { font-size: 16px; font-weight: 600; fill: #7a7a7a; text-anchor: middle; }
+    .note { font-size: 13px; fill: #7a7a7a; text-anchor: middle; }
+    .edge { font-size: 13px; font-weight: 600; fill: #7a7a7a; }
+  </style>
+  <!-- plot area x 110..710, y 30..370 -->
+  <path class="unsafe" d="M110,302 C130.0,298.0 190.0,289.5 230,278 C270.0,266.9 310.0,252.7 350,234 C390.0,215.3 430.0,188.7 470,166 C510.0,143.3 550.0,120.7 590,98 C630.0,75.3 690.0,41.3 710,30 L710,30 L110,30 Z"/>
+  <path class="room" d="M110,302 C130.0,298.0 190.0,289.5 230,278 C270.0,266.9 310.0,252.7 350,234 C390.0,215.3 430.0,188.7 470,166 C510.0,143.3 550.0,120.7 590,98 C630.0,75.3 690.0,41.3 710,30 L710,370 L110,370 Z"/>
+  <path class="axis" d="M110,30 V370 H710"/>
+  <path class="ceil" d="M110,302 C130.0,298.0 190.0,289.5 230,278 C270.0,266.9 310.0,252.7 350,234 C390.0,215.3 430.0,188.7 470,166 C510.0,143.3 550.0,120.7 590,98 C630.0,75.3 690.0,41.3 710,30"/>
+  <text class="tick" x="110" y="390">E0</text>
+  <text class="tick" x="92" y="375">A0</text>
+  <text class="tick" x="230" y="390">E1</text>
+  <text class="tick" x="92" y="307">A1</text>
+  <text class="tick" x="350" y="390">E2</text>
+  <text class="tick" x="92" y="239">A2</text>
+  <text class="tick" x="470" y="390">E3</text>
+  <text class="tick" x="92" y="171">A3</text>
+  <text class="tick" x="590" y="390">E4</text>
+  <text class="tick" x="92" y="103">A4</text>
+  <text class="tick" x="710" y="390">E5</text>
+  <text class="tick" x="92" y="35">A5</text>
+  <text class="label" x="280" y="110">Unsafe zone</text>
+  <text class="note" x="280" y="132">AI ahead of its checks:</text>
+  <text class="note" x="280" y="150">rework, waiting and cost rise</text>
+  <text class="label" x="560" y="310">Headroom</text>
+  <text class="note" x="560" y="332">engineering that could support</text>
+  <text class="note" x="560" y="350">more autonomy than is used</text>
+  <text class="edge" x="380" y="207" text-anchor="middle" transform="rotate(-28 380 207)">Ceiling</text>
+  <text class="tick" x="410" y="425">Engineering maturity</text>
+  <text class="tick" x="30" y="200" transform="rotate(-90 30 200)">AI autonomy</text>
+</svg>
