@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 372" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Commit check time, before and after</title>
+  <desc id="d">Whole commit check run by commit type. Docs only: about 4 minutes before, 6 seconds after. Infrastructure only: about 4.5 minutes before, about 20 seconds after. Code in a warm workspace: about 4 minutes before, about 50 seconds after. Code in a fresh workspace: about 6.5 minutes before, 1.5 to 2.5 minutes after.</desc>
+  <style>
+    .before { fill: #eb6834; }
+    .after { fill: #2a78d6; }
+    .label { font-size: 14px; font-weight: 500; fill: #7a7a7a; }
+    .value { font-size: 13px; fill: #7a7a7a; }
+    .tick { font-size: 12px; fill: #7a7a7a; }
+    .grid { stroke: #7a7a7a; stroke-opacity: 0.3; stroke-width: 1; }
+    .callout { font-size: 14px; font-weight: 700; fill: #7a7a7a; }
+    .arrow { stroke: #7a7a7a; stroke-width: 1.5; fill: none; }
+    .arrowhead { fill: #7a7a7a; }
+  </style>
+  <rect class="before" x="200" y="22" width="14" height="14" rx="3"/><text class="value" x="220" y="34">Before</text>
+  <rect class="after" x="280" y="22" width="14" height="14" rx="3"/><text class="value" x="300" y="34">After</text>
+  <text class="callout" x="420" y="34">Shorter is better</text>
+  <path class="arrow" d="M410,29 h-36"/><path class="arrowhead" d="M368,29 l8,-5 v10 z"/>
+  <line class="grid" x1="200" y1="72" x2="200" y2="324"/>
+  <text class="tick" x="200" y="340" text-anchor="middle">0 min</text>
+  <line class="grid" x1="272" y1="72" x2="272" y2="324"/>
+  <text class="tick" x="272" y="340" text-anchor="middle">1 min</text>
+  <line class="grid" x1="344" y1="72" x2="344" y2="324"/>
+  <text class="tick" x="344" y="340" text-anchor="middle">2 min</text>
+  <line class="grid" x1="416" y1="72" x2="416" y2="324"/>
+  <text class="tick" x="416" y="340" text-anchor="middle">3 min</text>
+  <line class="grid" x1="488" y1="72" x2="488" y2="324"/>
+  <text class="tick" x="488" y="340" text-anchor="middle">4 min</text>
+  <line class="grid" x1="560" y1="72" x2="560" y2="324"/>
+  <text class="tick" x="560" y="340" text-anchor="middle">5 min</text>
+  <line class="grid" x1="632" y1="72" x2="632" y2="324"/>
+  <text class="tick" x="632" y="340" text-anchor="middle">6 min</text>
+  <line class="grid" x1="704" y1="72" x2="704" y2="324"/>
+  <text class="tick" x="704" y="340" text-anchor="middle">7 min</text>
+  <text class="label" x="188" y="108" text-anchor="end">Docs only</text>
+  <path class="before" d="M200,86 h284.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-284.0 z"/>
+  <text class="value" x="496" y="98">~4 min</text>
+  <path class="after" d="M200,104 h3.6 a3.5999999999999996,3.5999999999999996 0 0 1 3.5999999999999996,3.5999999999999996 v8.8 a3.5999999999999996,3.5999999999999996 0 0 1 -3.5999999999999996,3.5999999999999996 h-3.6 z"/>
+  <text class="value" x="215" y="116">6 s</text>
+  <text class="label" x="188" y="172" text-anchor="end">Infrastructure only</text>
+  <path class="before" d="M200,150 h320.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-320.0 z"/>
+  <text class="value" x="532" y="162">~4.5 min</text>
+  <path class="after" d="M200,168 h20.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-20.0 z"/>
+  <text class="value" x="232" y="180">~20 s</text>
+  <text class="label" x="188" y="236" text-anchor="end">Code, warm workspace</text>
+  <path class="before" d="M200,214 h284.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-284.0 z"/>
+  <text class="value" x="496" y="226">~4 min</text>
+  <path class="after" d="M200,232 h56.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-56.0 z"/>
+  <text class="value" x="268" y="244">~50 s</text>
+  <text class="label" x="188" y="300" text-anchor="end">Code, fresh workspace</text>
+  <path class="before" d="M200,278 h464.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-464.0 z"/>
+  <text class="value" x="676" y="290">~6.5 min</text>
+  <path class="after" opacity="0.4" d="M200,296 h176.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-176.0 z"/>
+  <path class="after" d="M200,296 h104.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-104.0 z"/>
+  <text class="value" x="388" y="308">1.5-2.5 min</text>
+</svg>
