@@ -27,7 +27,12 @@ test.describe('Image links in posts resolve (mobile)', () => {
 
       await page.goto(postPath);
       await page.waitForLoadState('load');
-      // The zoom script wraps images on load; wait for every image to settle.
+      // Lazy images below the fold never load (and never report `complete`) until
+      // scrolled, so force them eager first, as the visual helper does. The zoom
+      // script wraps images on load; then wait for every image to settle.
+      await page.evaluate(() => {
+        document.querySelectorAll('#main-content .post-content img[loading="lazy"]').forEach((img) => img.setAttribute('loading', 'eager'));
+      });
       await page.waitForFunction(() =>
         Array.from(document.querySelectorAll('#main-content .post-content img')).every((img) => (img as HTMLImageElement).complete),
       );
