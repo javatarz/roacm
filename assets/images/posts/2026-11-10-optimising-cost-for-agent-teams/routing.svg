@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Routing work across model tiers</title>
+  <desc id="d">The orchestrator sizes each job and sends it to the cheap, mid or top tier. The cheap tier stops if a job is bigger than described. A job that fails on the cheap tier moves up to the mid tier, and one that fails on the mid tier moves up to the top tier. The top tier returns a breakdown to the orchestrator instead of starting agents.</desc>
+  <style>
+    .box { fill: #2a78d6; fill-opacity: 0.12; stroke: #2a78d6; stroke-width: 1.5; }
+    .label { font-size: 15px; font-weight: 600; fill: #7a7a7a; text-anchor: middle; }
+    .note { font-size: 13px; fill: #7a7a7a; text-anchor: middle; }
+    .edge { font-size: 13px; font-weight: 600; fill: #7a7a7a; }
+    .line { stroke: #7a7a7a; stroke-width: 1.5; fill: none; }
+    .up { stroke: #eb6834; stroke-width: 1.5; fill: none; }
+    .head { fill: #7a7a7a; }
+    .uphead { fill: #eb6834; }
+  </style>
+
+  <!-- Orchestrator -->
+  <rect class="box" x="20" y="135" width="160" height="60" rx="8"/>
+  <text class="label" x="100" y="161">Orchestrator</text>
+  <text class="label" x="100" y="181">sizes the job</text>
+
+  <!-- Tiers, cheapest at the bottom -->
+  <rect class="box" x="330" y="30" width="230" height="60" rx="8"/>
+  <text class="label" x="445" y="56">Top tier</text>
+  <text class="note" x="445" y="76">hard builds, risky reviews</text>
+
+  <rect class="box" x="330" y="135" width="230" height="60" rx="8"/>
+  <text class="label" x="445" y="161">Mid tier</text>
+  <text class="note" x="445" y="181">research, multi-step work</text>
+
+  <rect class="box" x="330" y="240" width="230" height="60" rx="8"/>
+  <text class="label" x="445" y="266">Cheap tier</text>
+  <text class="note" x="445" y="286">small jobs; stops if one is bigger</text>
+
+  <!-- Orchestrator to tiers -->
+  <path class="line" d="M180,165 H250 V60 H322"/><path class="head" d="M330,60 l-9,-5 v10 z"/>
+  <path class="line" d="M250,165 H322"/><path class="head" d="M330,165 l-9,-5 v10 z"/>
+  <path class="line" d="M250,165 V270 H322"/><path class="head" d="M330,270 l-9,-5 v10 z"/>
+
+  <!-- Escalation: cheap to mid, mid to top -->
+  <path class="up" d="M560,270 H620 V175 H568"/><path class="uphead" d="M560,175 l9,-5 v10 z"/>
+  <text class="edge" x="632" y="227">fails: move up</text>
+  <path class="up" d="M560,155 H620 V70 H568"/><path class="uphead" d="M560,70 l9,-5 v10 z"/>
+  <text class="edge" x="632" y="117">fails: move up</text>
+
+  <!-- Breakdown back to orchestrator, over the top -->
+  <path class="up" d="M330,42 H100 V127"/><path class="uphead" d="M100,135 l-5,-9 h10 z"/>
+  <text class="edge" x="112" y="32">too big: return a breakdown</text>
+</svg>
