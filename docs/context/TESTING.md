@@ -169,6 +169,31 @@ Typical wall-clock times (warm Colima VM, 3 browsers in parallel):
 Auto-detection maps changed files to test patterns. Global changes (CSS, default
 layout, sidebar) fall back to a full regen automatically.
 
+#### Post-driven lists are frozen (adding a post needs no regen)
+
+`stabilize()` calls `freezePostLists()` (`test-suite/tests/helpers/freeze-post-lists.ts`),
+so visual tests no longer depend on which posts exist. It cuts each post-driven
+list to a fixed number of items cloned from the first one and swaps in constant
+placeholder text and `#` links:
+
+| List                                         | Frozen to                |
+| -------------------------------------------- | ------------------------ |
+| Blog index and category cards (`.post-card`) | 6                        |
+| Homepage Writing row                         | 3                        |
+| Tag page entries and related posts           | 3                        |
+| Archive                                      | 2 year groups of 4 items |
+
+Adding or renaming a post therefore does not touch any baseline. A **layout**
+change to one of these lists (card spacing, grid, typography) is still a
+visual change, so run `just snapshots` as usual.
+
+**Adding a new post-driven list component:** if a new component renders a list
+from posts (so its length or text changes when a post is added), add a
+`freeze(selector, count, fill)` call in `freezePostLists()`. `fill` receives
+each cloned item; use `setText()` to write the placeholder title, date, read
+time and excerpt, and `neutralise()` to point links at `#`. Lists driven by
+data files (speaking, projects) do not need it.
+
 #### Cross-browser sync guard (pre-push)
 
 The pre-push hook runs `.github/scripts/check-snapshot-sync.js` on each pushed ref. If the
@@ -199,6 +224,29 @@ bypasses it; the CI staleness failure is the backstop. Tests:
 - **Location**: `test-suite/tests/visual.spec.ts`
 - **Covers**: All pages (homepage, blog, archive, about, talks, etc.) across all viewports
 - **Run with**: `npm run test:e2e -- test-suite/tests/visual.spec.ts`
+
+### Site Surface Validation
+
+- **Location**: `test-suite/scripts/validate-site-surfaces.js`
+- **Covers**: build-time structural checks of `_site/` for `search.json` (non-empty array, fields `search.js` reads), `sitemap.xml`, `robots.txt`, `llms.txt` and `404.html`. Structural, not exact-shape, so intentional format changes do not fail it.
+- **Run with**: `just validate-surfaces` or `npm run validate:surfaces` (needs a built site)
+- **CI**: a step in the `validate-content` job. Because search data is now validated here, `theme.spec.ts` no longer exempts search data from its console-error check.
+
+### Production Bundle Tests
+
+- **Location**: `test-suite/tests/production-bundle.spec.ts`
+- **Covers**: the `JEKYLL_ENV=production` artifact real readers get: `bundle.min.js` loads instead of the dev script list, the Umami tracker is present, no uncaught script errors, and minified TOC, search and mobile menu still work. Every other e2e and visual job runs `jekyll serve` (development), so a minify-only bug would otherwise ship unchecked.
+- **Skipped** unless `PROD_BUNDLE=1`; it runs against the static `_site` output (`STATIC_SERVE=1`).
+- **Run with**: `just test-production` (builds production, then runs it in the Playwright container via `scripts/production-smoke.sh`), or natively with `npm run test:production` after a `JEKYLL_ENV=production` build into `_site`.
+- **CI**: the `Production Bundle Tests` job, which downloads the `built-site` artifact and runs `npm run test:production`.
+- See the `JEKYLL_ENV` section of `docs/context/DEVELOPMENT.md` for why dev and production differ.
+
+### Image Zoom Link Tests
+
+- **Location**: `test-suite/tests/image-zoom-links.spec.ts`
+- **Covers**: crawls every post from the built sitemap on `mobile-chrome` and requests every same-origin link that wraps an image, so a missing original or bad relative path fails. Lazy images are loaded first so the wrapping script has run.
+- **Run with**: `npm run test:e2e -- --project=mobile-chrome test-suite/tests/image-zoom-links.spec.ts`
+- **CI**: runs in the image overflow job alongside `image-overflow.spec.ts`.
 
 ### JS Unit Tests
 

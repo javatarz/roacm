@@ -55,6 +55,9 @@ Follow [cbea.ms/git-commit](https://cbea.ms/git-commit/) guidelines:
   then commit the changed `*-linux.png` files and push. CI compares and goes green first try.
 - **Requires** a native arm64 Docker engine (`colima start --profile arm64 --arch aarch64`)
   and `docker`. See `scripts/visual-snapshots.sh` and `docs/context/TESTING.md`.
+- **New posts do not need a snapshot regen**: tests freeze post-driven lists (blog index, homepage
+  Writing row, tags, archive, related posts) to placeholder content. Layout changes to those lists
+  still need `npm run snapshots`. See `docs/context/TESTING.md`.
 
 ## Task Management
 

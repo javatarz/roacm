@@ -38,6 +38,8 @@ just test-e2e firefox # E2E tests with specific browser
 just test-a11y        # Accessibility tests only
 just test-lighthouse  # Lighthouse performance tests
 just test-visual      # Visual regression tests
+just test-production  # Production bundle smoke test (builds production, runs in Playwright container)
+just validate-surfaces # Check search.json, sitemap, robots, llms, 404 in a built _site
 ```
 
 See `docs/context/TESTING.md` for detailed testing requirements.
@@ -185,6 +187,21 @@ See `docs/context/TESTING.md` for testing requirements and workflows.
 - `_config_dev.yml` - Development overrides
 - `package.json` - npm scripts and dependencies
 - `.github/workflows/ci.yml` - CI/CD pipeline
+
+## Development vs Production Builds (JEKYLL_ENV)
+
+`_layouts/default.html`, `_layouts/homepage.html` and `_includes/head.html` branch on `jekyll.environment == 'production'`:
+
+| Build                                                         | Scripts                                 | Umami tracker |
+| ------------------------------------------------------------- | --------------------------------------- | ------------- |
+| Development (`jekyll serve`, `just run`, all e2e/visual jobs) | Unbundled script list, one tag per file | Not loaded    |
+| Production (`JEKYLL_ENV=production`)                          | Single `bundle.min.js`                  | Loaded        |
+
+The deploy `Build site` step sets `JEKYLL_ENV=production`, so what readers get
+differs from what most tests run against. The `Production Bundle Tests` CI job
+(`just test-production` locally) covers that gap. When adding a script, add it
+to the `build:js` bundle as well as the unbundled list, or it will work in dev
+and be missing in production.
 
 ## Performance & Quality Gates
 
