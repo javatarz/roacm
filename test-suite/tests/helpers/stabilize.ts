@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { freezePostLists } from './freeze-post-lists';
 
 /**
  * Make a page deterministic before a visual screenshot.
@@ -15,6 +16,8 @@ import { Page } from '@playwright/test';
  * Call this immediately before `toHaveScreenshot`.
  */
 export async function stabilize(page: Page): Promise<void> {
+  await freezePostLists(page);
+
   await page.evaluate(async () => {
     document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
       img.setAttribute('loading', 'eager');
