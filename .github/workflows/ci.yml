@@ -646,7 +646,9 @@ jobs:
         run: node .github/scripts/devto-publish.js
 
       - name: Commit tracking file
-        if: success()
+        # Also after a failed publish: the script saves partial progress, and
+        # losing it makes the next run re-create articles dev.to already has.
+        if: ${{ !cancelled() }}
         env:
           # The bot push has no Ruby/Docker; local pre-push hooks (strict Jekyll
           # build, snapshot checks) belong to developer machines, not CI.
