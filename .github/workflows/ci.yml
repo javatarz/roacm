@@ -152,6 +152,9 @@ jobs:
       - name: Validate Atom feed
         run: node .github/scripts/validate-atom-feed.js
 
+      - name: Validate site surfaces (search index, sitemap, robots, llms, 404)
+        run: npm run validate:surfaces
+
   # ============================================================================
   # TESTING JOBS (run in parallel when theme files change)
   # ============================================================================

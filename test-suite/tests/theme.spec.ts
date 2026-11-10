@@ -461,11 +461,9 @@ test.describe('Performance', () => {
         // Ignore expected errors:
         // - 404 errors and failed resource loads
         // - WebKit blocks 0.0.0.0 as "restricted network host" in CI
-        // - Search data load failures (search.json may not be generated in all test contexts)
         if (!text.includes('404') &&
             !text.includes('Failed to load resource') &&
-            !text.includes('restricted network host') &&
-            !text.includes('Error loading search data')) {
+            !text.includes('restricted network host')) {
           errors.push(text);
         }
       }

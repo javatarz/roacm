@@ -93,6 +93,10 @@ lint-js:
 lint-html:
     npm run lint:html
 
+# Validate search.json, sitemap, robots, llms.txt, 404 (requires built site)
+validate-surfaces:
+    npm run validate:surfaces
+
 # Audit for dead code (requires built site)
 audit:
     npm run audit:dead-code
