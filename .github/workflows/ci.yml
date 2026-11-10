@@ -647,6 +647,10 @@ jobs:
 
       - name: Commit tracking file
         if: success()
+        env:
+          # The bot push has no Ruby/Docker; local pre-push hooks (strict Jekyll
+          # build, snapshot checks) belong to developer machines, not CI.
+          HUSKY: '0'
         run: |
           if [ -f .devto-posts.json ] && ! git diff --quiet .devto-posts.json 2>/dev/null; then
             git config user.name "github-actions[bot]"
