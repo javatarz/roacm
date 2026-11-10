@@ -42,6 +42,23 @@
       url: https://sahaj.ai/events/the-human-side-of-ai/
       recorded: false
 
+- title: "Helping Your AI Agent Climb the Autonomy Ladder"
+  type: talk
+  date: 2026-11-19
+  description: >
+    How agent autonomy grows in stages and what earns the trust to skip
+    review, drawn from two software factories: an Angular to React migration
+    pipeline and an always-on agent that takes issues to draft pull requests.
+  deliveries:
+    - event: Dev Day UK
+      location: London, UK
+      date: 2026-11-19
+      url: https://www.meetup.com/devday-uk/events/316893854/
+      recorded: false
+      co_speakers:
+        - name: Utkarsh Singh
+          linkedin: https://www.linkedin.com/in/utkarsh-singh-a66376151/
+
 - title: "A Green Harness Is Not a Healthy Harness"
   type: talk
   date: 2026-10-24
