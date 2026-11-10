@@ -344,7 +344,7 @@ jobs:
           skip-system-deps: 'true'
 
       - name: Run image overflow tests (mobile-chrome)
-        run: npm run test:e2e -- --project=mobile-chrome test-suite/tests/image-overflow.spec.ts
+        run: npm run test:e2e -- --project=mobile-chrome test-suite/tests/image-overflow.spec.ts test-suite/tests/image-zoom-links.spec.ts
         env:
           PLAYWRIGHT_WORKERS: '3'
 
