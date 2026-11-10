@@ -52,6 +52,12 @@ do
     range="$remote_sha..$local_sha"
   fi
 
+  # Visual baselines must change for chromium, firefox and webkit together (#306)
+  node .github/scripts/check-snapshot-sync.js "$local_sha" "$remote_sha" || {
+    echo "❌ Snapshot baselines out of sync across browsers. Push blocked."
+    exit 1
+  }
+
   # Get changed files (fallback to last 5 commits if range fails)
   changed_files=$(git diff --name-only "$range" 2>/dev/null || git diff --name-only HEAD~5..HEAD)
 

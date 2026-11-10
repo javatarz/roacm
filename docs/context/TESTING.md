@@ -169,6 +169,17 @@ Typical wall-clock times (warm Colima VM, 3 browsers in parallel):
 Auto-detection maps changed files to test patterns. Global changes (CSS, default
 layout, sidebar) fall back to a full regen automatically.
 
+#### Cross-browser sync guard (pre-push)
+
+The pre-push hook runs `.github/scripts/check-snapshot-sync.js` on each pushed ref. If the
+push range changes a `*-chromium-linux.png`, `*-firefox-linux.png` or
+`*-webkit-linux.png` without the same screenshot name for the other two browsers, the
+push is blocked and the message lists what is missing. Fix it with `npm run snapshots`,
+commit, and push again. The guard is skipped when no snapshot files are in the range.
+For a new branch the range starts at the merge-base with `origin/main`. `--no-verify`
+bypasses it; the CI staleness failure is the backstop. Tests:
+`.github/scripts/check-snapshot-sync.test.js` (run by `npm run test:scripts`).
+
 ## Common Test Locations
 
 ### Accessibility Tests
