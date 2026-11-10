@@ -57,6 +57,10 @@ test-visual browser="chromium":
 test-a11y:
     npm run test:a11y
 
+# Smoke-test the production bundle (needs JEKYLL_ENV=production build in _site)
+test-production:
+    ./scripts/production-smoke.sh
+
 # Run Lighthouse performance tests
 test-lighthouse:
     npm run test:lighthouse
