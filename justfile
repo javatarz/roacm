@@ -22,6 +22,18 @@ setup:
     ./scripts/setup.sh
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Docker engine (Colima arm64 profile, used by visual snapshots)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Report whether the Colima arm64 Docker engine is up (exit 1 if not)
+docker-status:
+    @if docker --context colima-arm64 info >/dev/null 2>&1; then echo "✅ Docker engine (colima-arm64) is up"; else echo "❌ Docker engine (colima-arm64) is down. Run: just colima-start"; exit 1; fi
+
+# Start the Colima arm64 engine if it isn't already running (prerequisite of Docker-based recipes)
+colima-start:
+    @just docker-status >/dev/null 2>&1 || colima start --profile arm64 --arch aarch64 --cpu 4 --memory 6
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Testing
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -50,15 +62,15 @@ test-lighthouse:
     npm run test:lighthouse
 
 # Full suite in Docker (visual + E2E + a11y, chromium) — same as pre-push hook
-verify:
+verify: colima-start
     npm run verify
 
 # Regenerate visual snapshots (Linux arm64 via Docker)
-snapshots:
+snapshots: colima-start
     npm run snapshots
 
 # Re-run only previously failed snapshot tests
-snapshots-failed:
+snapshots-failed: colima-start
     npm run snapshots:failed
 
 # ─────────────────────────────────────────────────────────────────────────────
