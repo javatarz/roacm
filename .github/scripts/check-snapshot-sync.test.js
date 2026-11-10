@@ -4,7 +4,11 @@ const { execFileSync, spawnSync } = require('node:child_process');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { checkSync } = require('./check-snapshot-sync.js');
+const {
+  checkSync,
+  completionPlan,
+  parsePorcelain,
+} = require('./check-snapshot-sync.js');
 
 const dir = 'test-suite/tests/a.spec.ts-snapshots';
 const snap = (name, b) => `${dir}/${name}-${b}-linux.png`;
@@ -81,7 +85,7 @@ test('CLI: new branch with all three passes', () => {
 test('CLI: new branch with chromium only blocks', () => {
   const r = run((c) => c([snap('home', 'chromium')]));
   assert.equal(r.status, 1);
-  assert.match(r.stderr, /npm run snapshots/);
+  assert.match(r.stderr, /just snapshots/);
 });
 
 test('CLI: counterparts in a later commit of the same range pass', () => {
@@ -96,4 +100,28 @@ test('CLI: no snapshots skips', () => {
   const r = run((c) => c(['docs/x.md']));
   assert.equal(r.status, 0);
   assert.match(r.stdout, /skipping/);
+});
+
+test('completionPlan deletes unchanged counterparts of a chromium-only change', () => {
+  const existing = new Set([...all('home'), ...all('about')]);
+  const plan = completionPlan([snap('home', 'chromium')], existing);
+  assert.deepEqual(plan.remove, [
+    snap('home', 'firefox'),
+    snap('home', 'webkit'),
+  ]);
+  assert.deepEqual(plan.browsers, ['firefox', 'webkit']);
+});
+
+test('completionPlan is empty for complete sets and ignores missing files', () => {
+  const existing = new Set(all('home'));
+  assert.deepEqual(completionPlan(all('home'), existing).remove, []);
+  const plan = completionPlan([snap('new', 'chromium')], existing);
+  assert.deepEqual(plan, { remove: [], browsers: [] });
+});
+
+test('parsePorcelain extracts paths and tracked set', () => {
+  const out = ` M ${snap('home', 'chromium')}\n?? ${snap('x', 'webkit')}\n`;
+  const r = parsePorcelain(out, [snap('home', 'firefox')]);
+  assert.deepEqual(r.changed, [snap('home', 'chromium'), snap('x', 'webkit')]);
+  assert.ok(r.existing.has(snap('home', 'firefox')));
 });

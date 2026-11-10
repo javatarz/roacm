@@ -38,6 +38,39 @@ function checkSync(files) {
   return { skipped: groups.size === 0, problems };
 }
 
+// Pure logic: files changed in the working tree -> the unchanged counterpart
+// baselines to delete so a rerun of --update-snapshots rewrites them (#379).
+// Playwright only rewrites a baseline that differs beyond maxDiffPixelRatio, so
+// a real change can touch chromium alone. `existing` is a Set of tracked paths.
+function completionPlan(changed, existing) {
+  const plan = { remove: [], browsers: [] };
+  const { problems } = checkSync(changed);
+  for (const p of problems) {
+    for (const b of p.missing) {
+      const f = `${p.key}-${b}-linux.png`;
+      if (existing.has(f)) {
+        plan.remove.push(f);
+        if (!plan.browsers.includes(b)) {
+          plan.browsers.push(b);
+        }
+      }
+    }
+  }
+  return plan;
+}
+
+// Parse `git status --porcelain` into { changed, existing } for completionPlan.
+// Deleted entries count as changed but not existing.
+function parsePorcelain(out, tracked) {
+  const changed = [];
+  for (const line of out.split('\n')) {
+    if (line.length > 3) {
+      changed.push(line.slice(3).replace(/^.* -> /, ''));
+    }
+  }
+  return { changed, existing: new Set(tracked) };
+}
+
 function formatProblems(problems) {
   const lines = problems.map(
     (p) =>
@@ -46,8 +79,8 @@ function formatProblems(problems) {
   return [
     'Visual baselines changed for some browsers but not all three:',
     ...lines,
-    'Run "npm run snapshots" to regenerate chromium/firefox/webkit together,',
-    'commit the changed *-linux.png files, then push again.',
+    'Run "just snapshots" (it completes partial sets automatically), commit the',
+    'changed *-linux.png files, then push again. Hand-edited partial sets stay blocked.',
   ].join('\n');
 }
 
@@ -86,7 +119,26 @@ function changedFiles(localSha, remoteSha) {
     .filter(Boolean);
 }
 
+// CLI helper for scripts/visual-snapshots.sh: print baselines to delete and
+// the browsers to rerun ("remove <file>" / "browser <name>" lines).
+function planMain() {
+  const status = git(['status', '--porcelain', '--', '*-linux.png']);
+  const tracked = git(['ls-files', '--', '*-linux.png']).split('\n');
+  const { changed, existing } = parsePorcelain(status, tracked);
+  const plan = completionPlan(changed, existing);
+  for (const f of plan.remove) {
+    console.log(`remove ${f}`);
+  }
+  for (const b of plan.browsers) {
+    console.log(`browser ${b}`);
+  }
+  return 0;
+}
+
 function main(argv) {
+  if (argv[0] === '--complete-plan') {
+    return planMain();
+  }
   const [localSha, remoteSha = '0'] = argv;
   if (!localSha) {
     console.error('usage: check-snapshot-sync.js <local_sha> <remote_sha>');
@@ -113,7 +165,14 @@ function main(argv) {
   return 0;
 }
 
-module.exports = { checkSync, formatProblems, changedFiles, main };
+module.exports = {
+  completionPlan,
+  parsePorcelain,
+  checkSync,
+  formatProblems,
+  changedFiles,
+  main,
+};
 
 if (require.main === module) {
   process.exit(main(process.argv.slice(2)));
