@@ -38,6 +38,28 @@ before(async () => {
     fs.writeFileSync(path.join(imgDir, name), png);
   }
 
+  // Wider than the largest srcset variant (1280px), still over the size threshold.
+  const wideRaw = Buffer.alloc(1500 * 20 * 3);
+  for (let i = 0; i < wideRaw.length; i++) {
+    wideRaw[i] = (i * 2654435761) >>> 24;
+  }
+  const widePng = await sharp(wideRaw, {
+    raw: { width: 1500, height: 20, channels: 3 },
+  })
+    .png({ compressionLevel: 0 })
+    .toBuffer();
+  assert.ok(
+    widePng.length > 50 * 1024,
+    'wide fixture must clear the threshold',
+  );
+  fs.writeFileSync(path.join(imgDir, 'wide.png'), widePng);
+  fs.writeFileSync(
+    path.join(tmp, '_site', 'wide.html'),
+    '<html><head>' +
+      '<meta property="og:image" content="/assets/images/wide.png" />' +
+      '<meta name="twitter:image" content="/assets/images/wide.png" />' +
+      '</head><body><img src="/assets/images/wide.png" alt="wide"></body></html>',
+  );
   fs.writeFileSync(
     path.join(tmp, '_site', 'index.html'),
     '<html><body>' +
@@ -69,5 +91,25 @@ describe('transform-images', () => {
       out.includes('<img src="/assets/images/ANIM2.GIF" alt="gif upper">'),
     );
     assert.doesNotMatch(out, /anim[^"]*\.webp/i);
+  });
+
+  // #300: a 2x/3x display must not pick the full-resolution original.
+  test('omits an original wider than 1280px from srcset (#300)', () => {
+    const out = fs.readFileSync(path.join(tmp, '_site', 'wide.html'), 'utf8');
+    assert.match(out, /wide-1280w\.webp 1280w/);
+    assert.doesNotMatch(out, /wide\.webp 1500w/);
+  });
+
+  test('keeps the original in srcset when it is within 1280px (#300)', () => {
+    assert.match(html(), /big\.webp 300w/);
+  });
+
+  test('points og:image and twitter:image at the 1280w variant (#300)', () => {
+    const out = fs.readFileSync(path.join(tmp, '_site', 'wide.html'), 'utf8');
+    assert.match(out, /og:image" content="\/assets\/images\/wide-1280w\.png"/);
+    assert.match(
+      out,
+      /twitter:image" content="\/assets\/images\/wide-1280w\.png"/,
+    );
   });
 });

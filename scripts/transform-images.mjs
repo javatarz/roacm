@@ -72,9 +72,12 @@ function generateSrcset(imagePath, imageWidth, format) {
     }
   }
 
-  // Add original size (capped at largest srcset width for naming)
-  const originalName = `${name}.${format}`;
-  srcsetParts.push(`${dir}/${originalName} ${imageWidth}w`);
+  // Add the original only when it is no wider than the largest variant.
+  // Otherwise a 2x/3x display picks the full-resolution original (e.g. a
+  // 9504px, 570KB WebP) over the 1280w variant that is already plenty sharp.
+  if (imageWidth <= Math.max(...SRCSET_WIDTHS)) {
+    srcsetParts.push(`${dir}/${name}.${format} ${imageWidth}w`);
+  }
 
   return srcsetParts.join(', ');
 }
@@ -191,16 +194,49 @@ async function transformImgTag(imgTag) {
 }
 
 /**
+ * Point og:image / twitter:image at the largest srcset variant (1280w) instead
+ * of the full-resolution original, when optimize-images will generate one.
+ */
+async function rewriteSocialImages(content) {
+  const metaRegex = /(<meta\s+(?:property|name)=["'](?:og|twitter):image["']\s+content=["'])([^"']+)(["'])/gi;
+  let result = content;
+  for (const match of [...content.matchAll(metaRegex)]) {
+    const assetPath = extractAssetPath(match[2]);
+    if (!assetPath || !/\.(jpe?g|png)$/i.test(assetPath) || /-\d+w\.\w+$/.test(assetPath)) {
+      continue;
+    }
+    const fullPath = join(SITE_DIR, assetPath.slice(1));
+    if (!existsSync(fullPath) || (await stat(fullPath)).size < SMALL_IMAGE_THRESHOLD) {
+      continue;
+    }
+    const dimensions = await getImageDimensions(assetPath.slice(1));
+    const largest = Math.max(...SRCSET_WIDTHS);
+    if (!dimensions || dimensions.width <= largest) {
+      continue;
+    }
+    const ext = extname(assetPath);
+    const variant = match[2].replace(new RegExp(`${ext}$`, 'i'), `-${largest}w${ext}`);
+    result = result.replace(match[0], `${match[1]}${variant}${match[3]}`);
+  }
+  return result;
+}
+
+/**
  * Process a single HTML file
  */
 async function processHtmlFile(filePath) {
-  const content = await readFile(filePath, 'utf-8');
+  const original = await readFile(filePath, 'utf-8');
+  const content = await rewriteSocialImages(original);
 
   // Find all img tags (including self-closing and multi-line)
   const imgRegex = /<img\s+[^>]*src=["'][^"']+["'][^>]*\/?>/gi;
   const matches = content.match(imgRegex);
 
   if (!matches || matches.length === 0) {
+    if (content !== original) {
+      await writeFile(filePath, content, 'utf-8');
+      stats.filesModified++;
+    }
     return;
   }
 
@@ -225,7 +261,7 @@ async function processHtmlFile(filePath) {
     }
   }
 
-  if (modified) {
+  if (modified || newContent !== original) {
     await writeFile(filePath, newContent, 'utf-8');
     stats.filesModified++;
   }
