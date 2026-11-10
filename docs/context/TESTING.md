@@ -200,6 +200,14 @@ bypasses it; the CI staleness failure is the backstop. Tests:
 - **Covers**: All pages (homepage, blog, archive, about, talks, etc.) across all viewports
 - **Run with**: `npm run test:e2e -- test-suite/tests/visual.spec.ts`
 
+### JS Unit Tests
+
+`test-suite/unit/*.test.js` runs the `assets/js` modules in jsdom through
+`node --test` (part of `npm run test:scripts`, which CI runs on every push).
+`helpers.js` evals a module's source into a fresh window, so the production
+IIFEs need no export shims. Add a test here for DOM logic (wrapping,
+classification, scroll math); leave rendering and layout to the visual layer.
+
 ### Mobile Menu Tests
 
 - **Location**: `test-suite/tests/mobile-menu.spec.ts`

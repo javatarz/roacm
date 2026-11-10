@@ -8,7 +8,7 @@
     "build:css": "lightningcss --minify _site/assets/css/overrides.css -o _site/assets/css/overrides.css && lightningcss --minify _site/assets/css/style.css -o _site/assets/css/style.css && lightningcss --minify _site/assets/css/fonts.css -o _site/assets/css/fonts.css",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "npm run lint:css && npm run lint:js && npm run lint:html && npm run test:scripts",
-    "test:scripts": "node --test .github/scripts/*.test.js",
+    "test:scripts": "node --test .github/scripts/*.test.js test-suite/unit/*.test.js",
     "test:e2e": "playwright test -c test-suite/configs/playwright.config.ts",
     "test:visual": "playwright test -c test-suite/configs/playwright.config.ts --grep @visual",
     "snapshots": "bash scripts/visual-snapshots.sh --project=chromium --project=firefox --project=webkit --update-snapshots --grep=@visual",
@@ -48,6 +48,7 @@
     "gray-matter": "^4.0.3",
     "htmlhint": "^1.9.2",
     "husky": "^9.1.7",
+    "jsdom": "^31.0.0",
     "lightningcss-cli": "^1.33.0",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
@@ -69,6 +70,9 @@
       "eslint --fix --config test-suite/configs/eslint.config.mjs",
       "eslint --config test-suite/configs/eslint.config.mjs",
       "prettier --write"
+    ],
+    "{assets/js,test-suite/unit}/*.js": [
+      "bash -c 'npm run test:scripts' --"
     ],
     "*.md": [
       "prettier --write"
