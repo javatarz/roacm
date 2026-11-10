@@ -27,6 +27,21 @@
 #       co_speakers Optional list, per-delivery (co-speakers vary by venue).
 #                   Each is either a plain name or { name, linkedin } to link it.
 
+- title: "The Human Side of AI"
+  type: panel
+  date: 2026-11-17
+  image: /assets/images/talks/2026-11-sahaj-emerge-human-side-of-ai-london.jpeg
+  description: >
+    Facilitating a fishbowl conversation on AI's impact on people and culture,
+    held under the Chatham House Rule, at Sahaj's closing 2026 leadership
+    roundtable.
+  deliveries:
+    - event: Sahaj emerge
+      location: London, UK
+      date: 2026-11-17
+      url: https://sahaj.ai/events/the-human-side-of-ai/
+      recorded: false
+
 - title: "A Green Harness Is Not a Healthy Harness"
   type: talk
   date: 2026-10-24
