@@ -1,12 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./local_run.sh:*)",
-      "Bash(./scripts/setup.sh:*)",
+      "Bash(just:*)",
       "Bash(bundle exec jekyll:*)",
-      "Bash(colima:*)",
-      "Bash(npm run:*)",
-      "Bash(npm test:*)",
       "Bash(npm install:*)",
       "Bash(npm audit:*)",
       "Bash(npm outdated:*)",
@@ -40,6 +36,13 @@
       "Bash(lsof:*)",
       "Bash(curl:*)"
     ],
-    "deny": []
+    "deny": [
+      "Bash(colima:*)",
+      "Bash(docker:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(./local_run.sh:*)",
+      "Bash(./scripts/setup.sh:*)"
+    ]
   }
 }
