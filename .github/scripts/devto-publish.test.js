@@ -1,4 +1,3 @@
-/* global require */
 const { describe, it, mock } = require('node:test');
 const assert = require('node:assert');
 const {
@@ -7,6 +6,8 @@ const {
   isFuturePost,
   getCanonicalUrl,
   convertMarkdown,
+  isCanonicalTakenError,
+  findArticleByCanonical,
 } = require('./devto-publish.js');
 
 function assertContainsUrl(result, expectedUrl) {
@@ -323,5 +324,64 @@ describe('convertMarkdown', () => {
       assert.ok(result.includes('[![alt]'));
       assert.ok(!result.includes('{:'));
     });
+  });
+});
+
+describe('isCanonicalTakenError', () => {
+  it('matches the dev.to 422 canonical conflict', () => {
+    const error = Object.assign(new Error('x'), {
+      status: 422,
+      body: '{"error":"Canonical url has already been taken. Email support"}',
+    });
+    assert.strictEqual(isCanonicalTakenError(error), true);
+  });
+
+  it('ignores other 422 errors', () => {
+    const error = Object.assign(new Error('x'), {
+      status: 422,
+      body: '{"error":"Title is too long"}',
+    });
+    assert.strictEqual(isCanonicalTakenError(error), false);
+  });
+
+  it('ignores other statuses and plain errors', () => {
+    const error = Object.assign(new Error('x'), {
+      status: 500,
+      body: 'Canonical url has already been taken',
+    });
+    assert.strictEqual(isCanonicalTakenError(error), false);
+    assert.strictEqual(isCanonicalTakenError(new Error('boom')), false);
+    assert.strictEqual(isCanonicalTakenError(undefined), false);
+  });
+});
+
+describe('findArticleByCanonical', () => {
+  const articles = [
+    { id: 1, canonical_url: 'https://example.com/blog/2026/01/01/a/' },
+    { id: 2, canonical_url: 'https://example.com/blog/2026/01/02/b' },
+  ];
+
+  it('finds an article by canonical URL', () => {
+    const found = findArticleByCanonical(
+      articles,
+      'https://example.com/blog/2026/01/01/a/',
+    );
+    assert.strictEqual(found.id, 1);
+  });
+
+  it('ignores a trailing slash difference either way', () => {
+    const found = findArticleByCanonical(
+      articles,
+      'https://example.com/blog/2026/01/02/b/',
+    );
+    assert.strictEqual(found.id, 2);
+  });
+
+  it('returns undefined when nothing matches', () => {
+    assert.strictEqual(
+      findArticleByCanonical(articles, 'https://example.com/nope/'),
+      undefined,
+    );
+    assert.strictEqual(findArticleByCanonical(undefined, 'x'), undefined);
   });
 });

@@ -113,9 +113,50 @@ async function createArticle(article) {
   });
   if (!response.ok) {
     const error = await response.text();
-    throw new Error(`dev.to API error (${response.status}): ${error}`);
+    const err = new Error(`dev.to API error (${response.status}): ${error}`);
+    err.status = response.status;
+    err.body = error;
+    throw err;
   }
   return response.json();
+}
+
+// dev.to rejects a create with 422 when the canonical URL is already used, which
+// happens when an earlier run created the article but its tracking entry never
+// landed on main.
+function isCanonicalTakenError(error) {
+  return (
+    error?.status === 422 &&
+    /canonical url has already been taken/i.test(error.body || '')
+  );
+}
+
+function normalizeUrl(url) {
+  return String(url || '').replace(/\/+$/, '');
+}
+
+function findArticleByCanonical(articles, canonicalUrl) {
+  const wanted = normalizeUrl(canonicalUrl);
+  return (articles || []).find((a) => normalizeUrl(a.canonical_url) === wanted);
+}
+
+async function listOwnArticles() {
+  const articles = [];
+  for (let page = 1; page <= 20; page += 1) {
+    const response = await fetch(
+      `${DEVTO_API_URL}/me/all?per_page=100&page=${page}`,
+      { headers: { 'api-key': process.env.DEVTO_API_KEY } },
+    );
+    if (!response.ok) {
+      throw new Error(`dev.to API error (${response.status}) listing articles`);
+    }
+    const batch = await response.json();
+    articles.push(...batch);
+    if (batch.length < 100) {
+      break;
+    }
+  }
+  return articles;
 }
 
 function getPostsToProcess() {
@@ -201,6 +242,24 @@ async function main() {
       hasChanges = true;
       await new Promise((resolve) => setTimeout(resolve, 15000));
     } catch (error) {
+      if (isCanonicalTakenError(error)) {
+        const existing = findArticleByCanonical(
+          await listOwnArticles(),
+          canonicalUrl,
+        );
+        if (existing) {
+          console.log(
+            `ℹ️  Already on dev.to, recording existing article: ${existing.url}`,
+          );
+          tracking[postPath] = {
+            id: existing.id,
+            url: existing.url,
+            posted_at: existing.published_at || new Date().toISOString(),
+          };
+          hasChanges = true;
+          continue;
+        }
+      }
       console.error(`❌ Failed to create ${postPath}: ${error.message}`);
       process.exit(1);
     }
@@ -222,6 +281,8 @@ if (typeof module !== 'undefined' && module.exports) {
     isFuturePost,
     getCanonicalUrl,
     convertMarkdown,
+    isCanonicalTakenError,
+    findArticleByCanonical,
   };
 }
 
