@@ -81,7 +81,12 @@ jobs:
         run: npm run build:js
 
       - name: Build site
+        # Production env: the layouts only load bundle.min.js and the Umami
+        # tracker when jekyll.environment == 'production'. Without it the deploy
+        # shipped the dev script list and no analytics.
         run: bash scripts/jekyll-build-strict.sh
+        env:
+          JEKYLL_ENV: production
 
       - name: Minify CSS
         run: npm run build:css
