@@ -159,6 +159,29 @@ async function listOwnArticles() {
   return articles;
 }
 
+// dev.to rate limits creates (429 "Retry later"); back off and try again rather
+// than failing the whole run and losing the tracking entries gathered so far.
+async function withRetry(fn, options = {}) {
+  const {
+    retries = 3,
+    delayMs = 30000,
+    sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+  } = options;
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (error?.status !== 429 || attempt >= retries) {
+        throw error;
+      }
+      console.log(
+        `⏳ Rate limited, retrying in ${(delayMs * (attempt + 1)) / 1000}s...`,
+      );
+      await sleep(delayMs * (attempt + 1));
+    }
+  }
+}
+
 function getPostsToProcess() {
   const manualPath = process.env.POST_PATH;
   if (manualPath) {
@@ -232,7 +255,7 @@ async function main() {
     }
 
     try {
-      const result = await createArticle(article);
+      const result = await withRetry(() => createArticle(article));
       console.log(`✅ Created: ${result.url}`);
       tracking[postPath] = {
         id: result.id,
@@ -261,6 +284,11 @@ async function main() {
         }
       }
       console.error(`❌ Failed to create ${postPath}: ${error.message}`);
+      if (hasChanges) {
+        // Keep what was recorded before the failure so it is not lost.
+        saveTracking(tracking);
+        console.log('Tracking file updated (partial)');
+      }
       process.exit(1);
     }
   }
@@ -283,6 +311,7 @@ if (typeof module !== 'undefined' && module.exports) {
     convertMarkdown,
     isCanonicalTakenError,
     findArticleByCanonical,
+    withRetry,
   };
 }
 

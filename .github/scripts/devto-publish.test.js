@@ -8,6 +8,7 @@ const {
   convertMarkdown,
   isCanonicalTakenError,
   findArticleByCanonical,
+  withRetry,
 } = require('./devto-publish.js');
 
 function assertContainsUrl(result, expectedUrl) {
@@ -383,5 +384,56 @@ describe('findArticleByCanonical', () => {
       undefined,
     );
     assert.strictEqual(findArticleByCanonical(undefined, 'x'), undefined);
+  });
+});
+
+describe('withRetry', () => {
+  const rateLimited = () => Object.assign(new Error('429'), { status: 429 });
+  const noSleep = () => Promise.resolve();
+
+  it('retries rate limited calls and returns the eventual result', async () => {
+    let calls = 0;
+    const result = await withRetry(
+      () => {
+        calls += 1;
+        if (calls < 3) {
+          throw rateLimited();
+        }
+        return Promise.resolve('ok');
+      },
+      { delayMs: 1, sleep: noSleep },
+    );
+    assert.strictEqual(result, 'ok');
+    assert.strictEqual(calls, 3);
+  });
+
+  it('gives up after the retry limit', async () => {
+    let calls = 0;
+    await assert.rejects(
+      withRetry(
+        () => {
+          calls += 1;
+          throw rateLimited();
+        },
+        { retries: 2, delayMs: 1, sleep: noSleep },
+      ),
+      { status: 429 },
+    );
+    assert.strictEqual(calls, 3);
+  });
+
+  it('does not retry other errors', async () => {
+    let calls = 0;
+    await assert.rejects(
+      withRetry(
+        () => {
+          calls += 1;
+          throw Object.assign(new Error('bad'), { status: 422 });
+        },
+        { delayMs: 1, sleep: noSleep },
+      ),
+      { status: 422 },
+    );
+    assert.strictEqual(calls, 1);
   });
 });
