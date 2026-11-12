@@ -1,0 +1,12 @@
+{%- comment -%} Value of the schema.org "author" property: one Person, or an array for co-authors. Needs resolve_authors.html. {%- endcomment -%}
+{%- if post_author_count > 1 -%}[{%- endif -%}
+{%- for name in post_author_names -%}
+{%- assign url = post_author_urls[forloop.index0] -%}
+{
+    "@type": "Person",
+    "name": {{ name | jsonify }}{% if url != "" %},
+    "url": {{ url | jsonify }}{% endif %}{% if name == site.social.name %},
+    "sameAs": {{ site.social.links | jsonify }}{% endif %}
+  }{% unless forloop.last %}, {% endunless %}
+{%- endfor -%}
+{%- if post_author_count > 1 -%}]{%- endif -%}

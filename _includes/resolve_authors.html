@@ -1,0 +1,48 @@
+{%- comment -%}
+  Resolves a post's authors into parallel arrays. Every other author include
+  reads these, so the lookup lives only here.
+
+  Usage: {% include resolve_authors.html source=page %}   (or source=post in a loop)
+
+  Sets: post_author_count, post_author_names, post_author_urls,
+        post_author_avatars, post_author_bios (indexed alike; "" when unset).
+
+  Precedence: `authors` list of ids from _data/authors.yml, then the legacy
+  `author` name string (matched to an entry by name), then site.author.
+  An id or name with no entry still gets a byline name.
+{%- endcomment -%}
+{%- assign post_author_names = "" | split: "," -%}
+{%- assign post_author_urls = "" | split: "," -%}
+{%- assign post_author_avatars = "" | split: "," -%}
+{%- assign post_author_bios = "" | split: "," -%}
+{%- assign _ra_src = include.source -%}
+{%- if _ra_src.authors and _ra_src.authors.size > 0 -%}
+  {%- for _ra_id in _ra_src.authors -%}
+    {%- assign _ra_entry = site.data.authors[_ra_id] -%}
+    {%- assign _ra_name = _ra_entry.name | default: _ra_id -%}
+    {%- assign _ra_url = _ra_entry.url | default: "" -%}
+    {%- assign _ra_avatar = _ra_entry.avatar | default: "" -%}
+    {%- assign _ra_bio = _ra_entry.bio | default: "" -%}
+    {%- assign post_author_names = post_author_names | push: _ra_name -%}
+    {%- assign post_author_urls = post_author_urls | push: _ra_url -%}
+    {%- assign post_author_avatars = post_author_avatars | push: _ra_avatar -%}
+    {%- assign post_author_bios = post_author_bios | push: _ra_bio -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign _ra_name = _ra_src.author | default: site.author -%}
+  {%- assign _ra_url = "" -%}
+  {%- assign _ra_avatar = "" -%}
+  {%- assign _ra_bio = "" -%}
+  {%- for _ra_pair in site.data.authors -%}
+    {%- if _ra_pair[1].name == _ra_name -%}
+      {%- assign _ra_url = _ra_pair[1].url | default: "" -%}
+      {%- assign _ra_avatar = _ra_pair[1].avatar | default: "" -%}
+      {%- assign _ra_bio = _ra_pair[1].bio | default: "" -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign post_author_names = post_author_names | push: _ra_name -%}
+  {%- assign post_author_urls = post_author_urls | push: _ra_url -%}
+  {%- assign post_author_avatars = post_author_avatars | push: _ra_avatar -%}
+  {%- assign post_author_bios = post_author_bios | push: _ra_bio -%}
+{%- endif -%}
+{%- assign post_author_count = post_author_names.size -%}

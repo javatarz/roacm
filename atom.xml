@@ -21,6 +21,11 @@ layout: null
     <link href="{{ site.url }}{{ post.url }}"/>
     <updated>{{ post.date | date_to_xmlschema }}</updated>
     <id>{{ site.url }}{{ post.id }}</id>
+    {% if post.authors.size > 0 %}{% include resolve_authors.html source=post %}{% for name in post_author_names %}
+    <author>
+      <name><![CDATA[{{ name | strip_html }}]]></name>{% assign url = post_author_urls[forloop.index0] %}{% if url != "" %}
+      <uri>{{ url | xml_escape }}</uri>{% endif %}
+    </author>{% endfor %}{% endif %}
     <content type="html"><![CDATA[{{ post.content | expand_urls: site.url | cdata_escape }}]]></content>
   </entry>
   {% endfor %}

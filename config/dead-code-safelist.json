@@ -1,5 +1,6 @@
 {
   "css": {
+    "_comment_authors": "post-authors and author-bios only render for co-authored posts (authors: [..] front matter); no published post uses them yet.",
     "_comment_utils": "video-container size variants are intentional embed-size utilities (siblings of diagram-*), unused today but kept as authoring API.",
     "classes": [
       "visible",
@@ -11,7 +12,9 @@
       "error",
       "video-container-small",
       "video-container-medium",
-      "video-container-large"
+      "video-container-large",
+      "post-authors",
+      "author-bios"
     ],
     "ids": [],
     "patterns": [
@@ -39,5 +42,8 @@
     ]
   },
   "includes": [],
-  "images": []
+  "_comment_images": "Author avatars are referenced from _data/authors.yml and only render on co-authored posts; none is published yet.",
+  "images": [
+    "assets/images/authors/harshad-nawathe.jpg"
+  ]
 }

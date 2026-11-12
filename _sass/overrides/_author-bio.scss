@@ -333,3 +333,8 @@ small {
   }
 }
 
+
+/* Co-authored posts stack one card per author. */
+.author-bios .author-bio + .author-bio {
+  margin-top: 16px;
+}

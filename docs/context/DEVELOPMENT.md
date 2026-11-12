@@ -152,6 +152,7 @@ Lockfile (`package-lock.json`) updates automatically.
 - `_includes/body/footer.html` - Footer component
 - `_includes/theme_toggle.html` - Dark mode toggle button
 - `_includes/search.html` - Search component
+- `_includes/resolve_authors.html` - Resolves `authors` (or legacy `author`) into arrays; `post_byline.html`, `author_bio.html` and `author_jsonld.html` read them, so call it first. Data lives in `_data/authors.yml`; tests in `test-suite/unit/authors.test.js`
 
 ### Content
 

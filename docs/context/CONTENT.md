@@ -53,6 +53,23 @@ tags:
 ---
 ```
 
+### Co-authored Posts
+
+Replace `author: Karun Japhet` with an `authors` list of ids from `_data/authors.yml`:
+
+```yaml
+authors:
+  - karun
+  - harshad
+```
+
+- Order is byline order. Use the same list for any number of authors.
+- A new co-author needs an entry in `_data/authors.yml` first (`name`, plus optional `url`, `avatar`, `bio`). An id with no entry falls back to the id as the name.
+- Co-authored posts get a "By A and B" byline (linked when the author has a `url`), one bio card per author that has an avatar or bio, a schema.org `author` array, and `<author>` entries in `atom.xml`. Single-author posts render as before.
+- Legacy `author: Karun Japhet` still works and is matched to the `karun` entry by name. Do not set both.
+- `jekyll-seo-tag` and `jekyll-feed` (`feed.xml`) only read the first entry of `authors`.
+- dev.to and Medium publish under the account that owns the API key or import, so co-authors there must be credited in the post body.
+
 ### Guidelines
 
 - **Title**: Clear, descriptive, searchable

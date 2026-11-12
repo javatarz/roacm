@@ -2,6 +2,7 @@
 layout: default
 ---
 
+{%- include resolve_authors.html source=page -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -14,12 +15,7 @@ layout: default
   "dateModified": {{ page.updated | default: page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
   "url": {{ site.url | append: page.url | jsonify }},
   "wordCount": {{ content | number_of_words }},
-  "author": {
-    "@type": "Person",
-    "name": {{ site.social.name | jsonify }},
-    "url": {{ site.url | jsonify }},
-    "sameAs": {{ site.social.links | jsonify }}
-  },
+  "author": {% include author_jsonld.html %},
   "publisher": {
     "@type": "Person",
     "name": {{ site.social.name | jsonify }},
@@ -49,6 +45,7 @@ layout: default
 <h1 class="entry-title">{{ page.title }}</h1>
 
 <div class="post-meta">
+  {% include post_byline.html %}
   <span class="post-date">
     <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>

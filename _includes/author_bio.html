@@ -1,14 +1,25 @@
-<aside class="author-bio" aria-label="About the author">
+{%- comment -%} Bio cards. Authors with neither avatar nor bio are skipped (byline only). Needs resolve_authors.html. {%- endcomment -%}
+{%- if post_author_count > 1 -%}<div class="author-bios" role="group" aria-label="About the authors">{%- endif -%}
+{%- for name in post_author_names -%}
+{%- assign avatar = post_author_avatars[forloop.index0] -%}
+{%- assign bio = post_author_bios[forloop.index0] -%}
+{%- if avatar != "" or bio != "" -%}
+<aside class="author-bio" aria-label="About {% if post_author_count > 1 %}{{ name | escape }}{% else %}the author{% endif %}">
+  {% if avatar != "" -%}
   <img
-    src="https://github.com/{{ site.github_user }}.png"
-    alt="{{ site.author }}"
+    src="{{ avatar }}"
+    alt="{{ name }}"
     class="author-avatar"
     width="80"
     height="80"
     loading="lazy"
   >
+  {%- endif %}
   <div class="author-info">
-    <h2 class="author-name">{{ site.author }}</h2>
-    <p class="author-description">{{ site.author_bio }}</p>
+    <h2 class="author-name">{{ name }}</h2>
+    {% if bio != "" %}<p class="author-description">{{ bio }}</p>{% endif %}
   </div>
 </aside>
+{%- endif -%}
+{%- endfor -%}
+{%- if post_author_count > 1 -%}</div>{%- endif -%}

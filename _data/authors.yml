@@ -1,0 +1,21 @@
+# Post authors, keyed by short id. A post lists them in front matter:
+#
+#   authors: [karun, harshad]
+#
+# Fields: name (required); url, avatar, bio (optional). An author with
+# neither avatar nor bio gets a byline entry but no bio card.
+# Posts with only a legacy `author: Karun Japhet` string are matched to an
+# entry by name, so they keep rendering exactly as before.
+# Schema.org sameAs for the site owner comes from `social.links` in _config.yml.
+
+karun:
+  name: Karun Japhet
+  url: https://karun.me
+  avatar: https://github.com/javatarz.png
+  bio: "I've worked through a few technology shifts: enterprise Java, data platforms, MLOps, infrastructure-as-code. Now I write about AI-assisted engineering. What it takes for teams to build well, not just fast."
+
+harshad:
+  name: Harshad Nawathe
+  url: https://www.linkedin.com/in/harshad-nawathe-76762618/
+  avatar: /assets/images/authors/harshad-nawathe.jpg
+  bio: "I have over 16 years of experience building scalable software, distributed systems, and data products. With a background deeply rooted in core software engineering and agile practices, I currently help large enterprises with AI enablement and legacy system modernization, leveraging agentic AI to safely navigate, decode, and transform complex codebases."

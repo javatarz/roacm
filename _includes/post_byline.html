@@ -1,0 +1,16 @@
+{%- comment -%} Byline for co-authored posts only; single-author posts render no byline, as before. Needs resolve_authors.html. {%- endcomment -%}
+{%- if post_author_count > 1 -%}
+  <span class="post-authors">
+    <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    <span>By
+    {%- for name in post_author_names -%}
+      {%- if forloop.first -%}{{ " " }}{%- elsif forloop.last -%}{{ " and " }}{%- else -%}{{ ", " }}{%- endif -%}
+      {%- assign url = post_author_urls[forloop.index0] -%}
+      {%- if url != "" -%}<a href="{{ url }}">{{ name }}</a>{%- else -%}{{ name }}{%- endif -%}
+    {%- endfor -%}
+    </span>
+  </span>
+{%- endif -%}
