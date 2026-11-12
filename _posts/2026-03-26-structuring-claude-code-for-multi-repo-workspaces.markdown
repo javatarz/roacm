@@ -2,6 +2,7 @@
 layout: post
 comments: true
 author: Karun Japhet
+updated: 2026-11-12
 title: "Structuring Claude Code for Multi-Repo Workspaces"
 description: "How to structure CLAUDE.md files, repo manifests, and a bootstrap repo so Claude Code understands your entire multi-repo workspace, not just one repo."
 category: intelligent Engineering
@@ -260,3 +261,5 @@ If you want to try this, start small:
 4. Add team-level `CLAUDE.md` files and cross-repo tasks once the structure proves useful.
 
 Run `mani sync` to clone everything, or `mani sync --tags orders` to clone one team's repos.
+
+*The contents of this post were tested against Claude Code 2.1.84.*
