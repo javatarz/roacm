@@ -22,7 +22,7 @@ Claude Code understands one repo at a time. Most teams have thirty.
 
 Microservices, shared libraries, infrastructure-as-code, frontend apps, data pipelines, all in separate git repos. Start Claude Code in one and ask about another, and it has no context. It doesn't know the workspace exists.
 
-Here's how I've been setting this up to work across repositories.
+To give Claude Code context across many repos, create a bootstrap repo above them as the workspace root, with a `CLAUDE.md` that maps the workspace and a manifest that gives each repo a one-line description. Then add `CLAUDE.md` files at org, team, and repo level, because Claude Code reads every `CLAUDE.md` between where you start it and the root.
 
 <!-- more -->
 
