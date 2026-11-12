@@ -93,11 +93,11 @@ workspace/
     cluster/
 ```
 
-Each indented directory under a product (`order-service/`, `orders-ui/`, `spark-jobs/`, etc.) is a separate git repo, cloned by the repo manager and gitignored by the bootstrap repo. The CLAUDE.md files at each level are tracked in the bootstrap repo.
+Each indented directory under a product (`order-service/`, `orders-ui/`, `spark-jobs/`, etc.) is a separate git repo, cloned by the repo manager and gitignored by the bootstrap repo. The `CLAUDE.md` files at each level are tracked in the bootstrap repo.
 
 ## Three layers of context
 
-Claude Code walks up the directory tree looking for CLAUDE.md files. If you start it in `orders/order-service`, it reads:
+Claude Code walks up the directory tree looking for `CLAUDE.md` files. If you start it in `orders/order-service`, it reads:
 
 1. `orders/order-service/CLAUDE.md` (repo-level, committed in that repo)
 2. `orders/CLAUDE.md` (team-level, committed in bootstrap)
@@ -107,7 +107,7 @@ Each layer adds context without repeating what the others provide.
 
 ### Layer 1: Organisation
 
-The org-level CLAUDE.md covers things that apply everywhere:
+The org-level `CLAUDE.md` covers things that apply everywhere:
 
 - Warning that this is a multi-repo workspace (check `git rev-parse --show-toplevel` before git operations)
 - How to discover repos (point to the manifest file)
@@ -118,7 +118,7 @@ Keep this short. Claude reads it on every session regardless of which repo you'r
 
 ### Layer 2: Team
 
-The team-level CLAUDE.md covers conventions shared across repos in that group. The content varies by product type:
+The team-level `CLAUDE.md` covers conventions shared across repos in that group. The content varies by product type:
 
 **A 3-tier product** (like orders or shipping) might cover:
 - Backend stack (Java 21, Spring Boot 3.5, Gradle, MongoDB)
@@ -197,7 +197,7 @@ Other useful tasks: search across all repos, check which repos have uncommitted 
 
 ## The gitignore trick for team-level CLAUDE.md files
 
-The bootstrap repo gitignores all sub-repo directories. But the team-level CLAUDE.md files need to be tracked in bootstrap, inside those same directories. The fix:
+The bootstrap repo gitignores all sub-repo directories. But the team-level `CLAUDE.md` files need to be tracked in bootstrap, inside those same directories. The fix:
 
 ```gitignore
 # Use dir/* instead of dir/ so exceptions work
@@ -216,8 +216,8 @@ Claude Code supports [skills, hooks, and custom commands](https://docs.anthropic
 - Pre-commit hooks (gitleaks for secret detection, applied to the bootstrap repo itself).
 - Shell scripts for operations that span teams, like auditing which repos still need a branch migration.
 
-**Team level** (in each team's CLAUDE.md or tracked config):
-- Build conventions that apply to all repos in a team but not the whole org. A team with ten Spring Boot services can document the shared Gradle convention plugins once, in the team CLAUDE.md.
+**Team level** (in each team's `CLAUDE.md` or tracked config):
+- Build conventions that apply to all repos in a team but not the whole org. A team with ten Spring Boot services can document the shared Gradle convention plugins once, in the team `CLAUDE.md`.
 
 **Repo level** (in each repo, as before):
 - Repo-specific skills, hooks, and commands. Nothing changes here.
@@ -239,11 +239,11 @@ workspace/
     orders-ui/
 ```
 
-They still get the org-level and team-level CLAUDE.md files. Claude Code still understands the team's conventions and knows how to discover the rest of the organisation through the manifest.
+They still get the org-level and team-level `CLAUDE.md` files. Claude Code still understands the team's conventions and knows how to discover the rest of the organisation through the manifest.
 
 A platform engineer or architect who works across teams clones everything. They get the full context at every level.
 
-The repo manager handles both. You can tag repos by team and clone selectively (`mani sync --tags orders`) or clone everything (`mani sync`). Either way, the layered context works because CLAUDE.md files at each level are already in place.
+The repo manager handles both. You can tag repos by team and clone selectively (`mani sync --tags orders`) or clone everything (`mani sync`). Either way, the layered context works because `CLAUDE.md` files at each level are already in place.
 
 ## What this gets you
 
