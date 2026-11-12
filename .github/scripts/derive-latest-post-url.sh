@@ -4,7 +4,7 @@ set -euo pipefail
 latest=""
 for f in $(ls _posts/*.markdown | sort -r); do
   frontmatter=$(awk '/^---$/{c++; next} c==1' "$f")
-  if echo "$frontmatter" | grep -qE '^published:[[:space:]]*false[[:space:]]*$'; then
+  if echo "$frontmatter" | grep -qE '^published:[[:space:]]*false[[:space:]]*(#.*)?$'; then
     continue
   fi
   latest="$f"
