@@ -252,4 +252,11 @@ When someone starts Claude Code in any repo in the workspace, it already knows:
 - How to navigate to shared libraries, infrastructure, and deployment configs
 - Common conventions and exceptions
 
-If you want to try this, start small. Create a bootstrap repo, add a CLAUDE.md with your workspace layout, and list your repos in a manifest with one-line descriptions. You can add team-level context and cross-repo tasks as the structure proves useful.
+If you want to try this, start small:
+
+1. Create a bootstrap repo to act as the workspace root.
+2. Add a `CLAUDE.md` that describes the workspace layout and points to the manifest.
+3. List your repos in a manifest, each with a one-line description, as in the [manifest example](#project-descriptions-in-the-manifest).
+4. Add team-level `CLAUDE.md` files and cross-repo tasks once the structure proves useful.
+
+Run `mani sync` to clone everything, or `mani sync --tags orders` to clone one team's repos.
