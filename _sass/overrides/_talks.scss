@@ -61,11 +61,13 @@
 }
 
 @mixin talk-badge-colors($r, $g, $b, $light, $dark) {
+  /* stylelint-disable-next-line value-no-invalid */
   background: rgb($r, $g, $b, 0.15);
   color: $light;
 
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   [data-theme='dark'] & {
+    /* stylelint-disable-next-line value-no-invalid */
     background: rgb($r, $g, $b, 0.3);
     color: $dark;
   }
