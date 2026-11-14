@@ -122,7 +122,6 @@ Deterministic output is easy to check. LLM-generated output went to the develope
 
 That's how gaps surfaced. The Choreographer found far fewer workflows than the developers expected. Batch jobs they ran every day were missing. Those workflows were triggered through [Apache Camel](https://camel.apache.org/) routes, which the pipeline wasn't indexing. Once Camel routes got their own processing, the workflows showed up.
 
-<!-- TODO(Harshad): any other gap like Camel worth including? A second example would strengthen this section. -->
 
 ### Treat layer outputs as contracts
 
@@ -140,7 +139,11 @@ We tested that directly. We took 12 defects that had already been fixed, so we k
 
 The reason: a bug usually lives in four or five files. Plain Claude Code greps, reads those files whole, and traces the call chain in context. With the knowledge base, the agent found methods by name, then asked what each one called, one hop at a time, burning a tool call per hop. We hadn't given it a tool to trace a full call chain.
 
-So the knowledge base earns its cost on questions about the whole system, like architecture, boundaries and blast radius. For a question about five files, the agent's own grep and read is better.
+Day-to-day work doesn't need the full pipeline anyway. Implementing a feature or estimating the blast radius of a fix needs a queryable symbol index with a taxonomy on top. That's the Cartographer and the three specialists. The Surveyors and the Chronicler produce the big picture: boundaries, flows and documentation. That's mostly for humans.
+
+A partial run costs under $5, because the Cartographer does most of the heavy lifting and it's a deterministic script. We run it after every merge, so the agent always has a current index to query through a tool. The full run is on demand, when someone needs the documentation.
+
+So keep the cheap layers fresh, and don't rebuild the whole knowledge base for daily work. Most of what the full run produces is read rarely, and only by people looking for the big picture.
 
 ## What's changed since
 
