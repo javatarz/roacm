@@ -64,7 +64,7 @@ The LLM still decides when to call a tool. It just doesn't do the tool's job.
 
 ## The pipeline
 
-Each layer has narrow agents with one job, reads the previous layer's output, and writes its own. Outputs are read-only once written; no later layer edits an earlier one's results.
+Each layer has narrow agents with one job, reads the previous layer's output, and writes its own. Once written, a layer's output is read-only.
 
 ### Scout: the skeleton
 
@@ -110,7 +110,7 @@ From one run over the codebase:
 - 80+ business workflows.
 - C4 architecture diagrams at three levels.
 
-We didn't plan for the knowledge base to outlive the documentation, but it did. The team now uses the knowledge base to draft test plans for defects, estimate the blast radius of a change, write onboarding material, and generate the project's `CLAUDE.md`. That last one caught details a new agent session would otherwise get wrong, like using Mockito rather than the older mocking framework still present in parts of the codebase.
+We didn't plan for the knowledge base to outlive the documentation, but it did. The team now uses the knowledge base to draft test plans for defects, estimate the blast radius of a change, write onboarding material, and generate the project's `CLAUDE.md`. That last one captured details a new agent session would otherwise get wrong, like using Mockito rather than the older mocking framework still present in parts of the codebase.
 
 The pipeline also fingerprints every file it processes. When a commit changes a file, the Conductor re-runs only the agents that depend on it.
 
@@ -122,28 +122,25 @@ Deterministic output is easy to check. LLM-generated output went to the develope
 
 That's how gaps surfaced. The Choreographer found far fewer workflows than the developers expected. Batch jobs they ran every day were missing. Those workflows were triggered through [Apache Camel](https://camel.apache.org/) routes, which the pipeline wasn't indexing. Once Camel routes got their own processing, the workflows showed up.
 
-
 ### Treat layer outputs as contracts
 
 The LSP-based Cartographer took hours. Each LSP call took 50 to 100 milliseconds, and across 10,000 files that adds up. Language servers are built for an editor looking at one file, not for indexing a whole codebase.
 
 We replaced it with [tree-sitter](https://tree-sitter.github.io/tree-sitter/), parsing every file and writing the symbol index into SQLite. The whole index now builds in about 10 seconds, and the Cartographer layer is a single script.
 
-Nothing downstream had to change. The interface between layers was the schema of what each layer writes, and the new tool honoured it. Treating each layer's output as a contract is what made swapping the tool cheap.
+Nothing downstream had to change. The interface between layers was the schema each layer writes, and the new tool honoured it. Treating each layer's output as a contract is what made swapping the tool cheap.
 
 ### Respect the economics
 
 A full run cost around $100 to $125. That's cheap for a one-off map of a monolith, and expensive as a default for everyday work.
 
-We tested that directly. We took 12 defects that had already been fixed, so we knew the answers, and ran root cause analysis in 24 sessions: 12 with the knowledge base and 12 with plain Claude Code. Plain Claude Code used fewer tool calls and fewer tokens.
+We tested that. We took 12 defects that had already been fixed, so we knew the answers, and ran root cause analysis in 24 sessions: 12 with the knowledge base and 12 with plain Claude Code. Plain Claude Code used fewer tool calls and fewer tokens.
 
-The reason: a bug usually lives in four or five files. Plain Claude Code greps, reads those files whole, and traces the call chain in context. With the knowledge base, the agent found methods by name, then asked what each one called, one hop at a time, burning a tool call per hop. We hadn't given it a tool to trace a full call chain.
+A bug usually lives in four or five files. Plain Claude Code greps, reads those files whole, and traces the call chain in context. With the knowledge base, the agent found methods by name, then asked what each one called, one hop at a time, burning a tool call per hop. We hadn't given it a tool to trace a full call chain.
 
 Day-to-day work doesn't need the full pipeline anyway. Implementing a feature or estimating the blast radius of a fix needs a queryable symbol index with a taxonomy on top. That's the Cartographer and the three specialists. The Surveyors and the Chronicler produce the big picture: boundaries, flows and documentation. That's mostly for humans.
 
-A partial run costs under $5, because the Cartographer does most of the heavy lifting and it's a deterministic script. We run it after every merge, so the agent always has a current index to query through a tool. The full run is on demand, when someone needs the documentation.
-
-So keep the cheap layers fresh, and don't rebuild the whole knowledge base for daily work. Most of what the full run produces is read rarely, and only by people looking for the big picture.
+A partial run costs under $5, because the Cartographer does most of the work and it's a deterministic script. We run it after every merge, so the agent always has a current index to query through a tool. The full run is on demand, when someone needs the documentation.
 
 ## What's changed since
 
