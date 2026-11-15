@@ -80,7 +80,7 @@ These agents read code, but only surgically. They use the index to jump to a spe
 
 - **Archaeologist** builds the domain model from entity classes and their relationships.
 - **Taxonomist** labels thousands of classes by layer: controller, service, domain, Spring bean.
-- **Beanstalk Jack** works out how the Spring XML context files and configuration classes wire things together at runtime, including which flags change the wiring. 
+- **Beanstalk Jack** works out how the Spring XML context files and configuration classes wire things together at runtime, including which flags change the wiring.
 
 ### Surveyors: boundaries and flows
 
