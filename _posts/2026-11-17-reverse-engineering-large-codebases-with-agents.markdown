@@ -12,7 +12,6 @@ tags:
   - ai-patterns
   - architecture
 devto: false
-published: false # Under review with Harshad; remove to publish
 ---
 
 Point a coding agent at a few hundred files and ask it to explain the system. It will read everything and give you a good answer. Point it at 10,000 files and it will give you an equally confident answer that is partly made up.
