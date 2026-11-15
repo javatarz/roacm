@@ -12,7 +12,10 @@ tags:
   - ai-patterns
   - architecture
 devto: false
+image: /assets/images/posts/2026-11-17-reverse-engineering-large-codebases-with-agents/cover.png
 ---
+
+![A survey office at night. Robots feed a mountain of loose paper and ledgers into a brass conveyor on the dark left. At the centre, a conductor automaton pins a large map divided into neat regions while others work brass instruments and a card-index cabinet, and finished charts sit lit and ordered on the right.]({{ site.url }}/assets/images/posts/2026-11-17-reverse-engineering-large-codebases-with-agents/cover.png){: .diagram-lg}
 
 Point a coding agent at a few hundred files and ask it to explain the system. It will read everything and give you a good answer. Point it at 10,000 files and it will give you an equally confident answer that is partly made up.
 
