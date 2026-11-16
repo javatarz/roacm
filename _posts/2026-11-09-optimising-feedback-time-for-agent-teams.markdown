@@ -45,7 +45,7 @@ A card is a change a user can see. Most cards took a single PR.
 
 Two caveats. The creator's work was more greenfield than mine, over a different few weeks, so lines are a rough comparison. And I didn't start from zero. The rules file and the agent-first way of working already existed, and I built on them.
 
-On the [two ladders from the first post]({{ site.url }}/blog/2026/11/08/ai-maturity-is-a-lagging-indicator-of-engineering-maturity/), the creator sat at E3 with A4. Agent teams ran, but every change waited minutes on its checks. A4 needs E4, and this post is that climb. [The next one]({{ site.url }}/blog/2026/11/10/optimising-cost-for-agent-teams/) is the climb to E5.
+On the [two ladders from the first post]({{ site.url }}/blog/2026/11/08/ai-maturity-is-a-lagging-indicator-of-engineering-maturity/), the creator sat at A4 on E3, which is a stretch. Agent teams ran, but every change waited minutes on its checks. A4 needs E4, and this post is that climb. [The next one]({{ site.url }}/blog/2026/11/10/optimising-cost-for-agent-teams/) is the climb to E5.
 
 ## I started at 2 cards a day
 

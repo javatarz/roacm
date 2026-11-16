@@ -156,7 +156,7 @@ In theory, a dedicated classifier (like a System 1 model) that picks the model f
 
 ## Cost is a design choice
 
-On the ladders, this is E5. Checks report their own timings, cost is tracked per unit of work, and failure is cheap enough to detect that cheap models go first. [The first post in this series]({{ site.url }}/blog/2026/11/08/ai-maturity-is-a-lagging-indicator-of-engineering-maturity/) covers why AI can only climb as high as that engineering.
+On the ladders, this is E5. Checks report their own timings, cost is tracked per unit of work, and failure is cheap enough to detect that cheap models go first. [The first post in this series]({{ site.url }}/blog/2026/11/08/ai-maturity-is-a-lagging-indicator-of-engineering-maturity/) covers why A5 needs it.
 
 If your agents are fast and the bill is climbing, find where the money goes. Then make each job's model a rule the agent can't skip, and make sure a check catches the cheap model when it's wrong.
 

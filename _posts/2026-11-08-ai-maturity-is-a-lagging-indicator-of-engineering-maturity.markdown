@@ -58,9 +58,9 @@ The engineering maturity levels run from E0 to E5. Each is defined by how much c
 | E4 | Scoped, parallel checks | Checks scoped to what changed run in parallel, in seconds to a minute. Agents work in separate copies of the repo without colliding. Small stories are ready before agents need them. Slow checks run once per deploy. |
 | E5 | Measured feedback | Checks report their own timings. Cost and quality are tracked per unit of work. Failures are cheap enough to catch that cheap models go first. The agents' setup has its own checks, so agents can change it safely. |
 
-A team can stand at different levels on each ladder. The engineer who created this repo ran A4 on E3. At the bottom, the link between the two is loose. At A1, a person reads every line, so the person is the check. Linting helps, but nothing has left the person's hands. From A2 up, the AI writes more than a person can check by reading, and the link gets tighter. At A4 and A5 it's strict.
+A team can stand at different levels on each ladder. The engineer who created this repo ran A4 on E3. At the bottom, the link between the two is loose. At A1, a person reads every line, so the person is the check. Linting helps, but nothing has left the person's hands. From A2 up, the AI writes more than a person can check by reading, and the link gets tighter. One level of autonomy above what your engineering supports is a stretch, paid for in waiting or rework. Two levels above, the extra speed turns into rework.
 
-![Two ladders side by side. On the left, AI autonomy levels A0 to A5: no AI, autocomplete, task assistant, pair, agent teams, self-improving agent teams. On the right, engineering maturity levels E0 to E5: manual, tests in CI, fast local feedback, checks on every commit, scoped parallel checks, measured feedback. Each A level is joined to the E level with the same number. The joins get stronger up the ladder: faint for A0 and A1, lighter for A2, and solid from A3 up.]({{ site.url }}/assets/images/posts/2026-11-08-ai-maturity-is-a-lagging-indicator-of-engineering-maturity/two-ladders.svg){: .diagram-lg}
+![Two ladders side by side. On the left, engineering maturity levels E0 to E5, with E3, checks on every commit, highlighted. On the right, AI autonomy levels A0 to A5. Arrows from E3 show what each AI level means for that team. A3, pair, is the sweet spot. A4, agent teams, is a stretch, paid for in waiting or rework. A5, self-improving agent teams, is unsafe, and its arrow stops short. A0 to A2 are headroom. Climbing to E4 moves every zone up one level.]({{ site.url }}/assets/images/posts/2026-11-08-ai-maturity-is-a-lagging-indicator-of-engineering-maturity/two-ladders.svg){: .diagram-lg}
 
 The term comes from [poteto's trust ladder](https://barnabyrobson.org/on-pstack/), which describes the verification and preparation that make it reasonable to trust agents with more. Here, each rung pairs a check that left a person's hands with a measured change in speed or cost. Other ladders, such as [Dan Shapiro's five levels](https://www.danshapiro.com/blog/2026/01/the-five-levels-from-spicy-autocomplete-to-the-software-factory/), are defined by what the operator does. These are defined by which check has been replaced.
 
@@ -76,9 +76,9 @@ You can go faster on weaker engineering, but each change costs more. Many teams 
 
 Each step up the AI ladder takes a check off a person. That's only safe when something cheaper does the check reliably. It's the [Judgement Pyramid]({{ site.url }}/blog/2026/05/20/the-judgement-pyramid/) applied to autonomy: push every check to the cheapest layer that does it reliably.
 
-**The less a person checks, the more the engineering has to.** At the top of the ladders, that's strict: A4 needs E4, and A5 needs E5. Without it, the extra speed turns into rework.
+**The less a person checks, the more the engineering has to.** From A2 up, each level of autonomy needs the same level of engineering: A4 needs E4, and A5 needs E5.
 
-## A strong setup was still two levels short
+## A strong setup still had two levels to climb
 
 The engineer who created the repo worked with Claude Code from the first day. They wrote the rules file every agent session loads and ran several agents at once, and every commit ran checks nobody could skip. That's A4 running on E3. It worked, but every change waited 4 to 5 minutes on its checks, and the agents waited with it.
 
@@ -90,11 +90,11 @@ On a base this strong, the climb was small, and agents did most of the engineeri
 
 Engineering maturity works like a ceiling on AI maturity.
 
-![A chart with engineering maturity on the horizontal axis and AI autonomy on the vertical axis. A thick curved line marks the ceiling. It starts at about A1 on E0, rises through A2 at E2 and A3 at E3, and reaches A4 at E4 and A5 at E5. Above the line is the unsafe zone, where rework, waiting and cost rise. On the line, AI uses what the engineering supports. Below it is headroom, engineering that could support more autonomy than the team uses.]({{ site.url }}/assets/images/posts/2026-11-08-ai-maturity-is-a-lagging-indicator-of-engineering-maturity/ceiling.svg){: .diagram-lg}
+![A grid with engineering maturity E0 to E5 across and AI autonomy A0 to A5 up. A stepped line marks the ceiling: A1 at E0 and E1, then A2 at E2, A3 at E3, A4 at E4 and A5 at E5. Cells on the ceiling are the sweet spot. One level above the ceiling is a stretch, paid for in waiting or rework. Two or more levels above is unsafe, where the extra speed turns into rework. Below the ceiling is headroom. A marker shows this repo moving from A4 on E3, a stretch, to A4 on E4, the sweet spot.]({{ site.url }}/assets/images/posts/2026-11-08-ai-maturity-is-a-lagging-indicator-of-engineering-maturity/ceiling.svg){: .diagram-lg}
 
-Above the line, teams adopt agents faster than their checks. Output goes up, and so do rework, review load and cost. On the line is where you want to be, with AI using what the engineering supports. Below it is headroom: engineering that could support more autonomy than the team uses.
+Above the line, teams adopt agents faster than their checks. One level above, output goes up, and so do rework, review load and cost. Two or more levels above, most of the extra output turns into rework. On the line is where you want to be, with AI using what the engineering supports. Below it is headroom: engineering that could support more autonomy than the team uses.
 
-The repo's creator sat just above the line, at A4 on E3. Their checks couldn't be skipped, so it showed up as waiting rather than rework.
+The repo's creator sat one level above the line, at A4 on E3. Their checks couldn't be skipped, so it showed up as waiting rather than rework. Raising the engineering to E4 moved the same A4 onto the line.
 
 The wider data points the same way. DORA's report also found that AI amplifies what's already there: strong teams get better, and struggling teams find their problems get worse. [CircleCI's 2026 report](https://circleci.com/blog/five-takeaways-2026-software-delivery-report/) found throughput rose 97% for the top 5% of teams, 4% for the median team, and not at all for the bottom quarter.
 
@@ -138,3 +138,5 @@ If you want your engineers working with agent teams, start with the engineering.
 - **Raise the engineering ceiling before buying more autonomy.**
 
 *Cards a day are estimated from each week's share of PRs linked to a story. Costs are recomputed from token counts at API-equivalent list price, and cost per story is counted from PRs linked to a story. The $19 and $2 figures each come from a single day, and part of the early drop is fixed overhead spread over more stories. All figures are rounded.*
+
+_Thanks to [Matthew Ferry](https://www.linkedin.com/in/mjferry2016/) for his feedback on this post._
