@@ -27,6 +27,22 @@
 #       co_speakers Optional list, per-delivery (co-speakers vary by venue).
 #                   Each is either a plain name or { name, linkedin } to link it.
 
+- title: "Why Investing in Engineering Maturity Will Pay Dividends with AI"
+  type: talk
+  date: 2026-12-04
+  image: /assets/images/talks/2026-12-sahaj-emerge-engineering-maturity-mumbai.jpeg
+  description: >
+    A practitioner's perspective on how engineering culture shows in how well
+    an organization uses AI: balancing cost, velocity and quality, and where
+    informed investment compounds. An invite-only discussion among senior
+    leaders.
+  deliveries:
+    - event: Sahaj emerge
+      location: Mumbai, India
+      date: 2026-12-04
+      url: https://sahaj.ai/events/why-investing-in-engineering-maturity-will-pay-dividends-with-ai/
+      recorded: false
+
 - title: "The Human Side of AI"
   type: panel
   date: 2026-11-17
