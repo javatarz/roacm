@@ -45,12 +45,13 @@
 - title: "Helping Your AI Agent Climb the Autonomy Ladder"
   type: talk
   date: 2026-11-19
+  image: /assets/images/talks/2026-11-devday-uk-autonomy-ladder-london.jpeg
   description: >
     How agent autonomy grows in stages and what earns the trust to skip
     review, drawn from two software factories: an Angular to React migration
     pipeline and an always-on agent that takes issues to draft pull requests.
   deliveries:
-    - event: Dev Day UK
+    - event: Sahaj DevDay
       location: London, UK
       date: 2026-11-19
       url: https://www.meetup.com/devday-uk/events/316893854/
